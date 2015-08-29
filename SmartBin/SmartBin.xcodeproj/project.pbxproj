@@ -1,0 +1,527 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3235A8401B91B20B0098D8DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A83F1B91B20B0098D8DA /* main.m */; };
+		3235A8431B91B20B0098D8DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A8421B91B20B0098D8DA /* AppDelegate.m */; };
+		3235A8461B91B20B0098D8DA /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A8451B91B20B0098D8DA /* FirstViewController.m */; };
+		3235A8491B91B20B0098D8DA /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A8481B91B20B0098D8DA /* SecondViewController.m */; };
+		3235A84C1B91B20B0098D8DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3235A84A1B91B20B0098D8DA /* Main.storyboard */; };
+		3235A84E1B91B20B0098D8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3235A84D1B91B20B0098D8DA /* Assets.xcassets */; };
+		3235A8511B91B20B0098D8DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3235A84F1B91B20B0098D8DA /* LaunchScreen.storyboard */; };
+		3235A85C1B91B20B0098D8DA /* SmartBinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A85B1B91B20B0098D8DA /* SmartBinTests.m */; };
+		3235A8671B91B20B0098D8DA /* SmartBinUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A8661B91B20B0098D8DA /* SmartBinUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3235A8581B91B20B0098D8DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3235A8331B91B20B0098D8DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3235A83A1B91B20B0098D8DA;
+			remoteInfo = SmartBin;
+		};
+		3235A8631B91B20B0098D8DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3235A8331B91B20B0098D8DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3235A83A1B91B20B0098D8DA;
+			remoteInfo = SmartBin;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3235A83B1B91B20B0098D8DA /* SmartBin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartBin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3235A83F1B91B20B0098D8DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3235A8411B91B20B0098D8DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3235A8421B91B20B0098D8DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3235A8441B91B20B0098D8DA /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		3235A8451B91B20B0098D8DA /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		3235A8471B91B20B0098D8DA /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		3235A8481B91B20B0098D8DA /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		3235A84B1B91B20B0098D8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3235A84D1B91B20B0098D8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3235A8501B91B20B0098D8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3235A8521B91B20B0098D8DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3235A8571B91B20B0098D8DA /* SmartBinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartBinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3235A85B1B91B20B0098D8DA /* SmartBinTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartBinTests.m; sourceTree = "<group>"; };
+		3235A85D1B91B20B0098D8DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3235A8621B91B20B0098D8DA /* SmartBinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartBinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3235A8661B91B20B0098D8DA /* SmartBinUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartBinUITests.m; sourceTree = "<group>"; };
+		3235A8681B91B20B0098D8DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3235A8381B91B20B0098D8DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3235A8541B91B20B0098D8DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3235A85F1B91B20B0098D8DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3235A8321B91B20B0098D8DA = {
+			isa = PBXGroup;
+			children = (
+				3235A83D1B91B20B0098D8DA /* SmartBin */,
+				3235A85A1B91B20B0098D8DA /* SmartBinTests */,
+				3235A8651B91B20B0098D8DA /* SmartBinUITests */,
+				3235A83C1B91B20B0098D8DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3235A83C1B91B20B0098D8DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3235A83B1B91B20B0098D8DA /* SmartBin.app */,
+				3235A8571B91B20B0098D8DA /* SmartBinTests.xctest */,
+				3235A8621B91B20B0098D8DA /* SmartBinUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3235A83D1B91B20B0098D8DA /* SmartBin */ = {
+			isa = PBXGroup;
+			children = (
+				3235A8411B91B20B0098D8DA /* AppDelegate.h */,
+				3235A8421B91B20B0098D8DA /* AppDelegate.m */,
+				3235A8441B91B20B0098D8DA /* FirstViewController.h */,
+				3235A8451B91B20B0098D8DA /* FirstViewController.m */,
+				3235A8471B91B20B0098D8DA /* SecondViewController.h */,
+				3235A8481B91B20B0098D8DA /* SecondViewController.m */,
+				3235A84A1B91B20B0098D8DA /* Main.storyboard */,
+				3235A84D1B91B20B0098D8DA /* Assets.xcassets */,
+				3235A84F1B91B20B0098D8DA /* LaunchScreen.storyboard */,
+				3235A8521B91B20B0098D8DA /* Info.plist */,
+				3235A83E1B91B20B0098D8DA /* Supporting Files */,
+			);
+			path = SmartBin;
+			sourceTree = "<group>";
+		};
+		3235A83E1B91B20B0098D8DA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3235A83F1B91B20B0098D8DA /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3235A85A1B91B20B0098D8DA /* SmartBinTests */ = {
+			isa = PBXGroup;
+			children = (
+				3235A85B1B91B20B0098D8DA /* SmartBinTests.m */,
+				3235A85D1B91B20B0098D8DA /* Info.plist */,
+			);
+			path = SmartBinTests;
+			sourceTree = "<group>";
+		};
+		3235A8651B91B20B0098D8DA /* SmartBinUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3235A8661B91B20B0098D8DA /* SmartBinUITests.m */,
+				3235A8681B91B20B0098D8DA /* Info.plist */,
+			);
+			path = SmartBinUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3235A83A1B91B20B0098D8DA /* SmartBin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3235A86B1B91B20B0098D8DA /* Build configuration list for PBXNativeTarget "SmartBin" */;
+			buildPhases = (
+				3235A8371B91B20B0098D8DA /* Sources */,
+				3235A8381B91B20B0098D8DA /* Frameworks */,
+				3235A8391B91B20B0098D8DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartBin;
+			productName = SmartBin;
+			productReference = 3235A83B1B91B20B0098D8DA /* SmartBin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3235A8561B91B20B0098D8DA /* SmartBinTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3235A86E1B91B20B0098D8DA /* Build configuration list for PBXNativeTarget "SmartBinTests" */;
+			buildPhases = (
+				3235A8531B91B20B0098D8DA /* Sources */,
+				3235A8541B91B20B0098D8DA /* Frameworks */,
+				3235A8551B91B20B0098D8DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3235A8591B91B20B0098D8DA /* PBXTargetDependency */,
+			);
+			name = SmartBinTests;
+			productName = SmartBinTests;
+			productReference = 3235A8571B91B20B0098D8DA /* SmartBinTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3235A8611B91B20B0098D8DA /* SmartBinUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3235A8711B91B20B0098D8DA /* Build configuration list for PBXNativeTarget "SmartBinUITests" */;
+			buildPhases = (
+				3235A85E1B91B20B0098D8DA /* Sources */,
+				3235A85F1B91B20B0098D8DA /* Frameworks */,
+				3235A8601B91B20B0098D8DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3235A8641B91B20B0098D8DA /* PBXTargetDependency */,
+			);
+			name = SmartBinUITests;
+			productName = SmartBinUITests;
+			productReference = 3235A8621B91B20B0098D8DA /* SmartBinUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3235A8331B91B20B0098D8DA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Alpana Negi";
+				TargetAttributes = {
+					3235A83A1B91B20B0098D8DA = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					3235A8561B91B20B0098D8DA = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 3235A83A1B91B20B0098D8DA;
+					};
+					3235A8611B91B20B0098D8DA = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 3235A83A1B91B20B0098D8DA;
+					};
+				};
+			};
+			buildConfigurationList = 3235A8361B91B20B0098D8DA /* Build configuration list for PBXProject "SmartBin" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3235A8321B91B20B0098D8DA;
+			productRefGroup = 3235A83C1B91B20B0098D8DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3235A83A1B91B20B0098D8DA /* SmartBin */,
+				3235A8561B91B20B0098D8DA /* SmartBinTests */,
+				3235A8611B91B20B0098D8DA /* SmartBinUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3235A8391B91B20B0098D8DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3235A8511B91B20B0098D8DA /* LaunchScreen.storyboard in Resources */,
+				3235A84E1B91B20B0098D8DA /* Assets.xcassets in Resources */,
+				3235A84C1B91B20B0098D8DA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3235A8551B91B20B0098D8DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3235A8601B91B20B0098D8DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3235A8371B91B20B0098D8DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3235A8491B91B20B0098D8DA /* SecondViewController.m in Sources */,
+				3235A8431B91B20B0098D8DA /* AppDelegate.m in Sources */,
+				3235A8461B91B20B0098D8DA /* FirstViewController.m in Sources */,
+				3235A8401B91B20B0098D8DA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3235A8531B91B20B0098D8DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3235A85C1B91B20B0098D8DA /* SmartBinTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3235A85E1B91B20B0098D8DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3235A8671B91B20B0098D8DA /* SmartBinUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3235A8591B91B20B0098D8DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3235A83A1B91B20B0098D8DA /* SmartBin */;
+			targetProxy = 3235A8581B91B20B0098D8DA /* PBXContainerItemProxy */;
+		};
+		3235A8641B91B20B0098D8DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3235A83A1B91B20B0098D8DA /* SmartBin */;
+			targetProxy = 3235A8631B91B20B0098D8DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3235A84A1B91B20B0098D8DA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3235A84B1B91B20B0098D8DA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3235A84F1B91B20B0098D8DA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3235A8501B91B20B0098D8DA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3235A8691B91B20B0098D8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3235A86A1B91B20B0098D8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3235A86C1B91B20B0098D8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SmartBin/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = airwatch.SmartBin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3235A86D1B91B20B0098D8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SmartBin/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = airwatch.SmartBin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3235A86F1B91B20B0098D8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SmartBinTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = airwatch.SmartBinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartBin.app/SmartBin";
+			};
+			name = Debug;
+		};
+		3235A8701B91B20B0098D8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SmartBinTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = airwatch.SmartBinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartBin.app/SmartBin";
+			};
+			name = Release;
+		};
+		3235A8721B91B20B0098D8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SmartBinUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = airwatch.SmartBinUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SmartBin;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		3235A8731B91B20B0098D8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SmartBinUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = airwatch.SmartBinUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SmartBin;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3235A8361B91B20B0098D8DA /* Build configuration list for PBXProject "SmartBin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3235A8691B91B20B0098D8DA /* Debug */,
+				3235A86A1B91B20B0098D8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3235A86B1B91B20B0098D8DA /* Build configuration list for PBXNativeTarget "SmartBin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3235A86C1B91B20B0098D8DA /* Debug */,
+				3235A86D1B91B20B0098D8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3235A86E1B91B20B0098D8DA /* Build configuration list for PBXNativeTarget "SmartBinTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3235A86F1B91B20B0098D8DA /* Debug */,
+				3235A8701B91B20B0098D8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3235A8711B91B20B0098D8DA /* Build configuration list for PBXNativeTarget "SmartBinUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3235A8721B91B20B0098D8DA /* Debug */,
+				3235A8731B91B20B0098D8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3235A8331B91B20B0098D8DA /* Project object */;
+}
