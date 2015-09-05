@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15E9150E1B98ABE000F5B345 /* BWAnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9150D1B98ABE000F5B345 /* BWAnalyticsViewController.m */; };
-		15E915111B98AD4400F5B345 /* BWFillLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E915101B98AD4400F5B345 /* BWFillLevelsViewController.m */; };
-		15E915141B98AD5800F5B345 /* BWBinLocatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E915131B98AD5800F5B345 /* BWBinLocatorViewController.m */; };
+		1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABC61B9ABAD200E0AF6C /* BWAnalyticsViewController.m */; };
+		1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */; };
+		1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */; };
+		1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABD01B9ABADB00E0AF6C /* DataHandler.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
 		15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE41B98A9D7006CD602 /* AppDelegate.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
@@ -29,12 +30,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		15E9150C1B98ABE000F5B345 /* BWAnalyticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWAnalyticsViewController.h; path = ../BWAnalyticsViewController.h; sourceTree = "<group>"; };
-		15E9150D1B98ABE000F5B345 /* BWAnalyticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWAnalyticsViewController.m; path = ../BWAnalyticsViewController.m; sourceTree = "<group>"; };
-		15E9150F1B98AD4400F5B345 /* BWFillLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWFillLevelsViewController.h; path = ../BWFillLevelsViewController.h; sourceTree = "<group>"; };
-		15E915101B98AD4400F5B345 /* BWFillLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWFillLevelsViewController.m; path = ../BWFillLevelsViewController.m; sourceTree = "<group>"; };
-		15E915121B98AD5800F5B345 /* BWBinLocatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWBinLocatorViewController.h; path = ../BWBinLocatorViewController.h; sourceTree = "<group>"; };
-		15E915131B98AD5800F5B345 /* BWBinLocatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWBinLocatorViewController.m; path = ../BWBinLocatorViewController.m; sourceTree = "<group>"; };
+		1500ABC51B9ABAD200E0AF6C /* BWAnalyticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAnalyticsViewController.h; sourceTree = "<group>"; };
+		1500ABC61B9ABAD200E0AF6C /* BWAnalyticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAnalyticsViewController.m; sourceTree = "<group>"; };
+		1500ABC71B9ABAD200E0AF6C /* BWBinLocatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinLocatorViewController.h; sourceTree = "<group>"; };
+		1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinLocatorViewController.m; sourceTree = "<group>"; };
+		1500ABC91B9ABAD200E0AF6C /* BWFillLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWFillLevelsViewController.h; sourceTree = "<group>"; };
+		1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWFillLevelsViewController.m; sourceTree = "<group>"; };
+		1500ABCF1B9ABADB00E0AF6C /* DataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
+		1500ABD01B9ABADB00E0AF6C /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AE01B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AE11B98A9D7006CD602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -66,6 +69,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1500ABC41B9ABAD200E0AF6C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1500ABC51B9ABAD200E0AF6C /* BWAnalyticsViewController.h */,
+				1500ABC61B9ABAD200E0AF6C /* BWAnalyticsViewController.m */,
+				1500ABC71B9ABAD200E0AF6C /* BWBinLocatorViewController.h */,
+				1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */,
+				1500ABC91B9ABAD200E0AF6C /* BWFillLevelsViewController.h */,
+				1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1500ABCE1B9ABADB00E0AF6C /* DataHandler */ = {
+			isa = PBXGroup;
+			children = (
+				1500ABCF1B9ABADB00E0AF6C /* DataHandler.h */,
+				1500ABD01B9ABADB00E0AF6C /* DataHandler.m */,
+			);
+			path = DataHandler;
+			sourceTree = "<group>";
+		};
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
@@ -89,12 +114,8 @@
 			children = (
 				15EA4AE31B98A9D7006CD602 /* AppDelegate.h */,
 				15EA4AE41B98A9D7006CD602 /* AppDelegate.m */,
-				15E915121B98AD5800F5B345 /* BWBinLocatorViewController.h */,
-				15E915131B98AD5800F5B345 /* BWBinLocatorViewController.m */,
-				15E9150F1B98AD4400F5B345 /* BWFillLevelsViewController.h */,
-				15E915101B98AD4400F5B345 /* BWFillLevelsViewController.m */,
-				15E9150C1B98ABE000F5B345 /* BWAnalyticsViewController.h */,
-				15E9150D1B98ABE000F5B345 /* BWAnalyticsViewController.m */,
+				1500ABCE1B9ABADB00E0AF6C /* DataHandler */,
+				1500ABC41B9ABAD200E0AF6C /* ViewControllers */,
 				15EA4AEC1B98A9D7006CD602 /* Main.storyboard */,
 				15EA4AEF1B98A9D7006CD602 /* Images.xcassets */,
 				15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */,
@@ -229,11 +250,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15E9150E1B98ABE000F5B345 /* BWAnalyticsViewController.m in Sources */,
-				15E915141B98AD5800F5B345 /* BWBinLocatorViewController.m in Sources */,
+				1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */,
+				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
+				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
+				1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
-				15E915111B98AD4400F5B345 /* BWFillLevelsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
