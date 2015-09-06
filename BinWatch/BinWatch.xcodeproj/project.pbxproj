@@ -20,6 +20,7 @@
 		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
 		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
 		F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */; };
+		F19AB6431B9BF0060084A879 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19AB6421B9BF0060084A879 /* CoreData.framework */; };
 		F19AB6461B9BF5E50084A879 /* ObjectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* ObjectParser.m */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,8 @@
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
 		F19AB63B1B9BEB270084A879 /* BWBinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinCollection.m; sourceTree = "<group>"; };
 		F19AB63C1B9BEB270084A879 /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
+		F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BinDataModel.xcdatamodel; sourceTree = "<group>"; };
+		F19AB6421B9BF0060084A879 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F19AB6441B9BF5E50084A879 /* ObjectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectParser.h; sourceTree = "<group>"; };
 		F19AB6451B9BF5E50084A879 /* ObjectParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19AB6431B9BF0060084A879 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +111,7 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
+				F19AB6421B9BF0060084A879 /* CoreData.framework */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
 				15EA4ADD1B98A9D7006CD602 /* Products */,
@@ -145,6 +150,7 @@
 		15EA4ADF1B98A9D7006CD602 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */,
 				15EA4AE01B98A9D7006CD602 /* Info.plist */,
 				15EA4AE11B98A9D7006CD602 /* main.m */,
 			);
@@ -273,6 +279,7 @@
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
 				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
+				F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
@@ -485,6 +492,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */,
+			);
+			currentVersion = F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */;
+			name = BinDataModel.xcdatamodeld;
+			path = ../BinDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 15EA4AD41B98A9D7006CD602 /* Project object */;
 }
