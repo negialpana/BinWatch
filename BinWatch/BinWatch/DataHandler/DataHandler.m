@@ -7,57 +7,141 @@
 //
 
 #import "DataHandler.h"
+#import "Bin.h"
 
-#define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
+@interface DataHandler ()
 
-@interface DataHandler  ()<NSURLSessionDelegate>
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 
-@property (nonatomic, retain) NSURLSession *session;
 
 @end
 
 @implementation DataHandler
 
-+ (instancetype)sharedInstance{
++ (instancetype)sharedHandler{
     
-    static DataHandler *dataHandler = nil;
+    static DataHandler *sharedHandler = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        dataHandler = [[DataHandler alloc] init];
+       
+        sharedHandler = [[DataHandler alloc] init];
     });
-    return dataHandler;
+    return sharedHandler;
 }
 
-- (instancetype) init{
+- (void)insertBins:(NSArray *)bins{
     
-    if (self = [super init]) {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    for(NSDictionary *obj in bins){
         
-        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _session = [NSURLSession sessionWithConfiguration:sessionConfiguration
-                                                 delegate:self
-                                            delegateQueue:nil];
+        Bin *bin = [NSEntityDescription insertNewObjectForEntityForName:@"Bin"
+                                                 inManagedObjectContext:context];
+        bin.id = [obj valueForKey:@"_id"];
+        bin.isAcive = [[obj valueForKey:@"isActive"] boolValue];
+        bin.temperature = [obj valueForKey:@"temperature"];
+        bin.humidity = [obj valueForKey:@"humidity"];
+       // bin.date = [obj valueForKey:@"date"];
+        bin.latutude = [obj valueForKey:@"latitude"];
+        bin.longitude = [obj valueForKey:@"longitude"];
+        bin.bincolor = [obj valueForKey:@"binColor"];
+        
     }
     
-    return self;
-}
-
-
-- (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
- 
-   NSURL *url = [NSURL URLWithString:kRootUrl];
+    NSError *error= nil;
+    if (![context save:&error]) {
+        NSLog(@"Could not save the bins to Application Database");
+    }
     
-   NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"bins"]
-                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                NSError *jsonError = nil;
-                                                if (!error) {
-                                                    NSArray * bins = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                     options:NSJSONReadingAllowFragments
-                                                                                                       error:&jsonError];
-                                                    completionBlock(bins,jsonError);
-                                                }else {
-                                                    completionBlock(nil,error);
-                                                }
-                                            }];
-  [dataTask resume];
 }
+
+- (NSArray *)fetchBins{
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Bin" inManagedObjectContext:context];
+    [request setEntity:entity];
+    NSError *error = nil;
+    
+    NSArray *bins = [context executeFetchRequest:request error:&error];
+    
+    return error?nil:bins;
+}
+
+#pragma CoreData Stack
+
+/**
+ Returns the managed object context for the application.
+ If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+ */
+- (NSManagedObjectContext *)managedObjectContext {
+    
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _managedObjectContext = [NSManagedObjectContext new];
+        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    return _managedObjectContext;
+}
+
+/**
+ Returns the managed object model for the application.
+ If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
+ */
+- (NSManagedObjectModel *)managedObjectModel {
+    
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
+    }
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"BinWatch" withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return _managedObjectModel;
+
+}
+
+/**
+ Returns the URL to the application's documents directory.
+ */
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+/**
+ Returns the persistent store coordinator for the application.
+ If the coordinator doesn't already exist, it is created and the application's store added to it.
+ */
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it.
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
+    }
+    
+    // Create the coordinator and store
+    
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"BinWatch.sqlite"];
+    NSError *error = nil;
+    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        // Report any error we got.
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
+        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
+        dict[NSUnderlyingErrorKey] = error;
+        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+        // Replace this with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return _persistentStoreCoordinator;
+}
+
 @end

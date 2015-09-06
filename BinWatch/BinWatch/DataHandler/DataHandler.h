@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @interface DataHandler : NSObject
 
-+ (instancetype)sharedInstance;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-- (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock;
++ (instancetype)sharedHandler;
+
+- (void)insertBins:(NSArray *)bins;
+
+- (NSArray *)fetchBins;
 
 @end

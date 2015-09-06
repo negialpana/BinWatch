@@ -7,6 +7,7 @@
 //
 
 #import "BWFillLevelsViewController.h"
+#import "ConnectionHandler.h"
 #import "DataHandler.h"
 
 @interface BWFillLevelsViewController ()
@@ -17,11 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DataHandler *dataHandler = [DataHandler sharedInstance];
-    [dataHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
+    ConnectionHandler *connectionHandler = [ConnectionHandler sharedInstance];
+    [connectionHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
+        
         if (!error) {
-            NSLog(@"*********Bins: %@",[bins description]);
             
+            NSLog(@"*********Bins: %@",[bins description]);
+            DataHandler *dataHandler = [DataHandler sharedHandler];
+            [dataHandler insertBins:bins];
         }else{
             NSLog(@"***********Failed to get bins***************");
         }
