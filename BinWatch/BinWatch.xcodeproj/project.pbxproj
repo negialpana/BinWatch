@@ -17,6 +17,10 @@
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
 		15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */; };
 		15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */; };
+		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
+		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
+		F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */; };
+		F19AB6461B9BF5E50084A879 /* ObjectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* ObjectParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,13 @@
 		15EA4AF81B98A9D7006CD602 /* BinWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BinWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AFD1B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BinWatchTests.m; sourceTree = "<group>"; };
+		F19AB6381B9BEB270084A879 /* BWBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBin.h; sourceTree = "<group>"; };
+		F19AB6391B9BEB270084A879 /* BWBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBin.m; sourceTree = "<group>"; };
+		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
+		F19AB63B1B9BEB270084A879 /* BWBinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinCollection.m; sourceTree = "<group>"; };
+		F19AB63C1B9BEB270084A879 /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
+		F19AB6441B9BF5E50084A879 /* ObjectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectParser.h; sourceTree = "<group>"; };
+		F19AB6451B9BF5E50084A879 /* ObjectParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +98,8 @@
 			children = (
 				1500ABCF1B9ABADB00E0AF6C /* DataHandler.h */,
 				1500ABD01B9ABADB00E0AF6C /* DataHandler.m */,
+				F19AB6441B9BF5E50084A879 /* ObjectParser.h */,
+				F19AB6451B9BF5E50084A879 /* ObjectParser.m */,
 			);
 			path = DataHandler;
 			sourceTree = "<group>";
@@ -112,6 +125,11 @@
 		15EA4ADE1B98A9D7006CD602 /* BinWatch */ = {
 			isa = PBXGroup;
 			children = (
+				F19AB6381B9BEB270084A879 /* BWBin.h */,
+				F19AB6391B9BEB270084A879 /* BWBin.m */,
+				F19AB63A1B9BEB270084A879 /* BWBinCollection.h */,
+				F19AB63B1B9BEB270084A879 /* BWBinCollection.m */,
+				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
 				15EA4AE31B98A9D7006CD602 /* AppDelegate.h */,
 				15EA4AE41B98A9D7006CD602 /* AppDelegate.m */,
 				1500ABCE1B9ABADB00E0AF6C /* DataHandler */,
@@ -252,10 +270,13 @@
 			files = (
 				1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
+				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
 				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
+				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
+				F19AB6461B9BF5E50084A879 /* ObjectParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

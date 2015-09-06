@@ -8,9 +8,12 @@
 
 #import "BWFillLevelsViewController.h"
 #import "DataHandler.h"
+#import "ObjectParser.h"
+#import "BWBin.h"
+@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate >
 
-@interface BWFillLevelsViewController ()
-
+@property NSInteger noOfBins;
+@property NSArray *binsArray;
 @end
 
 @implementation BWFillLevelsViewController
@@ -21,12 +24,59 @@
     [dataHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
         if (!error) {
             NSLog(@"*********Bins: %@",[bins description]);
+            self.binsArray = [ObjectParser binsArrayFromJSonArray:bins];
+            self.noOfBins = bins.count;
+            [self.tableView reloadData];
             
         }else{
             NSLog(@"***********Failed to get bins***************");
         }
     }];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - UITableView delegates
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString* cellIdentifier = @"CellIdentifier";
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    }
+
+    BWBin *bin = (BWBin*)[self.binsArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"Location %ld",(long)indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",bin.fillPercent];
+    UIColor *backgroundColor;
+    switch (bin.color) {
+        case BWGreen:
+            backgroundColor = [UIColor greenColor];
+            break;
+        case BWYellow:
+            backgroundColor = [UIColor yellowColor];
+            break;
+        case BWRed:
+            backgroundColor = [UIColor redColor];
+            break;
+            
+        default:
+            backgroundColor = [UIColor greenColor];
+            break;
+    }
+    cell.backgroundColor = backgroundColor;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 - (void)didReceiveMemoryWarning {
