@@ -20,17 +20,15 @@
 		1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
-		15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE41B98A9D7006CD602 /* AppDelegate.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
 		15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */; };
 		15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */; };
 		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
 		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
-		F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */; };
-		F19AB6431B9BF0060084A879 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19AB6421B9BF0060084A879 /* CoreData.framework */; };
 		F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* BWHelpers.m */; };
 		F19AB6761BA18D280084A879 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6751BA18D280084A879 /* GradientView.m */; };
+		F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6821BA1CF5C0084A879 /* AppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +60,6 @@
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AE01B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AE11B98A9D7006CD602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		15EA4AE31B98A9D7006CD602 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		15EA4AE41B98A9D7006CD602 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		15EA4AED1B98A9D7006CD602 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15EA4AEF1B98A9D7006CD602 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		15EA4AF21B98A9D7006CD602 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -75,12 +71,12 @@
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
 		F19AB63B1B9BEB270084A879 /* BWBinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinCollection.m; sourceTree = "<group>"; };
 		F19AB63C1B9BEB270084A879 /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
-		F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BinDataModel.xcdatamodel; sourceTree = "<group>"; };
-		F19AB6421B9BF0060084A879 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F19AB6441B9BF5E50084A879 /* BWHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHelpers.h; sourceTree = "<group>"; };
 		F19AB6451B9BF5E50084A879 /* BWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHelpers.m; sourceTree = "<group>"; };
 		F19AB6741BA18D280084A879 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		F19AB6751BA18D280084A879 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
+		F19AB6811BA1CF5C0084A879 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F19AB6821BA1CF5C0084A879 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,15 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F19AB6431B9BF0060084A879 /* CoreData.framework in Frameworks */,
 				1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		15EA4AF51B98A9D7006CD602 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,8 +109,6 @@
 		1500ABE01B9C080500E0AF6C /* DataHandler */ = {
 			isa = PBXGroup;
 			children = (
-				1500ABCF1B9ABADB00E0AF6C /* DataHandler.h */,
-				1500ABD01B9ABADB00E0AF6C /* DataHandler.m */,
 				F19AB6441B9BF5E50084A879 /* BWHelpers.h */,
 				F19AB6451B9BF5E50084A879 /* BWHelpers.m */,
 				1500ABE11B9C080500E0AF6C /* DataHandler.h */,
@@ -160,7 +146,6 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
-				F19AB6421B9BF0060084A879 /* CoreData.framework */,
 				1500ABD81B9C01AE00E0AF6C /* CoreData.framework */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
@@ -185,8 +170,8 @@
 				F19AB63A1B9BEB270084A879 /* BWBinCollection.h */,
 				F19AB63B1B9BEB270084A879 /* BWBinCollection.m */,
 				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
-				15EA4AE31B98A9D7006CD602 /* AppDelegate.h */,
-				15EA4AE41B98A9D7006CD602 /* AppDelegate.m */,
+				F19AB6811BA1CF5C0084A879 /* AppDelegate.h */,
+				F19AB6821BA1CF5C0084A879 /* AppDelegate.m */,
 				1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */,
 				1500ABFC1B9C10CF00E0AF6C /* DataModelClass */,
 				1500ABE01B9C080500E0AF6C /* DataHandler */,
@@ -203,7 +188,6 @@
 		15EA4ADF1B98A9D7006CD602 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */,
 				1500ABDB1B9C047D00E0AF6C /* BinWatch-Prefix.pch */,
 				15EA4AE01B98A9D7006CD602 /* Info.plist */,
 				15EA4AE11B98A9D7006CD602 /* main.m */,
@@ -253,7 +237,6 @@
 			buildConfigurationList = 15EA4B051B98A9D7006CD602 /* Build configuration list for PBXNativeTarget "BinWatchTests" */;
 			buildPhases = (
 				15EA4AF41B98A9D7006CD602 /* Sources */,
-				15EA4AF51B98A9D7006CD602 /* Frameworks */,
 				15EA4AF61B98A9D7006CD602 /* Resources */,
 			);
 			buildRules = (
@@ -332,14 +315,11 @@
 				1500ABE91B9C080500E0AF6C /* DataHandler.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
-				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
-				F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
-				1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */,
 				1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */,
+				F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */,
 				1500ABF21B9C080D00E0AF6C /* ConnectionHandler.m in Sources */,
-				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
 				F19AB6761BA18D280084A879 /* GradientView.m in Sources */,
@@ -560,14 +540,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */,
-			);
-			currentVersion = F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */;
-			name = BinDataModel.xcdatamodeld;
-			path = ../BinDataModel.xcdatamodeld;
 		1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
