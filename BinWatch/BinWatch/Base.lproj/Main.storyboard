@@ -110,7 +110,7 @@
                             <constraint firstAttribute="centerY" secondItem="cdY-Eg-fs9" secondAttribute="centerY" id="cwE-k5-hQx"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Analytics" id="KpD-7G-thJ"/>
+                    <tabBarItem key="tabBarItem" title="Analytics" image="pie-chart" id="KpD-7G-thJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cL8-Ge-6VI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -142,7 +142,7 @@
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Bin Locator" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Bin Locator" image="map-marker" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -172,7 +172,7 @@
         <scene sceneID="o2n-3T-1Ai">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zvl-cj-5ze" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Fill Levels" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Fill Levels" image="bin" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yc5-lm-Bub">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -189,7 +189,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="bin" width="24" height="24"/>
+        <image name="map-marker" width="24" height="24"/>
+        <image name="pie-chart" width="24" height="24"/>
     </resources>
 </document>
