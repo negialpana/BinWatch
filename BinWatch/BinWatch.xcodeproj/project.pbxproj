@@ -10,7 +10,15 @@
 		1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABC61B9ABAD200E0AF6C /* BWAnalyticsViewController.m */; };
 		1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */; };
 		1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */; };
-		1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABD01B9ABADB00E0AF6C /* DataHandler.m */; };
+		1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1500ABD81B9C01AE00E0AF6C /* CoreData.framework */; };
+		1500ABE91B9C080500E0AF6C /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE21B9C080500E0AF6C /* DataHandler.m */; };
+		1500ABEA1B9C080500E0AF6C /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE21B9C080500E0AF6C /* DataHandler.m */; };
+		1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */; };
+		1500ABEC1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */; };
+		1500ABF21B9C080D00E0AF6C /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */; };
+		1500ABF31B9C080D00E0AF6C /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */; };
+		1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
+		1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
 		15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE41B98A9D7006CD602 /* AppDelegate.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
@@ -42,8 +50,15 @@
 		1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinLocatorViewController.m; sourceTree = "<group>"; };
 		1500ABC91B9ABAD200E0AF6C /* BWFillLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWFillLevelsViewController.h; sourceTree = "<group>"; };
 		1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWFillLevelsViewController.m; sourceTree = "<group>"; };
-		1500ABCF1B9ABADB00E0AF6C /* DataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
-		1500ABD01B9ABADB00E0AF6C /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
+		1500ABD81B9C01AE00E0AF6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1500ABDB1B9C047D00E0AF6C /* BinWatch-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BinWatch-Prefix.pch"; sourceTree = "<group>"; };
+		1500ABE11B9C080500E0AF6C /* DataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
+		1500ABE21B9C080500E0AF6C /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
+		1500ABE51B9C080500E0AF6C /* BinWatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BinWatch.xcdatamodel; sourceTree = "<group>"; };
+		1500ABF01B9C080D00E0AF6C /* ConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionHandler.h; sourceTree = "<group>"; };
+		1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionHandler.m; sourceTree = "<group>"; };
+		1500ABFD1B9C10CF00E0AF6C /* Bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bin.h; sourceTree = "<group>"; };
+		1500ABFE1B9C10CF00E0AF6C /* Bin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bin.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AE01B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AE11B98A9D7006CD602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F19AB6431B9BF0060084A879 /* CoreData.framework in Frameworks */,
+				1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,21 +118,50 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		1500ABCE1B9ABADB00E0AF6C /* DataHandler */ = {
+		1500ABE01B9C080500E0AF6C /* DataHandler */ = {
 			isa = PBXGroup;
 			children = (
 				1500ABCF1B9ABADB00E0AF6C /* DataHandler.h */,
 				1500ABD01B9ABADB00E0AF6C /* DataHandler.m */,
 				F19AB6441B9BF5E50084A879 /* BWHelpers.h */,
 				F19AB6451B9BF5E50084A879 /* BWHelpers.m */,
+				1500ABE11B9C080500E0AF6C /* DataHandler.h */,
+				1500ABE21B9C080500E0AF6C /* DataHandler.m */,
 			);
 			path = DataHandler;
+			sourceTree = "<group>";
+		};
+		1500ABE31B9C080500E0AF6C /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				1500ABF01B9C080D00E0AF6C /* ConnectionHandler.h */,
+				1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */,
+			);
+			path = ConnectionHandler;
+			sourceTree = "<group>";
+		};
+		1500ABFC1B9C10CF00E0AF6C /* DataModelClass */ = {
+			isa = PBXGroup;
+			children = (
+				1500ABFD1B9C10CF00E0AF6C /* Bin.h */,
+				1500ABFE1B9C10CF00E0AF6C /* Bin.m */,
+			);
+			path = DataModelClass;
 			sourceTree = "<group>";
 		};
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
 				F19AB6421B9BF0060084A879 /* CoreData.framework */,
+				1500ABD81B9C01AE00E0AF6C /* CoreData.framework */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
 				15EA4ADD1B98A9D7006CD602 /* Products */,
@@ -142,7 +187,10 @@
 				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
 				15EA4AE31B98A9D7006CD602 /* AppDelegate.h */,
 				15EA4AE41B98A9D7006CD602 /* AppDelegate.m */,
-				1500ABCE1B9ABADB00E0AF6C /* DataHandler */,
+				1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */,
+				1500ABFC1B9C10CF00E0AF6C /* DataModelClass */,
+				1500ABE01B9C080500E0AF6C /* DataHandler */,
+				1500ABE31B9C080500E0AF6C /* DataModel */,
 				1500ABC41B9ABAD200E0AF6C /* ViewControllers */,
 				15EA4AEC1B98A9D7006CD602 /* Main.storyboard */,
 				15EA4AEF1B98A9D7006CD602 /* Images.xcassets */,
@@ -156,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */,
+				1500ABDB1B9C047D00E0AF6C /* BinWatch-Prefix.pch */,
 				15EA4AE01B98A9D7006CD602 /* Info.plist */,
 				15EA4AE11B98A9D7006CD602 /* main.m */,
 			);
@@ -280,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */,
+				1500ABE91B9C080500E0AF6C /* DataHandler.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
 				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
@@ -287,6 +337,10 @@
 				F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */,
+				1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */,
+				1500ABF21B9C080D00E0AF6C /* ConnectionHandler.m in Sources */,
+				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
+				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
 				F19AB6761BA18D280084A879 /* GradientView.m in Sources */,
 				F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */,
@@ -297,7 +351,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1500ABEC1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
+				1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */,
+				1500ABEA1B9C080500E0AF6C /* DataHandler.m in Sources */,
 				15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */,
+				1500ABF31B9C080D00E0AF6C /* ConnectionHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "BinWatch/BinWatch-Prefix.pch";
 				INFOPLIST_FILE = BinWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,6 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "BinWatch/BinWatch-Prefix.pch";
 				INFOPLIST_FILE = BinWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -508,6 +568,13 @@
 			currentVersion = F19AB6401B9BEE3B0084A879 /* BinDataModel.xcdatamodel */;
 			name = BinDataModel.xcdatamodeld;
 			path = ../BinDataModel.xcdatamodeld;
+		1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1500ABE51B9C080500E0AF6C /* BinWatch.xcdatamodel */,
+			);
+			currentVersion = 1500ABE51B9C080500E0AF6C /* BinWatch.xcdatamodel */;
+			path = BinWatch.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

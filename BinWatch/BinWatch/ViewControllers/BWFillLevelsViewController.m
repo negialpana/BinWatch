@@ -7,6 +7,7 @@
 //
 
 #import "BWFillLevelsViewController.h"
+#import "ConnectionHandler.h"
 #import "DataHandler.h"
 #import "BWHelpers.h"
 #import "BWBin.h"
@@ -32,13 +33,14 @@ NSArray *placesArray;
     self.navigationItem.rightBarButtonItem = moreButton;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    DataHandler *dataHandler = [DataHandler sharedInstance];
-    [dataHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
+    ConnectionHandler *connectionHandler = [ConnectionHandler sharedInstance];
+    [connectionHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
         if (!error) {
             NSLog(@"*********Bins: %@",[bins description]);
+            DataHandler *dataHandler = [DataHandler sharedHandler];
+            [dataHandler insertBins:bins];
             self.binsArray = [BWHelpers binsArrayFromJSonArray:bins];
             [self.tableView reloadData];
-            
         }else{
             NSLog(@"***********Failed to get bins***************");
         }

@@ -1,0 +1,21 @@
+//
+//  BinWatch-Prefix.pch
+//  BinWatch
+//
+//  Created by Supritha Nagesha on 06/09/15.
+//  Copyright (c) 2015 Airwatch. All rights reserved.
+//
+
+#ifndef BinWatch_BinWatch_Prefix_pch
+#define BinWatch_BinWatch_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#endif
+
+#endif
