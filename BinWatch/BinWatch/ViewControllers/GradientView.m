@@ -10,11 +10,11 @@
 
 @implementation GradientView
 
-CAGradientLayer *gradientl;
+CAGradientLayer *gradientLayer;
 
-- (instancetype)initWithColor:(BWBinColor)color
+- (instancetype)initWithFrame:(CGRect)frame forColor:(BWBinColor)color
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         UIColor *first,*last;
         switch (color) {
@@ -36,14 +36,14 @@ CAGradientLayer *gradientl;
                 last = LightGreen;
                 break;
         }
-        gradientl = [CAGradientLayer layer];
-        gradientl.frame = self.bounds;
-        gradientl.colors = [NSArray arrayWithObjects:(id)[first CGColor],(id)[last CGColor], nil];
-        gradientl.startPoint = CGPointMake(0.0, 0.0);
-        gradientl.endPoint = CGPointMake(1.0, 0.0);
-        //        gradient.locations = @[@0.0,@1.0];
+        gradientLayer = [CAGradientLayer layer];
+        gradientLayer.frame = self.bounds;
+        gradientLayer.colors = [NSArray arrayWithObjects:(id)[first CGColor],(id)[last CGColor], nil];
+        gradientLayer.startPoint = CGPointMake(0.0, 0.0);
+        gradientLayer.endPoint = CGPointMake(1.0, 0.0);
+        //        gradientLayer.locations = @[@0.0,@1.0];
         
-
+        [self.layer insertSublayer:gradientLayer atIndex:0];
     }
     return self;
 }

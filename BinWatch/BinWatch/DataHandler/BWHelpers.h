@@ -13,6 +13,5 @@
 @interface BWHelpers : NSObject
 
 +(NSArray*)binsArrayFromJSonArray:(NSArray*)bins;
-+(CAGradientLayer*)gradientLayerForView:(UIView*)view withColor:(BWBinColor)color;
 
 @end

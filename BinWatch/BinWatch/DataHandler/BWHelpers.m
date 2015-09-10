@@ -60,36 +60,4 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
     
     return BWGreen;
 }
-+(CAGradientLayer*)gradientLayerForView:(UIView*)view withColor:(BWBinColor)color
-{
-    UIColor *first,*last;
-    switch (color) {
-        case BWGreen:
-            first = DarkGreen;
-            last = LightGreen;
-            break;
-        case BWYellow:
-            first = DarkYellow;
-            last = LightYellow;
-            break;
-        case BWRed:
-            first = DarkRed;
-            last = LightRed;
-            break;
-            
-        default:
-            first = DarkGreen;
-            last = LightGreen;
-            break;
-    }
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-//    gradientLayer.frame = self.bounds;
-    gradientLayer.colors = [NSArray arrayWithObjects:(id)[first CGColor],(id)[last CGColor], nil];
-    gradientLayer.startPoint = CGPointMake(0.0, 0.0);
-    gradientLayer.endPoint = CGPointMake(1.0, 0.0);
-    //        gradient.locations = @[@0.0,@1.0];
-    gradientLayer.frame = view.bounds;
-    [view.layer insertSublayer:gradientLayer atIndex:0];
-    return gradientLayer;
-}
 @end

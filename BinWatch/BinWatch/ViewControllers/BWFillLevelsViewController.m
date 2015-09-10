@@ -10,7 +10,6 @@
 #import "DataHandler.h"
 #import "BWHelpers.h"
 #import "BWBin.h"
-#import "GradientTableViewCell.h"
 #import "BWCommon.h"
 #import "GradientView.h"
 
@@ -61,59 +60,33 @@ NSArray *placesArray;
 //    return 25;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BWBin *bin;
-    NSString *location;
-    if (searching) {
-        bin = (BWBin*)[self.searchArray objectAtIndex:indexPath.row];
-    }
-    else{
-                if (indexPath.row >= self.binsArray.count) {
-                    bin = [[BWBin alloc]initWith:10.00 longitude:10.00 binColor:BWRed fillPercent:99];
-                    location = @"Bangalore";
-                }
-                else{
-        
-        bin = (BWBin*)[self.binsArray objectAtIndex:indexPath.row];
-        location = placesArray[indexPath.row];
-                }
-    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString* cellIdentifier = @"CellIdentifier";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-//        cell = [[GradientTableViewCell alloc] initWithColor:bin.color reuseIdentifier:cellIdentifier];
     }
-//    cell.textLabel.text = [NSString stringWithFormat:@"Location %ld",(long)indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",location];
+
+    BWBin *bin = [self binForRowAtIndexPath:indexPath];
+    NSString *location;
+    if (indexPath.row >= placesArray.count) {
+        location = [NSString stringWithFormat:@"Location %ld",(long)indexPath.row];
+    }
+    else{
+        location = placesArray[indexPath.row];
+    }
+
+    cell.textLabel.text = location;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",(int)bin.fillPercent];
-    CAGradientLayer *gl = [BWHelpers gradientLayerForView:cell.contentView withColor:bin.color];
-    gl.frame = cell.bounds;
-    [cell.layer insertSublayer:gl atIndex:0];
-//    cell.backgroundColor = [UIColor grayColor];
+    cell.detailTextLabel.textColor = Black;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BWBin *bin;
-    NSString *location;
-    if (searching) {
-        bin = (BWBin*)[self.searchArray objectAtIndex:indexPath.row];
-    }
-    else{
-        if (indexPath.row >= self.binsArray.count) {
-            bin = [[BWBin alloc]initWith:10.00 longitude:10.00 binColor:BWRed fillPercent:99];
-            location = @"Bangalore";
-        }
-        else{
-            
-            bin = (BWBin*)[self.binsArray objectAtIndex:indexPath.row];
-            location = placesArray[indexPath.row];
-        }
-    }
-    CAGradientLayer *gl = [BWHelpers gradientLayerForView:cell.contentView withColor:bin.color];
-    gl.frame = cell.bounds;
-    [cell.layer insertSublayer:gl atIndex:0];
+    BWBin *bin = [self binForRowAtIndexPath:indexPath];
+    GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forColor:bin.color];
+    cell.backgroundView = gradientView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -166,6 +139,23 @@ NSArray *placesArray;
 - (void)moreTapped
 {
     NSLog(@"More tapped");
+}
+-(BWBin*)binForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BWBin *bin;
+    if (searching) {
+        bin = (BWBin*)[self.searchArray objectAtIndex:indexPath.row];
+    }
+    else{
+        if (indexPath.row >= self.binsArray.count) {
+            bin = [[BWBin alloc]initWith:10.00 longitude:10.00 binColor:BWRed fillPercent:99];
+        }
+        else{
+            
+            bin = (BWBin*)[self.binsArray objectAtIndex:indexPath.row];
+        }
+    }
+    return bin;
 }
 /*
 #pragma mark - Navigation

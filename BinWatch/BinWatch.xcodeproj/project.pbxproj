@@ -22,7 +22,6 @@
 		F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63F1B9BEE3B0084A879 /* BinDataModel.xcdatamodeld */; };
 		F19AB6431B9BF0060084A879 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19AB6421B9BF0060084A879 /* CoreData.framework */; };
 		F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* BWHelpers.m */; };
-		F19AB6701BA163AF0084A879 /* GradientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB66F1BA163AF0084A879 /* GradientTableViewCell.m */; };
 		F19AB6761BA18D280084A879 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6751BA18D280084A879 /* GradientView.m */; };
 /* End PBXBuildFile section */
 
@@ -65,8 +64,6 @@
 		F19AB6421B9BF0060084A879 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F19AB6441B9BF5E50084A879 /* BWHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHelpers.h; sourceTree = "<group>"; };
 		F19AB6451B9BF5E50084A879 /* BWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHelpers.m; sourceTree = "<group>"; };
-		F19AB66E1BA163AF0084A879 /* GradientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientTableViewCell.h; sourceTree = "<group>"; };
-		F19AB66F1BA163AF0084A879 /* GradientTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientTableViewCell.m; sourceTree = "<group>"; };
 		F19AB6741BA18D280084A879 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		F19AB6751BA18D280084A879 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,8 +96,6 @@
 				1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */,
 				1500ABC91B9ABAD200E0AF6C /* BWFillLevelsViewController.h */,
 				1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */,
-				F19AB66E1BA163AF0084A879 /* GradientTableViewCell.h */,
-				F19AB66F1BA163AF0084A879 /* GradientTableViewCell.m */,
 				F19AB6741BA18D280084A879 /* GradientView.h */,
 				F19AB6751BA18D280084A879 /* GradientView.m */,
 			);
@@ -290,7 +285,6 @@
 				15EA4AE51B98A9D7006CD602 /* AppDelegate.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
 				F19AB6411B9BEE3B0084A879 /* BinDataModel.xcdatamodeld in Sources */,
-				F19AB6701BA163AF0084A879 /* GradientTableViewCell.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				1500ABD11B9ABADB00E0AF6C /* DataHandler.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,

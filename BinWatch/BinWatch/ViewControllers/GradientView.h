@@ -12,6 +12,6 @@
 
 @interface GradientView : UIView
 
-- (instancetype)initWithColor:(BWBinColor)color;
+- (instancetype)initWithFrame:(CGRect)frame forColor:(BWBinColor)color;
 
 @end
