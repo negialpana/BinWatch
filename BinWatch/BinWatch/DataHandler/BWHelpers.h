@@ -1,5 +1,5 @@
 //
-//  ObjectParser.h
+//  BWHelpers.h
 //  BinWatch
 //
 //  Created by Ponnie Rohith on 06/09/15.
@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface ObjectParser : NSObject
+#import "BWCommon.h"
+@interface BWHelpers : NSObject
 
 +(NSArray*)binsArrayFromJSonArray:(NSArray*)bins;
++(CAGradientLayer*)gradientLayerForView:(UIView*)view withColor:(BWBinColor)color;
 
 @end

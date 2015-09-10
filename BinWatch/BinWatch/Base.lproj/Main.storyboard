@@ -18,11 +18,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="5I7-nm-zMw">
-                                <rect key="frame" x="16" y="64" width="584" height="44"/>
+                                <rect key="frame" x="16" y="64" width="568" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="d6x-O0-MeX"/>
+                                    <constraint firstAttribute="height" constant="44" id="jCj-HP-I2g"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="05s-jD-h3j"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6rc-G3-T0J">
                                 <rect key="frame" x="16" y="108" width="568" height="443"/>
@@ -35,13 +38,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5I7-nm-zMw" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="3Aj-4K-uQA"/>
-                            <constraint firstItem="6rc-G3-T0J" firstAttribute="top" secondItem="5I7-nm-zMw" secondAttribute="bottom" id="DSF-yb-wPh"/>
-                            <constraint firstItem="6rc-G3-T0J" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="e4n-Ph-1y6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6rc-G3-T0J" secondAttribute="trailing" id="hNa-i5-KWH"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5I7-nm-zMw" secondAttribute="trailing" constant="-16" id="iTe-yX-b9H"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="6rc-G3-T0J" secondAttribute="bottom" id="pQx-gp-hww"/>
-                            <constraint firstItem="5I7-nm-zMw" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="xh0-RP-gbP"/>
+                            <constraint firstItem="6rc-G3-T0J" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="2hT-8a-6nI"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="6rc-G3-T0J" secondAttribute="bottom" id="5CM-fM-ARE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6rc-G3-T0J" secondAttribute="trailing" id="AGD-cB-lJg"/>
+                            <constraint firstItem="6rc-G3-T0J" firstAttribute="top" secondItem="5I7-nm-zMw" secondAttribute="bottom" id="EBj-TP-OOz"/>
+                            <constraint firstItem="5I7-nm-zMw" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="cCu-nN-ObS"/>
+                            <constraint firstItem="5I7-nm-zMw" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="fKg-Kg-a1c"/>
+                            <constraint firstItem="6rc-G3-T0J" firstAttribute="top" secondItem="5I7-nm-zMw" secondAttribute="bottom" id="sBn-rU-FkY"/>
+                            <constraint firstItem="5I7-nm-zMw" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="zuI-zP-IeG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Fill Levels" id="0ks-ZA-TN1"/>
