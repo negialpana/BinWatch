@@ -146,16 +146,9 @@ NSArray *placesArray;
 {
     BWBin *bin;
     if (searching) {
-        bin = (BWBin*)[self.searchArray objectAtIndex:indexPath.row];
-    }
-    else{
-        if (indexPath.row >= self.binsArray.count) {
-            bin = [[BWBin alloc]initWith:10.00 longitude:10.00 binColor:BWRed fillPercent:99];
-        }
-        else{
-            
-            bin = (BWBin*)[self.binsArray objectAtIndex:indexPath.row];
-        }
+      bin = (BWBin *)[self.searchArray objectAtIndex:indexPath.row];
+    } else {
+      bin = (BWBin *)[self.binsArray objectAtIndex:indexPath.row];
     }
     return bin;
 }
