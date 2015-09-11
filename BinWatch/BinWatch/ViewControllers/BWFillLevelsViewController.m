@@ -81,7 +81,8 @@ NSArray *placesArray;
 
     cell.textLabel.text = location;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",(int)bin.fillPercent];
-    cell.detailTextLabel.textColor = Black;
+    cell.textLabel.textColor = [self textColorForBinColor:bin.color];
+    cell.detailTextLabel.textColor = [self textColorForBinColor:bin.color];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,6 +142,22 @@ NSArray *placesArray;
 - (void)moreTapped
 {
     NSLog(@"More tapped");
+}
+
+-(UIColor*)textColorForBinColor:(BWBinColor)binColor
+{
+    switch (binColor) {
+        case BWRed:
+        case BWGreen:
+            return White;
+            break;
+        case BWYellow:
+            return Black;
+            break;
+        default:
+            return Black;
+            break;
+    }
 }
 -(BWBin*)binForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -71,10 +71,10 @@
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
 		F19AB63B1B9BEB270084A879 /* BWBinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinCollection.m; sourceTree = "<group>"; };
 		F19AB63C1B9BEB270084A879 /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
-		F19AB6441B9BF5E50084A879 /* BWHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHelpers.h; sourceTree = "<group>"; };
-		F19AB6451B9BF5E50084A879 /* BWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHelpers.m; sourceTree = "<group>"; };
-		F19AB6741BA18D280084A879 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
-		F19AB6751BA18D280084A879 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
+		F19AB6441B9BF5E50084A879 /* BWHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWHelpers.h; path = DataHandler/BWHelpers.h; sourceTree = "<group>"; };
+		F19AB6451B9BF5E50084A879 /* BWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWHelpers.m; path = DataHandler/BWHelpers.m; sourceTree = "<group>"; };
+		F19AB6741BA18D280084A879 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientView.h; path = ViewControllers/GradientView.h; sourceTree = "<group>"; };
+		F19AB6751BA18D280084A879 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientView.m; path = ViewControllers/GradientView.m; sourceTree = "<group>"; };
 		F19AB6811BA1CF5C0084A879 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F19AB6821BA1CF5C0084A879 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,8 +100,6 @@
 				1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */,
 				1500ABC91B9ABAD200E0AF6C /* BWFillLevelsViewController.h */,
 				1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */,
-				F19AB6741BA18D280084A879 /* GradientView.h */,
-				F19AB6751BA18D280084A879 /* GradientView.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -109,8 +107,6 @@
 		1500ABE01B9C080500E0AF6C /* DataHandler */ = {
 			isa = PBXGroup;
 			children = (
-				F19AB6441B9BF5E50084A879 /* BWHelpers.h */,
-				F19AB6451B9BF5E50084A879 /* BWHelpers.m */,
 				1500ABE11B9C080500E0AF6C /* DataHandler.h */,
 				1500ABE21B9C080500E0AF6C /* DataHandler.m */,
 			);
@@ -165,18 +161,15 @@
 		15EA4ADE1B98A9D7006CD602 /* BinWatch */ = {
 			isa = PBXGroup;
 			children = (
-				F19AB6381B9BEB270084A879 /* BWBin.h */,
-				F19AB6391B9BEB270084A879 /* BWBin.m */,
-				F19AB63A1B9BEB270084A879 /* BWBinCollection.h */,
-				F19AB63B1B9BEB270084A879 /* BWBinCollection.m */,
 				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
 				F19AB6811BA1CF5C0084A879 /* AppDelegate.h */,
 				F19AB6821BA1CF5C0084A879 /* AppDelegate.m */,
 				1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */,
 				1500ABFC1B9C10CF00E0AF6C /* DataModelClass */,
 				1500ABE01B9C080500E0AF6C /* DataHandler */,
+				F19AB6851BA2BD4C0084A879 /* Classes */,
 				1500ABE31B9C080500E0AF6C /* DataModel */,
-				1500ABC41B9ABAD200E0AF6C /* ViewControllers */,
+				F19AB6861BA2BD710084A879 /* UI */,
 				15EA4AEC1B98A9D7006CD602 /* Main.storyboard */,
 				15EA4AEF1B98A9D7006CD602 /* Images.xcassets */,
 				15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */,
@@ -210,6 +203,29 @@
 				15EA4AFD1B98A9D7006CD602 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F19AB6851BA2BD4C0084A879 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F19AB6441B9BF5E50084A879 /* BWHelpers.h */,
+				F19AB6451B9BF5E50084A879 /* BWHelpers.m */,
+				F19AB6381B9BEB270084A879 /* BWBin.h */,
+				F19AB6391B9BEB270084A879 /* BWBin.m */,
+				F19AB63A1B9BEB270084A879 /* BWBinCollection.h */,
+				F19AB63B1B9BEB270084A879 /* BWBinCollection.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		F19AB6861BA2BD710084A879 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1500ABC41B9ABAD200E0AF6C /* ViewControllers */,
+				F19AB6741BA18D280084A879 /* GradientView.h */,
+				F19AB6751BA18D280084A879 /* GradientView.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
