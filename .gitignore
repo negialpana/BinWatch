@@ -1,0 +1,30 @@
+# Xcode
+.DS_Store
+
+## Build generated
+build/
+DerivedData
+build/
+*.pbxuser
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+
+## Other
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+## Obj-C specific
+*.hmap
+*.ipa
+
