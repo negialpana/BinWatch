@@ -135,6 +135,10 @@ NSArray *placesArray;
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     searching = NO;
+    if ([self.searchBar canResignFirstResponder]) {
+        [self.searchBar resignFirstResponder];
+
+    }
     [self.tableView reloadData];
 
 }
