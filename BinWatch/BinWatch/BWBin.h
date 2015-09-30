@@ -18,10 +18,20 @@
 @property (atomic, assign) CLLocationDegrees longitude;
 @property (atomic, assign) BWBinColor color;
 @property float fillPercent;
+@property (atomic, copy) NSString *place;
+@property (atomic, copy) NSString * binID;
+
+
 
 - (id) initWith:(CLLocationDegrees)lat
       longitude:(CLLocationDegrees)lon
        binColor:(BWBinColor)binColor
     fillPercent:(float)fillPercent;
+
+- (id) initWith:(CLLocationDegrees)lat
+      longitude:(CLLocationDegrees)lon
+          binID:(NSString *)bID
+       binColor:(BWBinColor)binColor
+          place:(NSString *)loc;
 
 @end
