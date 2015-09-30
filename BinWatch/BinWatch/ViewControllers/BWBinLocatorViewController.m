@@ -7,7 +7,6 @@
 //
 
 #import "BWBinLocatorViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import "BWBinCollection.h"
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
@@ -34,11 +33,14 @@
     mapMarkers = [[NSMutableDictionary alloc] init];
     firstLocationUpdate_ = NO;
     
-    // Bangalore MG Road
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9898231
-                                                            longitude:77.7148933
-                                                                 zoom:zoomLevel];
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9898231
+//                                                            longitude:77.7148933
+//                                                                 zoom:zoomLevel];
     
+    // Bangalore MG Road
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9667
+                                                            longitude:77.5667
+                                                                 zoom:zoomLevel];
     mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     mapView.delegate = self;
     [self drawBins];
