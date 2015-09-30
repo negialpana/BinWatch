@@ -22,6 +22,8 @@
     NSMutableDictionary *mapMarkers;
 }
 
+#pragma mark - View Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

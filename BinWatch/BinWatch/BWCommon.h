@@ -1,6 +1,6 @@
 //
 //  BWCommon.h
-//  GHCI Trials
+//  BinWatch
 //
 //  Created by Seema Kadavan on 9/5/15.
 //  Copyright (c) 2015 AirWatch. All rights reserved.
@@ -8,6 +8,8 @@
 
 #ifndef GHCI_Trials_BWCommon_h
 #define GHCI_Trials_BWCommon_h
+
+#define GOOGLE_API_KEY @"AIzaSyA4EjQ4hTN2W2r76ZIGqi0moLe8cd2crHg"
 
 typedef NS_ENUM(NSUInteger, BWBinColor) {
     BWRed,
