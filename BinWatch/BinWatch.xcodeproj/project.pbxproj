@@ -24,6 +24,19 @@
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
 		15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */; };
 		15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */; };
+		902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721051BBBE48B00108D1E /* GoogleMaps.framework */; };
+		902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 902721071BBBE4CD00108D1E /* GoogleMaps.bundle */; };
+		9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721091BBBE50B00108D1E /* CoreBluetooth.framework */; };
+		9027210C1BBBE51500108D1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9027210B1BBBE51500108D1E /* Accelerate.framework */; };
+		9027210E1BBBE52500108D1E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9027210D1BBBE52500108D1E /* CoreLocation.framework */; };
+		902721101BBBE53400108D1E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9027210F1BBBE53400108D1E /* CoreText.framework */; };
+		902721121BBBE54600108D1E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721111BBBE54600108D1E /* GLKit.framework */; };
+		902721141BBBE55200108D1E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721131BBBE55200108D1E /* ImageIO.framework */; };
+		902721161BBBE56500108D1E /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721151BBBE56500108D1E /* libc++.dylib */; };
+		902721181BBBE58100108D1E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721171BBBE58100108D1E /* libicucore.dylib */; };
+		9027211A1BBBE59100108D1E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721191BBBE59100108D1E /* libz.dylib */; };
+		9027211C1BBBE59C00108D1E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9027211B1BBBE59C00108D1E /* OpenGLES.framework */; };
+		9027211E1BBBE5A500108D1E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9027211D1BBBE5A500108D1E /* QuartzCore.framework */; };
 		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
 		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
 		F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* BWHelpers.m */; };
@@ -66,6 +79,19 @@
 		15EA4AF81B98A9D7006CD602 /* BinWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BinWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AFD1B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BinWatchTests.m; sourceTree = "<group>"; };
+		902721051BBBE48B00108D1E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		902721071BBBE4CD00108D1E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
+		902721091BBBE50B00108D1E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		9027210B1BBBE51500108D1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		9027210D1BBBE52500108D1E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9027210F1BBBE53400108D1E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		902721111BBBE54600108D1E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		902721131BBBE55200108D1E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		902721151BBBE56500108D1E /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		902721171BBBE58100108D1E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		902721191BBBE59100108D1E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9027211B1BBBE59C00108D1E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		9027211D1BBBE5A500108D1E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F19AB6381B9BEB270084A879 /* BWBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBin.h; sourceTree = "<group>"; };
 		F19AB6391B9BEB270084A879 /* BWBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBin.m; sourceTree = "<group>"; };
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
@@ -84,6 +110,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9027211E1BBBE5A500108D1E /* QuartzCore.framework in Frameworks */,
+				9027211C1BBBE59C00108D1E /* OpenGLES.framework in Frameworks */,
+				9027211A1BBBE59100108D1E /* libz.dylib in Frameworks */,
+				902721181BBBE58100108D1E /* libicucore.dylib in Frameworks */,
+				902721161BBBE56500108D1E /* libc++.dylib in Frameworks */,
+				902721141BBBE55200108D1E /* ImageIO.framework in Frameworks */,
+				902721121BBBE54600108D1E /* GLKit.framework in Frameworks */,
+				902721101BBBE53400108D1E /* CoreText.framework in Frameworks */,
+				9027210E1BBBE52500108D1E /* CoreLocation.framework in Frameworks */,
+				9027210C1BBBE51500108D1E /* Accelerate.framework in Frameworks */,
+				9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */,
+				902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */,
 				1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,7 +180,7 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
-				1500ABD81B9C01AE00E0AF6C /* CoreData.framework */,
+				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
 				15EA4ADD1B98A9D7006CD602 /* Products */,
@@ -203,6 +241,27 @@
 				15EA4AFD1B98A9D7006CD602 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9027211F1BBBE5BF00108D1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9027211D1BBBE5A500108D1E /* QuartzCore.framework */,
+				9027211B1BBBE59C00108D1E /* OpenGLES.framework */,
+				902721191BBBE59100108D1E /* libz.dylib */,
+				902721171BBBE58100108D1E /* libicucore.dylib */,
+				902721151BBBE56500108D1E /* libc++.dylib */,
+				902721131BBBE55200108D1E /* ImageIO.framework */,
+				902721111BBBE54600108D1E /* GLKit.framework */,
+				9027210F1BBBE53400108D1E /* CoreText.framework */,
+				9027210D1BBBE52500108D1E /* CoreLocation.framework */,
+				9027210B1BBBE51500108D1E /* Accelerate.framework */,
+				902721091BBBE50B00108D1E /* CoreBluetooth.framework */,
+				902721071BBBE4CD00108D1E /* GoogleMaps.bundle */,
+				902721051BBBE48B00108D1E /* GoogleMaps.framework */,
+				1500ABD81B9C01AE00E0AF6C /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F19AB6851BA2BD4C0084A879 /* Classes */ = {
@@ -310,6 +369,7 @@
 				15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */,
 				15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */,
 				15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */,
+				902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +531,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "BinWatch/BinWatch-Prefix.pch";
 				INFOPLIST_FILE = BinWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -482,6 +546,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "BinWatch/BinWatch-Prefix.pch";
 				INFOPLIST_FILE = BinWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
