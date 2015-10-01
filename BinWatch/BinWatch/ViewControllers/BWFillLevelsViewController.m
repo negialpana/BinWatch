@@ -13,7 +13,8 @@
 #import "BWBin.h"
 #import "BWCommon.h"
 #import "GradientView.h"
-
+#import "BWBinCollection.h"
+#import "BinDetailsViewController.h"
 
 @interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate >
 
@@ -45,7 +46,9 @@ NSArray *placesArray;
             NSLog(@"***********Failed to get bins***************");
         }
     }];
-    // Do any additional setup after loading the view.
+    
+    // TODO : remove when actual data comes up
+    self.binsArray = [[BWBinCollection sharedInstance] bins];
 }
 
 #pragma mark - UITableView delegates
@@ -59,7 +62,6 @@ NSArray *placesArray;
         return self.searchArray.count;
     }
     return self.binsArray.count;
-//    return 25;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,6 +85,7 @@ NSArray *placesArray;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",(int)bin.fillPercent];
     cell.textLabel.textColor = [self textColorForBinColor:bin.color];
     cell.detailTextLabel.textColor = [self textColorForBinColor:bin.color];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,8 +94,13 @@ NSArray *placesArray;
     GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forColor:bin.color];
     cell.backgroundView = gradientView;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    BinDetailsViewController *binDetailsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"BinDetailsViewController"];
+    binDetailsVC.currentSelectedBinIndex = indexPath.row;
     
+    [self.navigationController pushViewController:binDetailsVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

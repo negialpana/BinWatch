@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Helvetica.ttc">
+            <string>Helvetica</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Fill Levels-->
         <scene sceneID="hNz-n2-bh7">
@@ -174,6 +180,110 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="slr-7v-BTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2626" y="1521"/>
+        </scene>
+        <!--Bin Details View Controller-->
+        <scene sceneID="tyH-fe-xXn">
+            <objects>
+                <viewController storyboardIdentifier="BinDetailsViewController" id="mNN-B9-EVQ" customClass="BinDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DhP-Mv-tGD"/>
+                        <viewControllerLayoutGuide type="bottom" id="AyF-dE-IJw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0yA-hg-0LZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qhm-R2-9pv">
+                                <rect key="frame" x="20" y="75" width="560" height="29"/>
+                                <segments>
+                                    <segment title="Week"/>
+                                    <segment title="Custom"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlTapped:" destination="mNN-B9-EVQ" eventType="valueChanged" id="aHT-Xx-DX7"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3U9-Dc-VNK" userLabel="BinIDView">
+                                <rect key="frame" x="20" y="115" width="560" height="28"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Lt-zCH" userLabel="BinLocationLabel">
+                                        <rect key="frame" x="10" y="4" width="393" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 %" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTo-II-v74" userLabel="BinFillPercentLabel">
+                                        <rect key="frame" x="503" y="3" width="42" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="0Cu-Ba-bsd"/>
+                                            <constraint firstAttribute="width" constant="42" id="Nhf-oF-kO3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.1089136448" blue="0.057290884209999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="PTo-II-v74" secondAttribute="trailing" constant="15" id="8Wc-KV-S3K"/>
+                                    <constraint firstItem="7kQ-Lt-zCH" firstAttribute="top" secondItem="3U9-Dc-VNK" secondAttribute="top" constant="2" id="GGl-Rf-Kk9"/>
+                                    <constraint firstItem="PTo-II-v74" firstAttribute="centerY" secondItem="3U9-Dc-VNK" secondAttribute="centerY" id="PDa-wB-oVe"/>
+                                    <constraint firstItem="7kQ-Lt-zCH" firstAttribute="leading" secondItem="3U9-Dc-VNK" secondAttribute="leading" constant="10" id="VSt-Te-Zsz"/>
+                                    <constraint firstItem="PTo-II-v74" firstAttribute="leading" relation="lessThanOrEqual" secondItem="7kQ-Lt-zCH" secondAttribute="trailing" constant="100" id="xva-QM-CtY"/>
+                                    <constraint firstItem="7kQ-Lt-zCH" firstAttribute="centerY" secondItem="3U9-Dc-VNK" secondAttribute="centerY" id="zkM-aw-sIb"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="GGl-Rf-Kk9"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MC0-Vx-sr7" userLabel="BinVariablesView">
+                                <rect key="frame" x="20" y="158" width="560" height="120"/>
+                                <color key="backgroundColor" red="0.66780453079305646" green="1" blue="0.97504085430405585" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="3yf-Si-u5C"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQP-Gl-Wso" userLabel="BarGraphView">
+                                <rect key="frame" x="20" y="293" width="560" height="200"/>
+                                <color key="backgroundColor" red="0.79711471592145411" green="0.55974491985692887" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="KBK-MZ-WZr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xQP-Gl-Wso" firstAttribute="top" secondItem="MC0-Vx-sr7" secondAttribute="bottom" constant="15" id="54F-FC-V8t"/>
+                            <constraint firstAttribute="trailing" secondItem="Qhm-R2-9pv" secondAttribute="trailing" constant="20" id="8G4-WM-5No"/>
+                            <constraint firstItem="3U9-Dc-VNK" firstAttribute="leading" secondItem="Qhm-R2-9pv" secondAttribute="leading" id="CyE-WN-dTy"/>
+                            <constraint firstItem="3U9-Dc-VNK" firstAttribute="centerX" secondItem="0yA-hg-0LZ" secondAttribute="centerX" id="HFw-MQ-5Gj"/>
+                            <constraint firstItem="3U9-Dc-VNK" firstAttribute="height" secondItem="Qhm-R2-9pv" secondAttribute="height" id="Jd8-qc-By0"/>
+                            <constraint firstItem="Qhm-R2-9pv" firstAttribute="leading" secondItem="0yA-hg-0LZ" secondAttribute="leading" constant="20" id="LWa-cv-dHD"/>
+                            <constraint firstItem="Qhm-R2-9pv" firstAttribute="top" secondItem="0yA-hg-0LZ" secondAttribute="top" constant="75" id="QpT-lb-g6Z"/>
+                            <constraint firstItem="MC0-Vx-sr7" firstAttribute="top" secondItem="3U9-Dc-VNK" secondAttribute="bottom" constant="15" id="ZQc-mg-eE1"/>
+                            <constraint firstItem="xQP-Gl-Wso" firstAttribute="leading" secondItem="MC0-Vx-sr7" secondAttribute="leading" id="ab8-OJ-C3A"/>
+                            <constraint firstItem="3U9-Dc-VNK" firstAttribute="trailing" secondItem="Qhm-R2-9pv" secondAttribute="trailing" id="c18-jL-kwm"/>
+                            <constraint firstItem="MC0-Vx-sr7" firstAttribute="trailing" secondItem="3U9-Dc-VNK" secondAttribute="trailing" id="fck-It-AhB"/>
+                            <constraint firstItem="3U9-Dc-VNK" firstAttribute="width" secondItem="Qhm-R2-9pv" secondAttribute="width" id="mFx-WD-Jel"/>
+                            <constraint firstItem="xQP-Gl-Wso" firstAttribute="trailing" secondItem="MC0-Vx-sr7" secondAttribute="trailing" id="p1d-PB-ICQ"/>
+                            <constraint firstItem="3U9-Dc-VNK" firstAttribute="top" secondItem="Qhm-R2-9pv" secondAttribute="bottom" constant="12" id="pRA-Xe-Rzx"/>
+                            <constraint firstItem="MC0-Vx-sr7" firstAttribute="leading" secondItem="3U9-Dc-VNK" secondAttribute="leading" id="x1k-ZL-v06"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="barGraphView" destination="xQP-Gl-Wso" id="01S-NR-YhG"/>
+                        <outlet property="binFillPercentLabel" destination="PTo-II-v74" id="gIC-by-9yO"/>
+                        <outlet property="binIDView" destination="3U9-Dc-VNK" id="0Yv-vo-ULx"/>
+                        <outlet property="binLocationLabel" destination="7kQ-Lt-zCH" id="3R8-fU-lhR"/>
+                        <outlet property="binVariablesView" destination="MC0-Vx-sr7" id="4dP-T2-u6e"/>
+                        <outlet property="segmentControl" destination="Qhm-R2-9pv" id="z8B-Ch-AOw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kz3-uM-qKt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3334" y="1849"/>
         </scene>
         <!--Settings-->
         <scene sceneID="wb0-4c-xv0">
