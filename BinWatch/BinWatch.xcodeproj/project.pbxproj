@@ -328,11 +328,11 @@
 		902721331BBC633300108D1E /* GoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				9027217C1BBD5AD900108D1E /* SPGooglePlacesAutocompleteQuery.m */,
 				9027217D1BBD5AD900108D1E /* SPGooglePlacesAutocomplete.h */,
 				9027217E1BBD5AD900108D1E /* SPGooglePlacesAutocompletePlace.h */,
 				9027217F1BBD5AD900108D1E /* SPGooglePlacesAutocompletePlace.m */,
 				902721801BBD5AD900108D1E /* SPGooglePlacesAutocompleteQuery.h */,
+				9027217C1BBD5AD900108D1E /* SPGooglePlacesAutocompleteQuery.m */,
 				902721811BBD5AD900108D1E /* SPGooglePlacesAutocompleteUtilities.h */,
 				902721821BBD5AD900108D1E /* SPGooglePlacesAutocompleteUtilities.m */,
 				902721831BBD5AD900108D1E /* SPGooglePlacesPlaceDetailQuery.h */,

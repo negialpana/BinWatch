@@ -134,9 +134,9 @@
     if (connection == googleConnection) {
         NSError *error = nil;
         
-        NSDictionary *myResponse = [NSDictionary dictionaryWithContentsOfFile:@"/Users/skadavan/Desktop/2.plist"];
-        [self succeedWithPlaces:myResponse[@"predictions"]];
-        return;
+//        NSDictionary *myResponse = [NSDictionary dictionaryWithContentsOfFile:@"/Users/skadavan/Desktop/2.plist"];
+//        [self succeedWithPlaces:myResponse[@"predictions"]];
+//        return;
 
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
         //[response writeToFile:@"/Users/skadavan/Desktop/2.plist" atomically: YES];

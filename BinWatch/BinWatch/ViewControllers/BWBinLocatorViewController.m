@@ -42,7 +42,7 @@
      object:nil];
 
     
-    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:@"AIzaSyA4EjQ4hTN2W2r76ZIGqi0moLe8cd2crHg"];
+    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
     self.searchDisplayController.searchBar.placeholder = @"Search Locations";
 

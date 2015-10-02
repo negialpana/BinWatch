@@ -9,7 +9,8 @@
 #ifndef GHCI_Trials_BWCommon_h
 #define GHCI_Trials_BWCommon_h
 
-static NSString* const kGoogleAPIKey = @"AIzaSyA4EjQ4hTN2W2r76ZIGqi0moLe8cd2crHg";
+static NSString* const kGoogleAPIKey = @"AIzaSyBJZvhJsi6Dh1QQjkly_CZEn6WFyfRb6ew";
+static NSString* const kGoogleAPIKey_Browser = @"AIzaSyCUbwYomfVufUiVTiDak2qvEHVKiwk2JUQ";
 
 typedef NS_ENUM(NSUInteger, BWBinColor) {
     BWRed,
