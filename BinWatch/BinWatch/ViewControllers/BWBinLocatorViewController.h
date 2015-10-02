@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
+@class SPGooglePlacesAutocompleteQuery;
 
-@interface BWBinLocatorViewController : UIViewController <GMSMapViewDelegate>
+@interface BWBinLocatorViewController : UIViewController <GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
+    NSArray *searchResultPlaces;
+    SPGooglePlacesAutocompleteQuery *searchQuery;
+    
+    BOOL shouldBeginEditing;
+    
+}
+
 
 @end
