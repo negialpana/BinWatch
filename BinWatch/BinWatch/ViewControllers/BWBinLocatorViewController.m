@@ -57,7 +57,7 @@
                                                                  zoom:zoomLevel];
     //mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
 
-    NSLog(@"%f %f %f %f", self.view.frame.size.height, self.view.frame.size.width, self.view.frame.origin.x, self.view.frame.origin.y);
+    //NSLog(@"%f %f %f %f", self.view.frame.size.height, self.view.frame.size.width, self.view.frame.origin.x, self.view.frame.origin.y);
 
     mapView = [GMSMapView mapWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
     mapView.delegate = self;
@@ -75,25 +75,12 @@
         mapView.myLocationEnabled = YES;
     });
     
-//    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, 320, 60)];
-//    //UISearchBar *searchBar = [[UISearchBar alloc] init];
-//    searchBar.delegate = self;
-//    //searchBar.showsCancelButton = YES;
-//    searchBar.placeholder = @"Search Maps";
-//
-//    [self.view addSubview:searchBar];
-    //self.view = mapView;
     [self.view addSubview:mapView];
     
     // TODO: Refactor this
     NSArray *subViews = [self.view subviews];
     UIView *searchBar = [subViews objectAtIndex:0];
     [self.view bringSubviewToFront:searchBar];
-//    for(int i = 0; i < subViews.count; i++)
-//    {
-//        UIView* view =subViews[i];
-//        NSLog(@"%f", view.layer.zPosition);
-//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -272,18 +259,13 @@
 #pragma mark -
 #pragma mark UITableViewDelegate
 
-//- (void)recenterMapToPlacemark:(CLPlacemark *)placemark {
-//    MKCoordinateRegion region;
-//    MKCoordinateSpan span;
-//
-//    span.latitudeDelta = 0.02;
-//    span.longitudeDelta = 0.02;
-//
-//    region.span = span;
-//    region.center = placemark.location.coordinate;
-//
-//    [self.mapView setRegion:region];
-//}
+- (void)recenterMapToPlacemark:(CLPlacemark *)placemark {
+    
+    GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:placemark.location.coordinate.latitude
+                                                            longitude:placemark.location.coordinate.longitude
+                                                                 zoom:zoomLevel];
+    [mapView animateToCameraPosition:newPosition];
+}
 
 //- (void)addPlacemarkAnnotationToMap:(CLPlacemark *)placemark addressString:(NSString *)address {
 //    [self.mapView removeAnnotation:selectedPlaceAnnotation];
@@ -306,7 +288,7 @@
             [alert show];
         } else if (placemark) {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
-            //[self recenterMapToPlacemark:placemark];
+            [self recenterMapToPlacemark:placemark];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
             [self.searchDisplayController setActive:NO];
             [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -319,6 +301,7 @@
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
     //searchQuery.location = self.mapView.userLocation.coordinate;
+    // TODO: This has to be corrected
     searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
