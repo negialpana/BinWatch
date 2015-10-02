@@ -9,7 +9,7 @@
 #ifndef GHCI_Trials_BWCommon_h
 #define GHCI_Trials_BWCommon_h
 
-#define GOOGLE_API_KEY @"AIzaSyA4EjQ4hTN2W2r76ZIGqi0moLe8cd2crHg"
+static NSString* const kGoogleAPIKey = @"AIzaSyA4EjQ4hTN2W2r76ZIGqi0moLe8cd2crHg";
 
 typedef NS_ENUM(NSUInteger, BWBinColor) {
     BWRed,
