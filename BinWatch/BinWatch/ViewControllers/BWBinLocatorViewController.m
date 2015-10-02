@@ -12,6 +12,7 @@
 
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
+@property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
 
 @end
 
@@ -77,10 +78,10 @@
     
     [self.view addSubview:mapView];
     
-    // TODO: Refactor this
-    NSArray *subViews = [self.view subviews];
-    UIView *searchBar = [subViews objectAtIndex:0];
-    [self.view bringSubviewToFront:searchBar];
+//    // TODO: Refactor this
+//    NSArray *subViews = [self.view subviews];
+//    UIView *searchBar = [subViews objectAtIndex:0];
+    [self.view bringSubviewToFront:_mapSearchBar];
 }
 
 - (void)didReceiveMemoryWarning {

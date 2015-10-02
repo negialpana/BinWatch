@@ -332,6 +332,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Bin Locator" image="map-marker" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="mapSearchBar" destination="oOS-ux-UM2" id="wIq-nR-sBc"/>
                         <outlet property="searchDisplayController" destination="KhX-hY-vXe" id="TqD-VS-pLn"/>
                     </connections>
                 </viewController>
