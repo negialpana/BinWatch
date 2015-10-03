@@ -85,10 +85,7 @@ NSMutableArray *activeBins;
 
     cell.textLabel.text = location;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",[bin.fill integerValue]];
-    NSLog(@"%@", bin.fill);
-    NSLog(@"%@", bin.color);
-    
-    
+        
     cell.textLabel.textColor = [self textColorForBinColor:bin.color];
     cell.detailTextLabel.textColor = [self textColorForBinColor:bin.color];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
