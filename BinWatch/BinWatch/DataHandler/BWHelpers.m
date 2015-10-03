@@ -69,7 +69,7 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
 //    return BWGreen;
 //}
 
-+(int)colorForPercent:(float)fillPercent
++ (int) colorForPercent:(float)fillPercent
 {
     if (fillPercent > 70) {
         return  0;
@@ -80,4 +80,23 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
     
     return 1;
 }
+
++ (UIColor*) textColorForBinColor:(NSNumber *)color
+{
+    int binColor = [color integerValue];
+    switch (binColor)
+    {
+        case BWRed:
+        case BWGreen:
+            return White;
+            break;
+        case BWYellow:
+            return Black;
+            break;
+        default:
+            return Black;
+            break;
+    }
+}
+
 @end

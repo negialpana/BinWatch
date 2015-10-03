@@ -50,6 +50,8 @@ static NSString* const kBinLongitude = @"longitude";
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
 
+    // Dummy data code
+    int i = 0;
     for(NSDictionary *obj in bins){
         BWBin *bin = [NSEntityDescription insertNewObjectForEntityForName:kEntity
                                                  inManagedObjectContext:context];
@@ -68,7 +70,8 @@ static NSString* const kBinLongitude = @"longitude";
         NSNumber *numInt = [NSNumber numberWithInt:abc];
         bin.color = numInt;
         //bin.color = [BWHelpers colorForPercentTemp:[[obj valueForKey:kBinFillPercentage] floatValue]];
-        bin.place = @"Hello";
+        bin.place = [NSString stringWithFormat:@"%@-%d", @"Bin", i];
+        i++;
     }
     
     NSError *error= nil;

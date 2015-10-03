@@ -19,5 +19,7 @@
 
 //+(NSArray*)binsArrayFromJSonArray:(NSArray*)bins;
 //+(BWBinColor)colorForPercent:(float)fillPercent;
-+(int)colorForPercent:(float)fillPercent;
+
++ (int) colorForPercent:(float)fillPercent;
++ (UIColor*) textColorForBinColor:(NSNumber *)color;
 @end
