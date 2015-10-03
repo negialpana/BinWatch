@@ -313,7 +313,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="oOS-ux-UM2">
-                                <rect key="frame" x="0.0" y="40" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3n3-kf-uch"/>
                                 </constraints>
@@ -327,7 +327,7 @@
                         <constraints>
                             <constraint firstItem="oOS-ux-UM2" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-16" id="5LJ-mJ-qAX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oOS-ux-UM2" secondAttribute="trailing" constant="-16" id="BvU-v4-so7"/>
-                            <constraint firstItem="oOS-ux-UM2" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="20" id="TwO-j7-isb"/>
+                            <constraint firstItem="oOS-ux-UM2" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="TwO-j7-isb"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Bin Locator" image="map-marker" id="cPa-gy-q4n"/>

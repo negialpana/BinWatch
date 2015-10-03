@@ -68,6 +68,8 @@
         mapView.myLocationEnabled = YES;
     });
     
+    [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
+    [self.mapSearchBar setTranslucent:NO];
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
 }
