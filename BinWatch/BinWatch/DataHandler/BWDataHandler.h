@@ -1,5 +1,5 @@
 //
-//  DataHandler.h
+//  BWDataHandler.h
 //  BinWatch
 //
 //  Created by Supritha Nagesha on 05/09/15.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface DataHandler : NSObject
+@interface BWDataHandler : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

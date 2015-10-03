@@ -1,12 +1,12 @@
 //
-//  DataHandler.m
+//  BWDataHandler.m
 //  BinWatch
 //
 //  Created by Supritha Nagesha on 05/09/15.
 //  Copyright (c) 2015 Airwatch. All rights reserved.
 //
 
-#import "DataHandler.h"
+#import "BWDataHandler.h"
 #import "BWBin.h"
 #import "BWHelpers.h"
 
@@ -21,22 +21,22 @@ static NSString* const kBinFillPercentage = @"fill";
 static NSString* const kBinLatitude = @"latitude";
 static NSString* const kBinLongitude = @"longitude";
 
-@interface DataHandler ()
+@interface BWDataHandler ()
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 
 @end
 
-@implementation DataHandler
+@implementation BWDataHandler
 
 + (instancetype)sharedHandler{
     
-    static DataHandler *sharedHandler = nil;
+    static BWDataHandler *sharedHandler = nil;
     static dispatch_once_t once;
 
     dispatch_once(&once, ^{
-        sharedHandler = [[DataHandler alloc] init];
+        sharedHandler = [[BWDataHandler alloc] init];
     });
     return sharedHandler;
 }

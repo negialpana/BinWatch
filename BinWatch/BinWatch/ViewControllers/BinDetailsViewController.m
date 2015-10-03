@@ -11,7 +11,7 @@
 #import "BWBinCollection.h"
 #import "BWBin.h"
 #import "GradientView.h"
-#import "DataHandler.h"
+#import "BWDataHandler.h"
 
 @interface BinDetailsViewController ()
 
@@ -56,7 +56,7 @@
 - (void)setUpView
 {
     BWBin *currentBin;
-    currentBin = [[[DataHandler sharedHandler] fetchBins] objectAtIndex:_currentSelectedBinIndex];
+    currentBin = [[[BWDataHandler sharedHandler] fetchBins] objectAtIndex:_currentSelectedBinIndex];
 
     // TODO: hack for iOS9
     if (currentBin == nil)

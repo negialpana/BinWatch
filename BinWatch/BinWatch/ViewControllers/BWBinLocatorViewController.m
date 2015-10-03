@@ -8,7 +8,7 @@
 
 #import "BWBinLocatorViewController.h"
 #import "SPGooglePlacesAutocomplete.h"
-#import "DataHandler.h"
+#import "BWDataHandler.h"
 #import "BWBin.h"
 #import "BWCommon.h"
 
@@ -87,7 +87,7 @@
 
 -(void) drawBins
 {
-    NSMutableArray *bins = [[[DataHandler sharedHandler] fetchBins] mutableCopy];
+    NSMutableArray *bins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
     int noOfBins = bins.count;
     
     for(int iter = 0; iter < noOfBins; iter++)

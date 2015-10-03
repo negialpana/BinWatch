@@ -11,12 +11,12 @@
 		1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABC81B9ABAD200E0AF6C /* BWBinLocatorViewController.m */; };
 		1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */; };
 		1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1500ABD81B9C01AE00E0AF6C /* CoreData.framework */; };
-		1500ABE91B9C080500E0AF6C /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE21B9C080500E0AF6C /* DataHandler.m */; };
-		1500ABEA1B9C080500E0AF6C /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE21B9C080500E0AF6C /* DataHandler.m */; };
+		1500ABE91B9C080500E0AF6C /* BWDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE21B9C080500E0AF6C /* BWDataHandler.m */; };
+		1500ABEA1B9C080500E0AF6C /* BWDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE21B9C080500E0AF6C /* BWDataHandler.m */; };
 		1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */; };
 		1500ABEC1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABE41B9C080500E0AF6C /* BinWatch.xcdatamodeld */; };
-		1500ABF21B9C080D00E0AF6C /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */; };
-		1500ABF31B9C080D00E0AF6C /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */; };
+		1500ABF21B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */; };
+		1500ABF31B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */; };
 		1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
@@ -80,11 +80,11 @@
 		1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWFillLevelsViewController.m; sourceTree = "<group>"; };
 		1500ABD81B9C01AE00E0AF6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1500ABDB1B9C047D00E0AF6C /* BinWatch-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BinWatch-Prefix.pch"; sourceTree = "<group>"; };
-		1500ABE11B9C080500E0AF6C /* DataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
-		1500ABE21B9C080500E0AF6C /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
+		1500ABE11B9C080500E0AF6C /* BWDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDataHandler.h; sourceTree = "<group>"; };
+		1500ABE21B9C080500E0AF6C /* BWDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDataHandler.m; sourceTree = "<group>"; };
 		1500ABE51B9C080500E0AF6C /* BinWatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BinWatch.xcdatamodel; sourceTree = "<group>"; };
-		1500ABF01B9C080D00E0AF6C /* ConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionHandler.h; sourceTree = "<group>"; };
-		1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionHandler.m; sourceTree = "<group>"; };
+		1500ABF01B9C080D00E0AF6C /* BWConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWConnectionHandler.h; sourceTree = "<group>"; };
+		1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWConnectionHandler.m; sourceTree = "<group>"; };
 		1500ABFD1B9C10CF00E0AF6C /* Bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bin.h; sourceTree = "<group>"; };
 		1500ABFE1B9C10CF00E0AF6C /* Bin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bin.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +191,8 @@
 		1500ABE01B9C080500E0AF6C /* DataHandler */ = {
 			isa = PBXGroup;
 			children = (
-				1500ABE11B9C080500E0AF6C /* DataHandler.h */,
-				1500ABE21B9C080500E0AF6C /* DataHandler.m */,
+				1500ABE11B9C080500E0AF6C /* BWDataHandler.h */,
+				1500ABE21B9C080500E0AF6C /* BWDataHandler.m */,
 			);
 			path = DataHandler;
 			sourceTree = "<group>";
@@ -208,8 +208,8 @@
 		1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */ = {
 			isa = PBXGroup;
 			children = (
-				1500ABF01B9C080D00E0AF6C /* ConnectionHandler.h */,
-				1500ABF11B9C080D00E0AF6C /* ConnectionHandler.m */,
+				1500ABF01B9C080D00E0AF6C /* BWConnectionHandler.h */,
+				1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */,
 			);
 			path = ConnectionHandler;
 			sourceTree = "<group>";
@@ -482,7 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */,
-				1500ABE91B9C080500E0AF6C /* DataHandler.m in Sources */,
+				1500ABE91B9C080500E0AF6C /* BWDataHandler.m in Sources */,
 				902721361BBC636500108D1E /* BWRoute.m in Sources */,
 				321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
@@ -492,7 +492,7 @@
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */,
 				F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */,
-				1500ABF21B9C080D00E0AF6C /* ConnectionHandler.m in Sources */,
+				1500ABF21B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */,
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				902721861BBD5AD900108D1E /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
@@ -511,9 +511,9 @@
 			files = (
 				1500ABEC1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */,
-				1500ABEA1B9C080500E0AF6C /* DataHandler.m in Sources */,
+				1500ABEA1B9C080500E0AF6C /* BWDataHandler.m in Sources */,
 				15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */,
-				1500ABF31B9C080D00E0AF6C /* ConnectionHandler.m in Sources */,
+				1500ABF31B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

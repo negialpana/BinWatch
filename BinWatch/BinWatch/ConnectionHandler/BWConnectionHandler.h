@@ -1,5 +1,5 @@
 //
-//  ConnectionHandler.h
+//  BWConnectionHandler.h
 //  BinWatch
 //
 //  Created by Supritha Nagesha on 05/09/15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ConnectionHandler : NSObject
+@interface BWConnectionHandler : NSObject
 
 + (instancetype)sharedInstance;
 

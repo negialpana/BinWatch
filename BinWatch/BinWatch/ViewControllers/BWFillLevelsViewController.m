@@ -7,8 +7,8 @@
 //
 
 #import "BWFillLevelsViewController.h"
-#import "ConnectionHandler.h"
-#import "DataHandler.h"
+#import "BWConnectionHandler.h"
+#import "BWDataHandler.h"
 #import "BWHelpers.h"
 #import "BWBin.h"
 #import "BWCommon.h"
@@ -34,16 +34,16 @@ NSMutableArray *activeBins;
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
     
-    activeBins = [[[DataHandler sharedHandler] fetchBins] mutableCopy];
+    activeBins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
     [self.tableView reloadData];
     NSLog(@"existingBins: %lu", (unsigned long)activeBins.count);
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    ConnectionHandler *connectionHandler = [ConnectionHandler sharedInstance];
+    BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
     [connectionHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
         if (!error) {
             NSLog(@"*********Bins: %@",[bins description]);
-            DataHandler *dataHandler = [DataHandler sharedHandler];
+            BWDataHandler *dataHandler = [BWDataHandler sharedHandler];
             [dataHandler insertBins:bins];
             activeBins = [[dataHandler fetchBins] mutableCopy];
             [self.tableView reloadData];

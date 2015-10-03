@@ -1,29 +1,29 @@
 //
-//  ConnectionHandler.m
+//  BWConnectionHandler.m
 //  BinWatch
 //
 //  Created by Supritha Nagesha on 05/09/15.
 //  Copyright (c) 2015 Airwatch. All rights reserved.
 //
 
-#import "ConnectionHandler.h"
+#import "BWConnectionHandler.h"
 
 #define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
 
-@interface ConnectionHandler  ()<NSURLSessionDelegate>
+@interface BWConnectionHandler  ()<NSURLSessionDelegate>
 
 @property (nonatomic, retain) NSURLSession *session;
 
 @end
 
-@implementation ConnectionHandler
+@implementation BWConnectionHandler
 
 + (instancetype)sharedInstance{
     
-    static ConnectionHandler *connectionHandler = nil;
+    static BWConnectionHandler *connectionHandler = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        connectionHandler = [[ConnectionHandler alloc] init];
+        connectionHandler = [[BWConnectionHandler alloc] init];
     });
     return connectionHandler;
 }
