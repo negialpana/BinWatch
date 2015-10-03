@@ -127,7 +127,14 @@ static NSString* const kBinLongitude = @"longitude";
 //        [bins addObject:bin];
 //    }
 
-    return objects;
+    // Returning sorted array of objects, based on fill %
+    NSArray *sortedArray;
+    sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSNumber *first = [(BWBin*)a fill];
+        NSNumber *second = [(BWBin*)b fill];
+        return [second compare:first];
+    }];
+    return sortedArray;
 }
 
 #pragma mark - Private Methods
