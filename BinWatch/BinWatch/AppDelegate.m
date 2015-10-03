@@ -51,6 +51,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+// TODO: Do we need CoreData code here?
 #pragma mark - Core Data
 
 - (void)saveContext{

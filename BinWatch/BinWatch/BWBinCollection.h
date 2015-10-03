@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "BWBin.h"
 
+// TODO: This class will be removed
 @interface BWBinCollection : NSObject
 
 @property (atomic, copy) NSMutableArray *bins;
 
 + (BWBinCollection *)sharedInstance;
-- (id) init;
 - (void) addBin:(BWBin *)bin;
 
 @end

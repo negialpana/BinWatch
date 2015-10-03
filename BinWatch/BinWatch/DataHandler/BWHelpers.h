@@ -12,6 +12,12 @@
 #import "BWCommon.h"
 @interface BWHelpers : NSObject
 
-+(NSArray*)binsArrayFromJSonArray:(NSArray*)bins;
+/**
+ Returns the URL to the application's documents directory.
+ */
++ (NSURL *)applicationDocumentsDirectory;
 
+//+(NSArray*)binsArrayFromJSonArray:(NSArray*)bins;
+//+(BWBinColor)colorForPercent:(float)fillPercent;
++(int)colorForPercent:(float)fillPercent;
 @end

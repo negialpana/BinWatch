@@ -7,13 +7,24 @@
 //
 
 #import "DataHandler.h"
-#import "Bin.h"
+#import "BWBin.h"
+#import "BWHelpers.h"
+
+static NSString* const kEntity = @"Bin";
+
+static NSString* const kBinID = @"_id";
+static NSString* const kBinIsActive = @"isActive";
+static NSString* const kBinTemperature = @"temperature";
+static NSString* const kBinHumidity = @"humidity";
+static NSString* const kBinDate = @"date";
+static NSString* const kBinFillPercentage = @"fill";
+static NSString* const kBinLatitude = @"latitude";
+static NSString* const kBinLongitude = @"longitude";
 
 @interface DataHandler ()
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
-
 
 @end
 
@@ -23,8 +34,8 @@
     
     static DataHandler *sharedHandler = nil;
     static dispatch_once_t once;
+
     dispatch_once(&once, ^{
-       
         sharedHandler = [[DataHandler alloc] init];
     });
     return sharedHandler;
@@ -32,21 +43,32 @@
 
 - (void)insertBins:(NSArray *)bins{
     
+    // Save a fresh data set
+    [self flushData];
     NSManagedObjectContext *context = [self managedObjectContext];
     
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+
     for(NSDictionary *obj in bins){
-        
-        Bin *bin = [NSEntityDescription insertNewObjectForEntityForName:@"Bin"
+        BWBin *bin = [NSEntityDescription insertNewObjectForEntityForName:kEntity
                                                  inManagedObjectContext:context];
-        bin.id = [obj valueForKey:@"_id"];
-        bin.isAcive = [[obj valueForKey:@"isActive"] boolValue];
-        bin.temperature = [obj valueForKey:@"temperature"];
-        bin.humidity = [obj valueForKey:@"humidity"];
-       // bin.date = [obj valueForKey:@"date"];
-        bin.latutude = [obj valueForKey:@"latitude"];
-        bin.longitude = [obj valueForKey:@"longitude"];
-        bin.bincolor = [obj valueForKey:@"binColor"];
         
+        bin.binID = [obj valueForKey:kBinID];
+        bin.isAcive = [[obj valueForKey:kBinIsActive] boolValue];
+        bin.temperature = [obj valueForKey:kBinTemperature];
+        bin.humidity = [obj valueForKey:kBinHumidity];
+        bin.date = [obj valueForKey:kBinDate];
+        bin.fill = [formatter numberFromString:[obj valueForKey:kBinFillPercentage]];
+        bin.latitude = [obj valueForKey:kBinLatitude];
+        bin.longitude = [obj valueForKey:kBinLongitude];
+        
+        // TODO: Hard coded
+        int abc = [BWHelpers colorForPercent:[[obj valueForKey:kBinFillPercentage] floatValue]];
+        NSNumber *numInt = [NSNumber numberWithInt:abc];
+        bin.color = numInt;
+        //bin.color = [BWHelpers colorForPercentTemp:[[obj valueForKey:kBinFillPercentage] floatValue]];
+        bin.place = @"Hello";
     }
     
     NSError *error= nil;
@@ -60,16 +82,79 @@
     
     NSManagedObjectContext *context = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Bin" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kEntity inManagedObjectContext:context];
     [request setEntity:entity];
     NSError *error = nil;
     
-    NSArray *bins = [context executeFetchRequest:request error:&error];
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    if(error || objects.count == 0)
+        return nil;
     
-    return error?nil:bins;
+//    for (BWBin *object in objects)
+//    {
+//        NSLog(@"%@", object.binID);
+//    }
+//    NSLog(@"---------------------------------");
+//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+//    f.numberStyle = NSNumberFormatterDecimalStyle;
+//
+//    //NSNumber *myNumber = [f numberFromString:@"42"];
+//
+//    NSMutableArray *bins = [[NSMutableArray alloc] init];
+//    //for(int i = 0; i < objects.count; i++)
+//    for (id object in objects)
+//    {
+//        BWBin *bin = [[BWBin alloc] init];
+//        bin.binID = [object valueForKey:@"binID"];
+//        bin.isAcive = [[object valueForKey:@"isAcive"] boolValue];
+//        bin.temperature = [object valueForKey:@"temperature"];
+//        bin.humidity = [object valueForKey:@"humidity"];
+//        bin.date = [object valueForKey:@"date"];
+//        bin.latitude = [object valueForKey:@"latitude"];
+//        bin.latitude = [object valueForKey:@"longitude"];
+//        //bin.latitude = [NSNumber numberWithFloat:[[object valueForKey:@"latitude"] floatValue]];
+////        bin.latitude = [f numberFromString:[object valueForKey:@"latitude"]];
+////        bin.latitude = [f numberFromString:[object valueForKey:@"longitude"]];
+//        //bin.longitude = [[object valueForKey:@"longitude"] floatValue];
+//        bin.color = [[object valueForKey:@"color"] integerValue];
+//        bin.place = [object valueForKey:@"place"];
+//        bin.fill = [object valueForKey:@"fill"];
+//        //bin.fill = [f numberFromString:[object valueForKey:@"fill"]];
+//        
+//        [bins addObject:bin];
+//    }
+
+    return objects;
 }
 
-#pragma CoreData Stack
+#pragma mark - Private Methods
+- (void) flushData
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kEntity inManagedObjectContext:context];
+    [request setEntity:entity];
+    NSError *error = nil;
+    
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    
+    //error handling goes here
+    for (NSManagedObject *bin in objects) {
+        [context deleteObject:bin];
+    }
+    NSError *saveError = nil;
+    [context save:&saveError];
+    
+    //[self fetchBins];
+    // TODO: iOS9+
+    //    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Car"];
+    //    NSBatchDeleteRequest *delete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:request];
+    //
+    //    NSError *deleteError = nil;
+    //    [myPersistentStoreCoordinator executeRequest:delete withContext:myContext error:&deleteError];
+}
+
+#pragma mark - CoreData Stack
 
 /**
  Returns the managed object context for the application.
@@ -105,14 +190,6 @@
 }
 
 /**
- Returns the URL to the application's documents directory.
- */
-- (NSURL *)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
-/**
  Returns the persistent store coordinator for the application.
  If the coordinator doesn't already exist, it is created and the application's store added to it.
  */
@@ -125,7 +202,7 @@
     // Create the coordinator and store
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"BinWatch.sqlite"];
+    NSURL *storeURL = [[BWHelpers applicationDocumentsDirectory] URLByAppendingPathComponent:@"BinWatch.sqlite"];
     NSError *error = nil;
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {

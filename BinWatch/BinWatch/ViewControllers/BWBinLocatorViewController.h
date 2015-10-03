@@ -15,7 +15,6 @@
     SPGooglePlacesAutocompleteQuery *searchQuery;
     
     BOOL shouldBeginEditing;
-    
 }
 
 

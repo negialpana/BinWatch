@@ -7,11 +7,13 @@
 //
 
 #import "BWBinLocatorViewController.h"
-#import "BWBinCollection.h"
 #import "SPGooglePlacesAutocomplete.h"
-
+#import "DataHandler.h"
+#import "BWBin.h"
+#import "BWCommon.h"
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
+
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
 
 @end
@@ -29,8 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Debug Code
-    [self initBins];
     // Do any additional setup after loading the view.
     zoomLevel = 15;
     mapMarkers = [[NSMutableDictionary alloc] init];
@@ -47,25 +47,17 @@
     shouldBeginEditing = YES;
     self.searchDisplayController.searchBar.placeholder = @"Search Locations";
 
-    
-//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9898231
-//                                                            longitude:77.7148933
-//                                                                 zoom:zoomLevel];
-    
     // Bangalore MG Road
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9667
                                                             longitude:77.5667
                                                                  zoom:zoomLevel];
-    //mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-
-    //NSLog(@"%f %f %f %f", self.view.frame.size.height, self.view.frame.size.width, self.view.frame.origin.x, self.view.frame.origin.y);
 
     mapView = [GMSMapView mapWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
     mapView.delegate = self;
+
     [self drawBins];
     
     mapView.settings.myLocationButton = YES;
-    
     [mapView addObserver:self
               forKeyPath:@"myLocation"
                  options:NSKeyValueObservingOptionNew
@@ -77,10 +69,6 @@
     });
     
     [self.view addSubview:mapView];
-    
-//    // TODO: Refactor this
-//    NSArray *subViews = [self.view subviews];
-//    UIView *searchBar = [subViews objectAtIndex:0];
     [self.view bringSubviewToFront:_mapSearchBar];
 }
 
@@ -96,44 +84,17 @@
 }
 
 #pragma mark - Map Utils
-// TODO: Debug method - To be removed
-- (void) initBins
-{
-    BWBin *bin1 = [[BWBin alloc] initWith:12.9667 longitude:77.5667 binID:@"1" binColor:BWRed place:@"Bangalore"];
-    BWBin *binGS = [[BWBin alloc] initWith:12.9898231 longitude:77.7148933 binID:@"2" binColor:BWYellow place:@"Hoodi-GS"];
-    BWBin *binHoodiCircle = [[BWBin alloc] initWith:12.9922204 longitude:77.7159097 binID:@"3" binColor:BWGreen place:@"Hoodi-Circle"];
-    BWBin *binGG = [[BWBin alloc] initWith:12.9907939 longitude:77.7158042 binID:@"4" binColor:BWRed place:@"Hoodi-GG"];
-    BWBin *binMetropolis = [[BWBin alloc] initWith:12.9900505 longitude:77.7029976 binID:@"5" binColor:BWRed place:@"Hoodi-Metropolis"];
-    
-    BWBin *binPhoenix = [[BWBin alloc] initWith:12.9969527 longitude:77.696218 binID:@"6" binColor:BWRed place:@"Hoodi-Phoenix"];
-    
-    BWBin *binQCinemas = [[BWBin alloc] initWith:12.9869799 longitude:77.7359825 binID:@"7" binColor:BWGreen place:@"Hoodi-QCinemas"];
-    
-    BWBin *binShantiniketan = [[BWBin alloc] initWith:12.9940831 longitude:77.7308743 binID:@"8" binColor:BWYellow place:@"Hoodi-Shantiniketan"];
-    
-    
-    [[BWBinCollection sharedInstance] addBin:bin1];
-    [[BWBinCollection sharedInstance] addBin:binGS];
-    [[BWBinCollection sharedInstance] addBin:binHoodiCircle];
-    [[BWBinCollection sharedInstance] addBin:binGG];
-    [[BWBinCollection sharedInstance] addBin:binMetropolis];
-    [[BWBinCollection sharedInstance] addBin:binPhoenix];
-    [[BWBinCollection sharedInstance] addBin:binQCinemas];
-    [[BWBinCollection sharedInstance] addBin:binShantiniketan];
-
-}
 
 -(void) drawBins
 {
-    //return;
-    NSMutableArray *bins = [[BWBinCollection sharedInstance] bins];
+    NSMutableArray *bins = [[[DataHandler sharedHandler] fetchBins] mutableCopy];
     int noOfBins = bins.count;
     
     for(int iter = 0; iter < noOfBins; iter++)
     {
         BWBin *bin = [bins objectAtIndex:iter];
         GMSMarker *marker = [[GMSMarker alloc] init];
-        marker.position = CLLocationCoordinate2DMake(bin.latitude, bin.longitude);
+        marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue, bin.longitude.floatValue);
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.title = bin.place;
         marker.icon = [self getIconFor:bin.color];
@@ -146,7 +107,6 @@
         
         [mapMarkers setValue:arr forKey:bin.binID];
     }
-    //self.view = mapView;
     //[self drawRoute];
 }
 
@@ -174,8 +134,9 @@
     }
 }
 
--(UIImage *) getIconFor:(BWBinColor) binColor
+-(UIImage *) getIconFor:(NSNumber *) binC
 {
+    NSInteger binColor = [binC integerValue];
     switch(binColor)
     {
         case BWYellow:

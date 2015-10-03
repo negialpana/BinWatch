@@ -11,6 +11,7 @@
 #import "BWBinCollection.h"
 #import "BWBin.h"
 #import "GradientView.h"
+#import "DataHandler.h"
 
 @interface BinDetailsViewController ()
 
@@ -21,14 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setUpView];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -55,11 +55,15 @@
 
 - (void)setUpView
 {
-    BWBin *currentBin = [[[BWBinCollection sharedInstance] bins]objectAtIndex:_currentSelectedBinIndex];
-    
+    BWBin *currentBin;
+    currentBin = [[[DataHandler sharedHandler] fetchBins] objectAtIndex:_currentSelectedBinIndex];
+
+    // TODO: hack for iOS9
+    if (currentBin == nil)
+        currentBin = [[[BWBinCollection sharedInstance] bins]objectAtIndex:_currentSelectedBinIndex];
     //[_binIDView addSubview: [[GradientView alloc]initWithFrame:_binIDView.frame forColor:currentBin.color]];
     [_binLocationLabel setText:currentBin.place];
-    [_binFillPercentLabel setText:[NSString stringWithFormat:@"%d %%", (int)currentBin.fillPercent]];
+    [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[currentBin.fill integerValue]]];
 }
 
 @end

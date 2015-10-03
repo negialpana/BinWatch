@@ -13,10 +13,8 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-+ (instancetype)sharedHandler;
-
-- (void)insertBins:(NSArray *)bins;
-
-- (NSArray *)fetchBins;
++ (instancetype) sharedHandler;
+- (void) insertBins:(NSArray *)bins;
+- (NSArray *) fetchBins;
 
 @end

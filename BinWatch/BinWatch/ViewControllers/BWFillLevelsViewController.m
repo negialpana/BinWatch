@@ -13,12 +13,10 @@
 #import "BWBin.h"
 #import "BWCommon.h"
 #import "GradientView.h"
-#import "BWBinCollection.h"
 #import "BinDetailsViewController.h"
 
 @interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate >
 
-@property NSArray *binsArray;
 @property NSMutableArray *searchArray;
 @end
 
@@ -26,12 +24,19 @@
 
 bool searching = NO;
 NSArray *placesArray;
+NSMutableArray *activeBins;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     placesArray = @[@"Hope farm",@"PSN" ,@"Hoodi" ,@"KRPuram", @"Mahadevapura",@"BTM",@"Agara",@"Whitefield"];
+    activeBins = [[NSMutableArray alloc]init];
+
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
+    
+    activeBins = [[[DataHandler sharedHandler] fetchBins] mutableCopy];
+    [self.tableView reloadData];
+    NSLog(@"existingBins: %lu", (unsigned long)activeBins.count);
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     ConnectionHandler *connectionHandler = [ConnectionHandler sharedInstance];
@@ -40,15 +45,12 @@ NSArray *placesArray;
             NSLog(@"*********Bins: %@",[bins description]);
             DataHandler *dataHandler = [DataHandler sharedHandler];
             [dataHandler insertBins:bins];
-            self.binsArray = [BWHelpers binsArrayFromJSonArray:bins];
+            activeBins = [[dataHandler fetchBins] mutableCopy];
             [self.tableView reloadData];
         }else{
             NSLog(@"***********Failed to get bins***************");
         }
     }];
-    
-    // TODO : remove when actual data comes up
-    self.binsArray = [[BWBinCollection sharedInstance] bins];
 }
 
 #pragma mark - UITableView delegates
@@ -61,7 +63,7 @@ NSArray *placesArray;
     if (searching) {
         return self.searchArray.count;
     }
-    return self.binsArray.count;
+    return activeBins.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,7 +84,11 @@ NSArray *placesArray;
     }
 
     cell.textLabel.text = location;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",(int)bin.fillPercent];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",[bin.fill integerValue]];
+    NSLog(@"%@", bin.fill);
+    NSLog(@"%@", bin.color);
+    
+    
     cell.textLabel.textColor = [self textColorForBinColor:bin.color];
     cell.detailTextLabel.textColor = [self textColorForBinColor:bin.color];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -130,7 +136,7 @@ NSArray *placesArray;
         searching = YES;
         self.searchArray = [NSMutableArray new];
         int i = 0;
-        for (BWBin *bin in self.binsArray) {
+        for (BWBin *bin in activeBins) {
             if ([searchText isEqualToString:placesArray[i]]) {
                 [self.searchArray addObject:bin];
             }
@@ -140,6 +146,7 @@ NSArray *placesArray;
     [self.tableView reloadData];
 
 }
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     searching = NO;
@@ -156,9 +163,11 @@ NSArray *placesArray;
     NSLog(@"More tapped");
 }
 
--(UIColor*)textColorForBinColor:(BWBinColor)binColor
+-(UIColor*)textColorForBinColor:(NSNumber *)binC
 {
-    switch (binColor) {
+    int binColor = [binC integerValue];
+    switch (binColor)
+    {
         case BWRed:
         case BWGreen:
             return White;
@@ -171,14 +180,14 @@ NSArray *placesArray;
             break;
     }
 }
+
 -(BWBin*)binForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BWBin *bin;
-    if (searching) {
+    if (searching)
       bin = (BWBin *)[self.searchArray objectAtIndex:indexPath.row];
-    } else {
-      bin = (BWBin *)[self.binsArray objectAtIndex:indexPath.row];
-    }
+    else
+      bin = (BWBin *)[activeBins objectAtIndex:indexPath.row];
     return bin;
 }
 /*

@@ -12,8 +12,9 @@
 
 CAGradientLayer *gradientLayer;
 
-- (instancetype)initWithFrame:(CGRect)frame forColor:(BWBinColor)color
+- (instancetype)initWithFrame:(CGRect)frame forColor:(NSNumber *)color1
 {
+    NSInteger color = [color1 integerValue];
     self = [super initWithFrame:frame];
     if (self) {
         UIColor *first,*last;

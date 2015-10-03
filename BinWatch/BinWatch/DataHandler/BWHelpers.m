@@ -20,20 +20,28 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
 
 @implementation BWHelpers
 
-+(NSArray*)binsArrayFromJSonArray:(NSArray*)bins
+/**
+ Returns the URL to the application's documents directory.
+ */
++ (NSURL *)applicationDocumentsDirectory
 {
-    NSMutableArray *binsArray = [NSMutableArray new];
-    for (int i=0; i < bins.count; i++) {
-        double lat = [[bins[i] valueForKey:latitude] doubleValue];
-        double lon = [[bins[i] valueForKey:longitude] doubleValue];
-        float fill = [[bins[i] valueForKey:fillPercent] floatValue];
-
-        BWBin *bin = [[BWBin alloc] initWith:lat longitude:lon binColor:[self colorForPercent:fill] fillPercent:fill];
-        [binsArray addObject:bin];
-    }
-    
-    return binsArray;
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+//+(NSArray*)binsArrayFromJSonArray:(NSArray*)bins
+//{
+//    NSMutableArray *binsArray = [NSMutableArray new];
+//    for (int i=0; i < bins.count; i++) {
+//        double lat = [[bins[i] valueForKey:latitude] doubleValue];
+//        double lon = [[bins[i] valueForKey:longitude] doubleValue];
+//        float fill = [[bins[i] valueForKey:fillPercent] floatValue];
+//
+////        BWBin *bin = [[BWBin alloc] initWith:[NSNumber numberWithDouble:lat] longitude:[NSNumber numberWithDouble:lon] binColor:[self colorForPercent:fill] fillPercent:fill];
+////        [binsArray addObject:bin];
+//    }
+//    
+//    return binsArray;
+//}
 
 +(BWBinColor)colorForString:(NSString*)colorString
 {
@@ -49,15 +57,27 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
     return BWGreen;
 }
 
-+(BWBinColor)colorForPercent:(float)fillPercent
+//+(BWBinColor)colorForPercent:(float)fillPercent
+//{
+//    if (fillPercent > 70) {
+//        return  BWRed;
+//    }
+//    if (fillPercent > 50) {
+//        return  BWYellow;
+//    }
+//    
+//    return BWGreen;
+//}
+
++(int)colorForPercent:(float)fillPercent
 {
     if (fillPercent > 70) {
-        return  BWRed;
+        return  0;
     }
     if (fillPercent > 50) {
-        return  BWYellow;
+        return  2;
     }
     
-    return BWGreen;
+    return 1;
 }
 @end
