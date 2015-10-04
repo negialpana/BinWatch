@@ -12,6 +12,9 @@
 static NSString* const kGoogleAPIKey            = @"AIzaSyBJZvhJsi6Dh1QQjkly_CZEn6WFyfRb6ew";
 static NSString* const kGoogleAPIKey_Browser    = @"AIzaSyCUbwYomfVufUiVTiDak2qvEHVKiwk2JUQ";
 
+#define RED_BOUNDARY 70
+#define YELLOW_BOUNDARY 50
+
 typedef NS_ENUM(NSUInteger, BWBinColor) {
     BWRed,
     BWGreen,

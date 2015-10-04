@@ -12,6 +12,7 @@
 #import "BWBin.h"
 #import "BWCommon.h"
 
+#define DEFAULT_ZOOM_LEVEL 15
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
@@ -24,6 +25,8 @@
     BOOL firstLocationUpdate_;
     float zoomLevel;
     NSMutableDictionary *mapMarkers;
+    CLLocation *currentLocation;
+    NSMutableArray *selectedLocations;
 }
 
 #pragma mark - View Life Cycle
@@ -32,16 +35,20 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-    zoomLevel = 15;
+    zoomLevel = DEFAULT_ZOOM_LEVEL;
+
     mapMarkers = [[NSMutableDictionary alloc] init];
+    currentLocation = [[CLLocation alloc] init];
+    selectedLocations = [[NSMutableArray alloc] init];
+
     firstLocationUpdate_ = NO;
+    [[BWRoute sharedInstance] setDelegate:self];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(deviceOrientationDidChangeNotification:)
      name:UIDeviceOrientationDidChangeNotification
      object:nil];
-
     
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
@@ -53,11 +60,16 @@
                                                                  zoom:zoomLevel];
 
     mapView = [GMSMapView mapWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    [self resizeMapView];
     mapView.delegate = self;
 
     [self drawBins];
     
     mapView.settings.myLocationButton = YES;
+    mapView.trafficEnabled = YES;
+    mapView.buildingsEnabled = YES;
+    // TODO: Does this help?
+    //mapView.indoorEnabled = YES;
     [mapView addObserver:self
               forKeyPath:@"myLocation"
                  options:NSKeyValueObservingOptionNew
@@ -70,6 +82,20 @@
     
     [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.mapSearchBar setTranslucent:NO];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:14.0/255.0 green:114.0/255.0 blue:199.0/255.0 alpha:1]];
+    
+//    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.mapSearchBar];
+//    self.navigationItem.rightBarButtonItem = searchBarItem;
+    
+    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
+    self.navigationItem.rightBarButtonItem = moreButton;
+
+//    UIButton* myLocationButton = (UIButton*)[[mapView subviews] lastObject];
+//    myLocationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
+//    CGRect frame = myLocationButton.frame;
+//    frame.origin.x = 5;
+//    myLocationButton.frame = frame;
+    
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
 }
@@ -85,7 +111,96 @@
                     context:NULL];
 }
 
+#pragma mark - Event Handlers
+- (void)moreTapped
+{
+    NSLog(@"More tapped");
+    [self drawRouteSelectedBins];
+}
+
 #pragma mark - Map Utils
+- (void) resizeMapView
+{
+    [mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+}
+
+-(void) flushAllRoutes
+{
+    [mapView clear];
+    [self drawBins];
+}
+
+-(void) drawRouteSelectedBins
+{
+    // TODO: Hardcoded for testing
+    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
+    {
+        NSLog(@"Couldnt retrieve current location");
+        return;
+    }
+    
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+    
+    // Adding current locations
+    [locations addObject:currentLocation];
+    
+    for(int iter = 0; iter < selectedLocations.count; iter++)
+    {
+        [locations addObject:[selectedLocations objectAtIndex:iter]];
+    }
+    [[BWRoute sharedInstance] fetchRoute:locations travelMode:TravelModeDriving];
+}
+
+-(void) drawRouteAllReds
+{
+    // TODO: Hardcoded for testing
+    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
+    {
+        NSLog(@"Couldnt retrieve current location");
+        return;
+    }
+
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+
+    // Adding current locations
+    [locations addObject:currentLocation];
+    NSMutableArray *bins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+
+    for(int iter = 0; iter < bins.count; iter++)
+    {
+        BWBin *bin = [bins objectAtIndex:iter];
+        if(bin.fill.floatValue > RED_BOUNDARY)
+            [locations addObject:[[CLLocation alloc] initWithLatitude:bin.latitude.floatValue longitude:bin.longitude.floatValue]];
+    }
+    [[BWRoute sharedInstance] fetchRoute:locations travelMode:TravelModeDriving];
+}
+
+-(void) drawRouteRedYellow
+{
+    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
+    {
+        NSLog(@"Couldnt retrieve current location");
+        return;
+    }
+    
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+    
+    // Adding current locations
+    [locations addObject:currentLocation];
+    NSMutableArray *bins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+    
+    for(int iter = 0; iter < bins.count; iter++)
+    {
+        BWBin *bin = [bins objectAtIndex:iter];
+        if(bin.fill.floatValue > YELLOW_BOUNDARY)
+            [locations addObject:[[CLLocation alloc] initWithLatitude:bin.latitude.floatValue longitude:bin.longitude.floatValue]];
+    }
+    [[BWRoute sharedInstance] fetchRoute:locations travelMode:TravelModeDriving];
+}
+
 
 -(void) drawBins
 {
@@ -110,18 +225,6 @@
         [mapMarkers setValue:arr forKey:bin.binID];
     }
     //[self drawRoute];
-}
-
--(void) drawRoute
-{
-    // TODO: Test Code
-    NSMutableArray *locations = [[NSMutableArray alloc] init];
-    
-    [locations addObject:[[CLLocation alloc] initWithLatitude:12.989823 longitude:77.714893]];
-    [locations addObject:[[CLLocation alloc] initWithLatitude:12.996953 longitude:77.69621]];
-    [locations addObject:[[CLLocation alloc] initWithLatitude:12.9869799 longitude:77.7359825]];
-    
-    //[[BWRoute sharedInstance] fetchRoute:locations travelMode:TravelModeDriving];
 }
 
 -(void) resetBinIcons
@@ -160,14 +263,18 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     NSLog(@"Location Update");
+    CLLocation *location;
     if (!firstLocationUpdate_) {
         // If the first location update has not yet been recieved, then jump to that
         // location.
         firstLocationUpdate_ = YES;
-        CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
+        location = [change objectForKey:NSKeyValueChangeNewKey];
         mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
                                                         zoom:zoomLevel];
     }
+    
+    // TODO: Is this the correct place to do this?
+    currentLocation = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
 }
 
 #pragma mark - GMSMapViewDelegates
@@ -175,6 +282,7 @@
 {
     NSLog(@"did tap at cordinate");
     [self resetBinIcons];
+    [selectedLocations removeAllObjects];
 }
 
 /*
@@ -185,6 +293,8 @@
 {
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);
     marker.icon = [UIImage imageNamed:@"trashSelected"];
+    
+    [selectedLocations addObject:[[CLLocation alloc] initWithLatitude:marker.position.latitude longitude:marker.position.longitude]];
     return NO;
 }
 
@@ -260,8 +370,7 @@
     }];
 }
 
-#pragma mark -
-#pragma mark UISearchDisplayDelegate
+#pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
     //searchQuery.location = self.mapView.userLocation.coordinate;
@@ -290,8 +399,7 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark UISearchBar Delegate
+#pragma mark - UISearchBar Delegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchBar isFirstResponder]) {
@@ -321,6 +429,24 @@
 // TODO: Can I do this using auto resize masks?
 - (void)deviceOrientationDidChangeNotification:(NSNotification*)note
 {
-    [mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
+    [self resizeMapView];
 }
+
+#pragma mark - RouteFetchDelegate
+
+- (void)routeFetchFailedWithError:(NSError *)error
+{
+    NSLog(@"Route Fetch failed");
+}
+
+
+- (void)routeFetchDidReceiveResponse:(NSString *)points
+{
+    GMSPath *path = [GMSPath pathFromEncodedPath:points];
+    GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
+    polyline.strokeWidth = 3.f;
+    polyline.strokeColor = [UIColor redColor];
+    polyline.map = mapView;
+}
+
 @end

@@ -71,10 +71,10 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
 
 + (int) colorForPercent:(float)fillPercent
 {
-    if (fillPercent > 70) {
+    if (fillPercent > RED_BOUNDARY) {
         return  0;
     }
-    if (fillPercent > 50) {
+    if (fillPercent > YELLOW_BOUNDARY) {
         return  2;
     }
     
