@@ -25,6 +25,8 @@
 		15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */; };
 		15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */; };
 		321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */; };
+		900071FE1BC2E9BF003B2562 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 900071FD1BC2E9BF003B2562 /* MBProgressHUD.m */; };
+		900072041BC2ED87003B2562 /* HudDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 900072031BC2ED87003B2562 /* HudDemoViewController.m */; };
 		902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721051BBBE48B00108D1E /* GoogleMaps.framework */; };
 		902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 902721071BBBE4CD00108D1E /* GoogleMaps.bundle */; };
 		9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721091BBBE50B00108D1E /* CoreBluetooth.framework */; };
@@ -98,6 +100,10 @@
 		15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BinWatchTests.m; sourceTree = "<group>"; };
 		321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinDetailsViewController.h; sourceTree = "<group>"; };
 		321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinDetailsViewController.m; sourceTree = "<group>"; };
+		900071FC1BC2E9BF003B2562 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		900071FD1BC2E9BF003B2562 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		900072021BC2ED87003B2562 /* HudDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudDemoViewController.h; sourceTree = "<group>"; };
+		900072031BC2ED87003B2562 /* HudDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudDemoViewController.m; sourceTree = "<group>"; };
 		902721051BBBE48B00108D1E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		902721071BBBE4CD00108D1E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		902721091BBBE50B00108D1E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -246,6 +252,7 @@
 		15EA4ADE1B98A9D7006CD602 /* BinWatch */ = {
 			isa = PBXGroup;
 			children = (
+				900071FA1BC2E953003B2562 /* ThirdParty */,
 				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
 				9027213A1BBC6B1E00108D1E /* BWSearchBar.h */,
 				9027213B1BBC6B1E00108D1E /* BWSearchBar.m */,
@@ -291,6 +298,25 @@
 				15EA4AFD1B98A9D7006CD602 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		900071FA1BC2E953003B2562 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				900071FB1BC2E95D003B2562 /* HUD */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
+		900071FB1BC2E95D003B2562 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				900072021BC2ED87003B2562 /* HudDemoViewController.h */,
+				900072031BC2ED87003B2562 /* HudDemoViewController.m */,
+				900071FC1BC2E9BF003B2562 /* MBProgressHUD.h */,
+				900071FD1BC2E9BF003B2562 /* MBProgressHUD.m */,
+			);
+			name = HUD;
 			sourceTree = "<group>";
 		};
 		9027211F1BBBE5BF00108D1E /* Frameworks */ = {
@@ -488,6 +514,7 @@
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
+				900072041BC2ED87003B2562 /* HudDemoViewController.m in Sources */,
 				902721871BBD5AD900108D1E /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */,
@@ -496,6 +523,7 @@
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				902721861BBD5AD900108D1E /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
+				900071FE1BC2E9BF003B2562 /* MBProgressHUD.m in Sources */,
 				902721881BBD5AD900108D1E /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
 				9027213C1BBC6B1E00108D1E /* BWSearchBar.m in Sources */,
 				F19AB6761BA18D280084A879 /* GradientView.m in Sources */,
