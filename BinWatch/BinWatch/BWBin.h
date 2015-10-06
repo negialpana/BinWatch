@@ -15,10 +15,10 @@
 @interface BWBin : NSObject
 
 @property (atomic, copy) NSString * binID;
-@property (atomic, assign) NSNumber * latitude;
-@property (atomic, assign) NSNumber * longitude;
-@property (atomic, assign) NSNumber *color;
-@property (atomic, assign) NSNumber * fill;
+@property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSNumber *color;
+@property (nonatomic, retain) NSNumber * fill;
 @property (nonatomic, retain) NSNumber * temperature;
 @property (nonatomic, retain) NSNumber * humidity;
 @property (atomic, copy) NSString *place;
