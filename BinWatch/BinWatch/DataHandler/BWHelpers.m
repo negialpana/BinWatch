@@ -99,4 +99,22 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
     }
 }
 
++ (NSString *)areanameFromFullAddress : (NSString*)fullAddress
+{
+    NSString *areaname = @"areaname";
+    NSArray *arrayOfAddressStrings = [fullAddress componentsSeparatedByString:@","];
+    int indexOfAreaName = -1;
+    for (NSString *string in arrayOfAddressStrings) {
+        //todo improvement : it would be better if the street address, areaname, city are given with header and deliminator as area : BTM layout, city : Bengaluru. In that case we can just scan for "area :" header to get the area name instead of hard-coding the cityname as Bengaluru.
+        if([string containsString:@"Bengaluru"])
+        {
+            break;
+        }
+        indexOfAreaName++;
+    }
+    if(indexOfAreaName >= 0)
+        areaname = [arrayOfAddressStrings objectAtIndex:indexOfAreaName];
+    return areaname;
+}
+
 @end

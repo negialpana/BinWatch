@@ -77,7 +77,7 @@ NSMutableArray *activeBins;
     }
 
     BWBin *bin = [self binForRowAtIndexPath:indexPath];
-    cell.textLabel.text = bin.place;
+    cell.textLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",[bin.fill integerValue]];
         
     cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
@@ -95,6 +95,8 @@ NSMutableArray *activeBins;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     BinDetailsViewController *binDetailsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"BinDetailsViewController"];
     binDetailsVC.currentSelectedBinIndex = indexPath.row;

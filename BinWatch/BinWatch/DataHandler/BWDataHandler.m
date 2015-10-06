@@ -20,6 +20,7 @@ static NSString* const kBinDate = @"date";
 static NSString* const kBinFillPercentage = @"fill";
 static NSString* const kBinLatitude = @"latitude";
 static NSString* const kBinLongitude = @"longitude";
+static NSString* const kBinPlace = @"name";
 
 @interface BWDataHandler ()
 
@@ -51,7 +52,6 @@ static NSString* const kBinLongitude = @"longitude";
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
 
     // Dummy data code
-    int i = 0;
     for(NSDictionary *obj in bins){
         BWBin *bin = [NSEntityDescription insertNewObjectForEntityForName:kEntity
                                                  inManagedObjectContext:context];
@@ -64,14 +64,13 @@ static NSString* const kBinLongitude = @"longitude";
         bin.fill = [formatter numberFromString:[obj valueForKey:kBinFillPercentage]];
         bin.latitude = [obj valueForKey:kBinLatitude];
         bin.longitude = [obj valueForKey:kBinLongitude];
-        
+        bin.place = [obj valueForKey:kBinPlace];
+
         // TODO: Hard coded
         int abc = [BWHelpers colorForPercent:[[obj valueForKey:kBinFillPercentage] floatValue]];
         NSNumber *numInt = [NSNumber numberWithInt:abc];
         bin.color = numInt;
         //bin.color = [BWHelpers colorForPercentTemp:[[obj valueForKey:kBinFillPercentage] floatValue]];
-        bin.place = [NSString stringWithFormat:@"%@-%d", @"Bin", i];
-        i++;
     }
     
     NSError *error= nil;

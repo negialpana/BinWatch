@@ -46,6 +46,7 @@
 
 #pragma mark - Testing Function
 
+//TODO : remove at later point when all values are perfect
 - (void) initBins
 {
     [self flushBins];

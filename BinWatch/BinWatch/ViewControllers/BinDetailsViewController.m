@@ -12,6 +12,7 @@
 #import "BWBin.h"
 #import "GradientView.h"
 #import "BWDataHandler.h"
+#import "BWHelpers.h"
 
 @interface BinDetailsViewController ()
 
@@ -62,7 +63,7 @@
     if (currentBin == nil)
         currentBin = [[[BWBinCollection sharedInstance] bins]objectAtIndex:_currentSelectedBinIndex];
     //[_binIDView addSubview: [[GradientView alloc]initWithFrame:_binIDView.frame forColor:currentBin.color]];
-    [_binLocationLabel setText:currentBin.place];
+    [_binLocationLabel setText:[BWHelpers areanameFromFullAddress:currentBin.place]];
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[currentBin.fill integerValue]]];
 }
 
