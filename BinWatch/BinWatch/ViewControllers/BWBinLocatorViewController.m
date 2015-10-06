@@ -60,6 +60,8 @@
                                                                  zoom:zoomLevel];
 
     mapView = [GMSMapView mapWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
+    // TODO: Give an option for hybrid view
+    //mapView.mapType = kGMSTypeHybrid;
     [self resizeMapView];
     mapView.delegate = self;
 
