@@ -19,6 +19,7 @@
 		1500ABF31B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */; };
 		1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
+		15ABF61F1BC43A00005E24DA /* QueryParameterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
@@ -94,6 +95,8 @@
 		1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWConnectionHandler.m; sourceTree = "<group>"; };
 		1500ABFD1B9C10CF00E0AF6C /* Bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bin.h; sourceTree = "<group>"; };
 		1500ABFE1B9C10CF00E0AF6C /* Bin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bin.m; sourceTree = "<group>"; };
+		15ABF61D1BC43A00005E24DA /* QueryParameterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryParameterCell.h; sourceTree = "<group>"; };
+		15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryParameterCell.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AE01B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AE11B98A9D7006CD602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -243,6 +246,8 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
+				15ABF61D1BC43A00005E24DA /* QueryParameterCell.h */,
+				15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */,
 				902721221BBC073C00108D1E /* Images */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
@@ -559,6 +564,7 @@
 				9027213C1BBC6B1E00108D1E /* BWSearchBar.m in Sources */,
 				F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */,
 				902721851BBD5AD900108D1E /* SPGooglePlacesAutocompleteQuery.m in Sources */,
+				15ABF61F1BC43A00005E24DA /* QueryParameterCell.m in Sources */,
 				902721391BBC638C00108D1E /* BWGeocoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
