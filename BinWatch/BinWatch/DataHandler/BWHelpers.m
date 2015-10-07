@@ -16,8 +16,7 @@ NSString* const humidity = @"humidity";
 NSString* const binColor = @"binColor";
 NSString* const date = @"date";
 NSString* const temperature = @"temperature";
-NSString* const fillPercent = @"humidity"; // I'm taking humidity value because fillPercent is not available in the object
-
+NSString* const fillPercent = @"fill"; 
 @implementation BWHelpers
 
 /**

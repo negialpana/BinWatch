@@ -84,7 +84,7 @@ NSMutableArray *activeBins;
 
     BWBin *bin = [self binForRowAtIndexPath:indexPath];
     cell.textLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%",[bin.fill integerValue]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
         
     cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
     cell.detailTextLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
