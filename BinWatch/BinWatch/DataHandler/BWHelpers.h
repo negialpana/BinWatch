@@ -23,5 +23,5 @@
 + (int) colorForPercent:(float)fillPercent;
 + (UIColor*) textColorForBinColor:(NSNumber *)color;
 + (NSString *)areanameFromFullAddress : (NSString*)fullAddress;
-
++ (float)currentOSVersion;
 @end

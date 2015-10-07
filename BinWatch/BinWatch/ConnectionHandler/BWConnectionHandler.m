@@ -7,6 +7,7 @@
 //
 
 #import "BWConnectionHandler.h"
+#import "BWHelpers.h"
 
 #define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
 
@@ -43,7 +44,7 @@
 
 - (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
  
-   NSURL *url = [NSURL URLWithString:kRootUrl];
+   NSURL *url = [self rootURL];
     
    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"bins"]
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -61,4 +62,12 @@
     
 }
 
+- (NSURL *)rootURL
+{
+    NSString *rootURLString = kRootUrl;
+    if([BWHelpers currentOSVersion] >= 9.0)
+        rootURLString = [kRootUrl stringByReplacingOccurrencesOfString:@"http" withString:@"https"];
+        
+    return [NSURL URLWithString:rootURLString];
+}
 @end

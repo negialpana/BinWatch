@@ -117,4 +117,9 @@ NSString* const fillPercent = @"humidity"; // I'm taking humidity value because 
     return areaname;
 }
 
++ (float)currentOSVersion
+{
+    return [[[UIDevice currentDevice] systemVersion] floatValue];
+}
+
 @end
