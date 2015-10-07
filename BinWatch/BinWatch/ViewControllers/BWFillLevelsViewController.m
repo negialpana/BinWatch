@@ -95,7 +95,7 @@ NSMutableArray *activeBins;
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BWBin *bin = [self binForRowAtIndexPath:indexPath];
-    GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forColor:bin.color];
+    GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forfill:[bin.fill floatValue]];
     cell.backgroundView = gradientView;
 }
 
@@ -105,7 +105,7 @@ NSMutableArray *activeBins;
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     BinDetailsViewController *binDetailsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"BinDetailsViewController"];
-    binDetailsVC.currentSelectedBinIndex = indexPath.row;
+    binDetailsVC.currentSelectedBinIndex = (int)indexPath.row;
     
     [self.navigationController pushViewController:binDetailsVC animated:YES];
 }

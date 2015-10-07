@@ -12,6 +12,6 @@
 
 @interface GradientView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame forColor:(NSNumber *)color1;
+- (instancetype)initWithFrame:(CGRect)frame forfill:(float)fill;
 
 @end

@@ -82,7 +82,7 @@ NSString* const fillPercent = @"fill";
 
 + (UIColor*) textColorForBinColor:(NSNumber *)color
 {
-    int binColor = [color integerValue];
+    BWBinColor binColor = [color integerValue];
     switch (binColor)
     {
         case BWRed:

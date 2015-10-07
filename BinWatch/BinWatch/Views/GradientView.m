@@ -7,17 +7,19 @@
 //
 
 #import "GradientView.h"
+#import "BWHelpers.h"
 
 @implementation GradientView
 
 CAGradientLayer *gradientLayer;
 
-- (instancetype)initWithFrame:(CGRect)frame forColor:(NSNumber *)color1
+
+- (instancetype)initWithFrame:(CGRect)frame forfill:(float)fill;
 {
-    NSInteger color = [color1 integerValue];
     self = [super initWithFrame:frame];
     if (self) {
         UIColor *first,*last;
+        BWBinColor color = [BWHelpers colorForPercent:fill];
         switch (color) {
             case BWGreen:
                 first = DarkGreen;
@@ -37,13 +39,14 @@ CAGradientLayer *gradientLayer;
                 last = LightGreen;
                 break;
         }
+        CGFloat fraction = fill / 100.0 ;
+        CGRect gradientFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, fraction * self.bounds.size.width, self.bounds.size.height);
+
         gradientLayer = [CAGradientLayer layer];
-        gradientLayer.frame = self.bounds;
+        gradientLayer.frame = gradientFrame;
         gradientLayer.colors = [NSArray arrayWithObjects:(id)[first CGColor],(id)[last CGColor], nil];
         gradientLayer.startPoint = CGPointMake(0.0, 0.0);
         gradientLayer.endPoint = CGPointMake(1.0, 0.0);
-        //        gradientLayer.locations = @[@0.0,@1.0];
-        
         [self.layer insertSublayer:gradientLayer atIndex:0];
     }
     return self;
