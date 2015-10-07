@@ -85,13 +85,13 @@ NSString* const fillPercent = @"fill";
     BWBinColor binColor = [color integerValue];
     switch (binColor)
     {
-        case BWRed:
-        case BWGreen:
-            return White;
-            break;
-        case BWYellow:
-            return Black;
-            break;
+//        case BWRed:
+//        case BWGreen:
+//            return White;
+//            break;
+//        case BWYellow:
+//            return Black;
+//            break;
         default:
             return Black;
             break;
