@@ -48,6 +48,12 @@ NSMutableArray *activeBins;
             NSLog(@"***********Failed to get bins***************");
         }
     }];
+
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(didChangeDeviceOrientation)
+               name:UIDeviceOrientationDidChangeNotification
+             object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,6 +161,10 @@ NSMutableArray *activeBins;
     NSLog(@"More tapped");
 }
 
+-(void)didChangeDeviceOrientation
+{
+    [self.tableView reloadData];
+}
 #pragma mark - Utility Methods
 - (void) refreshBins
 {
