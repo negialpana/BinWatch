@@ -15,7 +15,9 @@
 #import "GradientView.h"
 #import "BinDetailsViewController.h"
 
-@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate >
+#import "MBProgressHUD.h"
+
+@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate , MBProgressHUDDelegate >
 
 @property NSMutableArray *searchArray;
 @end
@@ -30,12 +32,30 @@ NSMutableArray *activeBins;
     [super viewDidLoad];
     activeBins = [[NSMutableArray alloc]init];
 
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    
+    HUD.delegate = self;
+    HUD.labelText = @"Loading";
+    
+    [HUD showWhileExecuting:@selector(fetchData) onTarget:self withObject:nil animated:YES];
+
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
 
     [self refreshBins];
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
+
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(didChangeDeviceOrientation)
+               name:UIDeviceOrientationDidChangeNotification
+             object:nil];
+}
+
+-(void)fetchData
+{
     BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
     [connectionHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
         if (!error)
@@ -49,11 +69,6 @@ NSMutableArray *activeBins;
         }
     }];
 
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(didChangeDeviceOrientation)
-               name:UIDeviceOrientationDidChangeNotification
-             object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
