@@ -127,12 +127,8 @@ static NSString* const kBinPlace = @"name";
 //    }
 
     // Returning sorted array of objects, based on fill %
-    NSArray *sortedArray;
-    sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSNumber *first = [(BWBin*)a fill];
-        NSNumber *second = [(BWBin*)b fill];
-        return [second compare:first];
-    }];
+    NSSortDescriptor *fillSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kBinFillPercentage ascending:NO];
+    NSArray *sortedArray = [objects sortedArrayUsingDescriptors:@[fillSortDescriptor]];
     return sortedArray;
 }
 
