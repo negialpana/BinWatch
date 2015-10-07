@@ -13,6 +13,9 @@
 #import "GradientView.h"
 #import "BWDataHandler.h"
 #import "BWHelpers.h"
+#import "BWViewRenderingHelper.h"
+
+#define BAR_VIEW_WIDTH_WITH_SPACING  43.0f
 
 @interface BinDetailsViewController ()
 
@@ -28,6 +31,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setUpView];
+    [self setUpBarGraphViews];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,4 +71,15 @@
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[currentBin.fill integerValue]]];
 }
 
+- (void)setUpBarGraphViews
+{
+    int maxNoOfGraphs = 7;
+    for (int i = 0; i < maxNoOfGraphs; i++) {
+        CGRect barGraphViewFrame = _blackLineImageView.frame;
+    
+        //todo : dummy fill level. Get fill levels from server 
+        float fillLevel = 20 + (arc4random() % 80);
+        [BWViewRenderingHelper addBarGraphOnView:_barGraphView atOrigin:CGPointMake(10.0f + (BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y) withFillLevel:fillLevel];
+    }
+}
 @end

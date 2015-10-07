@@ -259,10 +259,23 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQP-Gl-Wso" userLabel="BarGraphView">
                                 <rect key="frame" x="5" y="293" width="590" height="200"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="FMo-Jn-V35" userLabel="blackLineImageView">
+                                        <rect key="frame" x="0.0" y="173" width="590" height="2"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="NGc-SP-zqy"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.79711471592145411" green="0.55974491985692887" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="FMo-Jn-V35" firstAttribute="leading" secondItem="xQP-Gl-Wso" secondAttribute="leading" id="49L-KI-vLa"/>
+                                    <constraint firstItem="FMo-Jn-V35" firstAttribute="width" secondItem="xQP-Gl-Wso" secondAttribute="width" id="4uk-D7-AjI"/>
                                     <constraint firstAttribute="height" constant="200" id="KBK-MZ-WZr"/>
+                                    <constraint firstAttribute="bottom" secondItem="FMo-Jn-V35" secondAttribute="bottom" constant="25" id="Lw5-nb-E4K"/>
+                                    <constraint firstAttribute="trailing" secondItem="FMo-Jn-V35" secondAttribute="trailing" id="TPg-hY-c6s"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -292,6 +305,7 @@
                         <outlet property="binIDView" destination="3U9-Dc-VNK" id="0Yv-vo-ULx"/>
                         <outlet property="binLocationLabel" destination="7kQ-Lt-zCH" id="3R8-fU-lhR"/>
                         <outlet property="binVariablesView" destination="MC0-Vx-sr7" id="4dP-T2-u6e"/>
+                        <outlet property="blackLineImageView" destination="FMo-Jn-V35" id="Yis-1K-onj"/>
                         <outlet property="segmentControl" destination="Qhm-R2-9pv" id="z8B-Ch-AOw"/>
                     </connections>
                 </viewController>
@@ -459,6 +473,7 @@
         <image name="DashBoard" width="16" height="16"/>
         <image name="Export" width="16" height="16"/>
         <image name="bin" width="24" height="24"/>
+        <image name="blackLine.png" width="768" height="2"/>
         <image name="map-marker" width="24" height="24"/>
         <image name="pie-chart" width="24" height="24"/>
         <image name="settings" width="16" height="16"/>

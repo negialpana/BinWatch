@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *binLocationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *binFillPercentLabel;
 @property (strong, nonatomic) IBOutlet UIView *binIDView;
+@property (weak, nonatomic) IBOutlet UIImageView *blackLineImageView;
 
 @property (assign) int currentSelectedBinIndex;
 
