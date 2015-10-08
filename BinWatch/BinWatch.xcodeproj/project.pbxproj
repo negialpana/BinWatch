@@ -28,6 +28,8 @@
 		321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */; };
 		32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861A8C1BC4A1D400D0568F /* GradientView.m */; };
 		32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */; };
+		9000720E1BC6F9C1003B2562 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000720C1BC6F9C1003B2562 /* Fabric.framework */; };
+		9000720F1BC6F9C1003B2562 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000720D1BC6F9C1003B2562 /* Crashlytics.framework */; };
 		902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721051BBBE48B00108D1E /* GoogleMaps.framework */; };
 		902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 902721071BBBE4CD00108D1E /* GoogleMaps.bundle */; };
 		9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721091BBBE50B00108D1E /* CoreBluetooth.framework */; };
@@ -101,6 +103,8 @@
 		32861A8C1BC4A1D400D0568F /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientView.m; path = Views/GradientView.m; sourceTree = "<group>"; };
 		32861AA41BC4D09100D0568F /* BWViewRenderingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWViewRenderingHelper.h; sourceTree = "<group>"; };
 		32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWViewRenderingHelper.m; sourceTree = "<group>"; };
+		9000720C1BC6F9C1003B2562 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		9000720D1BC6F9C1003B2562 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		902721051BBBE48B00108D1E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		902721071BBBE4CD00108D1E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		902721091BBBE50B00108D1E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -162,7 +166,9 @@
 				902721121BBBE54600108D1E /* GLKit.framework in Frameworks */,
 				902721101BBBE53400108D1E /* CoreText.framework in Frameworks */,
 				9027210E1BBBE52500108D1E /* CoreLocation.framework in Frameworks */,
+				9000720F1BC6F9C1003B2562 /* Crashlytics.framework in Frameworks */,
 				9027210C1BBBE51500108D1E /* Accelerate.framework in Frameworks */,
+				9000720E1BC6F9C1003B2562 /* Fabric.framework in Frameworks */,
 				9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */,
 				902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */,
 				1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */,
@@ -225,6 +231,8 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
+				9000720C1BC6F9C1003B2562 /* Fabric.framework */,
+				9000720D1BC6F9C1003B2562 /* Crashlytics.framework */,
 				15ABF61D1BC43A00005E24DA /* QueryParameterCell.h */,
 				15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
@@ -408,6 +416,7 @@
 				15EA4AD81B98A9D7006CD602 /* Sources */,
 				15EA4AD91B98A9D7006CD602 /* Frameworks */,
 				15EA4ADA1B98A9D7006CD602 /* Resources */,
+				9000720B1BC6F966003B2562 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -492,6 +501,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9000720B1BC6F966003B2562 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run fee5af58aac3921b8251d9d22014bd194bfeeda9 8b766616eafa8076e79539e284d77b524380dda0aa81b9ac973cd9bfbfda6f60";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		15EA4AD81B98A9D7006CD602 /* Sources */ = {
