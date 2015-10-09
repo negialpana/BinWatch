@@ -25,6 +25,8 @@
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
 		15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */; };
 		15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */; };
+		15ED60B91BC8192F00EA6285 /* BWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60B81BC8192F00EA6285 /* BWDatePickerView.m */; };
+		15ED60BB1BC8196D00EA6285 /* BWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15ED60BA1BC8196D00EA6285 /* BWDatePickerView.xib */; };
 		321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */; };
 		32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861A8C1BC4A1D400D0568F /* GradientView.m */; };
 		32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */; };
@@ -98,6 +100,9 @@
 		15EA4AF81B98A9D7006CD602 /* BinWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BinWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AFD1B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BinWatchTests.m; sourceTree = "<group>"; };
+		15ED60B71BC8192F00EA6285 /* BWDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWDatePickerView.h; path = ../BWDatePickerView.h; sourceTree = "<group>"; };
+		15ED60B81BC8192F00EA6285 /* BWDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWDatePickerView.m; path = ../BWDatePickerView.m; sourceTree = "<group>"; };
+		15ED60BA1BC8196D00EA6285 /* BWDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWDatePickerView.xib; path = ../BWDatePickerView.xib; sourceTree = "<group>"; };
 		321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinDetailsViewController.h; sourceTree = "<group>"; };
 		321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinDetailsViewController.m; sourceTree = "<group>"; };
 		32861A8B1BC4A1D400D0568F /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientView.h; path = Views/GradientView.h; sourceTree = "<group>"; };
@@ -303,6 +308,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		15ED60CA1BC8365F00EA6285 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				15ED60BA1BC8196D00EA6285 /* BWDatePickerView.xib */,
+				15ED60B71BC8192F00EA6285 /* BWDatePickerView.h */,
+				15ED60B81BC8192F00EA6285 /* BWDatePickerView.m */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
 		32861A881BC4A1C200D0568F /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +371,7 @@
 		F19AB6861BA2BD710084A879 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				15ED60CA1BC8365F00EA6285 /* CustomViews */,
 				32861A881BC4A1C200D0568F /* Views */,
 				1500ABC41B9ABAD200E0AF6C /* ViewControllers */,
 			);
@@ -494,6 +510,7 @@
 				15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */,
 				15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */,
 				15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */,
+				15ED60BB1BC8196D00EA6285 /* BWDatePickerView.xib in Resources */,
 				902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,6 +562,7 @@
 				F1F2B9131BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
 				F1F2B9111BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.m in Sources */,
 				F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */,
+				15ED60B91BC8192F00EA6285 /* BWDatePickerView.m in Sources */,
 				1500ABF21B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */,
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				F1F2B9151BC6E55A0019E662 /* MBProgressHUD.m in Sources */,

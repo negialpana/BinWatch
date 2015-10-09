@@ -8,6 +8,7 @@
 
 #import "BWAnalyticsViewController.h"
 #import "QueryParameterCell.h"
+#import "BWDatePickerView.h"
 
 static NSString *queryParameterCell = @"queryParameterCell";
 
@@ -16,9 +17,10 @@ static NSString *queryParameterCell = @"queryParameterCell";
 @property (nonatomic, strong) NSArray *table2Data;
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
-@property (nonatomic, strong) UIDatePicker *datePicker;
-@property (nonatomic, strong) UIDatePicker *toDatePicker;
+@property (nonatomic, strong) BWDatePickerView *datePicker;
+@property (nonatomic, strong) BWDatePickerView *toDatePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
+
 - (IBAction)fromDateBtnPressed:(id)sender;
 - (IBAction)toDateBtnPressed:(id)sender;
 
@@ -63,45 +65,47 @@ static NSString *queryParameterCell = @"queryParameterCell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)fromDateBtnPressed:(id)sender {
     
-    self.dateComponentsContainerView.hidden = YES;
-    _datePicker = [[UIDatePicker alloc] initWithFrame:_dateComponentsContainerView.frame];
-        [_datePicker addTarget:self action:@selector(fromDatePickerDidSelectTheDate:) forControlEvents:UIControlEventValueChanged];
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
+    _datePicker = [views objectAtIndex:0];
+    __weak typeof(self) weakSelf = self;
+    [_datePicker setComplBlock:^void(NSDate *selDate){
+        [weakSelf.fromDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
+    }];
+    _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
+                                   self.dateComponentsContainerView.frame.origin.y,
+                                   self.view.bounds.size.width, 250);
     [self.view addSubview:_datePicker];
+    [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
     
-}
-
-- (void)fromDatePickerDidSelectTheDate:(UIDatePicker *)picker{
-    [_fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[picker date]] forState:UIControlStateNormal];
-    [_datePicker removeFromSuperview];
-    self.dateComponentsContainerView.hidden = NO;
-
 }
 
 - (IBAction)toDateBtnPressed:(id)sender {
     
-    self.dateComponentsContainerView.hidden = YES;
-    _toDatePicker = [[UIDatePicker alloc] initWithFrame:_dateComponentsContainerView.frame];
-    [_toDatePicker addTarget:self action:@selector(toDatePickerDidSelectTheDate:) forControlEvents:UIControlEventValueChanged];
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
+    _toDatePicker = [views objectAtIndex:0];
+    __weak typeof(self) weakSelf = self;
+    [_toDatePicker setComplBlock:^void(NSDate *selDate){
+        [weakSelf.toDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
+    }];
+    _toDatePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
+                                   self.dateComponentsContainerView.frame.origin.y,
+                                   self.view.bounds.size.width, 250);
     [self.view addSubview:_toDatePicker];
+    [_toDatePicker bringSubviewToFront:self.dateComponentsContainerView];
 
 }
 
-- (void)toDatePickerDidSelectTheDate:(UIDatePicker *)picker{
-    [_toDateBtn setTitle:[[self dateFormatter] stringFromDate:[picker date]] forState:UIControlStateNormal];
-    [_toDatePicker removeFromSuperview];
-    self.dateComponentsContainerView.hidden = NO;
-    
-}
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+
 @end

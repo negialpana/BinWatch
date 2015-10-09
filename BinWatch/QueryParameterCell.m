@@ -8,6 +8,12 @@
 
 #import "QueryParameterCell.h"
 
+@interface QueryParameterCell ()
+@property (weak, nonatomic) IBOutlet UILabel *queryString;
+@property (weak, nonatomic) IBOutlet UIButton *selectionBtn;
+
+@end
+
 @implementation QueryParameterCell
 
 /*
