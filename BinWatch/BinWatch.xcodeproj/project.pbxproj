@@ -31,6 +31,15 @@
 		9000720E1BC6F9C1003B2562 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000720C1BC6F9C1003B2562 /* Fabric.framework */; };
 		9000720F1BC6F9C1003B2562 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000720D1BC6F9C1003B2562 /* Crashlytics.framework */; };
 		900072121BC700F7003B2562 /* BWLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 900072111BC700F7003B2562 /* BWLogger.m */; };
+		900072141BC7BE4B003B2562 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900072131BC7BE4B003B2562 /* Parse.framework */; };
+		900072161BC7C0EA003B2562 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900072151BC7C0EA003B2562 /* Bolts.framework */; };
+		900072181BC7C198003B2562 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900072171BC7C198003B2562 /* Accounts.framework */; };
+		9000721A1BC7C19E003B2562 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900072191BC7C19E003B2562 /* Social.framework */; };
+		9000721C1BC7C1B2003B2562 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000721B1BC7C1B2003B2562 /* libsqlite3.dylib */; };
+		9000721E1BC7C1BD003B2562 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000721D1BC7C1BD003B2562 /* StoreKit.framework */; };
+		900072201BC7C1C5003B2562 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000721F1BC7C1C5003B2562 /* Security.framework */; };
+		900072221BC7C1E5003B2562 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900072211BC7C1E5003B2562 /* CFNetwork.framework */; };
+		900072241BC7C1EF003B2562 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900072231BC7C1EF003B2562 /* AudioToolbox.framework */; };
 		902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721051BBBE48B00108D1E /* GoogleMaps.framework */; };
 		902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 902721071BBBE4CD00108D1E /* GoogleMaps.bundle */; };
 		9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721091BBBE50B00108D1E /* CoreBluetooth.framework */; };
@@ -108,6 +117,15 @@
 		9000720D1BC6F9C1003B2562 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		900072101BC700F7003B2562 /* BWLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWLogger.h; sourceTree = "<group>"; };
 		900072111BC700F7003B2562 /* BWLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWLogger.m; sourceTree = "<group>"; };
+		900072131BC7BE4B003B2562 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		900072151BC7C0EA003B2562 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		900072171BC7C198003B2562 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		900072191BC7C19E003B2562 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		9000721B1BC7C1B2003B2562 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9000721D1BC7C1BD003B2562 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		9000721F1BC7C1C5003B2562 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		900072211BC7C1E5003B2562 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		900072231BC7C1EF003B2562 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		902721051BBBE48B00108D1E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		902721071BBBE4CD00108D1E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		902721091BBBE50B00108D1E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -159,12 +177,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				902721211BBBE75600108D1E /* SystemConfiguration.framework in Frameworks */,
+				900072241BC7C1EF003B2562 /* AudioToolbox.framework in Frameworks */,
+				900072221BC7C1E5003B2562 /* CFNetwork.framework in Frameworks */,
 				9027211E1BBBE5A500108D1E /* QuartzCore.framework in Frameworks */,
+				900072201BC7C1C5003B2562 /* Security.framework in Frameworks */,
+				9000721E1BC7C1BD003B2562 /* StoreKit.framework in Frameworks */,
+				9000721C1BC7C1B2003B2562 /* libsqlite3.dylib in Frameworks */,
+				9000721A1BC7C19E003B2562 /* Social.framework in Frameworks */,
+				900072181BC7C198003B2562 /* Accounts.framework in Frameworks */,
+				902721211BBBE75600108D1E /* SystemConfiguration.framework in Frameworks */,
 				9027211C1BBBE59C00108D1E /* OpenGLES.framework in Frameworks */,
 				9027211A1BBBE59100108D1E /* libz.dylib in Frameworks */,
 				902721181BBBE58100108D1E /* libicucore.dylib in Frameworks */,
 				902721161BBBE56500108D1E /* libc++.dylib in Frameworks */,
+				900072141BC7BE4B003B2562 /* Parse.framework in Frameworks */,
 				902721141BBBE55200108D1E /* ImageIO.framework in Frameworks */,
 				902721121BBBE54600108D1E /* GLKit.framework in Frameworks */,
 				902721101BBBE53400108D1E /* CoreText.framework in Frameworks */,
@@ -173,6 +199,7 @@
 				9027210C1BBBE51500108D1E /* Accelerate.framework in Frameworks */,
 				9000720E1BC6F9C1003B2562 /* Fabric.framework in Frameworks */,
 				9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */,
+				900072161BC7C0EA003B2562 /* Bolts.framework in Frameworks */,
 				902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */,
 				1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */,
 			);
@@ -234,6 +261,8 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
+				900072151BC7C0EA003B2562 /* Bolts.framework */,
+				900072131BC7BE4B003B2562 /* Parse.framework */,
 				9000720C1BC6F9C1003B2562 /* Fabric.framework */,
 				9000720D1BC6F9C1003B2562 /* Crashlytics.framework */,
 				15ABF61D1BC43A00005E24DA /* QueryParameterCell.h */,
@@ -317,6 +346,13 @@
 		9027211F1BBBE5BF00108D1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				900072231BC7C1EF003B2562 /* AudioToolbox.framework */,
+				900072211BC7C1E5003B2562 /* CFNetwork.framework */,
+				9000721F1BC7C1C5003B2562 /* Security.framework */,
+				9000721D1BC7C1BD003B2562 /* StoreKit.framework */,
+				9000721B1BC7C1B2003B2562 /* libsqlite3.dylib */,
+				900072191BC7C19E003B2562 /* Social.framework */,
+				900072171BC7C198003B2562 /* Accounts.framework */,
 				902721201BBBE75600108D1E /* SystemConfiguration.framework */,
 				9027211D1BBBE5A500108D1E /* QuartzCore.framework */,
 				9027211B1BBBE59C00108D1E /* OpenGLES.framework */,
@@ -617,7 +653,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: seema kadavan (2WGVF39EB2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -639,6 +676,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "4f9de5cf-5f13-4edc-85dc-4536d5b7e677";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -661,7 +699,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: seema kadavan (2WGVF39EB2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -676,6 +715,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "4f9de5cf-5f13-4edc-85dc-4536d5b7e677";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -686,6 +726,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: seema kadavan (2WGVF39EB2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -697,6 +738,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4f9de5cf-5f13-4edc-85dc-4536d5b7e677";
 			};
 			name = Debug;
 		};
@@ -704,6 +746,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: seema kadavan (2WGVF39EB2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -715,6 +758,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4f9de5cf-5f13-4edc-85dc-4536d5b7e677";
 			};
 			name = Release;
 		};
@@ -722,6 +766,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: seema kadavan (2WGVF39EB2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -733,6 +778,7 @@
 				INFOPLIST_FILE = BinWatchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4f9de5cf-5f13-4edc-85dc-4536d5b7e677";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BinWatch.app/BinWatch";
 			};
 			name = Debug;
@@ -741,6 +787,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: seema kadavan (2WGVF39EB2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -748,6 +795,7 @@
 				INFOPLIST_FILE = BinWatchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4f9de5cf-5f13-4edc-85dc-4536d5b7e677";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BinWatch.app/BinWatch";
 			};
 			name = Release;
