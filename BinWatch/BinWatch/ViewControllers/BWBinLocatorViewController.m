@@ -19,6 +19,22 @@ static NSString* const kSearchPlaceHolder       = @"Search";
 static NSString* const kRouteFetchFailed        = @"Route fetch failed";
 static NSString* const kCurrentLocationFailed   = @"Couldn't read current location";
 
+
+static NSString* const kIcon         = @"icon";
+static NSString* const kUserData     = @"userData";
+
+static NSString* const kYellow       = @"YELLOW";
+static NSString* const kGreen        = @"GREEN";
+static NSString* const kRed          = @"RED";
+
+static NSString* const kTrashYellow  = @"trashYellow";
+static NSString* const kTrashGreen   = @"trashGreen";
+static NSString* const kTrashRed     = @"trashRed";
+
+static NSString* const kTrashPickerYellow  = @"trashPickerYellow";
+static NSString* const kTrashPickerGreen   = @"trashPickerGreen";
+static NSString* const kTrashPickerRed     = @"trashPickerRed";
+
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
@@ -219,7 +235,10 @@ static NSString* const kCurrentLocationFailed   = @"Couldn't read current locati
         marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue, bin.longitude.floatValue);
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.title = bin.place;
-        marker.icon = [self getIconFor:bin.color];
+
+        NSDictionary *binData = [self getIconAndDataFor:bin];
+        marker.icon = [binData objectForKey:kIcon];
+        marker.userData = [binData objectForKey:kUserData];
         marker.map = mapView;
         
         // TODO: is there a better alternative for this? Objective C equivalent of C struct
@@ -244,17 +263,28 @@ static NSString* const kCurrentLocationFailed   = @"Couldn't read current locati
     }
 }
 
--(UIImage *) getIconFor:(NSNumber *) binC
+-(NSDictionary *) getIconAndDataFor:(BWBin *) bin
 {
-    NSInteger binColor = [binC integerValue];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    NSInteger binColor = [bin.color integerValue];
+
     switch(binColor)
     {
         case BWYellow:
-            return [UIImage imageNamed:@"trashYellow"];
+            [dict setValue:[UIImage imageNamed:kTrashYellow] forKey:kIcon];
+            [dict setValue:kYellow forKey:kUserData];
+            return dict;
+
         case BWRed:
-            return [UIImage imageNamed:@"trashRed"];
+            [dict setValue:[UIImage imageNamed:kTrashRed] forKey:kIcon];
+            [dict setValue:kRed forKey:kUserData];
+            return dict;
+
         case BWGreen:
-            return [UIImage imageNamed:@"trashGreen"];
+            [dict setValue:[UIImage imageNamed:kTrashGreen] forKey:kIcon];
+            [dict setValue:kGreen forKey:kUserData];
+            return dict;
+
         default:
             // TODO:
             return nil;
@@ -297,7 +327,13 @@ static NSString* const kCurrentLocationFailed   = @"Couldn't read current locati
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);
-    marker.icon = [UIImage imageNamed:@"trashSelected"];
+
+    if([marker.userData isEqualToString:kYellow])
+        marker.icon = [UIImage imageNamed:kTrashPickerYellow];
+    else if([marker.userData isEqualToString:kGreen])
+        marker.icon = [UIImage imageNamed:kTrashPickerGreen];
+    else if([marker.userData isEqualToString:kRed])
+        marker.icon = [UIImage imageNamed:kTrashPickerRed];
     
     [selectedLocations addObject:[[CLLocation alloc] initWithLatitude:marker.position.latitude longitude:marker.position.longitude]];
     return NO;
