@@ -128,7 +128,7 @@ static NSString* const kSearchPlaceHolder = @"Search";
 -(void) drawRouteSelectedBins
 {
     // TODO: Hardcoded for testing
-    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         NSLog(@"Couldnt retrieve current location");
@@ -150,7 +150,7 @@ static NSString* const kSearchPlaceHolder = @"Search";
 -(void) drawRouteAllReds
 {
     // TODO: Hardcoded for testing
-    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         NSLog(@"Couldnt retrieve current location");
@@ -174,7 +174,7 @@ static NSString* const kSearchPlaceHolder = @"Search";
 
 -(void) drawRouteRedYellow
 {
-    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         NSLog(@"Couldnt retrieve current location");
@@ -252,32 +252,32 @@ static NSString* const kSearchPlaceHolder = @"Search";
 }
 
 #pragma mark - KVO updates
-
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
     NSLog(@"Location Update");
-    CLLocation *location;
+    //CLLocation *location;
+    currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
     if (!firstLocationUpdate_) {
         // If the first location update has not yet been recieved, then jump to that
         // location.
         firstLocationUpdate_ = YES;
-        location = [change objectForKey:NSKeyValueChangeNewKey];
-        mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
+        mapView.camera = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate
                                                         zoom:zoomLevel];
     }
     
     // TODO: Is this the correct place to do this?
-    currentLocation = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+    //currentLocation = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
 }
 
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     NSLog(@"did tap at cordinate");
-    [self resetBinIcons];
+    //[self resetBinIcons];
     [selectedLocations removeAllObjects];
+    [self flushAllRoutes];
 }
 
 /*
@@ -434,13 +434,12 @@ static NSString* const kSearchPlaceHolder = @"Search";
     NSLog(@"Route Fetch failed");
 }
 
-
 - (void)routeFetchDidReceiveResponse:(NSString *)points
 {
     GMSPath *path = [GMSPath pathFromEncodedPath:points];
     GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
-    polyline.strokeWidth = 3.f;
-    polyline.strokeColor = [UIColor redColor];
+    polyline.strokeWidth = 5.f;
+    polyline.strokeColor = [UIColor blackColor];
     polyline.map = mapView;
 }
 
