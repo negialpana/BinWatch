@@ -11,9 +11,13 @@
 #import "BWDataHandler.h"
 #import "BWBin.h"
 #import "BWCommon.h"
+#import "BWLogger.h"
+#import "BWHelpers.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
-static NSString* const kSearchPlaceHolder = @"Search";
+static NSString* const kSearchPlaceHolder       = @"Search";
+static NSString* const kRouteFetchFailed        = @"Route fetch failed";
+static NSString* const kCurrentLocationFailed   = @"Couldn't read current location";
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
@@ -131,7 +135,9 @@ static NSString* const kSearchPlaceHolder = @"Search";
     //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        NSLog(@"Couldnt retrieve current location");
+        [self flushAllRoutes];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
     }
     
@@ -153,7 +159,9 @@ static NSString* const kSearchPlaceHolder = @"Search";
     //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        NSLog(@"Couldnt retrieve current location");
+        [self flushAllRoutes];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
     }
 
@@ -177,7 +185,9 @@ static NSString* const kSearchPlaceHolder = @"Search";
     //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        NSLog(@"Couldnt retrieve current location");
+        [self flushAllRoutes];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
     }
     
@@ -431,7 +441,8 @@ static NSString* const kSearchPlaceHolder = @"Search";
 
 - (void)routeFetchFailedWithError:(NSError *)error
 {
-    NSLog(@"Route Fetch failed");
+    [BWLogger DoLog:@"Route Fetch failed"];
+    [BWHelpers displayHud:kRouteFetchFailed onView:self.navigationController.view];
 }
 
 - (void)routeFetchDidReceiveResponse:(NSString *)points

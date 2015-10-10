@@ -24,4 +24,5 @@
 + (UIColor*) textColorForBinColor:(NSNumber *)color;
 + (NSString *)areanameFromFullAddress : (NSString*)fullAddress;
 + (float)currentOSVersion;
++ (void) displayHud:(NSString *)message onView:(UIView *)view;
 @end
