@@ -10,6 +10,7 @@
 #import "QueryParameterCell.h"
 #import "BWDatePickerView.h"
 #import "BWAnalyseTableViewCell.h"
+#import "BWAnalyseViewController.h"
 
 static NSString *queryParameterCell = @"queryParameterCell";
 static NSString *analyseBinCell  = @"binCellAnalyse";
@@ -114,14 +115,23 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+ 
+     if ([segue.identifier isEqualToString:@"AnalyzeSegue"]) {
+         BWAnalyseViewController *dvc = segue.destinationViewController;
+         
+         //IMP TODO: Change the data later dynamic
+         
+         dvc.bins = [NSArray arrayWithObjects:@"Bin1",@"Bin2", nil];
+         dvc.query = @"Fill Trend";
+         dvc.fromDate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
+         dvc.toDate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
+     }
  }
- */
+ 
 
 @end

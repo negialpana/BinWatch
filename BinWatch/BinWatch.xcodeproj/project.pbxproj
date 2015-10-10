@@ -28,6 +28,7 @@
 		15ED60B91BC8192F00EA6285 /* BWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60B81BC8192F00EA6285 /* BWDatePickerView.m */; };
 		15ED60BB1BC8196D00EA6285 /* BWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15ED60BA1BC8196D00EA6285 /* BWDatePickerView.xib */; };
 		15ED60D21BC940B700EA6285 /* BWAnalyseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D11BC940B700EA6285 /* BWAnalyseTableViewCell.m */; };
+		15ED60D51BC94B8C00EA6285 /* BWAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */; };
 		321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */; };
 		32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861A8C1BC4A1D400D0568F /* GradientView.m */; };
 		32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */; };
@@ -106,6 +107,8 @@
 		15ED60BA1BC8196D00EA6285 /* BWDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWDatePickerView.xib; path = ../BWDatePickerView.xib; sourceTree = "<group>"; };
 		15ED60D01BC940B700EA6285 /* BWAnalyseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWAnalyseTableViewCell.h; path = ../BWAnalyseTableViewCell.h; sourceTree = "<group>"; };
 		15ED60D11BC940B700EA6285 /* BWAnalyseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWAnalyseTableViewCell.m; path = ../BWAnalyseTableViewCell.m; sourceTree = "<group>"; };
+		15ED60D31BC94B8C00EA6285 /* BWAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAnalyseViewController.h; sourceTree = "<group>"; };
+		15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAnalyseViewController.m; sourceTree = "<group>"; };
 		321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinDetailsViewController.h; sourceTree = "<group>"; };
 		321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinDetailsViewController.m; sourceTree = "<group>"; };
 		32861A8B1BC4A1D400D0568F /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientView.h; path = Views/GradientView.h; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 				1500ABCA1B9ABAD200E0AF6C /* BWFillLevelsViewController.m */,
 				321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */,
 				321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */,
+				15ED60D31BC94B8C00EA6285 /* BWAnalyseViewController.h */,
+				15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -565,6 +570,7 @@
 				321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
+				15ED60D51BC94B8C00EA6285 /* BWAnalyseViewController.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
 				F1F2B9141BC6E55A0019E662 /* HudDemoViewController.m in Sources */,
 				32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */,
