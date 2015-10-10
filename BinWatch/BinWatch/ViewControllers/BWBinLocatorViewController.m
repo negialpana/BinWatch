@@ -291,6 +291,23 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     }
 }
 
+-(UIImage *) getIconFor:(NSNumber *) binC
+{
+    NSInteger binColor = [binC integerValue];
+    switch(binColor)
+    {
+        case BWYellow:
+            return [UIImage imageNamed:@"trashYellow"];
+        case BWRed:
+            return [UIImage imageNamed:@"trashRed"];
+        case BWGreen:
+            return [UIImage imageNamed:@"trashGreen"];
+        default:
+            // TODO:
+            return nil;
+    }
+}
+
 #pragma mark - KVO updates
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
