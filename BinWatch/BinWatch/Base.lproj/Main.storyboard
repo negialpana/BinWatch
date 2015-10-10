@@ -114,11 +114,15 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1zW-Lb-WgI" id="jtv-dj-4e1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k34-bc-QVm">
-                                                    <rect key="frame" x="8" y="8" width="24" height="29"/>
-                                                    <state key="normal" backgroundImage="Button_Selected">
+                                                <button opaque="NO" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k34-bc-QVm">
+                                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                                    <state key="normal" backgroundImage="Button_Unselected">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="selected" backgroundImage="Button_Selected"/>
+                                                    <connections>
+                                                        <action selector="btnTapped:" destination="1zW-Lb-WgI" eventType="touchUpInside" id="9bd-ja-LBE"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znV-rH-pzs">
                                                     <rect key="frame" x="44" y="8" width="42" height="29"/>
@@ -133,7 +137,7 @@
                                                 <constraint firstItem="k34-bc-QVm" firstAttribute="leading" secondItem="jtv-dj-4e1" secondAttribute="leading" constant="8" id="K4X-0v-IjI"/>
                                                 <constraint firstItem="znV-rH-pzs" firstAttribute="leading" secondItem="k34-bc-QVm" secondAttribute="trailing" constant="12" id="O0V-1g-bhF"/>
                                                 <constraint firstAttribute="bottom" secondItem="znV-rH-pzs" secondAttribute="bottom" constant="6" id="OAE-aq-J9e"/>
-                                                <constraint firstAttribute="bottom" secondItem="k34-bc-QVm" secondAttribute="bottom" constant="6" id="k6E-0J-66S"/>
+                                                <constraint firstAttribute="bottom" secondItem="k34-bc-QVm" secondAttribute="bottom" constant="11.5" id="k6E-0J-66S"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -162,22 +166,22 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-oS-1ht">
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-oS-1ht">
                                         <rect key="frame" x="115" y="12" width="46" height="30"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="fromDateBtnPressed:" destination="o0I-lk-Al9" eventType="touchUpInside" id="mT2-1x-weV"/>
+                                            <action selector="dateBtnPressed:" destination="o0I-lk-Al9" eventType="touchUpInside" id="FLw-20-M5P"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAc-kN-D3H">
+                                    <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAc-kN-D3H">
                                         <rect key="frame" x="115" y="65" width="46" height="30"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="toDateBtnPressed:" destination="o0I-lk-Al9" eventType="touchUpInside" id="JaD-Zi-Lgr"/>
+                                            <action selector="dateBtnPressed:" destination="o0I-lk-Al9" eventType="touchUpInside" id="LkP-YR-r73"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -529,6 +533,7 @@
     </scenes>
     <resources>
         <image name="Button_Selected" width="24" height="24"/>
+        <image name="Button_Unselected" width="24" height="24"/>
         <image name="DashBoard" width="16" height="16"/>
         <image name="Export" width="16" height="16"/>
         <image name="bin" width="24" height="24"/>

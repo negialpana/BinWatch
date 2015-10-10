@@ -21,16 +21,15 @@ static NSString *queryParameterCell = @"queryParameterCell";
 @property (nonatomic, strong) BWDatePickerView *toDatePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 
-- (IBAction)fromDateBtnPressed:(id)sender;
-- (IBAction)toDateBtnPressed:(id)sender;
+- (IBAction)dateBtnPressed:(id)sender;
 
 @end
 
 @implementation BWAnalyticsViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
     
     [_fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [_toDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
@@ -40,9 +39,9 @@ static NSString *queryParameterCell = @"queryParameterCell";
 }
 
 - (NSDateFormatter *)dateFormatter{
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    
     return formatter;
 }
 
@@ -56,45 +55,41 @@ static NSString *queryParameterCell = @"queryParameterCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     QueryParameterCell *cell = [tableView dequeueReusableCellWithIdentifier:queryParameterCell];
     return cell;
 }
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)fromDateBtnPressed:(id)sender {
+
+- (IBAction)dateBtnPressed:(id)sender {
     
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
     _datePicker = [views objectAtIndex:0];
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
-        [weakSelf.fromDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
+        
+        UIButton *btn = (UIButton *)sender;
+        [btn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
     }];
     _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
                                    self.dateComponentsContainerView.frame.origin.y,
                                    self.view.bounds.size.width, 250);
+    
+    CATransition *applicationLoadViewIn =[CATransition animation];
+    [applicationLoadViewIn setDuration:1.0];
+    [applicationLoadViewIn setType:kCATransitionReveal];
+    [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+    [[_datePicker layer]addAnimation:applicationLoadViewIn forKey:kCATransitionReveal];
+    
     [self.view addSubview:_datePicker];
     [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
     
-}
-
-- (IBAction)toDateBtnPressed:(id)sender {
-    
-    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
-    _toDatePicker = [views objectAtIndex:0];
-    __weak typeof(self) weakSelf = self;
-    [_toDatePicker setComplBlock:^void(NSDate *selDate){
-        [weakSelf.toDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
-    }];
-    _toDatePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
-                                   self.dateComponentsContainerView.frame.origin.y,
-                                   self.view.bounds.size.width, 250);
-    [self.view addSubview:_toDatePicker];
-    [_toDatePicker bringSubviewToFront:self.dateComponentsContainerView];
-
 }
 
 /*
@@ -106,6 +101,5 @@ static NSString *queryParameterCell = @"queryParameterCell";
  // Pass the selected object to the new view controller.
  }
  */
-
 
 @end

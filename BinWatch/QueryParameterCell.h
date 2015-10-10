@@ -10,4 +10,7 @@
 
 @interface QueryParameterCell : UITableViewCell
 
+@property (nonatomic, assign) BOOL isParamSelected;
+- (IBAction)btnTapped:(id)sender;
+
 @end

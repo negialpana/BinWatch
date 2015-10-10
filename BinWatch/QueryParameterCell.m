@@ -24,4 +24,11 @@
 }
 */
 
+- (IBAction)btnTapped:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    [btn setSelected:!btn.selected];
+    self.isParamSelected = btn.selected;
+    
+}
 @end
