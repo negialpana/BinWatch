@@ -9,16 +9,18 @@
 #import "BWAnalyticsViewController.h"
 #import "QueryParameterCell.h"
 #import "BWDatePickerView.h"
+#import "BWAnalyseTableViewCell.h"
 
 static NSString *queryParameterCell = @"queryParameterCell";
+static NSString *analyseBinCell  = @"binCellAnalyse";
 
 @interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView2;
+@property (weak, nonatomic) IBOutlet UITableView *tableView1;
 @property (nonatomic, strong) NSArray *table2Data;
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
 @property (nonatomic, strong) BWDatePickerView *datePicker;
-@property (nonatomic, strong) BWDatePickerView *toDatePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 
 - (IBAction)dateBtnPressed:(id)sender;
@@ -34,7 +36,11 @@ static NSString *queryParameterCell = @"queryParameterCell";
     [_fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [_toDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     
-    self.table2Data = [NSArray arrayWithObjects:@"", nil];
+    self.table2Data = [NSArray arrayWithObjects:@"Fill Trend", @"TBD", nil];
+    
+    _tableView2.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableView1.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     // Do any additional setup after loading the view.
 }
 
@@ -48,16 +54,34 @@ static NSString *queryParameterCell = @"queryParameterCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == self.tableView2) {
-        return 3;
+        return [self.table2Data count];
     }else{
         return 5;
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    if (tableView == _tableView1) {
+        return  @"Select Bins";
+    }else{
+        return @"Select Query Param";
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    QueryParameterCell *cell = [tableView dequeueReusableCellWithIdentifier:queryParameterCell];
-    return cell;
+    if (tableView == _tableView2) {
+        QueryParameterCell *cell = [tableView dequeueReusableCellWithIdentifier:queryParameterCell];
+        [cell.queryString setText:[self.table2Data objectAtIndex:indexPath.row]];
+        return cell;
+    }else{
+        BWAnalyseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:analyseBinCell];
+        [cell.binDetailsLabel setText:[NSString stringWithFormat:@"Bin Location %ld",(long)indexPath.row]];
+        [cell.fillPercentLabel setText:@"100%"];
+        return cell;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,14 +105,12 @@ static NSString *queryParameterCell = @"queryParameterCell";
                                    self.dateComponentsContainerView.frame.origin.y,
                                    self.view.bounds.size.width, 250);
     
-    CATransition *applicationLoadViewIn =[CATransition animation];
-    [applicationLoadViewIn setDuration:1.0];
-    [applicationLoadViewIn setType:kCATransitionReveal];
-    [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-    [[_datePicker layer]addAnimation:applicationLoadViewIn forKey:kCATransitionReveal];
-    
     [self.view addSubview:_datePicker];
     [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [_datePicker setAlpha:1.0];
+    }];
     
 }
 

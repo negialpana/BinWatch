@@ -11,6 +11,8 @@
 @interface QueryParameterCell : UITableViewCell
 
 @property (nonatomic, assign) BOOL isParamSelected;
+@property (weak, nonatomic) IBOutlet UILabel *queryString;
+@property (weak, nonatomic) IBOutlet UIButton *selectionBtn;
 - (IBAction)btnTapped:(id)sender;
 
 @end

@@ -34,24 +34,12 @@
     
     self.selectedDate = _datePickerView.date;
     self.complBlock(self.selectedDate);
-    [UIView animateWithDuration:0.8
-                     animations:^{
-                         self.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished){
-                         [self removeFromSuperview];
-                     }];
+    [self removeFromSuperview];
 }
 
 - (IBAction)cancelPressed:(id)sender {
     
-    [UIView animateWithDuration:0.8
-                     animations:^{
-                         self.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished){
-                         [self removeFromSuperview];
-                     }];
+    [self removeFromSuperview];
 }
 
 @end

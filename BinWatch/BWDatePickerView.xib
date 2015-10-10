@@ -40,7 +40,7 @@
                     </date>
                 </datePicker>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.86326152146464641" green="0.86326152146464641" blue="0.86326152146464641" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="4sp-t3-KrY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="78R-tK-JkB"/>
                 <constraint firstItem="4sp-t3-KrY" firstAttribute="top" secondItem="oU0-4M-1xb" secondAttribute="bottom" constant="2.5" id="8NE-qh-bwp"/>
