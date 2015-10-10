@@ -145,15 +145,15 @@
 		F1F2B8F91BC6E55A0019E662 /* BWGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWGeocoder.m; sourceTree = "<group>"; };
 		F1F2B8FA1BC6E55A0019E662 /* BWRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWRoute.h; sourceTree = "<group>"; };
 		F1F2B8FB1BC6E55A0019E662 /* BWRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWRoute.m; sourceTree = "<group>"; };
-		F1F2B8FC1BC6E55A0019E662 /* SPGooglePlacesAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocomplete.h; sourceTree = "<group>"; };
-		F1F2B8FD1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
-		F1F2B8FE1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
-		F1F2B8FF1BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
-		F1F2B9001BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteQuery.m; sourceTree = "<group>"; };
-		F1F2B9011BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteUtilities.h; sourceTree = "<group>"; };
-		F1F2B9021BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteUtilities.m; sourceTree = "<group>"; };
-		F1F2B9031BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesPlaceDetailQuery.h; sourceTree = "<group>"; };
-		F1F2B9041BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesPlaceDetailQuery.m; sourceTree = "<group>"; };
+		F1F2B8FC1BC6E55A0019E662 /* SPGooglePlacesAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocomplete.h; path = "../Google Maps/SPGooglePlacesAutocomplete.h"; sourceTree = "<group>"; };
+		F1F2B8FD1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompletePlace.h; path = "../Google Maps/SPGooglePlacesAutocompletePlace.h"; sourceTree = "<group>"; };
+		F1F2B8FE1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompletePlace.m; path = "../Google Maps/SPGooglePlacesAutocompletePlace.m"; sourceTree = "<group>"; };
+		F1F2B8FF1BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompleteQuery.h; path = "../Google Maps/SPGooglePlacesAutocompleteQuery.h"; sourceTree = "<group>"; };
+		F1F2B9001BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompleteQuery.m; path = "../Google Maps/SPGooglePlacesAutocompleteQuery.m"; sourceTree = "<group>"; };
+		F1F2B9011BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompleteUtilities.h; path = "../Google Maps/SPGooglePlacesAutocompleteUtilities.h"; sourceTree = "<group>"; };
+		F1F2B9021BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompleteUtilities.m; path = "../Google Maps/SPGooglePlacesAutocompleteUtilities.m"; sourceTree = "<group>"; };
+		F1F2B9031BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesPlaceDetailQuery.h; path = "../Google Maps/SPGooglePlacesPlaceDetailQuery.h"; sourceTree = "<group>"; };
+		F1F2B9041BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesPlaceDetailQuery.m; path = "../Google Maps/SPGooglePlacesPlaceDetailQuery.m"; sourceTree = "<group>"; };
 		F1F2B9071BC6E55A0019E662 /* HudDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudDemoViewController.h; sourceTree = "<group>"; };
 		F1F2B9081BC6E55A0019E662 /* HudDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudDemoViewController.m; sourceTree = "<group>"; };
 		F1F2B9091BC6E55A0019E662 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -242,8 +242,6 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
-				9000720C1BC6F9C1003B2562 /* Fabric.framework */,
-				9000720D1BC6F9C1003B2562 /* Crashlytics.framework */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
@@ -263,11 +261,11 @@
 		15EA4ADE1B98A9D7006CD602 /* BinWatch */ = {
 			isa = PBXGroup;
 			children = (
-				F1F2B8F71BC6E55A0019E662 /* Google Maps */,
-				F1F2B9051BC6E55A0019E662 /* Third Party */,
 				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
 				F19AB6811BA1CF5C0084A879 /* AppDelegate.h */,
 				F19AB6821BA1CF5C0084A879 /* AppDelegate.m */,
+				F1F2B8F71BC6E55A0019E662 /* Google Maps */,
+				F1F2B9051BC6E55A0019E662 /* Third Party */,
 				1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */,
 				1500ABFC1B9C10CF00E0AF6C /* DataModelClass */,
 				1500ABE01B9C080500E0AF6C /* DataHandler */,
@@ -334,9 +332,27 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		900072251BC94D11003B2562 /* Google Maps */ = {
+			isa = PBXGroup;
+			children = (
+				F1F2B8FC1BC6E55A0019E662 /* SPGooglePlacesAutocomplete.h */,
+				F1F2B8FD1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.h */,
+				F1F2B8FE1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m */,
+				F1F2B8FF1BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.h */,
+				F1F2B9001BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.m */,
+				F1F2B9011BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.h */,
+				F1F2B9021BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.m */,
+				F1F2B9031BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.h */,
+				F1F2B9041BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.m */,
+			);
+			name = "Google Maps";
+			sourceTree = "<group>";
+		};
 		9027211F1BBBE5BF00108D1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9000720C1BC6F9C1003B2562 /* Fabric.framework */,
+				9000720D1BC6F9C1003B2562 /* Crashlytics.framework */,
 				902721201BBBE75600108D1E /* SystemConfiguration.framework */,
 				9027211D1BBBE5A500108D1E /* QuartzCore.framework */,
 				9027211B1BBBE59C00108D1E /* OpenGLES.framework */,
@@ -390,15 +406,6 @@
 				F1F2B8F91BC6E55A0019E662 /* BWGeocoder.m */,
 				F1F2B8FA1BC6E55A0019E662 /* BWRoute.h */,
 				F1F2B8FB1BC6E55A0019E662 /* BWRoute.m */,
-				F1F2B8FC1BC6E55A0019E662 /* SPGooglePlacesAutocomplete.h */,
-				F1F2B8FD1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.h */,
-				F1F2B8FE1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m */,
-				F1F2B8FF1BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.h */,
-				F1F2B9001BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.m */,
-				F1F2B9011BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.h */,
-				F1F2B9021BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.m */,
-				F1F2B9031BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.h */,
-				F1F2B9041BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.m */,
 			);
 			path = "Google Maps";
 			sourceTree = "<group>";
@@ -406,6 +413,7 @@
 		F1F2B9051BC6E55A0019E662 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				900072251BC94D11003B2562 /* Google Maps */,
 				F1F2B9061BC6E55A0019E662 /* MBProgressHUD */,
 				F1F2B90B1BC6E55A0019E662 /* Reachability */,
 			);
