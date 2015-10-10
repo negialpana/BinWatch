@@ -13,6 +13,8 @@
 #import "BWCommon.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
+static NSString* const kSearchPlaceHolder = @"Search";
+
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
@@ -34,25 +36,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
     zoomLevel = DEFAULT_ZOOM_LEVEL;
+    firstLocationUpdate_ = NO;
 
     mapMarkers = [[NSMutableDictionary alloc] init];
     currentLocation = [[CLLocation alloc] init];
     selectedLocations = [[NSMutableArray alloc] init];
 
-    firstLocationUpdate_ = NO;
-    [[BWRoute sharedInstance] setDelegate:self];
+    // Navigation Bar Init
+    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
+    self.navigationItem.rightBarButtonItem = moreButton;
+
+    // Register for orientation change
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceOrientationDidChangeNotification:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(deviceOrientationDidChangeNotification:)
-     name:UIDeviceOrientationDidChangeNotification
-     object:nil];
+    [[BWRoute sharedInstance] setDelegate:self];
     
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
-    self.searchDisplayController.searchBar.placeholder = @"Search Locations";
+
+    // UISearchBar Init
+    self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+    [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
+    [self.mapSearchBar setTranslucent:NO];
 
     // Bangalore MG Road
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9667
@@ -81,22 +90,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         mapView.myLocationEnabled = YES;
     });
-    
-    [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
-    [self.mapSearchBar setTranslucent:NO];
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:14.0/255.0 green:114.0/255.0 blue:199.0/255.0 alpha:1]];
-    
-//    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.mapSearchBar];
-//    self.navigationItem.rightBarButtonItem = searchBarItem;
-    
-    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
-    self.navigationItem.rightBarButtonItem = moreButton;
-
-//    UIButton* myLocationButton = (UIButton*)[[mapView subviews] lastObject];
-//    myLocationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
-//    CGRect frame = myLocationButton.frame;
-//    frame.origin.x = 5;
-//    myLocationButton.frame = frame;
     
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
@@ -310,7 +303,7 @@
 }
 */
 
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [searchResultPlaces count];
