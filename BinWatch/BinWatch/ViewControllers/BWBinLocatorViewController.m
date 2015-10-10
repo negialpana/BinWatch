@@ -49,6 +49,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     NSMutableDictionary *mapMarkers;
     CLLocation *currentLocation;
     NSMutableArray *selectedLocations;
+    BOOL isMapEdited;
 }
 
 #pragma mark - View Life Cycle
@@ -58,6 +59,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 
     zoomLevel = DEFAULT_ZOOM_LEVEL;
     firstLocationUpdate_ = NO;
+    isMapEdited = NO;
 
     mapMarkers = [[NSMutableDictionary alloc] init];
     currentLocation = [[CLLocation alloc] init];
@@ -332,9 +334,13 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     NSLog(@"did tap at cordinate");
+    if(!isMapEdited)
+        return;
+
     //[self resetBinIcons];
     [selectedLocations removeAllObjects];
     [self flushAllRoutes];
+    isMapEdited = NO;
 }
 
 /*
@@ -343,6 +349,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
  */
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
+    isMapEdited = YES;
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);
 
     if([marker.userData isEqualToString:kYellow])
