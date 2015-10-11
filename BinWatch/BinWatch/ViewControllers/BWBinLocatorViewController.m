@@ -106,6 +106,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 
     [self drawBins];
     
+    mapView.settings.compassButton = YES;
     mapView.settings.myLocationButton = YES;
     mapView.trafficEnabled = YES;
     mapView.buildingsEnabled = YES;
@@ -176,6 +177,9 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 - (void) resizeMapView
 {
     [mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+
+    // TODO: Whats this 10? No idea...
+    //[mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.tabBarController.tabBar.frame.size.height + self.searchDisplayController.searchBar.frame.size.height + 10, self.view.frame.size.width, self.view.frame.size.height - (self.tabBarController.tabBar.frame.size.height * 2) - self.searchDisplayController.searchBar.frame.size.height - 10)];
 }
 
 -(void) flushAllRoutes
