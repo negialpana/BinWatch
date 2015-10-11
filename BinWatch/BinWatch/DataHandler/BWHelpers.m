@@ -138,7 +138,7 @@ NSString* const fillPercent = @"fill";
     HUD.labelText = message;
     
     [HUD show:YES];
-    [HUD hide:YES afterDelay:3];
+    [HUD hide:YES afterDelay:1];
 }
 
 @end

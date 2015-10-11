@@ -23,7 +23,7 @@ static NSString* const kRouteFetchFailed            = @"Route fetch failed";
 static NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
 static NSString* const kPlacesFetchFailed           = @"Couldn't fetch places";
 static NSString* const kSelectedPlaceFetchFailed    = @"Couldn't fetch selected location";
-
+static NSString* const kNoSelectedBins              = @"No bins are selected";
 
 
 static NSString* const kIcon         = @"icon";
@@ -123,7 +123,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
     
-    
+    // TODO: Clean up this code
     UIView *view = [self.navigationItem.rightBarButtonItem valueForKey:@"view"];
     CGFloat width;
     if(view){
@@ -139,9 +139,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     float tableViewY = 60;
     CGRect fr = CGRectMake(tableViewX, tableViewY, WIDTH, HEIGHT);
     
-    
     settingsControl = [[BWSettingsControl alloc] init];
-    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins"] andFrame:fr];
+    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", @"Settings", @"Export", @"Report an Issue"] andFrame:fr];
     [settingsControl setDelegate:self];
 
 }
@@ -180,6 +179,13 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 
 -(void) drawRouteSelectedBins
 {
+    if(selectedLocations.count <= 0)
+    {
+        [self flushAllRoutes];
+        [BWLogger DoLog:@"No bins are selected"];
+        [BWHelpers displayHud:kNoSelectedBins onView:self.navigationController.view];
+        return;
+    }
     // TODO: Hardcoded for testing
     //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
@@ -545,13 +551,31 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 
 - (void)didTapSettingsRow:(NSInteger *)row
 {
-    NSLog(@"Tapped : %d", row);
-    if(row == 0)
-        [self drawRouteAllReds];
-    else if (row == 1)
-        [self drawRouteRedYellow];
-    else if (row == 2)
-        [self drawRouteSelectedBins];
+    NSLog(@"Tapped : %d", (int)row);
+    int rowIndex = (int)row;
+    switch (rowIndex) {
+        case 0:
+            [self drawRouteAllReds];
+            break;
+        case 1:
+            [self drawRouteRedYellow];
+            break;
+        case 2:
+            [self drawRouteSelectedBins];
+            break;
+        case 3:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+        case 4:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+        case 5:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
