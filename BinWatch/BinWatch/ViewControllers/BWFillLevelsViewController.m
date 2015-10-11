@@ -18,6 +18,9 @@
 
 #import "MBProgressHUD.h"
 
+#define NoBinsFont [UIFont fontWithName:@"Palatino-Italic" size:20]
+const NSString *noBinsMessage = @"No data is currently available. Please pull down to refresh.";
+
 @interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate , MBProgressHUDDelegate >
 
 @property NSMutableArray *searchArray;
@@ -26,7 +29,9 @@
 @implementation BWFillLevelsViewController
 
 bool searching = NO;
+bool noBins = NO;
 NSMutableArray *activeBins;
+UIRefreshControl *refreshControl;
 
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
@@ -45,7 +50,6 @@ NSMutableArray *activeBins;
     self.navigationItem.rightBarButtonItem = moreButton;
 
     [self refreshBins];
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
 
     [[NSNotificationCenter defaultCenter]
@@ -53,6 +57,14 @@ NSMutableArray *activeBins;
            selector:@selector(didChangeDeviceOrientation)
                name:UIDeviceOrientationDidChangeNotification
              object:nil];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self
+                       action:@selector(fetchData)
+             forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:refreshControl];
+
 }
 
 -(void)fetchData
@@ -93,7 +105,22 @@ NSMutableArray *activeBins;
 #pragma mark - UITableView delegates
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (noBins) {
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = noBinsMessage;
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = NoBinsFont;
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    }
     return 1;
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -199,7 +226,22 @@ NSMutableArray *activeBins;
 {
     activeBins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
     NSLog(@"existingBins: %lu", (unsigned long)activeBins.count);
+    noBins = activeBins.count ? NO : YES;
     [self.tableView reloadData];
+    
+    if (refreshControl) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                    forKey:NSForegroundColorAttributeName];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        refreshControl.attributedTitle = attributedTitle;
+        
+        [refreshControl endRefreshing];
+    }
+
 }
 
 -(BWBin*)binForRowAtIndexPath:(NSIndexPath *)indexPath
