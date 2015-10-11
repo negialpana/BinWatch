@@ -15,6 +15,9 @@
 #import "BWHelpers.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
+#define HEIGHT 300
+#define WIDTH 200
+
 static NSString* const kSearchPlaceHolder       = @"Search";
 static NSString* const kRouteFetchFailed        = @"Route fetch failed";
 static NSString* const kCurrentLocationFailed   = @"Couldn't read current location";
@@ -50,6 +53,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     CLLocation *currentLocation;
     NSMutableArray *selectedLocations;
     BOOL isMapEdited;
+    BWSettingsControl *settingsControl;
 }
 
 #pragma mark - View Life Cycle
@@ -115,6 +119,28 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
+    
+    
+    UIView *view = [self.navigationItem.rightBarButtonItem valueForKey:@"view"];
+    CGFloat width;
+    if(view){
+        width=[view frame].size.width;
+    }
+    else{
+        width=(CGFloat)0.0 ;
+    }
+    
+    NSLog(@"%f %f %f %f", view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    
+    float tableViewX = view.frame.origin.x - (WIDTH - view.frame.size.width);
+    float tableViewY = 60;
+    CGRect fr = CGRectMake(tableViewX, tableViewY, WIDTH, HEIGHT);
+    
+    
+    settingsControl = [[BWSettingsControl alloc] init];
+    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins"] andFrame:fr];
+    [settingsControl setDelegate:self];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,8 +157,10 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 #pragma mark - Event Handlers
 - (void)moreTapped
 {
+    [settingsControl toggleControl];
+
     NSLog(@"More tapped");
-    [self drawRouteSelectedBins];
+    //[self drawRouteSelectedBins];
 }
 
 #pragma mark - Map Utils
@@ -512,6 +540,19 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     polyline.strokeWidth = 5.f;
     polyline.strokeColor = [UIColor blackColor];
     polyline.map = mapView;
+}
+
+#pragma mark - BWSettingsControlDelegate
+
+- (void)didTapSettingsRow:(NSInteger *)row
+{
+    NSLog(@"Tapped : %d", row);
+    if(row == 0)
+        [self drawRouteAllReds];
+    else if (row == 1)
+        [self drawRouteRedYellow];
+    else if (row == 2)
+        [self drawRouteSelectedBins];
 }
 
 @end
