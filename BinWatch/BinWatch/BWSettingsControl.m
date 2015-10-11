@@ -29,9 +29,24 @@
     settingsTableView.dataSource = self;
     [parent addSubview:settingsTableView];
     settingsTableView.hidden = YES;
+    
+    // Ha .. Finally I got shadow up. Thanks StackOverflow
+    // http://stackoverflow.com/questions/9012071/adding-drop-shadow-to-uitableview
+    [settingsTableView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [settingsTableView.layer setShadowOffset:CGSizeMake(0, 0)];
+    [settingsTableView.layer setShadowRadius:5.0];
+    [settingsTableView.layer setShadowOpacity:1];
+    settingsTableView.clipsToBounds = NO;
+    settingsTableView.layer.masksToBounds = NO;
+
     [settingsTableView reloadData];
     [settingsTableView setSeparatorColor:[UIColor clearColor]];
     NSLog(@"HHH: %f", settingsTableView.rowHeight);
+}
+
+- (void) hideControl
+{
+    settingsTableView.hidden = YES;
 }
 
 - (void) toggleControl

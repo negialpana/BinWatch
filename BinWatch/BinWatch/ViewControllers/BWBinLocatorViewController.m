@@ -18,9 +18,12 @@
 #define HEIGHT 300
 #define WIDTH 200
 
-static NSString* const kSearchPlaceHolder       = @"Search";
-static NSString* const kRouteFetchFailed        = @"Route fetch failed";
-static NSString* const kCurrentLocationFailed   = @"Couldn't read current location";
+static NSString* const kSearchPlaceHolder           = @"Search";
+static NSString* const kRouteFetchFailed            = @"Route fetch failed";
+static NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
+static NSString* const kPlacesFetchFailed           = @"Couldn't fetch places";
+static NSString* const kSelectedPlaceFetchFailed    = @"Couldn't fetch selected location";
+
 
 
 static NSString* const kIcon         = @"icon";
@@ -361,6 +364,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
+    [settingsControl hideControl];
     NSLog(@"did tap at cordinate");
     if(!isMapEdited)
         return;
@@ -377,6 +381,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
  */
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
+    [settingsControl hideControl];
+
     isMapEdited = YES;
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);
 
@@ -447,12 +453,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
     [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not map selected Place"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
+            [BWLogger DoLog:@"Could not map selected Place"];
+            [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
         } else if (placemark) {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
             [self recenterMapToPlacemark:placemark];
@@ -472,12 +474,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not fetch Places"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
+            [BWLogger DoLog:@"Could not fetch Places"];
+            [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
             searchResultPlaces = places;
             [self.searchDisplayController.searchResultsTableView reloadData];
@@ -540,6 +538,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     polyline.strokeWidth = 5.f;
     polyline.strokeColor = [UIColor blackColor];
     polyline.map = mapView;
+    isMapEdited = YES;
 }
 
 #pragma mark - BWSettingsControlDelegate
