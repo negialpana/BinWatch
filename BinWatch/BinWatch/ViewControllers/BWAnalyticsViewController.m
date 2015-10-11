@@ -11,6 +11,9 @@
 #import "BWDatePickerView.h"
 #import "BWAnalyseTableViewCell.h"
 #import "BWAnalyseViewController.h"
+#import "BWDataHandler.h"
+#import "BWHelpers.h"
+#import "BWBin.h"
 
 static NSString *queryParameterCell = @"queryParameterCell";
 static NSString *analyseBinCell  = @"binCellAnalyse";
@@ -18,6 +21,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 @interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView2;
 @property (weak, nonatomic) IBOutlet UITableView *tableView1;
+@property (nonatomic, strong) NSArray *table1Data;
 @property (nonatomic, strong) NSArray *table2Data;
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
@@ -38,6 +42,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     [_fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [_toDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     
+    self.table1Data = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
     self.table2Data = [NSArray arrayWithObjects:@"Fill Trend", @"TBD", nil];
     
     _tableView2.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -56,11 +61,12 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.tableView2) {
+    if (tableView == self.tableView1) {
+        return [self.table1Data count];
+    }else if (tableView == self.tableView2) {
         return [self.table2Data count];
-    }else{
-        return 5;
     }
+    return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -81,8 +87,9 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
         return cell;
     }else{
         BWAnalyseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:analyseBinCell];
-        [cell.binDetailsLabel setText:[NSString stringWithFormat:@"Bin Location %ld",(long)indexPath.row]];
-        [cell.fillPercentLabel setText:@"100%"];
+        BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
+        cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
+        cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
         return cell;
     }
     
