@@ -32,6 +32,7 @@ bool searching = NO;
 bool noBins = NO;
 NSMutableArray *activeBins;
 UIRefreshControl *refreshControl;
+NSDate *lastUpdate;
 
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
@@ -48,8 +49,6 @@ UIRefreshControl *refreshControl;
 
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
-
-    [self refreshBins];
 
 
     [[NSNotificationCenter defaultCenter]
@@ -69,29 +68,34 @@ UIRefreshControl *refreshControl;
 
 -(void)fetchData
 {
-    BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-    [connectionHandler getBinsWithCompletionHandler:^(NSArray * bins, NSError *error) {
-        if (!error)
-        {
-            NSLog(@"*********Bins: %@",[bins description]);
-            [[BWDataHandler sharedHandler] insertBins:bins];
-            [self refreshBins];
-        }else
-        {
-            NSLog(@"***********Failed to get bins***************");
-            if (![[AppDelegate appDel] connected]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Connected"
-                                                                message:@"You're not connected to the internet."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+  BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+  });
+  [connectionHandler
+      getBinsWithCompletionHandler:^(NSArray *bins, NSError *error) {
+        if (!error) {
+          NSLog(@"*********Bins: %@", [bins description]);
+          [[BWDataHandler sharedHandler] insertBins:bins];
+          lastUpdate = [NSDate date];
+          [self refreshBins];
+        } else {
+          NSLog(@"***********Failed to get bins***************");
+          if (![[AppDelegate appDel] connected]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+              UIAlertView *alert = [[UIAlertView alloc]
+                      initWithTitle:@"Not Connected"
+                            message:@"You're not connected to the internet."
+                           delegate:self
+                  cancelButtonTitle:@"OK"
+                  otherButtonTitles:nil];
+              [alert show];
 
-            }
-            
+            });
+          }
         }
-    }];
-
+      }];
+  [self refreshBins];
 }
 
 -(void)dealloc{
@@ -233,12 +237,11 @@ UIRefreshControl *refreshControl;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:lastUpdate]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:Black
                                                                     forKey:NSForegroundColorAttributeName];
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
         refreshControl.attributedTitle = attributedTitle;
-        
         [refreshControl endRefreshing];
     }
 
