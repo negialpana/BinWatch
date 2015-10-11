@@ -30,4 +30,13 @@
     self.isParamSelected = btn.selected;
     
 }
+- (IBAction)btnTapped:(id)sender forEvent:(UIEvent *)event {
+    
+    UITouch * touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.superview.superview];
+    UITableView *tableView = (UITableView *)self.superview.superview;
+    NSIndexPath * indexPath = [tableView indexPathForRowAtPoint: location];
+    [tableView.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
 @end

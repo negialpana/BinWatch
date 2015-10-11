@@ -156,12 +156,13 @@
                                     <outlet property="delegate" destination="o0I-lk-Al9" id="Jy0-h3-h07"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" tag="222" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7xN-ad-5GM">
+                            <tableView clipsSubviews="YES" tag="222" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7xN-ad-5GM">
                                 <rect key="frame" x="0.0" y="371" width="600" height="180"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="et8-0a-yiX"/>
                                 </constraints>
+                                <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="queryParameterCell" id="1zW-Lb-WgI" customClass="QueryParameterCell">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -176,6 +177,7 @@
                                                     <state key="selected" backgroundImage="Button_Selected"/>
                                                     <connections>
                                                         <action selector="btnTapped:" destination="1zW-Lb-WgI" eventType="touchUpInside" id="t5p-Ku-CKh"/>
+                                                        <action selector="btnTapped:forEvent:" destination="1zW-Lb-WgI" eventType="touchUpInside" id="fbS-9Y-ozi"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znV-rH-pzs">

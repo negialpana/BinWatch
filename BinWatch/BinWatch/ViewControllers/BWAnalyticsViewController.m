@@ -23,6 +23,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
 @property (nonatomic, strong) BWDatePickerView *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
+@property (nonatomic, strong) NSString *queryParam;
 
 - (IBAction)dateBtnPressed:(id)sender;
 
@@ -40,6 +41,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     self.table2Data = [NSArray arrayWithObjects:@"Fill Trend", @"TBD", nil];
     
     _tableView2.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.queryParam = [self.table2Data objectAtIndex:0];
     _tableView1.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     // Do any additional setup after loading the view.
@@ -75,6 +77,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     if (tableView == _tableView2) {
         QueryParameterCell *cell = [tableView dequeueReusableCellWithIdentifier:queryParameterCell];
         [cell.queryString setText:[self.table2Data objectAtIndex:indexPath.row]];
+        [cell.selectionBtn setSelected:[[self.table2Data objectAtIndex:indexPath.row] isEqualToString:self.queryParam]];
         return cell;
     }else{
         BWAnalyseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:analyseBinCell];
@@ -83,6 +86,13 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
         return cell;
     }
     
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (tableView == _tableView2) {
+        self.queryParam = [self.table2Data objectAtIndex:indexPath.row];
+        [self.tableView2 reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,7 +137,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
          //IMP TODO: Change the data later dynamic
          
          dvc.bins = [NSArray arrayWithObjects:@"Bin1",@"Bin2", nil];
-         dvc.query = @"Fill Trend";
+         dvc.query = self.queryParam;
          dvc.fromDate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
          dvc.toDate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
      }
