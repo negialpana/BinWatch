@@ -32,6 +32,8 @@ typedef NS_ENUM(NSUInteger, BWBinColor) {
 #define LightYellow [UIColor colorWithRed:211.0/255.0f green:178.0/255.0f blue:28.0/255.0f alpha:1.0]
 #define LightGreen  [UIColor colorWithRed:16.0/255.0f green:120.0/255.0f blue:32.0/255.0f alpha:1.0]
 
+#define AppTheme    [UIColor colorWithRed:21.0/255.0f green:149.0/255.0f blue:238.0/255.0f alpha:1.0]
+
 #define Black       [UIColor blackColor]
 #define White       [UIColor whiteColor]
 #define Gray        [UIColor grayColor]

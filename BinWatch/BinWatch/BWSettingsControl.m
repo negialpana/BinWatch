@@ -7,6 +7,7 @@
 //
 
 #import "BWSettingsControl.h"
+#import "BWCommon.h"
 
 @implementation BWSettingsControl 
 {
@@ -69,7 +70,7 @@
     cell.textLabel.text = [settingsLabels objectAtIndex:indexPath.row];
     UIView *backgroundView = [[UIView alloc]init];
     //backgroundView.layer.backgroundColor = [[UIColor colorWithRed:0.529 green:0.808 blue:0.922 alpha:1]CGColor];
-    backgroundView.layer.backgroundColor = [[UIColor redColor] CGColor];
+    backgroundView.layer.backgroundColor = [AppTheme CGColor];
     cell.selectedBackgroundView = backgroundView;
     
     return cell;
