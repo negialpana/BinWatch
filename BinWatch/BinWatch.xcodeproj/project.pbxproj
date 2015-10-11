@@ -29,6 +29,7 @@
 		15ED60BB1BC8196D00EA6285 /* BWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15ED60BA1BC8196D00EA6285 /* BWDatePickerView.xib */; };
 		15ED60D21BC940B700EA6285 /* BWAnalyseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D11BC940B700EA6285 /* BWAnalyseTableViewCell.m */; };
 		15ED60D51BC94B8C00EA6285 /* BWAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */; };
+		15ED60D81BC95A1600EA6285 /* BWDashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */; };
 		321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */; };
 		32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861A8C1BC4A1D400D0568F /* GradientView.m */; };
 		32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */; };
@@ -109,6 +110,8 @@
 		15ED60D11BC940B700EA6285 /* BWAnalyseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWAnalyseTableViewCell.m; path = ../BWAnalyseTableViewCell.m; sourceTree = "<group>"; };
 		15ED60D31BC94B8C00EA6285 /* BWAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAnalyseViewController.h; sourceTree = "<group>"; };
 		15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAnalyseViewController.m; sourceTree = "<group>"; };
+		15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDashBoardViewController.h; sourceTree = "<group>"; };
+		15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDashBoardViewController.m; sourceTree = "<group>"; };
 		321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinDetailsViewController.h; sourceTree = "<group>"; };
 		321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinDetailsViewController.m; sourceTree = "<group>"; };
 		32861A8B1BC4A1D400D0568F /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientView.h; path = Views/GradientView.h; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
+				15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */,
+				15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
@@ -589,6 +594,7 @@
 				32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */,
 				F1F2B90E1BC6E55A0019E662 /* BWGeocoder.m in Sources */,
 				F1F2B9121BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
+				15ED60D81BC95A1600EA6285 /* BWDashBoardViewController.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
 				F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */,
 				15ED60D21BC940B700EA6285 /* BWAnalyseTableViewCell.m in Sources */,

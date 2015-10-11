@@ -424,10 +424,10 @@
             </objects>
             <point key="canvasLocation" x="1582" y="1832"/>
         </scene>
-        <!--DashBoard-->
+        <!--Dashboard-->
         <scene sceneID="xYx-zJ-B8P">
             <objects>
-                <viewController id="KyC-Du-kYR" sceneMemberID="viewController">
+                <viewController id="KyC-Du-kYR" customClass="BWDashBoardViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4X6-Bo-Icn"/>
                         <viewControllerLayoutGuide type="bottom" id="TVW-9F-zhR"/>
@@ -437,11 +437,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="DashBoard" image="DashBoard" id="tno-yA-5xe"/>
+                    <navigationItem key="navigationItem" title="Dashboard" id="fxH-kW-lnC"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Glq-Y8-u1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1993" y="1040"/>
+            <point key="canvasLocation" x="2912" y="1110"/>
         </scene>
         <!--Export-->
         <scene sceneID="geW-ww-hjn">
@@ -460,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="slr-7v-BTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="1521"/>
+            <point key="canvasLocation" x="3438" y="1521"/>
         </scene>
         <!--Bin Details View Controller-->
         <scene sceneID="tyH-fe-xXn">
@@ -653,7 +653,7 @@
                         <segue destination="zvl-cj-5ze" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="L24-Hs-DaS" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="8zt-FO-N3N" kind="relationship" relationship="viewControllers" id="AJ0-7s-NvZ"/>
-                        <segue destination="KyC-Du-kYR" kind="relationship" relationship="viewControllers" id="iL5-Vg-VSk"/>
+                        <segue destination="1aN-wh-yb6" kind="relationship" relationship="viewControllers" id="iL5-Vg-VSk"/>
                         <segue destination="Ogr-1D-mWv" kind="relationship" relationship="viewControllers" id="szK-7G-pqU"/>
                         <segue destination="4an-sU-BBb" kind="relationship" relationship="viewControllers" id="gDl-om-UYV"/>
                     </connections>
@@ -718,6 +718,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wzD-in-54N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="329"/>
+        </scene>
+        <!--DashBoard-->
+        <scene sceneID="DFI-c2-jOB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1aN-wh-yb6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="DashBoard" image="DashBoard" id="tno-yA-5xe"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iv7-zs-iBp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KyC-Du-kYR" kind="relationship" relationship="rootViewController" id="hTZ-Yb-5ju"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cBC-Eb-Yzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2100" y="1110"/>
         </scene>
     </scenes>
     <resources>
