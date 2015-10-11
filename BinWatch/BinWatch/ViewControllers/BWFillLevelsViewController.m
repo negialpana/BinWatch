@@ -14,6 +14,7 @@
 #import "BWCommon.h"
 #import "GradientView.h"
 #import "BinDetailsViewController.h"
+#import "AppDelegate.h"
 
 #import "MBProgressHUD.h"
 
@@ -66,6 +67,16 @@ NSMutableArray *activeBins;
         }else
         {
             NSLog(@"***********Failed to get bins***************");
+            if (![[AppDelegate appDel] connected]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Connected"
+                                                                message:@"You're not connected to the internet."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+
+            }
+            
         }
     }];
 

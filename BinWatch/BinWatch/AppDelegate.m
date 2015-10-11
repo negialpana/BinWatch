@@ -7,12 +7,14 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 #import "AppDelegate.h"
 #import "BWCommon.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "Reachability.h"
 
 @interface AppDelegate ()
 
@@ -37,7 +39,43 @@
     
     //[[Crashlytics sharedInstance] crash];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+
     return YES;
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
+- (void)networkChanged:(NSNotification *)notification
+{
+    if ([self connected]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connected"
+                                                        message:@"Connected to the internet."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Connected"
+                                                        message:@"You're not connected to the internet."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -56,6 +94,16 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if (![self connected]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Connected"
+                                                        message:@"You're not connected to the internet."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
