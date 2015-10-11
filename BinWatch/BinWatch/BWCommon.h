@@ -16,6 +16,7 @@ static NSString* const kGoogleAPIKey_Browser    = @"AIzaSyCUbwYomfVufUiVTiDak2qv
 
 #define RED_BOUNDARY 70
 #define YELLOW_BOUNDARY 50
+#define DEFAULT_RADIUS 5
 
 typedef NS_ENUM(NSUInteger, BWBinColor) {
     BWRed,

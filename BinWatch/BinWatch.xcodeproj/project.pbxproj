@@ -37,6 +37,7 @@
 		9000720F1BC6F9C1003B2562 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9000720D1BC6F9C1003B2562 /* Crashlytics.framework */; };
 		900072121BC700F7003B2562 /* BWLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 900072111BC700F7003B2562 /* BWLogger.m */; };
 		900072661BCA69C6003B2562 /* BWSettingsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 900072651BCA69C6003B2562 /* BWSettingsControl.m */; };
+		900072691BCAD851003B2562 /* BWAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 900072681BCAD851003B2562 /* BWAppSettings.m */; };
 		902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721051BBBE48B00108D1E /* GoogleMaps.framework */; };
 		902721081BBBE4CD00108D1E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 902721071BBBE4CD00108D1E /* GoogleMaps.bundle */; };
 		9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902721091BBBE50B00108D1E /* CoreBluetooth.framework */; };
@@ -125,6 +126,8 @@
 		900072111BC700F7003B2562 /* BWLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWLogger.m; sourceTree = "<group>"; };
 		900072641BCA69C6003B2562 /* BWSettingsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettingsControl.h; sourceTree = "<group>"; };
 		900072651BCA69C6003B2562 /* BWSettingsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettingsControl.m; sourceTree = "<group>"; };
+		900072671BCAD851003B2562 /* BWAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAppSettings.h; sourceTree = "<group>"; };
+		900072681BCAD851003B2562 /* BWAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAppSettings.m; sourceTree = "<group>"; };
 		902721051BBBE48B00108D1E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		902721071BBBE4CD00108D1E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		902721091BBBE50B00108D1E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -400,6 +403,8 @@
 				32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */,
 				900072101BC700F7003B2562 /* BWLogger.h */,
 				900072111BC700F7003B2562 /* BWLogger.m */,
+				900072671BCAD851003B2562 /* BWAppSettings.h */,
+				900072681BCAD851003B2562 /* BWAppSettings.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */,
 				15ED60D21BC940B700EA6285 /* BWAnalyseTableViewCell.m in Sources */,
 				15ABF61F1BC43A00005E24DA /* QueryParameterCell.m in Sources */,
+				900072691BCAD851003B2562 /* BWAppSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

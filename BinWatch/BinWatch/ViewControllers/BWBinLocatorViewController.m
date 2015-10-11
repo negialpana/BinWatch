@@ -13,6 +13,7 @@
 #import "BWCommon.h"
 #import "BWLogger.h"
 #import "BWHelpers.h"
+#import "BWAppSettings.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
 #define HEIGHT 300
@@ -140,7 +141,13 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     CGRect fr = CGRectMake(tableViewX, tableViewY, WIDTH, HEIGHT);
     
     settingsControl = [[BWSettingsControl alloc] init];
-    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", @"Settings", @"Export", @"Report an Issue"] andFrame:fr];
+    NSString *switchTo;
+    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+        switchTo = @"Switch To User";
+    else
+        switchTo = @"Switch To BBMP";
+    
+    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", @"Settings", @"Export", @"Report an Issue", switchTo] andFrame:fr];
     [settingsControl setDelegate:self];
 
 }
@@ -570,6 +577,9 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
         case 5:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+        case 6:
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
             
