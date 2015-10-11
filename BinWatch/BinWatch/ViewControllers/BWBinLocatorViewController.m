@@ -13,11 +13,18 @@
 #import "BWCommon.h"
 #import "BWLogger.h"
 #import "BWHelpers.h"
+#import "BWAppSettings.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
-static NSString* const kSearchPlaceHolder       = @"Search";
-static NSString* const kRouteFetchFailed        = @"Route fetch failed";
-static NSString* const kCurrentLocationFailed   = @"Couldn't read current location";
+#define HEIGHT 300
+#define WIDTH 200
+
+static NSString* const kSearchPlaceHolder           = @"Search";
+static NSString* const kRouteFetchFailed            = @"Route fetch failed";
+static NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
+static NSString* const kPlacesFetchFailed           = @"Couldn't fetch places";
+static NSString* const kSelectedPlaceFetchFailed    = @"Couldn't fetch selected location";
+static NSString* const kNoSelectedBins              = @"No bins are selected";
 
 
 static NSString* const kIcon         = @"icon";
@@ -50,6 +57,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     CLLocation *currentLocation;
     NSMutableArray *selectedLocations;
     BOOL isMapEdited;
+    BWSettingsControl *settingsControl;
 }
 
 #pragma mark - View Life Cycle
@@ -115,6 +123,33 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
+    
+    // TODO: Clean up this code
+    UIView *view = [self.navigationItem.rightBarButtonItem valueForKey:@"view"];
+    CGFloat width;
+    if(view){
+        width=[view frame].size.width;
+    }
+    else{
+        width=(CGFloat)0.0 ;
+    }
+    
+    NSLog(@"%f %f %f %f", view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    
+    float tableViewX = view.frame.origin.x - (WIDTH - view.frame.size.width);
+    float tableViewY = 60;
+    CGRect fr = CGRectMake(tableViewX, tableViewY, WIDTH, HEIGHT);
+    
+    settingsControl = [[BWSettingsControl alloc] init];
+    NSString *switchTo;
+    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+        switchTo = @"Switch To User";
+    else
+        switchTo = @"Switch To BBMP";
+    
+    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", @"Settings", @"Export", @"Report an Issue", switchTo] andFrame:fr];
+    [settingsControl setDelegate:self];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,8 +166,10 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 #pragma mark - Event Handlers
 - (void)moreTapped
 {
+    [settingsControl toggleControl];
+
     NSLog(@"More tapped");
-    [self drawRouteSelectedBins];
+    //[self drawRouteSelectedBins];
 }
 
 #pragma mark - Map Utils
@@ -149,6 +186,13 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 
 -(void) drawRouteSelectedBins
 {
+    if(selectedLocations.count <= 0)
+    {
+        [self flushAllRoutes];
+        [BWLogger DoLog:@"No bins are selected"];
+        [BWHelpers displayHud:kNoSelectedBins onView:self.navigationController.view];
+        return;
+    }
     // TODO: Hardcoded for testing
     //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
@@ -333,6 +377,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
+    [settingsControl hideControl];
     NSLog(@"did tap at cordinate");
     if(!isMapEdited)
         return;
@@ -349,6 +394,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
  */
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
+    [settingsControl hideControl];
+
     isMapEdited = YES;
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);
 
@@ -419,12 +466,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
     [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not map selected Place"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
+            [BWLogger DoLog:@"Could not map selected Place"];
+            [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
         } else if (placemark) {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
             [self recenterMapToPlacemark:placemark];
@@ -444,12 +487,8 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not fetch Places"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
+            [BWLogger DoLog:@"Could not fetch Places"];
+            [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
             searchResultPlaces = places;
             [self.searchDisplayController.searchResultsTableView reloadData];
@@ -512,6 +551,41 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     polyline.strokeWidth = 5.f;
     polyline.strokeColor = [UIColor blackColor];
     polyline.map = mapView;
+    isMapEdited = YES;
+}
+
+#pragma mark - BWSettingsControlDelegate
+
+- (void)didTapSettingsRow:(NSInteger *)row
+{
+    NSLog(@"Tapped : %d", (int)row);
+    int rowIndex = (int)row;
+    switch (rowIndex) {
+        case 0:
+            [self drawRouteAllReds];
+            break;
+        case 1:
+            [self drawRouteRedYellow];
+            break;
+        case 2:
+            [self drawRouteSelectedBins];
+            break;
+        case 3:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+        case 4:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+        case 5:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+        case 6:
+            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

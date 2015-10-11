@@ -11,6 +11,7 @@
 
 #import "AppDelegate.h"
 #import "BWCommon.h"
+#import "BWAppSettings.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -37,6 +38,8 @@
     [Fabric with:@[[Crashlytics class]]];
     [GMSServices provideAPIKey:kGoogleAPIKey];
     
+    [BWAppSettings sharedInstance].appMode = BWBBMP;
+    [BWAppSettings sharedInstance].defaultRadius = DEFAULT_RADIUS;
     //[[Crashlytics sharedInstance] crash];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
