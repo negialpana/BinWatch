@@ -66,6 +66,7 @@
 		F1F2B9141BC6E55A0019E662 /* HudDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B9081BC6E55A0019E662 /* HudDemoViewController.m */; };
 		F1F2B9151BC6E55A0019E662 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B90A1BC6E55A0019E662 /* MBProgressHUD.m */; };
 		F1F2B9161BC6E55A0019E662 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B90D1BC6E55A0019E662 /* Reachability.m */; };
+		F1F2B9341BCBEA250019E662 /* BWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B9331BCBEA250019E662 /* BWConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,7 +147,6 @@
 		F19AB6391B9BEB270084A879 /* BWBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBin.m; sourceTree = "<group>"; };
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
 		F19AB63B1B9BEB270084A879 /* BWBinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBinCollection.m; sourceTree = "<group>"; };
-		F19AB63C1B9BEB270084A879 /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
 		F19AB6441B9BF5E50084A879 /* BWHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWHelpers.h; path = DataHandler/BWHelpers.h; sourceTree = "<group>"; };
 		F19AB6451B9BF5E50084A879 /* BWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWHelpers.m; path = DataHandler/BWHelpers.m; sourceTree = "<group>"; };
 		F19AB6811BA1CF5C0084A879 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -172,6 +172,8 @@
 		F1F2B90A1BC6E55A0019E662 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		F1F2B90C1BC6E55A0019E662 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		F1F2B90D1BC6E55A0019E662 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		F1F2B9321BCBEA250019E662 /* BWConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWConstants.h; sourceTree = "<group>"; };
+		F1F2B9331BCBEA250019E662 /* BWConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,7 +279,8 @@
 		15EA4ADE1B98A9D7006CD602 /* BinWatch */ = {
 			isa = PBXGroup;
 			children = (
-				F19AB63C1B9BEB270084A879 /* BWCommon.h */,
+				F1F2B9321BCBEA250019E662 /* BWConstants.h */,
+				F1F2B9331BCBEA250019E662 /* BWConstants.m */,
 				F19AB6811BA1CF5C0084A879 /* AppDelegate.h */,
 				F19AB6821BA1CF5C0084A879 /* AppDelegate.m */,
 				F1F2B8F71BC6E55A0019E662 /* Google Maps */,
@@ -598,6 +601,7 @@
 				F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */,
 				15ED60B91BC8192F00EA6285 /* BWDatePickerView.m in Sources */,
 				1500ABF21B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */,
+				F1F2B9341BCBEA250019E662 /* BWConstants.m in Sources */,
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				F1F2B9151BC6E55A0019E662 /* MBProgressHUD.m in Sources */,
 				F1F2B8F61BC6E5120019E662 /* BWSearchBar.m in Sources */,

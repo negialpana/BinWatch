@@ -10,7 +10,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #import "AppDelegate.h"
-#import "BWCommon.h"
+#import "BWConstants.h"
 #import "BWAppSettings.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Fabric/Fabric.h>
@@ -61,8 +61,8 @@
 - (void)networkChanged:(NSNotification *)notification
 {
     if ([self connected]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connected"
-                                                        message:@"Connected to the internet."
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kConnectedTitle
+                                                        message:kConnectedText
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
@@ -70,8 +70,8 @@
         
     }
     else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Connected"
-                                                        message:@"You're not connected to the internet."
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kNotConnectedTitle
+                                                        message:kNotConnectedText
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];

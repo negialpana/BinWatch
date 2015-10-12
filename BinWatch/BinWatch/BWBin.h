@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreData/CoreData.h>
 
-#import "BWCommon.h"
+#import "BWConstants.h"
 
 @interface BWBin : NSObject
 

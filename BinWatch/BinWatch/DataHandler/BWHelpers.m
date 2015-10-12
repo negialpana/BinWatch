@@ -7,7 +7,7 @@
 //
 
 #import "BWHelpers.h"
-#import "BWCommon.h"
+#import "BWConstants.h"
 #import "BWBin.h"
 #import "MBProgressHUD.h"
 

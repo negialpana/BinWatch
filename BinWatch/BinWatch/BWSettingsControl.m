@@ -7,7 +7,7 @@
 //
 
 #import "BWSettingsControl.h"
-#import "BWCommon.h"
+#import "BWConstants.h"
 
 @implementation BWSettingsControl 
 {

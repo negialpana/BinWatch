@@ -10,37 +10,15 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWDataHandler.h"
 #import "BWBin.h"
-#import "BWCommon.h"
 #import "BWLogger.h"
 #import "BWHelpers.h"
 #import "BWAppSettings.h"
+#import "BWConstants.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
 #define HEIGHT 300
 #define WIDTH 200
 
-static NSString* const kSearchPlaceHolder           = @"Search";
-static NSString* const kRouteFetchFailed            = @"Route fetch failed";
-static NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
-static NSString* const kPlacesFetchFailed           = @"Couldn't fetch places";
-static NSString* const kSelectedPlaceFetchFailed    = @"Couldn't fetch selected location";
-static NSString* const kNoSelectedBins              = @"No bins are selected";
-
-
-static NSString* const kIcon         = @"icon";
-static NSString* const kUserData     = @"userData";
-
-static NSString* const kYellow       = @"YELLOW";
-static NSString* const kGreen        = @"GREEN";
-static NSString* const kRed          = @"RED";
-
-static NSString* const kTrashYellow  = @"trashYellow";
-static NSString* const kTrashGreen   = @"trashGreen";
-static NSString* const kTrashRed     = @"trashRed";
-
-static NSString* const kTrashPickerYellow  = @"trashPickerYellow";
-static NSString* const kTrashPickerGreen   = @"trashPickerGreen";
-static NSString* const kTrashPickerRed     = @"trashPickerRed";
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
@@ -74,7 +52,7 @@ static NSString* const kTrashPickerRed     = @"trashPickerRed";
     selectedLocations = [[NSMutableArray alloc] init];
 
     // Navigation Bar Init
-    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
+    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
 
     // Register for orientation change

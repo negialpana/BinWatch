@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "BWCommon.h"
+#import "BWConstants.h"
 @interface BWHelpers : NSObject
 
 /**

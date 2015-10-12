@@ -11,7 +11,6 @@
 #import "BWDataHandler.h"
 #import "BWHelpers.h"
 #import "BWBin.h"
-#import "BWCommon.h"
 #import "GradientView.h"
 #import "BinDetailsViewController.h"
 #import "AppDelegate.h"
@@ -47,7 +46,7 @@ NSDate *lastUpdate;
     
     [HUD showWhileExecuting:@selector(fetchData) onTarget:self withObject:nil animated:YES];
 
-    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
+    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
 
 
@@ -84,8 +83,8 @@ NSDate *lastUpdate;
           if (![[AppDelegate appDel] connected]) {
             dispatch_async(dispatch_get_main_queue(), ^{
               UIAlertView *alert = [[UIAlertView alloc]
-                      initWithTitle:@"Not Connected"
-                            message:@"You're not connected to the internet."
+                      initWithTitle:kNotConnectedTitle
+                            message:kNotConnectedText
                            delegate:self
                   cancelButtonTitle:@"OK"
                   otherButtonTitles:nil];

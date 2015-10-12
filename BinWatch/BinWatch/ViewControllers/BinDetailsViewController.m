@@ -7,7 +7,7 @@
 //
 
 #import "BinDetailsViewController.h"
-#import "BWCommon.h"
+#import "BWConstants.h"
 #import "BWBinCollection.h"
 #import "BWBin.h"
 #import "GradientView.h"
