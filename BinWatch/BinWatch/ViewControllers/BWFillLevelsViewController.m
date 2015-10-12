@@ -240,7 +240,8 @@ NSDate *lastUpdate;
         NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:Black
                                                                     forKey:NSForegroundColorAttributeName];
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
-        refreshControl.attributedTitle = attributedTitle;
+        //TODO :There is a crash please fix
+        //refreshControl.attributedTitle = !attributedTitle?@"":attributedTitle;
         [refreshControl endRefreshing];
     }
 

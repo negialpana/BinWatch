@@ -99,6 +99,10 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     if (tableView == _tableView2) {
         self.queryParam = [self.table2Data objectAtIndex:indexPath.row];
         [self.tableView2 reloadData];
+    }else{
+        
+        //To be implemented
+        NSLog(@"To be implemented");
     }
 }
 

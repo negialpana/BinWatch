@@ -19,6 +19,9 @@
 		1500ABF31B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */; };
 		1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
 		1500AC001B9C10CF00E0AF6C /* Bin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1500ABFE1B9C10CF00E0AF6C /* Bin.m */; };
+		151874A21BCC19720076BD21 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518749D1BCC19720076BD21 /* UIColor+HexColor.m */; };
+		151874A31BCC19720076BD21 /* VBPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518749F1BCC19720076BD21 /* VBPieChart.m */; };
+		151874A41BCC19720076BD21 /* VBPiePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 151874A11BCC19720076BD21 /* VBPiePiece.m */; };
 		15ABF61F1BC43A00005E24DA /* QueryParameterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
@@ -95,6 +98,12 @@
 		1500ABF11B9C080D00E0AF6C /* BWConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWConnectionHandler.m; sourceTree = "<group>"; };
 		1500ABFD1B9C10CF00E0AF6C /* Bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bin.h; sourceTree = "<group>"; };
 		1500ABFE1B9C10CF00E0AF6C /* Bin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bin.m; sourceTree = "<group>"; };
+		1518749C1BCC19720076BD21 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
+		1518749D1BCC19720076BD21 /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
+		1518749E1BCC19720076BD21 /* VBPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPieChart.h; sourceTree = "<group>"; };
+		1518749F1BCC19720076BD21 /* VBPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPieChart.m; sourceTree = "<group>"; };
+		151874A01BCC19720076BD21 /* VBPiePiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPiePiece.h; sourceTree = "<group>"; };
+		151874A11BCC19720076BD21 /* VBPiePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPiePiece.m; sourceTree = "<group>"; };
 		15ABF61D1BC43A00005E24DA /* QueryParameterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryParameterCell.h; path = ../QueryParameterCell.h; sourceTree = "<group>"; };
 		15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryParameterCell.m; path = ../QueryParameterCell.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +262,19 @@
 				1500ABFE1B9C10CF00E0AF6C /* Bin.m */,
 			);
 			path = DataModelClass;
+			sourceTree = "<group>";
+		};
+		1518749B1BCC19400076BD21 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				1518749C1BCC19720076BD21 /* UIColor+HexColor.h */,
+				1518749D1BCC19720076BD21 /* UIColor+HexColor.m */,
+				1518749E1BCC19720076BD21 /* VBPieChart.h */,
+				1518749F1BCC19720076BD21 /* VBPieChart.m */,
+				151874A01BCC19720076BD21 /* VBPiePiece.h */,
+				151874A11BCC19720076BD21 /* VBPiePiece.m */,
+			);
+			name = PieChart;
 			sourceTree = "<group>";
 		};
 		15EA4AD31B98A9D7006CD602 = {
@@ -436,6 +458,7 @@
 		F1F2B9051BC6E55A0019E662 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				1518749B1BCC19400076BD21 /* PieChart */,
 				900072251BC94D11003B2562 /* Google Maps */,
 				F1F2B9061BC6E55A0019E662 /* MBProgressHUD */,
 				F1F2B90B1BC6E55A0019E662 /* Reachability */,
@@ -588,12 +611,15 @@
 				321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
+				151874A21BCC19720076BD21 /* UIColor+HexColor.m in Sources */,
 				15ED60D51BC94B8C00EA6285 /* BWAnalyseViewController.m in Sources */,
 				1500ABCB1B9ABAD200E0AF6C /* BWAnalyticsViewController.m in Sources */,
 				F1F2B9141BC6E55A0019E662 /* HudDemoViewController.m in Sources */,
+				151874A31BCC19720076BD21 /* VBPieChart.m in Sources */,
 				32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				F1F2B9101BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m in Sources */,
+				151874A41BCC19720076BD21 /* VBPiePiece.m in Sources */,
 				900072121BC700F7003B2562 /* BWLogger.m in Sources */,
 				1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */,
 				F1F2B9131BC6E55A0019E662 /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
