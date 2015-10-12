@@ -47,8 +47,6 @@
     
     [self setUpChartValues];
     
-    [_chart setChartValues:_chartValues animation:YES];
-    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -73,9 +71,17 @@
                              @{@"name":@"40%", @"value":[percentages objectAtIndex:3], @"color":[UIColor colorWithHex:0x3f51b5aa]},
                              @{@"name":@"80%", @"value":[percentages objectAtIndex:4], @"color":[UIColor colorWithHex:0xf57c00aa]}
                              ];
+        
+        [_chart setChartValues:_chartValues animation:YES];
+
 
     }
    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self setUpChartValues];
 }
 
 - (void)didReceiveMemoryWarning {
