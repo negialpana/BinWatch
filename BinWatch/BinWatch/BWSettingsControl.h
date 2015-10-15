@@ -11,7 +11,7 @@
 
 @protocol BWSettingsControlDelegate <NSObject>
 
-- (void)didTapSettingsRow:(NSInteger *)row;
+- (void)didTapSettingsRow:(NSInteger)row;
 
 @end
 

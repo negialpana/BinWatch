@@ -538,7 +538,7 @@
 
 #pragma mark - BWSettingsControlDelegate
 
-- (void)didTapSettingsRow:(NSInteger *)row
+- (void)didTapSettingsRow:(NSInteger)row
 {
     NSLog(@"Tapped : %d", (int)row);
     int rowIndex = (int)row;
