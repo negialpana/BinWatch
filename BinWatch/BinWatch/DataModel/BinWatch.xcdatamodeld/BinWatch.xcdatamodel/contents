@@ -3,7 +3,7 @@
     <entity name="Bin" representedClassName="Bin" syncable="YES">
         <attribute name="binID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fill" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="humidity" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="isAcive" optional="YES" attributeType="Boolean" syncable="YES"/>

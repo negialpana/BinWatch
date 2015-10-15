@@ -60,11 +60,15 @@ static NSString* const kBinPlace = @"name";
         bin.isAcive = [[obj valueForKey:kBinIsActive] boolValue];
         bin.temperature = [obj valueForKey:kBinTemperature];
         bin.humidity = [obj valueForKey:kBinHumidity];
-        bin.date = [obj valueForKey:kBinDate];
         bin.fill = [formatter numberFromString:[obj valueForKey:kBinFillPercentage]];
         bin.latitude = [obj valueForKey:kBinLatitude];
         bin.longitude = [obj valueForKey:kBinLongitude];
         bin.place = [obj valueForKey:kBinPlace];
+
+        // UTC is in milliseconds. Converting to seconds
+        NSNumber *dateInSeconds = [obj valueForKey:kBinDate];
+        dateInSeconds = @([dateInSeconds floatValue] / 1000);
+        bin.date = [NSDate dateWithTimeIntervalSince1970:[dateInSeconds floatValue]];
 
         // TODO: Hard coded
         int abc = [BWHelpers colorForPercent:[[obj valueForKey:kBinFillPercentage] floatValue]];
