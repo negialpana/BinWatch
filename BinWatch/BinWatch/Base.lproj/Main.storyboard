@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -18,45 +18,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5I7-nm-zMw">
+                            <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1w8-et-j3Y">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="jCj-HP-I2g"/>
+                                    <constraint firstAttribute="height" constant="44" id="sE0-cY-62f"/>
                                 </constraints>
-                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="9pv-A4-QxB" id="05s-jD-h3j"/>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="M3A-vr-6xg"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6rc-G3-T0J">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tu3-Qc-1wr">
                                 <rect key="frame" x="0.0" y="108" width="600" height="443"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="WHz-xs-7O7"/>
-                                    <outlet property="delegate" destination="9pv-A4-QxB" id="7u2-5q-aTb"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6rc-G3-T0J" firstAttribute="top" secondItem="5I7-nm-zMw" secondAttribute="bottom" id="5Ca-2P-CSV"/>
-                            <constraint firstItem="6rc-G3-T0J" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="6cT-Pc-Coo"/>
-                            <constraint firstAttribute="trailing" secondItem="5I7-nm-zMw" secondAttribute="trailing" id="6uL-oB-Zvy"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="6rc-G3-T0J" secondAttribute="bottom" id="A1A-WJ-kmd"/>
-                            <constraint firstAttribute="trailing" secondItem="6rc-G3-T0J" secondAttribute="trailing" id="HzF-5r-fev"/>
-                            <constraint firstItem="5I7-nm-zMw" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="RKN-1O-UtP"/>
-                            <constraint firstItem="6rc-G3-T0J" firstAttribute="top" secondItem="5I7-nm-zMw" secondAttribute="bottom" id="WCn-LW-Z6m"/>
-                            <constraint firstItem="5I7-nm-zMw" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="ft7-it-SbX"/>
+                            <constraint firstAttribute="trailing" secondItem="1w8-et-j3Y" secondAttribute="trailing" id="5bD-qH-UXa"/>
+                            <constraint firstItem="1w8-et-j3Y" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="8H6-pn-VYR"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Tu3-Qc-1wr" secondAttribute="bottom" id="fgg-up-TFg"/>
+                            <constraint firstItem="Tu3-Qc-1wr" firstAttribute="top" secondItem="1w8-et-j3Y" secondAttribute="bottom" id="gUA-Hj-MpE"/>
+                            <constraint firstItem="Tu3-Qc-1wr" firstAttribute="top" secondItem="1w8-et-j3Y" secondAttribute="bottom" id="m11-1j-8cO"/>
+                            <constraint firstItem="Tu3-Qc-1wr" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="vZ1-4q-j5x"/>
+                            <constraint firstAttribute="trailing" secondItem="Tu3-Qc-1wr" secondAttribute="trailing" id="xyk-7a-K5c"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Fill Levels" id="0ks-ZA-TN1"/>
                     <connections>
-                        <outlet property="searchBar" destination="5I7-nm-zMw" id="j5Y-Pc-exK"/>
-                        <outlet property="tableView" destination="6rc-G3-T0J" id="T9b-nK-xub"/>
+                        <outlet property="searchBar" destination="1w8-et-j3Y" id="eL7-FZ-HIw"/>
+                        <outlet property="searchDisplayController" destination="5WE-RO-BPU" id="uGV-Z6-Bkq"/>
+                        <outlet property="tableView" destination="Tu3-Qc-1wr" id="t1c-TQ-6gr"/>
                         <segue destination="3Cs-K8-XAr" kind="showDetail" id="OKb-b4-nuh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="5WE-RO-BPU">
+                    <connections>
+                        <outlet property="delegate" destination="9pv-A4-QxB" id="dND-Gp-3pT"/>
+                        <outlet property="searchBar" destination="1w8-et-j3Y" id="YPL-lP-fYv"/>
+                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="F2t-Dv-xjW"/>
+                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="YZs-F5-2aF"/>
+                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="8pI-R5-V16"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2374" y="-320"/>
         </scene>

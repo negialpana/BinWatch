@@ -41,6 +41,10 @@
     
     return self;
 }
+//TODO : modify method to get bins from a place
+- (void)getBinsAtPlace:(NSString*)place WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
+    [self getBinsWithCompletionHandler:completionBlock];
+}
 
 - (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
  

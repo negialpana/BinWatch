@@ -16,11 +16,12 @@
 #import "AppDelegate.h"
 
 #import "MBProgressHUD.h"
-
+#import "SPGooglePlacesAutocompleteQuery.h"
+#import "BWConstants.h"
 #define NoBinsFont [UIFont fontWithName:@"Palatino-Italic" size:20]
 const NSString *noBinsMessage = @"No data is currently available. Please pull down to refresh.";
 
-@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate , MBProgressHUDDelegate >
+@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate >
 
 @property NSMutableArray *searchArray;
 @end
@@ -32,12 +33,15 @@ bool noBins = NO;
 NSMutableArray *activeBins;
 UIRefreshControl *refreshControl;
 NSDate *lastUpdate;
+NSArray *searchResultPlaces;
+SPGooglePlacesAutocompleteQuery *searchQuery;
 
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     activeBins = [[NSMutableArray alloc]init];
-
+    searchResultPlaces = [[NSArray alloc]init];
+    searchResultPlaces = @[@"Whitefield", @"Hoodi"]; //hardcoding to test
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     
@@ -62,38 +66,47 @@ NSDate *lastUpdate;
              forControlEvents:UIControlEventValueChanged];
     
     [self.tableView addSubview:refreshControl];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.searchDisplayController.searchResultsTableView.delegate = self;
+    self.searchDisplayController.searchResultsTableView.dataSource = self;
+    self.searchDisplayController.delegate = self;
 
 }
 
 -(void)fetchData
 {
-  BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+    [self fetchDataForPlace:@"Bangalore"];
+}
+-(void)fetchDataForPlace:(NSString*)place
+{
   dispatch_async(dispatch_get_main_queue(), ^{
     [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
   });
-  [connectionHandler
-      getBinsWithCompletionHandler:^(NSArray *bins, NSError *error) {
-        if (!error) {
-          NSLog(@"*********Bins: %@", [bins description]);
-          [[BWDataHandler sharedHandler] insertBins:bins];
-          lastUpdate = [NSDate date];
-          [self refreshBins];
-        } else {
-          NSLog(@"***********Failed to get bins***************");
-          if (![[AppDelegate appDel] connected]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-              UIAlertView *alert = [[UIAlertView alloc]
-                      initWithTitle:kNotConnectedTitle
-                            message:kNotConnectedText
-                           delegate:self
-                  cancelButtonTitle:@"OK"
-                  otherButtonTitles:nil];
-              [alert show];
+  BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+  [connectionHandler getBinsAtPlace:place
+              WithCompletionHandler:^(NSArray *bins, NSError *error) {
+                if (!error) {
+                  NSLog(@"*********Bins: %@", [bins description]);
+                  [[BWDataHandler sharedHandler] insertBins:bins];
+                  lastUpdate = [NSDate date];
+                  [self refreshBins];
+                } else {
+                  NSLog(@"***********Failed to get bins***************");
+                  if (![[AppDelegate appDel] connected]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      UIAlertView *alert =
+                          [[UIAlertView alloc] initWithTitle:kNotConnectedTitle
+                                                     message:kNotConnectedText
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+                      [alert show];
 
-            });
-          }
-        }
-      }];
+                    });
+                  }
+                }
+              }];
   [self refreshBins];
 }
 
@@ -128,13 +141,22 @@ NSDate *lastUpdate;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (searching) {
-        return self.searchArray.count;
+        return searchResultPlaces.count;
     }
     return activeBins.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (searching) {
+        static NSString* cellIdentifier = @"CellIdentifierPlaces";
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        }
+        cell.textLabel.text = searchResultPlaces[indexPath.row];
+        return cell;
+    }
     static NSString* cellIdentifier = @"CellIdentifier";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -153,57 +175,99 @@ NSDate *lastUpdate;
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BWBin *bin = [self binForRowAtIndexPath:indexPath];
-    GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forfill:[bin.fill floatValue]];
-    cell.backgroundView = gradientView;
+    if (!searching) {
+        BWBin *bin = [self binForRowAtIndexPath:indexPath];
+        GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forfill:[bin.fill floatValue]];
+        cell.backgroundView = gradientView;
+
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    BinDetailsViewController *binDetailsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"BinDetailsViewController"];
-    binDetailsVC.currentSelectedBinIndex = (int)indexPath.row;
-    
-    [self.navigationController pushViewController:binDetailsVC animated:YES];
-}
 
-#pragma  mark - UISearchBar Delegates
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-    searching = NO;
-    [self.tableView reloadData];
- 
-}
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    searching = NO;
-    [self.tableView reloadData];
-  
-}
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    NSString *searchText = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (searchText.length == 0) {
-        searching = NO;
+    if (!searching) {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        BinDetailsViewController *binDetailsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"BinDetailsViewController"];
+        binDetailsVC.currentSelectedBinIndex = (int)indexPath.row;
+        
+        [self.navigationController pushViewController:binDetailsVC animated:YES];
+
     }
     else{
-        searching = YES;
-        self.searchArray = [NSMutableArray new];
-        int i = 0;
-        // TODO: This has to be based on new bin request
-        for (BWBin *bin in activeBins) {
-//            if ([searchText isEqualToString:placesArray[i]]) {
-//                [self.searchArray addObject:bin];
-//            }
-            i++;
-        }
+        searching = NO;
+        [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+        [self.searchDisplayController setActive:NO];
     }
-    [self.tableView reloadData];
-
 }
 
+#pragma mark - UISearchDisplayDelegate
+
+- (void)handleSearchForSearchString:(NSString *)searchString {
+    //searchQuery.location = self.mapView.userLocation.coordinate;
+    // TODO: This has to be corrected
+    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.input = searchString;
+    [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
+        if (error) {
+            [BWLogger DoLog:@"Could not fetch Places"];
+            [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
+        } else {
+            searchResultPlaces = places;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }
+    }];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self handleSearchForSearchString:searchString];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
+        [UIView animateWithDuration:0.25 animations:^{
+            for (UIView *subview in self.view.subviews)
+                subview.transform = CGAffineTransformMakeTranslation(0, -(statusBarFrame.size.height+19));
+        }];
+    }
+}
+
+-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        [UIView animateWithDuration:0.25 animations:^{
+            for (UIView *subview in self.view.subviews)
+                subview.transform = CGAffineTransformIdentity;
+        }];
+    }
+}
+
+-(void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    searching = YES;
+}
+
+#pragma mark - UISearchBar Delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (![searchBar isFirstResponder]) {
+        // User tapped the 'clear' button.
+        [self.searchDisplayController setActive:NO];
+    }
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+        NSTimeInterval animationDuration = 0.3;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        self.searchDisplayController.searchResultsTableView.alpha = 0.75;
+        [UIView commitAnimations];
+    
+        [self.searchDisplayController.searchBar setShowsCancelButton:YES animated:YES];
+    return YES;
+}
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     searching = NO;
@@ -249,11 +313,7 @@ NSDate *lastUpdate;
 
 -(BWBin*)binForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BWBin *bin;
-    if (searching)
-      bin = (BWBin *)[self.searchArray objectAtIndex:indexPath.row];
-    else
-      bin = (BWBin *)[activeBins objectAtIndex:indexPath.row];
+    BWBin *bin = (BWBin *)[activeBins objectAtIndex:indexPath.row];
     return bin;
 }
 /*
