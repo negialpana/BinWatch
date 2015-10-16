@@ -289,8 +289,30 @@ BWSettingsControl *settingsControl;
 - (void)moreTapped
 {
     NSLog(@"More tapped");
-}
+    [settingsControl toggleControl];
 
+}
+#pragma mark - BWSettingsControlDelegate
+
+- (void)didTapSettingsRow:(NSInteger)row
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    NSLog(@"Tapped : %d", (int)row);
+    switch (row) {
+        case 0:
+            [center postNotificationName:kExportSelectedNotification object:nil];
+            break;
+        case 1:
+            [center postNotificationName:kSettingsSelectedNotification object:nil];
+            break;
+        case 2:
+            [center postNotificationName:kSwitchedToUserModeNotification object:nil];
+            break;
+            
+        default:
+            break;
+    }
+}
 -(void)didChangeDeviceOrientation
 {
     [self.tableView reloadData];

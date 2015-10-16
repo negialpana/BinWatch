@@ -522,6 +522,7 @@
 
 - (void)didTapSettingsRow:(NSInteger)row
 {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     NSLog(@"Tapped : %d", (int)row);
     int rowIndex = (int)row;
     switch (rowIndex) {
@@ -536,14 +537,17 @@
             break;
         case 3:
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            [center postNotificationName:kSettingsSelectedNotification object:nil];
             break;
         case 4:
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            [center postNotificationName:kExportSelectedNotification object:nil];
             break;
         case 5:
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
         case 6:
+            [center postNotificationName:kSwitchedToUserModeNotification object:nil];
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
             

@@ -18,5 +18,11 @@ typedef NS_ENUM(NSUInteger, BWAppMode) {
 @property (nonatomic, assign) BWAppMode appMode;
 @property (nonatomic, assign) NSInteger defaultRadius;
 
+
+extern NSString* const kSwitchedToUserModeNotification;
+extern NSString* const kSwitchedToBBMPModeNotification;
+extern NSString* const kExportSelectedNotification;
+extern NSString* const kSettingsSelectedNotification;
+
 + (BWAppSettings *)sharedInstance;
 @end
