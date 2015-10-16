@@ -12,8 +12,8 @@
 
 NSString* const kSwitchedToUserModeNotification = @"SwitchedToUserModeNotification";
 NSString* const kSwitchedToBBMPModeNotification = @"SwitchedToBBMPModeNotification";
-NSString* const kExportSelectedNotification = @"ExportSelectedNotification";
-NSString* const kSettingsSelectedNotification = @"SettingsSelectedNotification";
+NSString* const kExportSelectedNotification     = @"ExportSelectedNotification";
+NSString* const kSettingsSelectedNotification   = @"SettingsSelectedNotification";
 
 + (BWAppSettings *)sharedInstance
 {
