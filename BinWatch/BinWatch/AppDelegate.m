@@ -33,24 +33,47 @@
     return theDelegate;
 }
 
+- (void)setTheStoryBoards {
+    
+    UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIStoryboard *userModeSB = [UIStoryboard storyboardWithName:@"UserMode" bundle:[NSBundle mainBundle]];
+    UITabBarController *mainTBC = [mainSB instantiateInitialViewController];
+    UITabBarController *userTBC = [userModeSB instantiateInitialViewController];
+    self.mainTBC = mainTBC;
+    self.userTBC = userTBC;
+}
+-(void)switchToMainStoryBoard
+{
+    self.window.rootViewController = self.mainTBC;
+}
+-(void)switchToUserModeStoryBoard
+{
+    self.window.rootViewController = self.userTBC;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    [self setTheStoryBoards];
+    [self switchToMainStoryBoard];
+    
     [Fabric with:@[[Crashlytics class]]];
     [GMSServices provideAPIKey:kGoogleAPIKey];
     
-    [BWAppSettings sharedInstance].appMode = BWBBMP;
+    [BWAppSettings sharedInstance].appMode = BWBBMPMode;
     [BWAppSettings sharedInstance].defaultRadius = DEFAULT_RADIUS;
     //[[Crashlytics sharedInstance] crash];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
-    
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
-    
+    [self startReachabilityNotifier];
 
     return YES;
 }
-
+- (void)startReachabilityNotifier {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+}
 - (BOOL)connected
 {
     Reachability *reachability = [Reachability reachabilityForInternetConnection];

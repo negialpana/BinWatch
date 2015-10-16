@@ -79,7 +79,7 @@ BWSettingsControl *settingsControl;
 
     settingsControl = [BWSettingsControl new];
     NSString *switchTo;
-    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+    if([BWAppSettings sharedInstance].appMode == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
@@ -306,7 +306,7 @@ BWSettingsControl *settingsControl;
             [center postNotificationName:kSettingsSelectedNotification object:nil];
             break;
         case 2:
-            [center postNotificationName:kSwitchedToUserModeNotification object:nil];
+            [center postNotificationName:kSwitchedAppModeNotification object:nil];
             break;
             
         default:

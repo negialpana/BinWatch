@@ -103,7 +103,7 @@
     
     settingsControl = [[BWSettingsControl alloc] init];
     NSString *switchTo;
-    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+    if([BWAppSettings sharedInstance].appMode == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
@@ -547,8 +547,7 @@
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
         case 6:
-            [center postNotificationName:kSwitchedToUserModeNotification object:nil];
-            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            [center postNotificationName:kSwitchedAppModeNotification object:nil];
             break;
             
         default:

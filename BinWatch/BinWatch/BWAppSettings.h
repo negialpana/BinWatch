@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, BWAppMode) {
-    BWCommonUser,
-    BWBBMP,
+    BWUserMode,
+    BWBBMPMode,
 };
 
 @interface BWAppSettings : NSObject
@@ -19,8 +19,7 @@ typedef NS_ENUM(NSUInteger, BWAppMode) {
 @property (nonatomic, assign) NSInteger defaultRadius;
 
 
-extern NSString* const kSwitchedToUserModeNotification;
-extern NSString* const kSwitchedToBBMPModeNotification;
+extern NSString* const kSwitchedAppModeNotification;
 extern NSString* const kExportSelectedNotification;
 extern NSString* const kSettingsSelectedNotification;
 

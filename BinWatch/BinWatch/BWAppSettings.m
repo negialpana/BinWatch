@@ -7,11 +7,11 @@
 //
 
 #import "BWAppSettings.h"
+#import "AppDelegate.h"
 
 @implementation BWAppSettings
 
-NSString* const kSwitchedToUserModeNotification = @"SwitchedToUserModeNotification";
-NSString* const kSwitchedToBBMPModeNotification = @"SwitchedToBBMPModeNotification";
+NSString* const kSwitchedAppModeNotification    = @"SwitchedAppModeNotification";
 NSString* const kExportSelectedNotification     = @"ExportSelectedNotification";
 NSString* const kSettingsSelectedNotification   = @"SettingsSelectedNotification";
 
@@ -38,8 +38,7 @@ NSString* const kSettingsSelectedNotification   = @"SettingsSelectedNotification
 -(void)registerNotifications
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(switchedToBBMPMode) name:kSwitchedToBBMPModeNotification object:nil];
-    [center addObserver:self selector:@selector(switchedToUserMode) name:kSwitchedToUserModeNotification object:nil];
+    [center addObserver:self selector:@selector(switchedAppMode) name:kSwitchedAppModeNotification object:nil];
     [center addObserver:self selector:@selector(exportSelected) name:kExportSelectedNotification object:nil];
     [center addObserver:self selector:@selector(settingsSelected) name:kSettingsSelectedNotification object:nil];
 }
@@ -49,8 +48,22 @@ NSString* const kSettingsSelectedNotification   = @"SettingsSelectedNotification
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void)switchedToUserMode{
-    NSLog(@"switchedToUserMode notif");
+-(void)switchedAppMode{
+    switch (self.appMode) {
+        case BWUserMode:
+            self.appMode = BWBBMPMode;
+            [[AppDelegate appDel] switchToMainStoryBoard];
+            break;
+        case BWBBMPMode:
+            self.appMode = BWUserMode;
+            [[AppDelegate appDel] switchToUserModeStoryBoard];
+            break;
+            
+        default:
+            self.appMode = BWUserMode;
+            [[AppDelegate appDel] switchToUserModeStoryBoard];
+            break;
+    }
 }
 -(void)switchedToBBMPMode{
     NSLog(@"switchedToBBMPMode notif");
