@@ -50,7 +50,7 @@
  
    NSURL *url = [self rootURL];
     
-   NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"bins"]
+   NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"get/bins"]
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                 NSError *jsonError = nil;
                                                 if (!error) {
