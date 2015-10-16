@@ -77,17 +77,20 @@ BWSettingsControl *settingsControl;
     self.searchDisplayController.searchResultsTableView.dataSource = self;
     self.searchDisplayController.delegate = self;
 
+}
+-(void)viewWillAppear:(BOOL)animated
+{
     settingsControl = [BWSettingsControl new];
     NSString *switchTo;
     if([BWAppSettings sharedInstance].appMode == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
-
+    
     [settingsControl createMenuInViewController:self withCells:@[kExport,kSettings,switchTo] andWidth:200];
     settingsControl.delegate = self;
+ 
 }
-
 -(void)fetchData
 {
     [self fetchDataForPlace:@"Bangalore"];
@@ -312,6 +315,7 @@ BWSettingsControl *settingsControl;
         default:
             break;
     }
+    [settingsControl hideControl];
 }
 -(void)didChangeDeviceOrientation
 {

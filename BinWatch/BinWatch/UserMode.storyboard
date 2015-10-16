@@ -24,11 +24,11 @@
             </objects>
             <point key="canvasLocation" x="-1270" y="-306"/>
         </scene>
-        <!--First-->
+        <!--Fill Levels-->
         <scene sceneID="yd6-mz-crc">
             <objects>
                 <navigationController id="4Uf-mX-n4r" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="First" id="xsQ-mI-8cm"/>
+                    <tabBarItem key="tabBarItem" title="Fill Levels" id="xsQ-mI-8cm" userLabel="Fill Levels"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IpC-oU-72J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -52,11 +52,50 @@
                     <view key="view" contentMode="scaleToFill" id="qrZ-gN-Ufa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cNi-Sa-UBW">
+                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bP0-JC-wVe">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="rVX-lQ-ceB"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="q96-ok-yRX" id="6Du-4b-wII"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cNi-Sa-UBW" secondAttribute="trailing" id="1Bw-gZ-eDS"/>
+                            <constraint firstItem="cNi-Sa-UBW" firstAttribute="top" secondItem="bP0-JC-wVe" secondAttribute="bottom" id="6D3-ba-frv"/>
+                            <constraint firstItem="cNi-Sa-UBW" firstAttribute="leading" secondItem="qrZ-gN-Ufa" secondAttribute="leading" id="A7j-Jx-gOI"/>
+                            <constraint firstAttribute="trailing" secondItem="bP0-JC-wVe" secondAttribute="trailing" id="ETR-oq-Wu2"/>
+                            <constraint firstItem="cNi-Sa-UBW" firstAttribute="top" secondItem="bP0-JC-wVe" secondAttribute="bottom" id="FiJ-Ea-Oa3"/>
+                            <constraint firstItem="GDc-2T-n1K" firstAttribute="top" secondItem="cNi-Sa-UBW" secondAttribute="bottom" id="YVo-vI-JXD"/>
+                            <constraint firstItem="bP0-JC-wVe" firstAttribute="leading" secondItem="qrZ-gN-Ufa" secondAttribute="leading" id="bpo-wo-ee6"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8ZI-Kz-KYK"/>
+                    <navigationItem key="navigationItem" id="8ZI-Kz-KYK" userLabel="Fill Levels"/>
+                    <connections>
+                        <outlet property="searchBar" destination="bP0-JC-wVe" id="stI-a4-LBE"/>
+                        <outlet property="searchDisplayController" destination="vnD-aH-jwd" id="eYB-FP-IYS"/>
+                        <outlet property="tableView" destination="cNi-Sa-UBW" id="rze-FO-6vH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0x-8Q-EvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="vnD-aH-jwd">
+                    <connections>
+                        <outlet property="delegate" destination="q96-ok-yRX" id="ecu-9t-9uP"/>
+                        <outlet property="searchBar" destination="bP0-JC-wVe" id="sgL-CY-GNJ"/>
+                        <outlet property="searchContentsController" destination="q96-ok-yRX" id="g3h-Qc-XqG"/>
+                        <outlet property="searchResultsDataSource" destination="q96-ok-yRX" id="qmx-Fs-goN"/>
+                        <outlet property="searchResultsDelegate" destination="q96-ok-yRX" id="ffn-Vs-fRZ"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="275" y="-322"/>
         </scene>
