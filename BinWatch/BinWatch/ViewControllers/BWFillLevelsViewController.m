@@ -18,10 +18,12 @@
 #import "MBProgressHUD.h"
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "BWConstants.h"
+#import "BWSettingsControl.h"
+#import "BWAppSettings.h"
 #define NoBinsFont [UIFont fontWithName:@"Palatino-Italic" size:20]
 const NSString *noBinsMessage = @"No data is currently available. Please pull down to refresh.";
 
-@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate >
+@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate , BWSettingsControlDelegate >
 
 @property NSMutableArray *searchArray;
 @end
@@ -35,6 +37,7 @@ UIRefreshControl *refreshControl;
 NSDate *lastUpdate;
 NSArray *searchResultPlaces;
 SPGooglePlacesAutocompleteQuery *searchQuery;
+BWSettingsControl *settingsControl;
 
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
@@ -42,6 +45,8 @@ SPGooglePlacesAutocompleteQuery *searchQuery;
     activeBins = [[NSMutableArray alloc]init];
     searchResultPlaces = [[NSArray alloc]init];
     searchResultPlaces = @[@"Whitefield", @"Hoodi"]; //hardcoding to test
+//    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
+
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     
@@ -72,6 +77,15 @@ SPGooglePlacesAutocompleteQuery *searchQuery;
     self.searchDisplayController.searchResultsTableView.dataSource = self;
     self.searchDisplayController.delegate = self;
 
+    settingsControl = [BWSettingsControl new];
+    NSString *switchTo;
+    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+        switchTo = kSwitchToUser;
+    else
+        switchTo = kSwitchToBBMP;
+
+    [settingsControl createMenuInViewController:self withCells:@[kExport,kSettings,switchTo] andWidth:200];
+    settingsControl.delegate = self;
 }
 
 -(void)fetchData
@@ -95,14 +109,7 @@ SPGooglePlacesAutocompleteQuery *searchQuery;
                   NSLog(@"***********Failed to get bins***************");
                   if (![[AppDelegate appDel] connected]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                      UIAlertView *alert =
-                          [[UIAlertView alloc] initWithTitle:kNotConnectedTitle
-                                                     message:kNotConnectedText
-                                                    delegate:self
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-                      [alert show];
-
+                        SHOWALERT(kNotConnectedTitle, kNotConnectedText);
                     });
                   }
                 }

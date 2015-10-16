@@ -16,8 +16,6 @@
 #import "BWConstants.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
-#define HEIGHT 300
-#define WIDTH 200
 
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
@@ -103,30 +101,14 @@
     [self.view addSubview:mapView];
     [self.view bringSubviewToFront:_mapSearchBar];
     
-    // TODO: Clean up this code
-    UIView *view = [self.navigationItem.rightBarButtonItem valueForKey:@"view"];
-    CGFloat width;
-    if(view){
-        width=[view frame].size.width;
-    }
-    else{
-        width=(CGFloat)0.0 ;
-    }
-    
-    NSLog(@"%f %f %f %f", view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
-    
-    float tableViewX = view.frame.origin.x - (WIDTH - view.frame.size.width);
-    float tableViewY = 60;
-    CGRect fr = CGRectMake(tableViewX, tableViewY, WIDTH, HEIGHT);
-    
     settingsControl = [[BWSettingsControl alloc] init];
     NSString *switchTo;
     if([BWAppSettings sharedInstance].appMode == BWBBMP)
-        switchTo = @"Switch To User";
+        switchTo = kSwitchToUser;
     else
-        switchTo = @"Switch To BBMP";
+        switchTo = kSwitchToBBMP;
     
-    [settingsControl createControl:self.navigationController.view withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", @"Settings", @"Export", @"Report an Issue", switchTo] andFrame:fr];
+    [settingsControl createMenuInViewController:self withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", kSettings, kExport, kReportAnIssue, switchTo] andWidth:200];
     [settingsControl setDelegate:self];
 
 }

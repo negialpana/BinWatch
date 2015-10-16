@@ -37,6 +37,12 @@ extern NSString* const kNotConnectedText  ;
 extern NSString* const kConnectedTitle ;
 extern NSString* const kConnectedText  ;
 
+extern NSString* const kSwitchToUser     ;
+extern NSString* const kSwitchToBBMP     ;
+extern NSString* const kExport           ;
+extern NSString* const kSettings         ;
+extern NSString* const kReportAnIssue    ;
+
 extern NSString* const kSearchPlaceHolder           ; 
 extern NSString* const kRouteFetchFailed            ; 
 extern NSString* const kCurrentLocationFailed       ; 
@@ -69,5 +75,13 @@ typedef NS_ENUM(NSUInteger, BWBinColor) {
     BWGreen,
     BWYellow,
 };
+
+#define SHOWALERT(Title, Text)                                                 \
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Title                \
+                                                  message:Text                 \
+                                                 delegate:self                 \
+                                        cancelButtonTitle:@"OK"                \
+                                        otherButtonTitles:nil];                \
+  [alert show];
 
 @end

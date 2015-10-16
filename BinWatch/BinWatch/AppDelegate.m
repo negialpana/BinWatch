@@ -61,23 +61,10 @@
 - (void)networkChanged:(NSNotification *)notification
 {
     if ([self connected]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kConnectedTitle
-                                                        message:kConnectedText
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
+        SHOWALERT(kConnectedTitle, kConnectedText);
     }
     else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kNotConnectedTitle
-                                                        message:kNotConnectedText
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-        
+        SHOWALERT(kNotConnectedTitle, kNotConnectedText);
     }
 }
 
@@ -98,13 +85,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     if (![self connected]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Connected"
-                                                        message:@"You're not connected to the internet."
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
+        SHOWALERT(kNotConnectedTitle, kNotConnectedText);
     }
 
 }

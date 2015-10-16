@@ -19,7 +19,10 @@
 
 @property (nonatomic, assign) id<BWSettingsControlDelegate> delegate;
 
-- (void) createControl: (UIView *)parent withCells:(NSArray *)cells andFrame:(CGRect) frame;
+- (void) createControlInView:(UIView *)view withCells:(NSArray *)cells andFrame:(CGRect)frame;
+- (void) createControlInView:(UIView *)view withCells:(NSArray *)cells andWidth:(CGFloat)width;
+- (void) createMenuInViewController:(UIViewController *)vc withCells:(NSArray *)cells andFrame:(CGRect)frame;
+- (void) createMenuInViewController:(UIViewController *)vc withCells:(NSArray *)cells andWidth:(CGFloat)width;
 - (void) hideControl;
 - (void) toggleControl;
 

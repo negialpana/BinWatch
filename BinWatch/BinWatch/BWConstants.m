@@ -18,6 +18,12 @@ NSString* const kNotConnectedText  = @"You're not connected to the internet.";
 NSString* const kConnectedTitle    = @"Connected";
 NSString* const kConnectedText     = @"Connected to the internet.";
 
+NSString* const kSwitchToUser     = @"Switch to User Mode";
+NSString* const kSwitchToBBMP     = @"Switch to BBMP Mode";
+NSString* const kExport           = @"Export";
+NSString* const kSettings         = @"Settings";
+NSString* const kReportAnIssue    = @"Report an issue";
+
 NSString* const kSearchPlaceHolder           = @"Search";
 NSString* const kRouteFetchFailed            = @"Route fetch failed";
 NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
