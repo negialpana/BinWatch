@@ -15,7 +15,9 @@
 #import "BWHelpers.h"
 #import "BWViewRenderingHelper.h"
 
-#define BAR_VIEW_WIDTH_WITH_SPACING  43.0f
+#define BAR_VIEW_WIDTH_WITH_SPACING     43.0f
+#define CIRCLE_VIEW_TAG_START_VAL       100
+#define MAX_GRAPHS_TO_BE_RENDERED       7
 
 @interface BinDetailsViewController ()
 
@@ -32,6 +34,8 @@
 {
     [self setUpView];
     [self setUpBarGraphViews];
+    [self setUpTemperatureGraph];
+    [self joinCirclesWithLine];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,8 +77,7 @@
 
 - (void)setUpBarGraphViews
 {
-    int maxNoOfGraphs = 7;
-    for (int i = 0; i < maxNoOfGraphs; i++) {
+    for (int i = 0; i < MAX_GRAPHS_TO_BE_RENDERED; i++) {
         CGRect barGraphViewFrame = _blackLineImageView.frame;
     
         //todo : dummy fill level. Get fill levels from server 
@@ -82,4 +85,29 @@
         [BWViewRenderingHelper addBarGraphOnView:_barGraphView atOrigin:CGPointMake(10.0f + (BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y) withFillLevel:fillLevel];
     }
 }
+
+- (void)setUpTemperatureGraph
+{
+    for (int i = 0; i < MAX_GRAPHS_TO_BE_RENDERED; i++) {
+        CGRect barGraphViewFrame = _blackLineImageView.frame;
+        
+        //todo : dummy temperature details. Get temperature details from server
+        [BWViewRenderingHelper addCircleOnView:_barGraphView atOrigin:CGPointMake(17+(BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y - 20 - arc4random()%85) andTag:CIRCLE_VIEW_TAG_START_VAL+i];
+    }
+}
+
+- (void)joinCirclesWithLine
+{
+    for (int i = 0; i < MAX_GRAPHS_TO_BE_RENDERED - 1; i++)
+    {
+        UIView *circleView1 = [_barGraphView viewWithTag:CIRCLE_VIEW_TAG_START_VAL+i];
+        UIView *circleView2 = [_barGraphView viewWithTag:CIRCLE_VIEW_TAG_START_VAL+i+1];
+        
+        CGPoint circleCenter1 = CGPointMake(circleView1.frame.origin.x + circleView1.frame.size.width * 0.5f, circleView1.frame.origin.y + circleView1.frame.size.height * 0.5f);
+        CGPoint circleCenter2 = CGPointMake(circleView2.frame.origin.x + circleView2.frame.size.width * 0.5f, circleView2.frame.origin.y + circleView2.frame.size.height * 0.5f);
+        
+        [BWViewRenderingHelper joinCircleCenters:circleCenter1 and:circleCenter2 onView:_barGraphView];
+    }
+}
+
 @end
