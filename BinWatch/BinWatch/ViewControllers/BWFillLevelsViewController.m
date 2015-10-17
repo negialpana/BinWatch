@@ -94,6 +94,10 @@ BOOL shouldBeginEditing;
 
     [settingsControl createMenuInViewController:self withCells:@[kExport,kSettings,switchTo] andWidth:200];
     settingsControl.delegate = self;
+    
+    [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
+    [self.searchBar setTranslucent:NO];
+
 }
 
 -(void)fetchData
