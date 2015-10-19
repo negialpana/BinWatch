@@ -21,6 +21,9 @@ static NSString* const kBinFillPercentage = @"fill";
 static NSString* const kBinLatitude = @"latitude";
 static NSString* const kBinLongitude = @"longitude";
 static NSString* const kBinPlace = @"name";
+static NSString* const kAddress = @"address";
+static NSString* const kCity = @"city";
+static NSString* const kArea = @"area";
 
 @interface BWDataHandler ()
 
@@ -64,6 +67,9 @@ static NSString* const kBinPlace = @"name";
         bin.latitude = [obj valueForKey:kBinLatitude];
         bin.longitude = [obj valueForKey:kBinLongitude];
         bin.place = [obj valueForKey:kBinPlace];
+        bin.area = [[obj valueForKey:kAddress] valueForKey:kArea];
+        bin.city = [[obj valueForKey:kAddress] valueForKey:kCity];
+        
 
         // UTC is in milliseconds. Converting to seconds
         NSNumber *dateInSeconds = [obj valueForKey:kBinDate];

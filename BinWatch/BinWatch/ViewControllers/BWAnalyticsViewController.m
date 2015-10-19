@@ -28,6 +28,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 @property (nonatomic, strong) BWDatePickerView *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 @property (nonatomic, strong) NSString *queryParam;
+@property (nonatomic, strong) NSMutableArray *selectedBins;
 
 - (IBAction)dateBtnPressed:(id)sender;
 
@@ -48,6 +49,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     _tableView2.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.queryParam = [self.table2Data objectAtIndex:0];
     _tableView1.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.selectedBins = [NSMutableArray array];
 
     // Do any additional setup after loading the view.
 }
@@ -90,6 +92,9 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
         BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
         cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
         cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
+        if ([self.selectedBins count]) {
+            [cell.selectionBtn setSelected:[self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]];
+        }
         return cell;
     }
     
@@ -100,9 +105,16 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
         self.queryParam = [self.table2Data objectAtIndex:indexPath.row];
         [self.tableView2 reloadData];
     }else{
-        
-        //To be implemented
-        NSLog(@"To be implemented");
+        if ([self.selectedBins count] == 3 && ![self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]) {
+            [self.selectedBins replaceObjectAtIndex:0 withObject:[self.table1Data objectAtIndex:indexPath.row]];
+            [self.selectedBins exchangeObjectAtIndex:0 withObjectAtIndex:1];
+            [self.selectedBins exchangeObjectAtIndex:2 withObjectAtIndex:1];
+
+        }else if ([self.selectedBins count] < 3){
+            [self.selectedBins addObject:[self.table1Data objectAtIndex:indexPath.row]];
+        }
+        [self.tableView1 reloadData];
+
     }
 }
 

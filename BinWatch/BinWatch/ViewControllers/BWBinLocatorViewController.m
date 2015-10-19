@@ -17,7 +17,6 @@
 
 #define DEFAULT_ZOOM_LEVEL 15
 
-
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
@@ -34,6 +33,7 @@
     NSMutableArray *selectedLocations;
     BOOL isMapEdited;
     BWSettingsControl *settingsControl;
+    BOOL searchOn;
 }
 
 #pragma mark - View Life Cycle
@@ -41,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    searchOn = NO;
     zoomLevel = DEFAULT_ZOOM_LEVEL;
     firstLocationUpdate_ = NO;
     isMapEdited = NO;
@@ -86,8 +87,6 @@
     mapView.settings.myLocationButton = YES;
     mapView.trafficEnabled = YES;
     mapView.buildingsEnabled = YES;
-    // TODO: Does this help?
-    //mapView.indoorEnabled = YES;
     [mapView addObserver:self
               forKeyPath:@"myLocation"
                  options:NSKeyValueObservingOptionNew
@@ -110,7 +109,6 @@
     
     [settingsControl createMenuInViewController:self withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", kSettings, kExport, kReportAnIssue, switchTo] andWidth:200];
     [settingsControl setDelegate:self];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -136,10 +134,27 @@
 #pragma mark - Map Utils
 - (void) resizeMapView
 {
-    [mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+    CGFloat mapviewOriginY;
+    CGFloat mapViewHeight;
 
-    // TODO: Whats this 10? No idea...
-    //[mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.tabBarController.tabBar.frame.size.height + self.searchDisplayController.searchBar.frame.size.height + 10, self.view.frame.size.width, self.view.frame.size.height - (self.tabBarController.tabBar.frame.size.height * 2) - self.searchDisplayController.searchBar.frame.size.height - 10)];
+    // This is a hack fix. No idea why search bar animates to cover navigation bar on click of search
+    if(searchOn)
+    {
+        //NSLog(@"TabBar Height: %f SearchBar Control Height: %f NAvigation: %f statusbar height: %f", self.tabBarController.tabBar.frame.size.height, self.searchDisplayController.searchBar.frame.size.height, self.navigationController.navigationBar.frame.size.height, [UIApplication sharedApplication].statusBarFrame.size.height);
+
+        mapviewOriginY = self.view.frame.origin.y + [UIApplication sharedApplication].statusBarFrame.size.height + self.searchDisplayController.searchBar.frame.size.height;
+        
+        mapViewHeight = self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height -mapviewOriginY;
+    }
+    else
+    {
+        //NSLog(@"TabBar Height: %f SearchBar Control Height: %f NAvigation: %f statusbar height: %f", self.tabBarController.tabBar.frame.size.height, self.searchDisplayController.searchBar.frame.size.height, self.navigationController.navigationBar.frame.size.height, [UIApplication sharedApplication].statusBarFrame.size.height);
+
+        mapviewOriginY = self.view.frame.origin.y + [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height + self.searchDisplayController.searchBar.frame.size.height;
+        
+        mapViewHeight = self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height -mapviewOriginY;
+    }
+    [mapView setFrame:CGRectMake(self.view.frame.origin.x, mapviewOriginY, self.view.frame.size.width, mapViewHeight)];
 }
 
 -(void) flushAllRoutes
@@ -157,8 +172,7 @@
         [BWHelpers displayHud:kNoSelectedBins onView:self.navigationController.view];
         return;
     }
-    // TODO: Hardcoded for testing
-    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -181,8 +195,6 @@
 
 -(void) drawRouteAllReds
 {
-    // TODO: Hardcoded for testing
-    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -251,7 +263,6 @@
         marker.userData = [binData objectForKey:kUserData];
         marker.map = mapView;
         
-        // TODO: is there a better alternative for this? Objective C equivalent of C struct
         NSMutableArray *arr = [[NSMutableArray alloc] init];
         [arr addObject:bin];
         [arr addObject:marker];
@@ -333,9 +344,6 @@
         mapView.camera = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate
                                                         zoom:zoomLevel];
     }
-    
-    // TODO: Is this the correct place to do this?
-    //currentLocation = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
 }
 
 #pragma mark - GMSMapViewDelegates
@@ -406,8 +414,7 @@
     return cell;
 }
 
-#pragma mark -
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
 - (void)recenterMapToPlacemark:(CLPlacemark *)placemark {
     
@@ -416,15 +423,6 @@
                                                                  zoom:zoomLevel];
     [mapView animateToCameraPosition:newPosition];
 }
-
-//- (void)addPlacemarkAnnotationToMap:(CLPlacemark *)placemark addressString:(NSString *)address {
-//    [self.mapView removeAnnotation:selectedPlaceAnnotation];
-//
-//    selectedPlaceAnnotation = [[MKPointAnnotation alloc] init];
-//    selectedPlaceAnnotation.coordinate = placemark.location.coordinate;
-//    selectedPlaceAnnotation.title = address;
-//    [self.mapView addAnnotation:selectedPlaceAnnotation];
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
@@ -494,7 +492,16 @@
     return boolToReturn;
 }
 
-// TODO: Can I do this using auto resize masks?
+-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    searchOn = YES;
+    [self resizeMapView];
+}
+
+-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+    searchOn = NO;
+    [self resizeMapView];
+}
+
 - (void)deviceOrientationDidChangeNotification:(NSNotification*)note
 {
     [self resizeMapView];

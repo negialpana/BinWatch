@@ -11,5 +11,5 @@
 @interface BWDocumentHelper : NSObject
 - (void) exportToCSV;
 - (void)createPDFfromUIView:(UIView*)aView saveToDocumentsWithFileName:(NSString*)aFilename;
-+ (void)sendByMail:(NSString *)name forView:(UIViewController*)parent;
+//+ (void)sendByMail:(NSString *)name forView:(UIViewController*)parent;
 @end
