@@ -557,10 +557,19 @@
             [center postNotificationName:kSwitchedToUserModeNotification object:nil];
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
-            
         default:
             break;
     }
 }
 
+//- (void)mailComposeController:(MFMailComposeViewController*)controller
+//          didFinishWithResult:(MFMailComposeResult)result
+//                        error:(NSError*)error;
+//{
+//    if (result != MFMailComposeResultSent) {
+//        [BWLogger DoLog:@"Failed to send mail"];
+//        [BWHelpers displayHud:@"Failed to send mail" onView:self.navigationController.view];
+//    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 @end
