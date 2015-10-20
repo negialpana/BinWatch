@@ -29,6 +29,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 @property (nonatomic, strong) NSString *queryParam;
 @property (nonatomic, strong) NSMutableArray *selectedBins;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBarForTableView1;
 
 - (IBAction)dateBtnPressed:(id)sender;
 
