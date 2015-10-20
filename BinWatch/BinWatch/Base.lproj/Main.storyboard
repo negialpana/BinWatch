@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -47,6 +47,11 @@
                             <constraint firstItem="Tu3-Qc-1wr" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="vZ1-4q-j5x"/>
                             <constraint firstAttribute="trailing" secondItem="Tu3-Qc-1wr" secondAttribute="trailing" id="xyk-7a-K5c"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="m11-1j-8cO"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Fill Levels" id="0ks-ZA-TN1"/>
                     <connections>
@@ -482,7 +487,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO : Mention Location here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdX-b8-lvt">
-                                <rect key="frame" x="183" y="100" width="234" height="21"/>
+                                <rect key="frame" x="183" y="84" width="234" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -498,20 +503,39 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8pN-fi-RUw">
+                                <rect key="frame" x="0.0" y="132" width="600" height="29"/>
+                                <color key="backgroundColor" red="1" green="0.89145795531979921" blue="0.26132282717147981" alpha="1" colorSpace="calibratedRGB"/>
+                                <segments>
+                                    <segment title="Fill %"/>
+                                    <segment title="Bin Status"/>
+                                    <segment title="Humidity"/>
+                                    <segment title="Temperature"/>
+                                </segments>
+                                <color key="tintColor" red="0.98431378602981567" green="0.074509806931018829" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="segmentTapped:" destination="KyC-Du-kYR" eventType="valueChanged" id="LVN-Sh-gS4"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8pN-fi-RUw" firstAttribute="top" secondItem="xdX-b8-lvt" secondAttribute="bottom" constant="27.5" id="1tE-fP-3Wu"/>
+                            <constraint firstAttribute="trailing" secondItem="8pN-fi-RUw" secondAttribute="trailing" id="4Og-Kv-ANJ"/>
+                            <constraint firstAttribute="centerX" secondItem="8pN-fi-RUw" secondAttribute="centerX" id="65q-z7-tfV"/>
                             <constraint firstItem="xdX-b8-lvt" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="DoE-I6-fKs"/>
                             <constraint firstItem="nsO-1X-2jy" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="QhH-wF-Ph1"/>
+                            <constraint firstItem="8pN-fi-RUw" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leading" id="eRZ-ML-GBO"/>
                             <constraint firstItem="TVW-9F-zhR" firstAttribute="top" secondItem="nsO-1X-2jy" secondAttribute="bottom" constant="34" id="fLC-4Y-2Mu"/>
-                            <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" constant="36" id="nMr-sk-rUV"/>
+                            <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" constant="20" id="nMr-sk-rUV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="fxH-kW-lnC"/>
                     <connections>
                         <outlet property="binsLabel" destination="nsO-1X-2jy" id="PUZ-W5-FI4"/>
                         <outlet property="locationLabel" destination="xdX-b8-lvt" id="3ha-jC-vxV"/>
+                        <outlet property="segmentedControl" destination="8pN-fi-RUw" id="0i3-rr-ZCC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Glq-Y8-u1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
