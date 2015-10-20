@@ -17,20 +17,23 @@
 
 #import "MBProgressHUD.h"
 #import "SPGooglePlacesAutocompleteQuery.h"
+#import "SPGooglePlacesAutocomplete.h"
 #import "BWConstants.h"
 #import "BWSettingsControl.h"
 #import "BWAppSettings.h"
+
 #define NoBinsFont [UIFont fontWithName:@"Palatino-Italic" size:20]
+#define TABLE_VIEW_PLACES_SEARCH 0
+#define TABLE_VIEW_DISPLAY_BINS 1
+
 const NSString *noBinsMessage = @"No data is currently available. Please pull down to refresh.";
 
 @interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate , BWSettingsControlDelegate >
 
-@property NSMutableArray *searchArray;
 @end
 
 @implementation BWFillLevelsViewController
 
-bool searching = NO;
 bool noBins = NO;
 NSMutableArray *activeBins;
 UIRefreshControl *refreshControl;
@@ -38,18 +41,22 @@ NSDate *lastUpdate;
 NSArray *searchResultPlaces;
 SPGooglePlacesAutocompleteQuery *searchQuery;
 BWSettingsControl *settingsControl;
+BOOL shouldBeginEditing;
 
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     activeBins = [[NSMutableArray alloc]init];
-    searchResultPlaces = [[NSArray alloc]init];
-    searchResultPlaces = @[@"Whitefield", @"Hoodi"]; //hardcoding to test
-//    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
 
+    // Init for google places search
+    searchResultPlaces = [[NSArray alloc]init];
+    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
+    shouldBeginEditing = YES;
+    self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+
+    // Init Hud
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
-    
     HUD.delegate = self;
     HUD.labelText = @"Loading";
     
@@ -80,6 +87,7 @@ BWSettingsControl *settingsControl;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    // Adding settings control
     settingsControl = [BWSettingsControl new];
     NSString *switchTo;
     if([BWAppSettings sharedInstance].appMode == BWBBMPMode)
@@ -90,11 +98,16 @@ BWSettingsControl *settingsControl;
     [settingsControl createMenuInViewController:self withCells:@[kExport,kSettings,switchTo] andWidth:200];
     settingsControl.delegate = self;
  
+    
+    [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
+    [self.searchBar setTranslucent:NO];
+
 }
 -(void)fetchData
 {
     [self fetchDataForPlace:@"Bangalore"];
 }
+
 -(void)fetchDataForPlace:(NSString*)place
 {
   dispatch_async(dispatch_get_main_queue(), ^{
@@ -149,47 +162,59 @@ BWSettingsControl *settingsControl;
 
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (searching) {
-        return searchResultPlaces.count;
-    }
-    return activeBins.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    long tableViewTag = (long)tableView.tag;
+
+    if(tableViewTag == TABLE_VIEW_PLACES_SEARCH)
+        return [searchResultPlaces count];
+    else
+        return activeBins.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (searching) {
-        static NSString* cellIdentifier = @"CellIdentifierPlaces";
+    long tableViewTag = (long)tableView.tag;
+    if(tableViewTag == TABLE_VIEW_PLACES_SEARCH)
+    {
+        static NSString *cellIdentifier = @"SPGooglePlacesAutocompleteCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        
+        cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
+        cell.textLabel.text = [self placeAtIndexPath:indexPath].name;
+        return cell;
+    }
+    else
+    {
+        static NSString* cellIdentifier = @"CellIdentifier";
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         }
-        cell.textLabel.text = searchResultPlaces[indexPath.row];
+        
+        BWBin *bin = [self binForRowAtIndexPath:indexPath];
+        cell.textLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
+        
+        cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
+        cell.detailTextLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
-    static NSString* cellIdentifier = @"CellIdentifier";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-    }
-
-    BWBin *bin = [self binForRowAtIndexPath:indexPath];
-    cell.textLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
-        
-    cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
-    cell.detailTextLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    return cell;
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+                                        forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!searching) {
+    long tableViewTag = (long)tableView.tag;
+    if(tableViewTag == TABLE_VIEW_DISPLAY_BINS)
+    {
         BWBin *bin = [self binForRowAtIndexPath:indexPath];
         GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forfill:[bin.fill floatValue]];
         cell.backgroundView = gradientView;
-
     }
 }
 
@@ -197,18 +222,30 @@ BWSettingsControl *settingsControl;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if (!searching) {
+    long tableViewTag = (long)tableView.tag;
+    if(tableViewTag == 0)
+    {
+        SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
+        [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
+            if (error)
+            {
+                [BWLogger DoLog:@"Could not map selected Place"];
+                [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
+            } else if (placemark)
+            {
+                [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                [self.searchDisplayController setActive:NO];
+                [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
+            }
+        }];
+    }
+    else
+    {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         BinDetailsViewController *binDetailsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"BinDetailsViewController"];
         binDetailsVC.currentSelectedBinIndex = (int)indexPath.row;
         
         [self.navigationController pushViewController:binDetailsVC animated:YES];
-
-    }
-    else{
-        searching = NO;
-        [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
-        [self.searchDisplayController setActive:NO];
     }
 }
 
@@ -236,6 +273,7 @@ BWSettingsControl *settingsControl;
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
+
 -(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
@@ -256,7 +294,6 @@ BWSettingsControl *settingsControl;
 }
 
 -(void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
-    searching = YES;
 }
 
 #pragma mark - UISearchBar Delegate
@@ -264,28 +301,39 @@ BWSettingsControl *settingsControl;
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchBar isFirstResponder]) {
         // User tapped the 'clear' button.
+        shouldBeginEditing = NO;
         [self.searchDisplayController setActive:NO];
+        //[self.mapView removeAnnotation:selectedPlaceAnnotation];
     }
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    if (shouldBeginEditing) {
+        // Animate in the table view.
         NSTimeInterval animationDuration = 0.3;
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:animationDuration];
         self.searchDisplayController.searchResultsTableView.alpha = 0.75;
         [UIView commitAnimations];
-    
+        
         [self.searchDisplayController.searchBar setShowsCancelButton:YES animated:YES];
-    return YES;
+    }
+    BOOL boolToReturn = shouldBeginEditing;
+    shouldBeginEditing = YES;
+    return boolToReturn;
 }
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    searching = NO;
     if ([self.searchBar canResignFirstResponder]) {
         [self.searchBar resignFirstResponder];
 
     }
     [self.tableView reloadData];
+}
+
+- (SPGooglePlacesAutocompletePlace *)placeAtIndexPath:(NSIndexPath *)indexPath {
+    return searchResultPlaces[indexPath.row];
 }
 
 #pragma mark - Event Handlers
