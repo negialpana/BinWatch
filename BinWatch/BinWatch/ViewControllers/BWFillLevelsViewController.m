@@ -271,24 +271,24 @@ BOOL shouldBeginEditing;
     return YES;
 }
 
--(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
-        [UIView animateWithDuration:0.25 animations:^{
-            for (UIView *subview in self.view.subviews)
-                subview.transform = CGAffineTransformMakeTranslation(0, -(statusBarFrame.size.height+19));
-        }];
-    }
-}
-
--(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        [UIView animateWithDuration:0.25 animations:^{
-            for (UIView *subview in self.view.subviews)
-                subview.transform = CGAffineTransformIdentity;
-        }];
-    }
-}
+//-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+//        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
+//        [UIView animateWithDuration:0.25 animations:^{
+//            for (UIView *subview in self.view.subviews)
+//                subview.transform = CGAffineTransformMakeTranslation(0, -(statusBarFrame.size.height+19));
+//        }];
+//    }
+//}
+//
+//-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+//        [UIView animateWithDuration:0.25 animations:^{
+//            for (UIView *subview in self.view.subviews)
+//                subview.transform = CGAffineTransformIdentity;
+//        }];
+//    }
+//}
 
 -(void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
 }
