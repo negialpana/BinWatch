@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -16,13 +17,76 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="4Uf-mX-n4r" kind="relationship" relationship="viewControllers" id="ue1-q3-NjZ"/>
+                        <segue destination="8L7-HC-ZXF" kind="relationship" relationship="viewControllers" id="Exn-Lk-tha"/>
                         <segue destination="e8L-8i-BqA" kind="relationship" relationship="viewControllers" id="oHx-7p-aoT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tz8-9n-ZWP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1270" y="-306"/>
+        </scene>
+        <!--Bin Locator-->
+        <scene sceneID="bgQ-GH-Pnz">
+            <objects>
+                <navigationController id="8L7-HC-ZXF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Bin Locator" image="map-marker" id="NGH-6a-GfW"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Hl-Wk-818">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tba-lx-Uq2" kind="relationship" relationship="rootViewController" id="LF3-HL-xyF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q0s-DV-6h9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1023" y="-1030"/>
+        </scene>
+        <!--Bin Locator-->
+        <scene sceneID="LqO-nG-pgb">
+            <objects>
+                <viewController id="tba-lx-Uq2" customClass="BWBinLocatorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SKG-C4-CAi"/>
+                        <viewControllerLayoutGuide type="bottom" id="yg1-Sc-7Ih"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BOX-PG-hfu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="lX8-P1-3vm">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="tba-lx-Uq2" id="it9-jE-EAf"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lX8-P1-3vm" firstAttribute="top" secondItem="SKG-C4-CAi" secondAttribute="bottom" id="6o5-Wv-v3j"/>
+                            <constraint firstItem="lX8-P1-3vm" firstAttribute="leading" secondItem="BOX-PG-hfu" secondAttribute="leadingMargin" constant="-16" id="Ey8-ck-9Y9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lX8-P1-3vm" secondAttribute="trailing" constant="-16" id="z8m-E2-lKW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bin Locator" id="gAO-2O-iGC"/>
+                    <connections>
+                        <outlet property="mapSearchBar" destination="lX8-P1-3vm" id="tp9-2M-gNB"/>
+                        <outlet property="searchDisplayController" destination="qH9-aZ-fxW" id="sea-Yt-B9W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7xq-g3-d9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="qH9-aZ-fxW">
+                    <connections>
+                        <outlet property="delegate" destination="tba-lx-Uq2" id="Wj2-4s-9ih"/>
+                        <outlet property="searchBar" destination="lX8-P1-3vm" id="wbl-tQ-T89"/>
+                        <outlet property="searchContentsController" destination="tba-lx-Uq2" id="MPd-Gq-uCi"/>
+                        <outlet property="searchResultsDataSource" destination="tba-lx-Uq2" id="8cf-TC-u3d"/>
+                        <outlet property="searchResultsDelegate" destination="tba-lx-Uq2" id="1oy-Lh-66O"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="-298" y="-1030"/>
         </scene>
         <!--Fill Levels-->
         <scene sceneID="yd6-mz-crc">
@@ -53,11 +117,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cNi-Sa-UBW">
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cNi-Sa-UBW">
                                 <rect key="frame" x="0.0" y="108" width="600" height="443"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bP0-JC-wVe">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bP0-JC-wVe">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="rVX-lQ-ceB"/>
@@ -75,6 +139,7 @@
                             <constraint firstItem="cNi-Sa-UBW" firstAttribute="leading" secondItem="qrZ-gN-Ufa" secondAttribute="leading" id="A7j-Jx-gOI"/>
                             <constraint firstAttribute="trailing" secondItem="bP0-JC-wVe" secondAttribute="trailing" id="ETR-oq-Wu2"/>
                             <constraint firstItem="cNi-Sa-UBW" firstAttribute="top" secondItem="bP0-JC-wVe" secondAttribute="bottom" id="FiJ-Ea-Oa3"/>
+                            <constraint firstItem="bP0-JC-wVe" firstAttribute="top" secondItem="n9o-dc-9h1" secondAttribute="bottom" id="IOz-bb-oxn"/>
                             <constraint firstItem="GDc-2T-n1K" firstAttribute="top" secondItem="cNi-Sa-UBW" secondAttribute="bottom" id="YVo-vI-JXD"/>
                             <constraint firstItem="bP0-JC-wVe" firstAttribute="leading" secondItem="qrZ-gN-Ufa" secondAttribute="leading" id="bpo-wo-ee6"/>
                         </constraints>
@@ -138,6 +203,7 @@
     </scenes>
     <resources>
         <image name="bin" width="24" height="24"/>
+        <image name="map-marker" width="24" height="24"/>
         <image name="message" width="24" height="24"/>
     </resources>
 </document>

@@ -751,10 +751,10 @@
                         </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
+                        <segue destination="1aN-wh-yb6" kind="relationship" relationship="viewControllers" id="iL5-Vg-VSk"/>
                         <segue destination="zvl-cj-5ze" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="L24-Hs-DaS" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="8zt-FO-N3N" kind="relationship" relationship="viewControllers" id="AJ0-7s-NvZ"/>
-                        <segue destination="1aN-wh-yb6" kind="relationship" relationship="viewControllers" id="iL5-Vg-VSk"/>
                         <segue destination="Ogr-1D-mWv" kind="relationship" relationship="viewControllers" id="szK-7G-pqU"/>
                         <segue destination="4an-sU-BBb" kind="relationship" relationship="viewControllers" id="gDl-om-UYV"/>
                     </connections>
