@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -47,6 +47,11 @@
                             <constraint firstItem="Tu3-Qc-1wr" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="vZ1-4q-j5x"/>
                             <constraint firstAttribute="trailing" secondItem="Tu3-Qc-1wr" secondAttribute="trailing" id="xyk-7a-K5c"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="m11-1j-8cO"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Fill Levels" id="0ks-ZA-TN1"/>
                     <connections>
@@ -110,7 +115,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" tag="111" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rIp-3W-Ivx">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="334"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="226"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -299,21 +304,43 @@
                                     <constraint firstItem="8tA-q2-Aus" firstAttribute="top" secondItem="z6b-oS-1ht" secondAttribute="bottom" constant="9" id="zod-zf-9B2"/>
                                 </constraints>
                             </view>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="SOY-6N-UBb">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="o0I-lk-Al9" id="GAi-Ov-QBm"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jwh-OV-ovo" firstAttribute="top" secondItem="7xN-ad-5GM" secondAttribute="bottom" id="04H-SR-BE3"/>
                             <constraint firstItem="7xN-ad-5GM" firstAttribute="leading" secondItem="bjm-f4-9mf" secondAttribute="leading" id="5q8-6d-er5"/>
+                            <constraint firstItem="SOY-6N-UBb" firstAttribute="leading" secondItem="bjm-f4-9mf" secondAttribute="leading" id="7bC-ep-Kbp"/>
+                            <constraint firstItem="Gp4-5l-P6t" firstAttribute="top" secondItem="rIp-3W-Ivx" secondAttribute="bottom" id="8Ne-fv-hCz"/>
                             <constraint firstItem="Gp4-5l-P6t" firstAttribute="leading" secondItem="bjm-f4-9mf" secondAttribute="leading" id="8cJ-6t-uNM"/>
                             <constraint firstAttribute="trailing" secondItem="Gp4-5l-P6t" secondAttribute="trailing" id="Ayf-VU-6td"/>
+                            <constraint firstAttribute="trailing" secondItem="SOY-6N-UBb" secondAttribute="trailing" id="F1i-h1-h04"/>
                             <constraint firstItem="Gp4-5l-P6t" firstAttribute="top" secondItem="rIp-3W-Ivx" secondAttribute="bottom" id="HBP-bm-IfH"/>
                             <constraint firstItem="7xN-ad-5GM" firstAttribute="top" secondItem="Gp4-5l-P6t" secondAttribute="bottom" constant="5" id="Jwq-es-vaX"/>
+                            <constraint firstItem="rIp-3W-Ivx" firstAttribute="leading" secondItem="bjm-f4-9mf" secondAttribute="leading" id="Y3r-BZ-fKv"/>
                             <constraint firstItem="rIp-3W-Ivx" firstAttribute="top" secondItem="6se-1W-Yny" secondAttribute="bottom" constant="-64" id="Y9L-km-6KL"/>
+                            <constraint firstItem="rIp-3W-Ivx" firstAttribute="top" secondItem="SOY-6N-UBb" secondAttribute="bottom" id="gop-hi-9WS"/>
+                            <constraint firstAttribute="trailing" secondItem="rIp-3W-Ivx" secondAttribute="trailing" id="h0m-tY-q5p"/>
                             <constraint firstAttribute="trailing" secondItem="7xN-ad-5GM" secondAttribute="trailing" id="qfM-C3-pGR"/>
+                            <constraint firstItem="SOY-6N-UBb" firstAttribute="top" secondItem="6se-1W-Yny" secondAttribute="bottom" id="tdS-nT-BYc"/>
                             <constraint firstAttribute="trailing" secondItem="rIp-3W-Ivx" secondAttribute="trailing" id="wzx-sK-Rt4"/>
                             <constraint firstItem="rIp-3W-Ivx" firstAttribute="leading" secondItem="bjm-f4-9mf" secondAttribute="leading" id="y4o-Au-ViC"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Y9L-km-6KL"/>
+                                <exclude reference="wzx-sK-Rt4"/>
+                                <exclude reference="y4o-Au-ViC"/>
+                                <exclude reference="HBP-bm-IfH"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Analytics" id="bh7-hU-LH8">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="lSX-3O-wmC">
@@ -325,12 +352,23 @@
                     <connections>
                         <outlet property="dateComponentsContainerView" destination="Gp4-5l-P6t" id="KhV-dU-Me4"/>
                         <outlet property="fromDateBtn" destination="z6b-oS-1ht" id="Ifq-tN-ZwR"/>
+                        <outlet property="searchBarForTableView1" destination="SOY-6N-UBb" id="OYm-nD-4av"/>
+                        <outlet property="searchDisplayController" destination="JIT-cv-hkk" id="mJy-Ph-fHQ"/>
                         <outlet property="tableView1" destination="rIp-3W-Ivx" id="mly-ye-5aT"/>
                         <outlet property="tableView2" destination="7xN-ad-5GM" id="O2v-10-PLO"/>
                         <outlet property="toDateBtn" destination="zAc-kN-D3H" id="gyR-Jp-qIb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cL8-Ge-6VI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="JIT-cv-hkk">
+                    <connections>
+                        <outlet property="delegate" destination="o0I-lk-Al9" id="E42-g4-glj"/>
+                        <outlet property="searchBar" destination="SOY-6N-UBb" id="E1A-XF-oyW"/>
+                        <outlet property="searchContentsController" destination="o0I-lk-Al9" id="Alr-Nq-n3G"/>
+                        <outlet property="searchResultsDataSource" destination="o0I-lk-Al9" id="ek0-Af-BYt"/>
+                        <outlet property="searchResultsDelegate" destination="o0I-lk-Al9" id="EPj-6H-PqO"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1345" y="1083"/>
         </scene>
@@ -482,7 +520,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO : Mention Location here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdX-b8-lvt">
-                                <rect key="frame" x="183" y="100" width="234" height="21"/>
+                                <rect key="frame" x="183" y="84" width="234" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -498,20 +536,39 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8pN-fi-RUw">
+                                <rect key="frame" x="0.0" y="132" width="600" height="29"/>
+                                <color key="backgroundColor" red="1" green="0.89145795531979921" blue="0.26132282717147981" alpha="1" colorSpace="calibratedRGB"/>
+                                <segments>
+                                    <segment title="Fill %"/>
+                                    <segment title="Bin Status"/>
+                                    <segment title="Humidity"/>
+                                    <segment title="Temperature"/>
+                                </segments>
+                                <color key="tintColor" red="0.98431378602981567" green="0.074509806931018829" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="segmentTapped:" destination="KyC-Du-kYR" eventType="valueChanged" id="LVN-Sh-gS4"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8pN-fi-RUw" firstAttribute="top" secondItem="xdX-b8-lvt" secondAttribute="bottom" constant="27.5" id="1tE-fP-3Wu"/>
+                            <constraint firstAttribute="trailing" secondItem="8pN-fi-RUw" secondAttribute="trailing" id="4Og-Kv-ANJ"/>
+                            <constraint firstAttribute="centerX" secondItem="8pN-fi-RUw" secondAttribute="centerX" id="65q-z7-tfV"/>
                             <constraint firstItem="xdX-b8-lvt" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="DoE-I6-fKs"/>
                             <constraint firstItem="nsO-1X-2jy" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="QhH-wF-Ph1"/>
+                            <constraint firstItem="8pN-fi-RUw" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leading" id="eRZ-ML-GBO"/>
                             <constraint firstItem="TVW-9F-zhR" firstAttribute="top" secondItem="nsO-1X-2jy" secondAttribute="bottom" constant="34" id="fLC-4Y-2Mu"/>
-                            <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" constant="36" id="nMr-sk-rUV"/>
+                            <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" constant="20" id="nMr-sk-rUV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="fxH-kW-lnC"/>
                     <connections>
                         <outlet property="binsLabel" destination="nsO-1X-2jy" id="PUZ-W5-FI4"/>
                         <outlet property="locationLabel" destination="xdX-b8-lvt" id="3ha-jC-vxV"/>
+                        <outlet property="segmentedControl" destination="8pN-fi-RUw" id="0i3-rr-ZCC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Glq-Y8-u1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
