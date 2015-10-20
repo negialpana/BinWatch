@@ -28,7 +28,7 @@
         <scene sceneID="yd6-mz-crc">
             <objects>
                 <navigationController id="4Uf-mX-n4r" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Fill Levels" id="xsQ-mI-8cm" userLabel="Fill Levels"/>
+                    <tabBarItem key="tabBarItem" title="Fill Levels" image="bin" id="xsQ-mI-8cm" userLabel="Fill Levels"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IpC-oU-72J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -99,11 +99,11 @@
             </objects>
             <point key="canvasLocation" x="275" y="-322"/>
         </scene>
-        <!--Item-->
+        <!--Messages-->
         <scene sceneID="W44-Lw-PHo">
             <objects>
-                <navigationController id="e8L-8i-BqA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="zBi-VO-Pyo"/>
+                <navigationController id="e8L-8i-BqA" userLabel="Messages" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Messages" image="message" id="zBi-VO-Pyo" userLabel="Messages"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="F1P-6R-Pkj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -136,4 +136,8 @@
             <point key="canvasLocation" x="167" y="557"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bin" width="24" height="24"/>
+        <image name="message" width="24" height="24"/>
+    </resources>
 </document>
