@@ -25,6 +25,9 @@
 static NSString *queryParameterCell = @"queryParameterCell";
 static NSString *analyseBinCell  = @"binCellAnalyse";
 
+static NSString *kAnalyseHeader  = @"Select Parameter";
+static NSString *kSelectHeader   = @"Select Bins";
+
 @interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView2;
 @property (weak, nonatomic) IBOutlet UITableView *tableView1;
@@ -203,6 +206,21 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
         default:
             break;
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
+    [headerView setBackgroundColor:AppTheme];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 25)];
+    if(tableView.tag == TABLE_VIEW_DISPLAY_BINS)
+        titleLabel.text = kSelectHeader;
+    else if (tableView.tag == TABLE_VIEW_ANALYTICS)
+        titleLabel.text = kAnalyseHeader;
+    
+    titleLabel.textColor = [UIColor whiteColor];
+    [headerView addSubview:titleLabel];
+    return headerView;
 }
 
 #pragma mark - Event Handler
