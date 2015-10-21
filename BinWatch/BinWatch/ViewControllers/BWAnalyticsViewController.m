@@ -208,20 +208,20 @@ static NSString *kSelectHeader   = @"Select Bins";
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
-    [headerView setBackgroundColor:AppTheme];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 25)];
-    if(tableView.tag == TABLE_VIEW_DISPLAY_BINS)
-        titleLabel.text = kSelectHeader;
-    else if (tableView.tag == TABLE_VIEW_ANALYTICS)
-        titleLabel.text = kAnalyseHeader;
-    
-    titleLabel.textColor = [UIColor whiteColor];
-    [headerView addSubview:titleLabel];
-    return headerView;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
+//    [headerView setBackgroundColor:AppTheme];
+//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 25)];
+//    if(tableView.tag == TABLE_VIEW_DISPLAY_BINS)
+//        titleLabel.text = kSelectHeader;
+//    else if (tableView.tag == TABLE_VIEW_ANALYTICS)
+//        titleLabel.text = kAnalyseHeader;
+//    
+//    titleLabel.textColor = [UIColor whiteColor];
+//    [headerView addSubview:titleLabel];
+//    return headerView;
+//}
 
 #pragma mark - Event Handler
 - (IBAction)dateBtnPressed:(id)sender {

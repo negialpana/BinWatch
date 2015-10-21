@@ -17,4 +17,18 @@
 - (void) insertBins:(NSArray *)bins;
 - (NSArray *) fetchBins;
 
+- (void) saveSupportMailID:(NSString *)mailID;
+- (NSString *) getSupportMailID;
+
+- (void) saveCoverageRadius:(int)radius;
+- (int) getCoverageRadius;
+
+- (void) saveExportPDF:(bool)enable;
+- (bool) getExportPDF;
+
+- (void) saveExportExcel:(bool)enable;
+- (bool) getExportExcel;
+
+- (void) saveExportCSV:(bool)enable;
+- (bool) getExportCSV;
 @end

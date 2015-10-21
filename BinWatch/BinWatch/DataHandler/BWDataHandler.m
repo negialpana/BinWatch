@@ -25,6 +25,13 @@ static NSString* const kAddress = @"address";
 static NSString* const kCity = @"city";
 static NSString* const kArea = @"area";
 
+// UserDefaults
+static NSString* const kCoverageRadius = @"Radius";
+static NSString* const kSupportMailID = @"MailID";
+static NSString* const kExportPDFOn = @"PDF";
+static NSString* const kExportExcelOn = @"EXCEL";
+static NSString* const kExportCSVOn = @"CSV";
+
 @interface BWDataHandler ()
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -140,6 +147,66 @@ static NSString* const kArea = @"area";
     NSSortDescriptor *fillSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kBinFillPercentage ascending:NO];
     NSArray *sortedArray = [objects sortedArrayUsingDescriptors:@[fillSortDescriptor]];
     return sortedArray;
+}
+
+-(void) saveSupportMailID:(NSString *)mailID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:mailID forKey:kSupportMailID];
+}
+
+-(NSString *) getSupportMailID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults valueForKey:kSupportMailID];
+}
+
+-(void) saveCoverageRadius:(int)radius
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithInt:radius] forKey:kCoverageRadius];
+}
+
+-(int) getCoverageRadius
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults valueForKey:kCoverageRadius] integerValue];
+}
+
+-(void) saveExportPDF:(bool)enable
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithBool:enable] forKey:kExportPDFOn];
+}
+
+-(bool) getExportPDF
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults valueForKey:kExportPDFOn] boolValue];
+}
+
+-(void) saveExportExcel:(bool)enable
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithBool:enable] forKey:kExportExcelOn];
+}
+
+-(bool) getExportExcel
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults valueForKey:kExportExcelOn] boolValue];
+}
+
+-(void) saveExportCSV:(bool)enable
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithBool:enable] forKey:kExportCSVOn];
+}
+
+-(bool) getExportCSV
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults valueForKey:kExportCSVOn] boolValue];
 }
 
 #pragma mark - Private Methods

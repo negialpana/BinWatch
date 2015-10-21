@@ -16,6 +16,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "Reachability.h"
+#import "BWDataHandler.h"
 
 @interface AppDelegate ()
 
@@ -42,6 +43,17 @@
     [BWAppSettings sharedInstance].defaultRadius = DEFAULT_RADIUS;
     //[[Crashlytics sharedInstance] crash];
 
+    // Saving default Data to user defaults
+    NSString *mailID = [[BWDataHandler sharedHandler] getSupportMailID];
+    if(!mailID)
+    {
+        // App launching for first time
+        [[BWDataHandler sharedHandler] saveSupportMailID:@"BinWatch.ReapBenefit@gmail.com"];
+        [[BWDataHandler sharedHandler] saveCoverageRadius:5];
+        [[BWDataHandler sharedHandler] saveExportCSV:YES];
+        [[BWDataHandler sharedHandler] saveExportExcel:YES];
+        [[BWDataHandler sharedHandler] saveExportPDF:YES];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
