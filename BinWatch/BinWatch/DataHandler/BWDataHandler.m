@@ -72,10 +72,7 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
             [self saveExportPDF:YES];
             // TODO: This has to be changed
             [self saveAppMode:BWBBMP];
-            NSLog(@"NO DATA............................");
         }
-        else
-            NSLog(@"HAS DATA............................");
     }
     
     return self;
@@ -138,40 +135,6 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     NSArray *objects = [context executeFetchRequest:request error:&error];
     if(error || objects.count == 0)
         return nil;
-    
-//    for (BWBin *object in objects)
-//    {
-//        NSLog(@"%@", object.binID);
-//    }
-//    NSLog(@"---------------------------------");
-//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-//    f.numberStyle = NSNumberFormatterDecimalStyle;
-//
-//    //NSNumber *myNumber = [f numberFromString:@"42"];
-//
-//    NSMutableArray *bins = [[NSMutableArray alloc] init];
-//    //for(int i = 0; i < objects.count; i++)
-//    for (id object in objects)
-//    {
-//        BWBin *bin = [[BWBin alloc] init];
-//        bin.binID = [object valueForKey:@"binID"];
-//        bin.isAcive = [[object valueForKey:@"isAcive"] boolValue];
-//        bin.temperature = [object valueForKey:@"temperature"];
-//        bin.humidity = [object valueForKey:@"humidity"];
-//        bin.date = [object valueForKey:@"date"];
-//        bin.latitude = [object valueForKey:@"latitude"];
-//        bin.latitude = [object valueForKey:@"longitude"];
-//        //bin.latitude = [NSNumber numberWithFloat:[[object valueForKey:@"latitude"] floatValue]];
-////        bin.latitude = [f numberFromString:[object valueForKey:@"latitude"]];
-////        bin.latitude = [f numberFromString:[object valueForKey:@"longitude"]];
-//        //bin.longitude = [[object valueForKey:@"longitude"] floatValue];
-//        bin.color = [[object valueForKey:@"color"] integerValue];
-//        bin.place = [object valueForKey:@"place"];
-//        bin.fill = [object valueForKey:@"fill"];
-//        //bin.fill = [f numberFromString:[object valueForKey:@"fill"]];
-//        
-//        [bins addObject:bin];
-//    }
 
     // Returning sorted array of objects, based on fill %
     NSSortDescriptor *fillSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kBinFillPercentage ascending:NO];

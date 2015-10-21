@@ -335,10 +335,9 @@ BOOL shouldBeginEditing;
 #pragma mark - Event Handlers
 - (void)moreTapped
 {
-    NSLog(@"More tapped");
     [settingsControl toggleControl];
-
 }
+
 #pragma mark - BWSettingsControlDelegate
 
 - (void)didTapSettingsRow:(NSInteger)row

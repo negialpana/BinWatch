@@ -128,9 +128,6 @@
 - (void)moreTapped
 {
     [settingsControl toggleControl];
-
-    NSLog(@"More tapped");
-    //[self drawRouteSelectedBins];
 }
 
 #pragma mark - Map Utils
