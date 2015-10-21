@@ -30,7 +30,6 @@
     BOOL firstLocationUpdate_;
     float zoomLevel;
     NSMutableDictionary *mapMarkers;
-    CLLocation *currentLocation;
     NSMutableArray *selectedLocations;
     BOOL isMapEdited;
     BWSettingsControl *settingsControl;
@@ -48,7 +47,7 @@
     isMapEdited = NO;
 
     mapMarkers = [[NSMutableDictionary alloc] init];
-    currentLocation = [[CLLocation alloc] init];
+    //currentLocation = [[CLLocation alloc] init];
     selectedLocations = [[NSMutableArray alloc] init];
 
     // Navigation Bar Init
@@ -172,6 +171,7 @@
         return;
     }
 
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -194,6 +194,7 @@
 
 -(void) drawRouteAllReds
 {
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -219,7 +220,7 @@
 
 -(void) drawRouteRedYellow
 {
-    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -357,7 +358,8 @@
                        context:(void *)context {
     NSLog(@"Location Update");
     //CLLocation *location;
-    currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    [BWDataHandler sharedHandler].myLocation = currentLocation;
     if (!firstLocationUpdate_) {
         // If the first location update has not yet been recieved, then jump to that
         // location.
@@ -467,9 +469,7 @@
 #pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
-    //searchQuery.location = self.mapView.userLocation.coordinate;
-    // TODO: This has to be corrected
-    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {

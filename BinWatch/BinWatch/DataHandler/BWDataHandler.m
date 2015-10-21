@@ -36,7 +36,7 @@ static NSString* const kAppMode = @"AppMode";
 static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 #define DEFAULT_RADIUS 5
 
-@interface BWDataHandler ()
+@interface BWDataHandler () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
@@ -44,6 +44,13 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 @end
 
 @implementation BWDataHandler
+{
+    NSString *savedBinsLocation;
+    CLLocationManager *locationManager;
+    CLLocation *locationFromAppKit;
+}
+
+@synthesize myLocation;
 
 + (instancetype)sharedHandler{
     
@@ -72,11 +79,26 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
             [self saveExportPDF:YES];
             // TODO: This has to be changed
             [self saveAppMode:BWBBMP];
+            locationManager = [[CLLocationManager alloc] init];
+            locationManager.delegate = self;
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+                [locationManager requestWhenInUseAuthorization];
+            [locationManager startUpdatingLocation];
         }
     }
     
     return self;
     
+}
+
+-(CLLocation *)getMyLocation
+{
+    if(myLocation)
+        return myLocation;
+    else
+        return locationFromAppKit;
 }
 
 - (void)insertBins:(NSArray *)bins{
@@ -308,4 +330,11 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     return _persistentStoreCoordinator;
 }
 
+#pragma mark - CLLocationManagerDelegate
+
+// This is just a backup. Just in case google maps is not initialised, we can get current location from here
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    locationFromAppKit = newLocation;
+}
 @end

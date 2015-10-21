@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CoreLocation/CLLocation.h"
 
 typedef NS_ENUM(NSUInteger, BWAppMode) {
     BWCommonUser,
@@ -17,6 +18,7 @@ typedef NS_ENUM(NSUInteger, BWAppMode) {
 @interface BWDataHandler : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, getter = getMyLocation) CLLocation *myLocation;
 
 + (instancetype) sharedHandler;
 - (void) insertBins:(NSArray *)bins;

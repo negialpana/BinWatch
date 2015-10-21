@@ -248,9 +248,7 @@ BOOL shouldBeginEditing;
 #pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
-    //searchQuery.location = self.mapView.userLocation.coordinate;
-    // TODO: This has to be corrected
-    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
