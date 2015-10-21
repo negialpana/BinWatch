@@ -103,7 +103,8 @@
     
     settingsControl = [[BWSettingsControl alloc] init];
     NSString *switchTo;
-    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+    
+    if([[BWDataHandler sharedHandler] getAppMode] == BWBBMP)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;

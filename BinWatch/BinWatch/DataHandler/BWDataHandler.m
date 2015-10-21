@@ -31,6 +31,10 @@ static NSString* const kSupportMailID = @"MailID";
 static NSString* const kExportPDFOn = @"PDF";
 static NSString* const kExportExcelOn = @"EXCEL";
 static NSString* const kExportCSVOn = @"CSV";
+static NSString* const kAppMode = @"AppMode";
+
+static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
+#define DEFAULT_RADIUS 5
 
 @interface BWDataHandler ()
 
@@ -50,6 +54,32 @@ static NSString* const kExportCSVOn = @"CSV";
         sharedHandler = [[BWDataHandler alloc] init];
     });
     return sharedHandler;
+}
+
+- (id) init
+{
+    if (self = [super init])
+    {
+        // Saving default Data to user defaults
+        NSString *mailID = [self getSupportMailID];
+        if(!mailID)
+        {
+            // App launching for first time
+            [self saveSupportMailID:kDefaultMailID];
+            [self saveCoverageRadius:DEFAULT_RADIUS];
+            [self saveExportCSV:YES];
+            [self saveExportExcel:YES];
+            [self saveExportPDF:YES];
+            // TODO: This has to be changed
+            [self saveAppMode:BWBBMP];
+            NSLog(@"NO DATA............................");
+        }
+        else
+            NSLog(@"HAS DATA............................");
+    }
+    
+    return self;
+    
 }
 
 - (void)insertBins:(NSArray *)bins{
@@ -147,6 +177,18 @@ static NSString* const kExportCSVOn = @"CSV";
     NSSortDescriptor *fillSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kBinFillPercentage ascending:NO];
     NSArray *sortedArray = [objects sortedArrayUsingDescriptors:@[fillSortDescriptor]];
     return sortedArray;
+}
+
+-(void) saveAppMode:(BWAppMode)mode
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithInt:mode] forKey:kAppMode];
+}
+
+-(BWAppMode) getAppMode
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults valueForKey:kAppMode] integerValue];
 }
 
 -(void) saveSupportMailID:(NSString *)mailID

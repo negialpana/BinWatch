@@ -87,7 +87,7 @@ BOOL shouldBeginEditing;
     // Adding settings control
     settingsControl = [BWSettingsControl new];
     NSString *switchTo;
-    if([BWAppSettings sharedInstance].appMode == BWBBMP)
+    if([[BWDataHandler sharedHandler] getAppMode] == BWBBMP)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;

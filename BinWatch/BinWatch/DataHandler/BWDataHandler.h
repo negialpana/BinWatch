@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+typedef NS_ENUM(NSUInteger, BWAppMode) {
+    BWCommonUser,
+    BWBBMP,
+};
+
 @interface BWDataHandler : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -16,6 +21,9 @@
 + (instancetype) sharedHandler;
 - (void) insertBins:(NSArray *)bins;
 - (NSArray *) fetchBins;
+
+- (void) saveAppMode:(BWAppMode)mode;
+- (BWAppMode) getAppMode;
 
 - (void) saveSupportMailID:(NSString *)mailID;
 - (NSString *) getSupportMailID;

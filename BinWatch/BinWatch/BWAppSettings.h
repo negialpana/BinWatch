@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, BWAppMode) {
-    BWCommonUser,
-    BWBBMP,
-};
+//typedef NS_ENUM(NSUInteger, BWAppMode) {
+//    BWCommonUser,
+//    BWBBMP,
+//};
 
 @interface BWAppSettings : NSObject
 
-@property (nonatomic, assign) BWAppMode appMode;
-@property (nonatomic, assign) NSInteger defaultRadius;
+//@property (nonatomic, assign) BWAppMode appMode;
+//@property (nonatomic, assign) NSInteger defaultRadius;
 
 
 extern NSString* const kSwitchedToUserModeNotification;

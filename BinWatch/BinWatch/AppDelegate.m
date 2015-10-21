@@ -39,27 +39,17 @@
     [Fabric with:@[[Crashlytics class]]];
     [GMSServices provideAPIKey:kGoogleAPIKey];
     
-    [BWAppSettings sharedInstance].appMode = BWBBMP;
-    [BWAppSettings sharedInstance].defaultRadius = DEFAULT_RADIUS;
+//    [BWAppSettings sharedInstance].appMode = BWBBMP;
+//    [BWAppSettings sharedInstance].defaultRadius = DEFAULT_RADIUS;
     //[[Crashlytics sharedInstance] crash];
 
-    // Saving default Data to user defaults
-    NSString *mailID = [[BWDataHandler sharedHandler] getSupportMailID];
-    if(!mailID)
-    {
-        // App launching for first time
-        [[BWDataHandler sharedHandler] saveSupportMailID:@"BinWatch.ReapBenefit@gmail.com"];
-        [[BWDataHandler sharedHandler] saveCoverageRadius:5];
-        [[BWDataHandler sharedHandler] saveExportCSV:YES];
-        [[BWDataHandler sharedHandler] saveExportExcel:YES];
-        [[BWDataHandler sharedHandler] saveExportPDF:YES];
-    }
+    // This is being called to initialise data
+    [BWDataHandler sharedHandler];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];
     
-
     return YES;
 }
 
