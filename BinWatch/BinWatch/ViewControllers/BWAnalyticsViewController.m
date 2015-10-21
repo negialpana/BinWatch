@@ -16,6 +16,7 @@
 #import "BWBin.h"
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocomplete.h"
+#import "BWConnectionHandler.h"
 
 #define TABLE_VIEW_PLACES_SEARCH 0
 #define TABLE_VIEW_DISPLAY_BINS 111
@@ -191,8 +192,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
                     [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
                 } else if (placemark)
                 {
-                    // TODO:
-                    //[self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                    [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
                     [self.searchDisplayController setActive:NO];
                     [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
                 }
@@ -309,6 +309,33 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     return formatter;
+}
+
+-(void)fetchDataForPlace:(NSString*)place
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+    });
+    BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+    [connectionHandler getBinsAtPlace:place
+                WithCompletionHandler:^(NSArray *bins, NSError *error) {
+                    if (!error) {
+                        NSLog(@"*********Bins: %@", [bins description]);
+                        [[BWDataHandler sharedHandler] insertBins:bins];
+                        // TODO: RefreshView
+                        //[self refreshBins];
+                    } else {
+                        // TODO: Show Error
+//                        NSLog(@"***********Failed to get bins***************");
+//                        if (![[AppDelegate appDel] connected]) {
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+//                            });
+//                        }
+                    }
+                }];
+    // TODO: RefreshView
+    //[self refreshBins];
 }
 
 @end

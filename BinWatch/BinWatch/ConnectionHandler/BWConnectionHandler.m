@@ -43,6 +43,7 @@
 }
 //TODO : modify method to get bins from a place
 - (void)getBinsAtPlace:(NSString*)place WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
+    // TODO: Reverse Geocode to get lat/longitude
     [self getBinsWithCompletionHandler:completionBlock];
 }
 
