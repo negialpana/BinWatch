@@ -14,6 +14,12 @@
 #import "BWDataHandler.h"
 #import "BWHelpers.h"
 #import "BWBin.h"
+#import "SPGooglePlacesAutocompleteQuery.h"
+#import "SPGooglePlacesAutocomplete.h"
+
+#define TABLE_VIEW_PLACES_SEARCH 0
+#define TABLE_VIEW_DISPLAY_BINS 111
+#define TABLE_VIEW_ANALYTICS 222
 
 static NSString *queryParameterCell = @"queryParameterCell";
 static NSString *analyseBinCell  = @"binCellAnalyse";
@@ -36,11 +42,25 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 @end
 
 @implementation BWAnalyticsViewController
+{
+    SPGooglePlacesAutocompleteQuery *searchQuery;
+    BOOL shouldBeginEditing;
+    NSArray *searchResultPlaces;
+}
 
+#pragma mark - View Life Cycle
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
+    searchResultPlaces = [[NSArray alloc]init];
+    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
+    shouldBeginEditing = YES;
+    self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+
+    [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
+    [self.searchBar setTranslucent:NO];
+
     [_fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [_toDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     
@@ -55,77 +75,137 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
     // Do any additional setup after loading the view.
 }
 
-- (NSDateFormatter *)dateFormatter{
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    return formatter;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.tableView1) {
-        return [self.table1Data count];
-    }else if (tableView == self.tableView2) {
-        return [self.table2Data count];
-    }
-    return 0;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    
-    if (tableView == _tableView1) {
-        return  @"Select Bins";
-    }else{
-        return @"Select Query Param";
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (tableView == _tableView2) {
-        QueryParameterCell *cell = [tableView dequeueReusableCellWithIdentifier:queryParameterCell];
-        [cell.queryString setText:[self.table2Data objectAtIndex:indexPath.row]];
-        [cell.selectionBtn setSelected:[[self.table2Data objectAtIndex:indexPath.row] isEqualToString:self.queryParam]];
-        return cell;
-    }else{
-        BWAnalyseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:analyseBinCell];
-        BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
-        cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
-        cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
-        if ([self.selectedBins count]) {
-            [cell.selectionBtn setSelected:[self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]];
-        }
-        return cell;
-    }
-    
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (tableView == _tableView2) {
-        self.queryParam = [self.table2Data objectAtIndex:indexPath.row];
-        [self.tableView2 reloadData];
-    }else{
-        if ([self.selectedBins count] == 3 && ![self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]) {
-            [self.selectedBins replaceObjectAtIndex:0 withObject:[self.table1Data objectAtIndex:indexPath.row]];
-            [self.selectedBins exchangeObjectAtIndex:0 withObjectAtIndex:1];
-            [self.selectedBins exchangeObjectAtIndex:2 withObjectAtIndex:1];
-
-        }else if ([self.selectedBins count] < 3){
-            [self.selectedBins addObject:[self.table1Data objectAtIndex:indexPath.row]];
-        }
-        [self.tableView1 reloadData];
-
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch (tableView.tag) {
 
+        case TABLE_VIEW_DISPLAY_BINS:
+            return [self.table1Data count];
+
+        case TABLE_VIEW_ANALYTICS:
+            return [self.table2Data count];
+
+        case TABLE_VIEW_PLACES_SEARCH:
+            return [searchResultPlaces count];
+            
+        default:
+            return 0;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    switch (tableView.tag) {
+            
+        case TABLE_VIEW_DISPLAY_BINS:
+            return @"Select Bins";
+            
+        case TABLE_VIEW_ANALYTICS:
+            return @"Select Query Param";
+            
+        case TABLE_VIEW_PLACES_SEARCH:
+            return nil;
+            
+        default:
+            return nil;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    switch (tableView.tag) {
+            
+        case TABLE_VIEW_DISPLAY_BINS:
+        {
+            BWAnalyseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:analyseBinCell];
+            BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
+            cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
+            cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
+            if ([self.selectedBins count]) {
+                [cell.selectionBtn setSelected:[self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]];
+            }
+            return cell;
+        }
+        case TABLE_VIEW_ANALYTICS:
+        {
+            QueryParameterCell *cell = [tableView dequeueReusableCellWithIdentifier:queryParameterCell];
+            [cell.queryString setText:[self.table2Data objectAtIndex:indexPath.row]];
+            [cell.selectionBtn setSelected:[[self.table2Data objectAtIndex:indexPath.row] isEqualToString:self.queryParam]];
+            return cell;
+        }
+        case TABLE_VIEW_PLACES_SEARCH:
+        {
+            static NSString *cellIdentifier = @"SPGooglePlacesAutocompleteCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            }
+            
+            cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
+            cell.textLabel.text = [self placeAtIndexPath:indexPath].name;
+            return cell;
+        }
+        default:
+            return nil;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    switch (tableView.tag) {
+            
+        case TABLE_VIEW_DISPLAY_BINS:
+            if ([self.selectedBins count] == 3 && ![self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]])
+            {
+                [self.selectedBins replaceObjectAtIndex:0 withObject:[self.table1Data objectAtIndex:indexPath.row]];
+                [self.selectedBins exchangeObjectAtIndex:0 withObjectAtIndex:1];
+                [self.selectedBins exchangeObjectAtIndex:2 withObjectAtIndex:1];
+            }
+            else if ([self.selectedBins count] < 3)
+            {
+                [self.selectedBins addObject:[self.table1Data objectAtIndex:indexPath.row]];
+            }
+            [self.tableView1 reloadData];
+            break;
+            
+        case TABLE_VIEW_ANALYTICS:
+            self.queryParam = [self.table2Data objectAtIndex:indexPath.row];
+            [self.tableView2 reloadData];
+            break;
+            
+        case TABLE_VIEW_PLACES_SEARCH:
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
+            [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
+                if (error)
+                {
+                    [BWLogger DoLog:@"Could not map selected Place"];
+                    [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
+                } else if (placemark)
+                {
+                    // TODO:
+                    //[self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                    [self.searchDisplayController setActive:NO];
+                    [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
+                }
+            }];
+        }
+            break;
+
+        default:
+            break;
+    }
+}
+
+#pragma mark - Event Handler
 - (IBAction)dateBtnPressed:(id)sender {
     
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
@@ -167,5 +247,68 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
      }
  }
  
+#pragma mark - UISearchBar Delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (![searchBar isFirstResponder]) {
+        // User tapped the 'clear' button.
+        shouldBeginEditing = NO;
+        [self.searchDisplayController setActive:NO];
+        //[self.mapView removeAnnotation:selectedPlaceAnnotation];
+    }
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    if (shouldBeginEditing) {
+        // Animate in the table view.
+        NSTimeInterval animationDuration = 0.3;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        self.searchDisplayController.searchResultsTableView.alpha = 0.75;
+        [UIView commitAnimations];
+        
+        [self.searchDisplayController.searchBar setShowsCancelButton:YES animated:YES];
+    }
+    BOOL boolToReturn = shouldBeginEditing;
+    shouldBeginEditing = YES;
+    return boolToReturn;
+}
+
+#pragma mark - UISearchDisplayDelegate
+
+- (void)handleSearchForSearchString:(NSString *)searchString {
+    //searchQuery.location = self.mapView.userLocation.coordinate;
+    // TODO: This has to be corrected
+    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.input = searchString;
+    [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
+        if (error) {
+            [BWLogger DoLog:@"Could not fetch Places"];
+            [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
+        } else {
+            searchResultPlaces = places;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }
+    }];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self handleSearchForSearchString:searchString];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+#pragma mark - Utility Methods
+- (SPGooglePlacesAutocompletePlace *)placeAtIndexPath:(NSIndexPath *)indexPath {
+    return searchResultPlaces[indexPath.row];
+}
+
+- (NSDateFormatter *)dateFormatter{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    return formatter;
+}
 
 @end

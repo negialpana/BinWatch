@@ -352,6 +352,7 @@
                     <connections>
                         <outlet property="dateComponentsContainerView" destination="Gp4-5l-P6t" id="KhV-dU-Me4"/>
                         <outlet property="fromDateBtn" destination="z6b-oS-1ht" id="Ifq-tN-ZwR"/>
+                        <outlet property="searchBar" destination="SOY-6N-UBb" id="pR4-JL-yda"/>
                         <outlet property="searchBarForTableView1" destination="SOY-6N-UBb" id="OYm-nD-4av"/>
                         <outlet property="searchDisplayController" destination="JIT-cv-hkk" id="mJy-Ph-fHQ"/>
                         <outlet property="tableView1" destination="rIp-3W-Ivx" id="mly-ye-5aT"/>
