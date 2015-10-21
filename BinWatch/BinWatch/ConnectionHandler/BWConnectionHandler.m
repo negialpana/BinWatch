@@ -8,6 +8,7 @@
 
 #import "BWConnectionHandler.h"
 #import "BWHelpers.h"
+#import "BWDataHandler.h"
 
 #define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
 
@@ -41,9 +42,8 @@
     
     return self;
 }
-//TODO : modify method to get bins from a place
-- (void)getBinsAtPlace:(NSString*)place WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
-    // TODO: Reverse Geocode to get lat/longitude
+
+- (void)getBinsAtPlace:(CLLocation*)location WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
     [self getBinsWithCompletionHandler:completionBlock];
 }
 
@@ -69,16 +69,20 @@
 - (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
  
    NSURL *url = [self rootURL];
-    
    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"get/bins"]
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
                                                 NSError *jsonError = nil;
-                                                if (!error) {
+                                                if (!error)
+                                                {
                                                     NSArray * bins = [NSJSONSerialization JSONObjectWithData:data
                                                                                                      options:NSJSONReadingAllowFragments
                                                                                                        error:&jsonError];
+                                                    [[BWDataHandler sharedHandler] insertBins:bins];
                                                     completionBlock(bins,jsonError);
-                                                }else {
+                                                }
+                                                else
+                                                {
                                                     completionBlock(nil,error);
                                                 }
                                             }];

@@ -339,7 +339,6 @@ static NSString *kSelectHeader   = @"Select Bins";
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
                         NSLog(@"*********Bins: %@", [bins description]);
-                        [[BWDataHandler sharedHandler] insertBins:bins];
                         // TODO: RefreshView
                         //[self refreshBins];
                     } else {

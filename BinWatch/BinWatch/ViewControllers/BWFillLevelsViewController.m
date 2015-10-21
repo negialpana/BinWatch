@@ -102,20 +102,19 @@ BOOL shouldBeginEditing;
 
 -(void)fetchData
 {
-    [self fetchDataForPlace:@"Bangalore"];
+    [self fetchDataForLocation:@"Bangalore"];
 }
 
--(void)fetchDataForPlace:(NSString*)place
+-(void)fetchDataForLocation:(CLLocation*)location
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
   });
   BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-  [connectionHandler getBinsAtPlace:place
+  [connectionHandler getBinsAtPlace:location
               WithCompletionHandler:^(NSArray *bins, NSError *error) {
                 if (!error) {
                   NSLog(@"*********Bins: %@", [bins description]);
-                  [[BWDataHandler sharedHandler] insertBins:bins];
                   lastUpdate = [NSDate date];
                   [self refreshBins];
                 } else {
@@ -230,7 +229,7 @@ BOOL shouldBeginEditing;
                 [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
             } else if (placemark)
             {
-                [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                [self fetchDataForLocation:placemark.location];
                 [self.searchDisplayController setActive:NO];
                 [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
             }

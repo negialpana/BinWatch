@@ -14,6 +14,7 @@
 #import "BWHelpers.h"
 #import "BWAppSettings.h"
 #import "BWConstants.h"
+#import "BWConnectionHandler.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
 
@@ -329,6 +330,28 @@
     }
 }
 
+-(void)fetchDataForLocation:(CLLocation *)location
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+    });
+    BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+    [connectionHandler getBinsAtPlace:location
+                WithCompletionHandler:^(NSArray *bins, NSError *error) {
+                    if (!error) {
+                        NSLog(@"*********Bins: %@", [bins description]);
+                        [self flushAllRoutes];
+                    } else {
+//                        NSLog(@"***********Failed to get bins***************");
+//                        if (![[AppDelegate appDel] connected]) {
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+//                            });
+//                        }
+                    }
+                }];
+    [self flushAllRoutes];
+}
 #pragma mark - KVO updates
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -430,8 +453,11 @@
         if (error) {
             [BWLogger DoLog:@"Could not map selected Place"];
             [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
-        } else if (placemark) {
+        }
+        else if (placemark)
+        {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
+            [self fetchDataForLocation:placemark.location];
             [self recenterMapToPlacemark:placemark];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
             [self.searchDisplayController setActive:NO];
