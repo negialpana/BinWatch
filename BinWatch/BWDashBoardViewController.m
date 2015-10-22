@@ -74,6 +74,41 @@
     return _activechart;
 }
 
+- (VBPieChart *)humiditychart{
+    if (!_humiditychart || ![[self.view subviews] containsObject:_humiditychart]) {
+        _humiditychart = [[VBPieChart alloc] init];
+        [self.view addSubview:_humiditychart];
+        [_humiditychart setFrame:CGRectMake(0, 100, 250 , 250)];
+        _humiditychart.center = self.view.center;
+        [_humiditychart setEnableStrokeColor:YES];
+        [_humiditychart.layer setShadowOffset:CGSizeMake(2, 2)];
+        [_humiditychart.layer setShadowRadius:3];
+        [_humiditychart.layer setShadowColor:[UIColor blackColor].CGColor];
+        [_humiditychart.layer setShadowOpacity:0.7];
+        [_humiditychart setHoleRadiusPrecent:0.3];
+        [_humiditychart setLabelsPosition:VBLabelsPositionOnChart];
+    }
+    return _humiditychart;
+}
+
+- (VBPieChart *)tempchart{
+    
+    if (!_tempchart || ![[self.view subviews] containsObject:_tempchart]) {
+        _tempchart = [[VBPieChart alloc] init];
+        [self.view addSubview:_tempchart];
+        [_tempchart setFrame:CGRectMake(0, 100, 250 , 250)];
+        _tempchart.center = self.view.center;
+        [_tempchart setEnableStrokeColor:YES];
+        [_tempchart.layer setShadowOffset:CGSizeMake(2, 2)];
+        [_tempchart.layer setShadowRadius:3];
+        [_tempchart.layer setShadowColor:[UIColor blackColor].CGColor];
+        [_tempchart.layer setShadowOpacity:0.7];
+        [_tempchart setHoleRadiusPrecent:0.3];
+        [_tempchart setLabelsPosition:VBLabelsPositionOnChart];
+    }
+    return _tempchart;
+}
+
 - (void)setUpChartValuesForIndex:(NSInteger)index{
     
     switch (index) {
@@ -92,12 +127,12 @@
             break;
         case 2:
         {
-            
+            [self setUpChartValuesForHumidity];
         }
             break;
         case 3:
         {
-            
+            [self setUpChartValuesForTemperature];
         }
             break;
             
@@ -176,10 +211,64 @@
 
 - (void)setUpChartValuesForHumidity{
     
+    NSArray * bins = [self getBins];
+    NSMutableArray * percentages  = [NSMutableArray array];
+    
+    if ([bins count]) {
+        [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
+        for(int i = 0 ;i<5 ;i++){
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.humidity < %d && SELF.humidity >= %d)",(i+1)*20,(i)*20];
+            NSLog(@"....%d & %d",(i+1)*20,(i)*20);
+            NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
+            long double percent = ((long double)[arr count]/(long double)[bins count]*100);
+            
+            NSDictionary *dict = @{@"Percent": [NSString stringWithFormat:@"%2.2Lf",percent],
+                                   @"Count":[NSString stringWithFormat:@"%lu",(unsigned long)[arr count]]};
+            [percentages addObject:dict];
+        }
+        self.chartValues = @[
+                             @{@"name":[NSString stringWithFormat:@"<20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xdd191daa]},
+                             @{@"name":[NSString stringWithFormat:@"<40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xd81b60aa]},
+                             @{@"name":[NSString stringWithFormat:@"<60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x8e24aaaa]},
+                             @{@"name":[NSString stringWithFormat:@"<80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x3f51b5aa]},
+                             @{@"name":[NSString stringWithFormat:@"<100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xf57c00aa]}
+                             ];
+        
+        [self.humiditychart setChartValues:_chartValues animation:YES];
+        
+    }
+
 }
 
 - (void)setUpChartValuesForTemperature{
     
+    NSArray * bins = [self getBins];
+    NSMutableArray * percentages  = [NSMutableArray array];
+    
+    if ([bins count]) {
+        [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
+        for(int i = 0 ;i<5 ;i++){
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.temperature < %d && SELF.temperature >= %d)",(i+1)*20,(i)*20];
+            NSLog(@"....%d & %d",(i+1)*20,(i)*20);
+            NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
+            long double percent = ((long double)[arr count]/(long double)[bins count]*100);
+            
+            NSDictionary *dict = @{@"Percent": [NSString stringWithFormat:@"%2.2Lf",percent],
+                                   @"Count":[NSString stringWithFormat:@"%lu",(unsigned long)[arr count]]};
+            [percentages addObject:dict];
+        }
+        self.chartValues = @[
+                             @{@"name":[NSString stringWithFormat:@"<20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xdd191daa]},
+                             @{@"name":[NSString stringWithFormat:@"<40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xd81b60aa]},
+                             @{@"name":[NSString stringWithFormat:@"<60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x8e24aaaa]},
+                             @{@"name":[NSString stringWithFormat:@"<80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x3f51b5aa]},
+                             @{@"name":[NSString stringWithFormat:@"<100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xf57c00aa]}
+                             ];
+        
+        [self.tempchart setChartValues:_chartValues animation:YES];
+        
+    }
+
 }
 
 
