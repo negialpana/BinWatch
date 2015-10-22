@@ -59,6 +59,9 @@ static NSString *kSelectHeader   = @"Select Bins";
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
+
     searchResultPlaces = [[NSArray alloc]init];
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
@@ -362,8 +365,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
                         NSLog(@"*********Bins: %@", [bins description]);
-                        // TODO: RefreshView
-                        //[self refreshBins];
+                        [self refreshBins];
                     } else {
                         // TODO: Show Error
 //                        NSLog(@"***********Failed to get bins***************");
@@ -374,8 +376,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 //                        }
                     }
                 }];
-    // TODO: RefreshView
-    //[self refreshBins];
+    [self refreshBins];
+}
+
+-(void) refreshBins
+{
+    
+}
+
+#pragma mark - Notifications
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshBins];
 }
 
 @end
