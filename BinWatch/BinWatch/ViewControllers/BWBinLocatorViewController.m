@@ -68,6 +68,8 @@
 
     // UISearchBar Init
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.mapSearchBar setTranslucent:NO];
 

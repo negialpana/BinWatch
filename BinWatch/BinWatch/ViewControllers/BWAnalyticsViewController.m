@@ -61,6 +61,7 @@ static NSString *kSelectHeader   = @"Select Bins";
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.searchBar setTranslucent:NO];
