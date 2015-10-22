@@ -46,6 +46,8 @@ BOOL shouldBeginEditing;
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     activeBins = [[NSMutableArray alloc]init];
 
     // Init for google places search
@@ -256,7 +258,10 @@ BOOL shouldBeginEditing;
             [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
             searchResultPlaces = places;
-            [self.searchDisplayController.searchResultsTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.searchDisplayController.searchResultsTableView reloadData];
+            });
+
         }
     }];
 }
@@ -323,7 +328,9 @@ BOOL shouldBeginEditing;
         [self.searchBar resignFirstResponder];
 
     }
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (SPGooglePlacesAutocompletePlace *)placeAtIndexPath:(NSIndexPath *)indexPath {
@@ -359,15 +366,21 @@ BOOL shouldBeginEditing;
 }
 -(void)didChangeDeviceOrientation
 {
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 #pragma mark - Utility Methods
 - (void) refreshBins
 {
     activeBins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    NSLog(@"existingBins: %lu", (unsigned long)activeBins.count);
+    NSLog(@"Refreshing Bins: %lu", (unsigned long)activeBins.count);
     noBins = activeBins.count ? NO : YES;
-    [self.tableView reloadData];
+
+    // Nice fix. This has to be on main thread. Otherwise it takes time
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
     
     if (refreshControl) {
         
