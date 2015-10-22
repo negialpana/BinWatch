@@ -47,6 +47,7 @@ BOOL shouldBeginEditing;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
 
     activeBins = [[NSMutableArray alloc]init];
 
@@ -402,6 +403,12 @@ BOOL shouldBeginEditing;
     BWBin *bin = (BWBin *)[activeBins objectAtIndex:indexPath.row];
     return bin;
 }
+
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshBins];
+}
+
 /*
 #pragma mark - Navigation
 

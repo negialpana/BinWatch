@@ -16,7 +16,7 @@
 #import "BWConstants.h"
 #import "BWConnectionHandler.h"
 
-#define DEFAULT_ZOOM_LEVEL 15
+#define DEFAULT_ZOOM_LEVEL 13
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
@@ -41,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
     searchOn = NO;
     zoomLevel = DEFAULT_ZOOM_LEVEL;
     firstLocationUpdate_ = NO;
@@ -155,7 +156,7 @@
     [mapView setFrame:CGRectMake(self.view.frame.origin.x, mapviewOriginY, self.view.frame.size.width, mapViewHeight)];
 }
 
--(void) flushAllRoutes
+-(void) refreshMap
 {
     [mapView clear];
     [self drawBins];
@@ -165,7 +166,7 @@
 {
     if(selectedLocations.count <= 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"No bins are selected"];
         [BWHelpers displayHud:kNoSelectedBins onView:self.navigationController.view];
         return;
@@ -174,7 +175,7 @@
     CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"Couldnt retrieve current location"];
         [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
@@ -197,7 +198,7 @@
     CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"Couldnt retrieve current location"];
         [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
@@ -223,7 +224,7 @@
     CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"Couldnt retrieve current location"];
         [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
@@ -339,7 +340,7 @@
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
                         NSLog(@"*********Bins: %@", [bins description]);
-                        [self flushAllRoutes];
+                        [self refreshMap];
                     } else {
 //                        NSLog(@"***********Failed to get bins***************");
 //                        if (![[AppDelegate appDel] connected]) {
@@ -349,8 +350,9 @@
 //                        }
                     }
                 }];
-    [self flushAllRoutes];
+    [self refreshMap];
 }
+
 #pragma mark - KVO updates
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -369,6 +371,12 @@
     }
 }
 
+#pragma mark - Notifications
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshMap];
+}
+
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
@@ -379,7 +387,7 @@
 
     //[self resetBinIcons];
     [selectedLocations removeAllObjects];
-    [self flushAllRoutes];
+    [self refreshMap];
     isMapEdited = NO;
 }
 
