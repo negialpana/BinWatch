@@ -17,6 +17,7 @@
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
+#import "GradientView.h"
 
 #define TABLE_VIEW_PLACES_SEARCH 0
 #define TABLE_VIEW_DISPLAY_BINS 111
@@ -122,6 +123,26 @@ static NSString *kSelectHeader   = @"Select Bins";
             return nil;
     }
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10.0;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.0;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    long tableViewTag = (long)tableView.tag;
+    if(tableViewTag == TABLE_VIEW_DISPLAY_BINS)
+    {
+        BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
+        GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forfill:[bin.fill floatValue]];
+        cell.backgroundView = gradientView;
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -133,6 +154,8 @@ static NSString *kSelectHeader   = @"Select Bins";
             BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
             cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
             cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
+            cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
+            cell.detailTextLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
             if ([self.selectedBins count]) {
                 [cell.selectionBtn setSelected:[self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]];
             }
