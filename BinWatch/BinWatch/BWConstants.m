@@ -13,6 +13,8 @@
 NSString* const kGoogleAPIKey            = @"AIzaSyBJZvhJsi6Dh1QQjkly_CZEn6WFyfRb6ew";
 NSString* const kGoogleAPIKey_Browser    = @"AIzaSyCUbwYomfVufUiVTiDak2qvEHVKiwk2JUQ";
 
+NSString* const kBinDataChangedNotification      = @"kBinDataChangedNotification";
+
 NSString* const kNotConnectedTitle = @"Not Connected";
 NSString* const kNotConnectedText  = @"You're not connected to the internet.";
 NSString* const kConnectedTitle    = @"Connected";

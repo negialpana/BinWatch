@@ -144,6 +144,7 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
         NSLog(@"Could not save the bins to Application Database");
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName: kBinDataChangedNotification object: nil];
 }
 
 - (NSArray *)fetchBins{

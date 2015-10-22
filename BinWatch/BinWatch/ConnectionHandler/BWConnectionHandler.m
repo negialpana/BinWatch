@@ -9,6 +9,7 @@
 #import "BWConnectionHandler.h"
 #import "BWHelpers.h"
 #import "BWDataHandler.h"
+#import "BWLogger.h"
 
 #define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
 
@@ -44,7 +45,33 @@
 }
 
 - (void)getBinsAtPlace:(CLLocation*)location WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
-    [self getBinsWithCompletionHandler:completionBlock];
+    NSLog(@"Requesting for bins at %f %f", location.coordinate.latitude, location.coordinate.longitude);
+    if(location == nil)
+        return;
+    
+    int coverageRadius = [[BWDataHandler sharedHandler] getCoverageRadius] * 1000;
+    NSURL *url = [self rootURL];
+    NSString *urlPrefix = [NSString stringWithFormat:@"get/bins/%f/%f/%d", location.coordinate.latitude, location.coordinate.longitude,coverageRadius];
+    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:urlPrefix]
+                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                 
+                                                 NSError *jsonError = nil;
+                                                 if (!error)
+                                                 {
+                                                     NSArray * bins = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                      options:NSJSONReadingAllowFragments
+                                                                                                        error:&jsonError];
+                                                     [[BWDataHandler sharedHandler] insertBins:bins];
+                                                     NSString *errMsg = [NSString stringWithFormat:@"New set of bins %d", [bins count]];
+                                                     [BWLogger DoLog:errMsg];
+                                                     completionBlock(bins,jsonError);
+                                                 }
+                                                 else
+                                                 {
+                                                     completionBlock(nil,error);
+                                                 }
+                                             }];
+    [dataTask resume];
 }
 
 - (void)getBinData:(NSString *)binID from:(long)utcFrom to:(long)utcTo WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
