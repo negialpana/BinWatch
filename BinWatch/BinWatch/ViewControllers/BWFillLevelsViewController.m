@@ -106,16 +106,17 @@ BOOL shouldBeginEditing;
 
 -(void)fetchData
 {
-    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation]];
+    // TODO: Need to geocode
+    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation] withAddress:nil];
 }
 
--(void)fetchDataForLocation:(CLLocation*)location
+-(void)fetchDataForLocation:(CLLocation*)location withAddress:(NSString *)address
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
   });
   BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-  [connectionHandler getBinsAtPlace:location
+  [connectionHandler getBinsAtPlace:location withAddress:address
               WithCompletionHandler:^(NSArray *bins, NSError *error) {
                 if (!error) {
                   NSLog(@"*********Bins: %@", [bins description]);
@@ -233,7 +234,7 @@ BOOL shouldBeginEditing;
                 [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
             } else if (placemark)
             {
-                [self fetchDataForLocation:placemark.location];
+                [self fetchDataForLocation:placemark.location withAddress:addressString];
                 [self.searchDisplayController setActive:NO];
                 [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
             }

@@ -44,7 +44,7 @@
     return self;
 }
 
-- (void)getBinsAtPlace:(CLLocation*)location WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
+- (void)getBinsAtPlace:(CLLocation*)location withAddress:(NSString *)address WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
     NSLog(@"Requesting for bins at %f %f", location.coordinate.latitude, location.coordinate.longitude);
     if(location == nil)
         return;
@@ -61,7 +61,7 @@
                                                      NSArray * bins = [NSJSONSerialization JSONObjectWithData:data
                                                                                                       options:NSJSONReadingAllowFragments
                                                                                                         error:&jsonError];
-                                                     [[BWDataHandler sharedHandler] insertBins:bins];
+                                                     [[BWDataHandler sharedHandler] insertBins:bins forLocation:location withAddress:address];
                                                      NSString *errMsg = [NSString stringWithFormat:@"New set of bins %d", [bins count]];
                                                      [BWLogger DoLog:errMsg];
                                                      completionBlock(bins,jsonError);
@@ -105,7 +105,7 @@
                                                     NSArray * bins = [NSJSONSerialization JSONObjectWithData:data
                                                                                                      options:NSJSONReadingAllowFragments
                                                                                                        error:&jsonError];
-                                                    [[BWDataHandler sharedHandler] insertBins:bins];
+                                                    [[BWDataHandler sharedHandler] insertBins:bins forLocation:nil withAddress:nil];
                                                     completionBlock(bins,jsonError);
                                                 }
                                                 else

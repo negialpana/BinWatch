@@ -196,7 +196,7 @@ static NSString *kSelectHeader   = @"Select Bins";
                     [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
                 } else if (placemark)
                 {
-                    [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                    [self fetchDataForPlace:placemark.location withAddress:addressString];
                     [self.searchDisplayController setActive:NO];
                     [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
                 }
@@ -328,13 +328,13 @@ static NSString *kSelectHeader   = @"Select Bins";
     return formatter;
 }
 
--(void)fetchDataForPlace:(NSString*)place
+-(void)fetchDataForPlace:(CLLocation*)location withAddress:addressString
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
     });
     BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-    [connectionHandler getBinsAtPlace:place
+    [connectionHandler getBinsAtPlace:location withAddress:addressString
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
                         NSLog(@"*********Bins: %@", [bins description]);
