@@ -59,11 +59,11 @@
 		903F07161BD2A8AF0072386B /* include in Resources */ = {isa = PBXBuildFile; fileRef = 903F07151BD2A8AF0072386B /* include */; };
 		903F07181BD2A99F0072386B /* xlslib in Resources */ = {isa = PBXBuildFile; fileRef = 903F07171BD2A99F0072386B /* xlslib */; };
 		903F071D1BD3A6960072386B /* libDHxls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 903F071C1BD3A6960072386B /* libDHxls.a */; };
+		903F07201BD3AAF40072386B /* BWMailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 903F071F1BD3AAF40072386B /* BWMailer.m */; };
 		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
 		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
 		F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* BWHelpers.m */; };
 		F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6821BA1CF5C0084A879 /* AppDelegate.m */; };
-		F1F2B8F61BC6E5120019E662 /* BWSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B8F51BC6E5120019E662 /* BWSearchBar.m */; };
 		F1F2B90E1BC6E55A0019E662 /* BWGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B8F91BC6E55A0019E662 /* BWGeocoder.m */; };
 		F1F2B90F1BC6E55A0019E662 /* BWRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B8FB1BC6E55A0019E662 /* BWRoute.m */; };
 		F1F2B9101BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B8FE1BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m */; };
@@ -162,6 +162,8 @@
 		903F07151BD2A8AF0072386B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		903F07171BD2A99F0072386B /* xlslib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xlslib; sourceTree = "<group>"; };
 		903F071C1BD3A6960072386B /* libDHxls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libDHxls.a; sourceTree = "<group>"; };
+		903F071E1BD3AAF40072386B /* BWMailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWMailer.h; sourceTree = "<group>"; };
+		903F071F1BD3AAF40072386B /* BWMailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWMailer.m; sourceTree = "<group>"; };
 		F19AB6381B9BEB270084A879 /* BWBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBin.h; sourceTree = "<group>"; };
 		F19AB6391B9BEB270084A879 /* BWBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBin.m; sourceTree = "<group>"; };
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
@@ -170,8 +172,6 @@
 		F19AB6451B9BF5E50084A879 /* BWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWHelpers.m; path = DataHandler/BWHelpers.m; sourceTree = "<group>"; };
 		F19AB6811BA1CF5C0084A879 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F19AB6821BA1CF5C0084A879 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F1F2B8F41BC6E5120019E662 /* BWSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSearchBar.h; path = Views/BWSearchBar.h; sourceTree = "<group>"; };
-		F1F2B8F51BC6E5120019E662 /* BWSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSearchBar.m; path = Views/BWSearchBar.m; sourceTree = "<group>"; };
 		F1F2B8F81BC6E55A0019E662 /* BWGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWGeocoder.h; sourceTree = "<group>"; };
 		F1F2B8F91BC6E55A0019E662 /* BWGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWGeocoder.m; sourceTree = "<group>"; };
 		F1F2B8FA1BC6E55A0019E662 /* BWRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWRoute.h; sourceTree = "<group>"; };
@@ -313,8 +313,6 @@
 		15EA4ADE1B98A9D7006CD602 /* BinWatch */ = {
 			isa = PBXGroup;
 			children = (
-				F1F2B9321BCBEA250019E662 /* BWConstants.h */,
-				F1F2B9331BCBEA250019E662 /* BWConstants.m */,
 				F19AB6811BA1CF5C0084A879 /* AppDelegate.h */,
 				F19AB6821BA1CF5C0084A879 /* AppDelegate.m */,
 				F1F2B8F71BC6E55A0019E662 /* Google Maps */,
@@ -371,19 +369,10 @@
 				15ABF61E1BC43A00005E24DA /* QueryParameterCell.m */,
 				15ED60D01BC940B700EA6285 /* BWAnalyseTableViewCell.h */,
 				15ED60D11BC940B700EA6285 /* BWAnalyseTableViewCell.m */,
-			);
-			name = CustomViews;
-			sourceTree = "<group>";
-		};
-		32861A881BC4A1C200D0568F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F1F2B8F41BC6E5120019E662 /* BWSearchBar.h */,
-				F1F2B8F51BC6E5120019E662 /* BWSearchBar.m */,
 				32861A8B1BC4A1D400D0568F /* GradientView.h */,
 				32861A8C1BC4A1D400D0568F /* GradientView.m */,
 			);
-			name = Views;
+			name = CustomViews;
 			sourceTree = "<group>";
 		};
 		900072251BC94D11003B2562 /* Google Maps */ = {
@@ -430,6 +419,8 @@
 		F19AB6851BA2BD4C0084A879 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F1F2B9321BCBEA250019E662 /* BWConstants.h */,
+				F1F2B9331BCBEA250019E662 /* BWConstants.m */,
 				903F05DA1BD0194C0072386B /* BWDocumentHelper.h */,
 				903F05DB1BD0194C0072386B /* BWDocumentHelper.mm */,
 				900072641BCA69C6003B2562 /* BWSettingsControl.h */,
@@ -446,6 +437,8 @@
 				900072111BC700F7003B2562 /* BWLogger.m */,
 				900072671BCAD851003B2562 /* BWAppSettings.h */,
 				900072681BCAD851003B2562 /* BWAppSettings.m */,
+				903F071E1BD3AAF40072386B /* BWMailer.h */,
+				903F071F1BD3AAF40072386B /* BWMailer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -454,7 +447,6 @@
 			isa = PBXGroup;
 			children = (
 				15ED60CA1BC8365F00EA6285 /* CustomViews */,
-				32861A881BC4A1C200D0568F /* Views */,
 				1500ABC41B9ABAD200E0AF6C /* ViewControllers */,
 			);
 			name = UI;
@@ -652,7 +644,6 @@
 				F1F2B9341BCBEA250019E662 /* BWConstants.m in Sources */,
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				F1F2B9151BC6E55A0019E662 /* MBProgressHUD.m in Sources */,
-				F1F2B8F61BC6E5120019E662 /* BWSearchBar.m in Sources */,
 				32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */,
 				F1F2B90E1BC6E55A0019E662 /* BWGeocoder.m in Sources */,
 				900072661BCA69C6003B2562 /* BWSettingsControl.m in Sources */,
@@ -661,6 +652,7 @@
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
 				F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */,
 				15ED60D21BC940B700EA6285 /* BWAnalyseTableViewCell.m in Sources */,
+				903F07201BD3AAF40072386B /* BWMailer.m in Sources */,
 				15ABF61F1BC43A00005E24DA /* QueryParameterCell.m in Sources */,
 				900072691BCAD851003B2562 /* BWAppSettings.m in Sources */,
 			);

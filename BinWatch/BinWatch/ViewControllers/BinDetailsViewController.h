@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Bin.h"
 
 @interface BinDetailsViewController : UIViewController
 

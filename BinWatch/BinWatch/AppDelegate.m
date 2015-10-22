@@ -16,6 +16,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "Reachability.h"
+#import "BWDataHandler.h"
 
 @interface AppDelegate ()
 
@@ -45,10 +46,12 @@
 -(void)switchToMainStoryBoard
 {
     self.window.rootViewController = self.mainTBC;
+    [[BWAppSettings sharedInstance] saveAppMode:BWBBMPMode];
 }
 -(void)switchToUserModeStoryBoard
 {
     self.window.rootViewController = self.userTBC;
+    [[BWAppSettings sharedInstance] saveAppMode:BWUserMode];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -60,16 +63,12 @@
     [Fabric with:@[[Crashlytics class]]];
     [GMSServices provideAPIKey:kGoogleAPIKey];
     
-    [BWAppSettings sharedInstance].appMode = BWBBMPMode;
-    [BWAppSettings sharedInstance].defaultRadius = DEFAULT_RADIUS;
-    //[[Crashlytics sharedInstance] crash];
-
     [self startReachabilityNotifier];
 
     return YES;
 }
+
 - (void)startReachabilityNotifier {
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];

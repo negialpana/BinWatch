@@ -25,7 +25,8 @@ static NSString* const kAddress = @"address";
 static NSString* const kCity = @"city";
 static NSString* const kArea = @"area";
 
-@interface BWDataHandler ()
+
+@interface BWDataHandler () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
@@ -33,6 +34,13 @@ static NSString* const kArea = @"area";
 @end
 
 @implementation BWDataHandler
+{
+    NSString *savedBinsLocation;
+    CLLocationManager *locationManager;
+    CLLocation *locationFromAppKit;
+}
+
+@synthesize myLocation;
 
 + (instancetype)sharedHandler{
     
@@ -43,6 +51,31 @@ static NSString* const kArea = @"area";
         sharedHandler = [[BWDataHandler alloc] init];
     });
     return sharedHandler;
+}
+
+- (id) init
+{
+    if (self = [super init])
+    {
+            locationManager = [[CLLocationManager alloc] init];
+            locationManager.delegate = self;
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+                [locationManager requestWhenInUseAuthorization];
+            [locationManager startUpdatingLocation];
+    }
+    
+    return self;
+    
+}
+
+-(CLLocation *)getMyLocation
+{
+    if(myLocation)
+        return myLocation;
+    else
+        return locationFromAppKit;
 }
 
 - (void)insertBins:(NSArray *)bins{
@@ -101,46 +134,13 @@ static NSString* const kArea = @"area";
     NSArray *objects = [context executeFetchRequest:request error:&error];
     if(error || objects.count == 0)
         return nil;
-    
-//    for (BWBin *object in objects)
-//    {
-//        NSLog(@"%@", object.binID);
-//    }
-//    NSLog(@"---------------------------------");
-//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-//    f.numberStyle = NSNumberFormatterDecimalStyle;
-//
-//    //NSNumber *myNumber = [f numberFromString:@"42"];
-//
-//    NSMutableArray *bins = [[NSMutableArray alloc] init];
-//    //for(int i = 0; i < objects.count; i++)
-//    for (id object in objects)
-//    {
-//        BWBin *bin = [[BWBin alloc] init];
-//        bin.binID = [object valueForKey:@"binID"];
-//        bin.isAcive = [[object valueForKey:@"isAcive"] boolValue];
-//        bin.temperature = [object valueForKey:@"temperature"];
-//        bin.humidity = [object valueForKey:@"humidity"];
-//        bin.date = [object valueForKey:@"date"];
-//        bin.latitude = [object valueForKey:@"latitude"];
-//        bin.latitude = [object valueForKey:@"longitude"];
-//        //bin.latitude = [NSNumber numberWithFloat:[[object valueForKey:@"latitude"] floatValue]];
-////        bin.latitude = [f numberFromString:[object valueForKey:@"latitude"]];
-////        bin.latitude = [f numberFromString:[object valueForKey:@"longitude"]];
-//        //bin.longitude = [[object valueForKey:@"longitude"] floatValue];
-//        bin.color = [[object valueForKey:@"color"] integerValue];
-//        bin.place = [object valueForKey:@"place"];
-//        bin.fill = [object valueForKey:@"fill"];
-//        //bin.fill = [f numberFromString:[object valueForKey:@"fill"]];
-//        
-//        [bins addObject:bin];
-//    }
 
     // Returning sorted array of objects, based on fill %
     NSSortDescriptor *fillSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kBinFillPercentage ascending:NO];
     NSArray *sortedArray = [objects sortedArrayUsingDescriptors:@[fillSortDescriptor]];
     return sortedArray;
 }
+
 
 #pragma mark - Private Methods
 - (void) flushData
@@ -236,4 +236,11 @@ static NSString* const kArea = @"area";
     return _persistentStoreCoordinator;
 }
 
+#pragma mark - CLLocationManagerDelegate
+
+// This is just a backup. Just in case google maps is not initialised, we can get current location from here
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    locationFromAppKit = newLocation;
+}
 @end

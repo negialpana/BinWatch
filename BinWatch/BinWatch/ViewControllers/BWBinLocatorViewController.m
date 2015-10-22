@@ -14,6 +14,7 @@
 #import "BWHelpers.h"
 #import "BWAppSettings.h"
 #import "BWConstants.h"
+#import "BWConnectionHandler.h"
 
 #define DEFAULT_ZOOM_LEVEL 15
 
@@ -29,7 +30,6 @@
     BOOL firstLocationUpdate_;
     float zoomLevel;
     NSMutableDictionary *mapMarkers;
-    CLLocation *currentLocation;
     NSMutableArray *selectedLocations;
     BOOL isMapEdited;
     BWSettingsControl *settingsControl;
@@ -47,7 +47,7 @@
     isMapEdited = NO;
 
     mapMarkers = [[NSMutableDictionary alloc] init];
-    currentLocation = [[CLLocation alloc] init];
+    //currentLocation = [[CLLocation alloc] init];
     selectedLocations = [[NSMutableArray alloc] init];
 
     // Navigation Bar Init
@@ -102,7 +102,7 @@
     
     settingsControl = [[BWSettingsControl alloc] init];
     NSString *switchTo;
-    if([BWAppSettings sharedInstance].appMode == BWBBMPMode)
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
@@ -126,9 +126,6 @@
 - (void)moreTapped
 {
     [settingsControl toggleControl];
-
-    NSLog(@"More tapped");
-    //[self drawRouteSelectedBins];
 }
 
 #pragma mark - Map Utils
@@ -173,6 +170,7 @@
         return;
     }
 
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -195,6 +193,7 @@
 
 -(void) drawRouteAllReds
 {
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -220,7 +219,7 @@
 
 -(void) drawRouteRedYellow
 {
-    //currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
         [self flushAllRoutes];
@@ -329,6 +328,28 @@
     }
 }
 
+-(void)fetchDataForLocation:(CLLocation *)location
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+    });
+    BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+    [connectionHandler getBinsAtPlace:location
+                WithCompletionHandler:^(NSArray *bins, NSError *error) {
+                    if (!error) {
+                        NSLog(@"*********Bins: %@", [bins description]);
+                        [self flushAllRoutes];
+                    } else {
+//                        NSLog(@"***********Failed to get bins***************");
+//                        if (![[AppDelegate appDel] connected]) {
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+//                            });
+//                        }
+                    }
+                }];
+    [self flushAllRoutes];
+}
 #pragma mark - KVO updates
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -336,7 +357,8 @@
                        context:(void *)context {
     NSLog(@"Location Update");
     //CLLocation *location;
-    currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    [BWDataHandler sharedHandler].myLocation = currentLocation;
     if (!firstLocationUpdate_) {
         // If the first location update has not yet been recieved, then jump to that
         // location.
@@ -430,8 +452,11 @@
         if (error) {
             [BWLogger DoLog:@"Could not map selected Place"];
             [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
-        } else if (placemark) {
+        }
+        else if (placemark)
+        {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
+            [self fetchDataForLocation:placemark.location];
             [self recenterMapToPlacemark:placemark];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
             [self.searchDisplayController setActive:NO];
@@ -443,9 +468,7 @@
 #pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
-    //searchQuery.location = self.mapView.userLocation.coordinate;
-    // TODO: This has to be corrected
-    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
@@ -556,10 +579,19 @@
         case 6:
             [center postNotificationName:kSwitchedAppModeNotification object:nil];
             break;
-            
         default:
             break;
     }
 }
 
+//- (void)mailComposeController:(MFMailComposeViewController*)controller
+//          didFinishWithResult:(MFMailComposeResult)result
+//                        error:(NSError*)error;
+//{
+//    if (result != MFMailComposeResultSent) {
+//        [BWLogger DoLog:@"Failed to send mail"];
+//        [BWHelpers displayHud:@"Failed to send mail" onView:self.navigationController.view];
+//    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 @end

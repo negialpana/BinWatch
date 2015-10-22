@@ -90,7 +90,7 @@ BOOL shouldBeginEditing;
     // Adding settings control
     settingsControl = [BWSettingsControl new];
     NSString *switchTo;
-    if([BWAppSettings sharedInstance].appMode == BWBBMPMode)
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
@@ -105,20 +105,19 @@ BOOL shouldBeginEditing;
 }
 -(void)fetchData
 {
-    [self fetchDataForPlace:@"Bangalore"];
+    [self fetchDataForLocation:@"Bangalore"];
 }
 
--(void)fetchDataForPlace:(NSString*)place
+-(void)fetchDataForLocation:(CLLocation*)location
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
   });
   BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-  [connectionHandler getBinsAtPlace:place
+  [connectionHandler getBinsAtPlace:location
               WithCompletionHandler:^(NSArray *bins, NSError *error) {
                 if (!error) {
                   NSLog(@"*********Bins: %@", [bins description]);
-                  [[BWDataHandler sharedHandler] insertBins:bins];
                   lastUpdate = [NSDate date];
                   [self refreshBins];
                 } else {
@@ -233,7 +232,7 @@ BOOL shouldBeginEditing;
                 [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
             } else if (placemark)
             {
-                [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                [self fetchDataForLocation:placemark.location];
                 [self.searchDisplayController setActive:NO];
                 [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
             }
@@ -252,9 +251,7 @@ BOOL shouldBeginEditing;
 #pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
-    //searchQuery.location = self.mapView.userLocation.coordinate;
-    // TODO: This has to be corrected
-    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
@@ -321,10 +318,9 @@ BOOL shouldBeginEditing;
 #pragma mark - Event Handlers
 - (void)moreTapped
 {
-    NSLog(@"More tapped");
     [settingsControl toggleControl];
-
 }
+
 #pragma mark - BWSettingsControlDelegate
 
 - (void)didTapSettingsRow:(NSInteger)row
