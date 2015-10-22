@@ -102,7 +102,7 @@ BOOL shouldBeginEditing;
 
 -(void)fetchData
 {
-    [self fetchDataForLocation:@"Bangalore"];
+    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation]];
 }
 
 -(void)fetchDataForLocation:(CLLocation*)location
