@@ -58,6 +58,7 @@ static NSString *kSelectHeader   = @"Select Bins";
     
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
     searchResultPlaces = [[NSArray alloc]init];
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
@@ -125,11 +126,11 @@ static NSString *kSelectHeader   = @"Select Bins";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10.0;
+    return 25.0;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10.0;
+    return 25.0;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
