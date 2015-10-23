@@ -381,7 +381,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void) refreshBins
 {
-    
+    self.table1Data = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+    runOnMainThread(^{
+        [self.tableView1 reloadData];
+    });
 }
 
 #pragma mark - Notifications
