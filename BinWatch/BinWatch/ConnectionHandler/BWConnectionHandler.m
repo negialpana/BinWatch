@@ -10,6 +10,7 @@
 #import "BWHelpers.h"
 #import "BWDataHandler.h"
 #import "BWLogger.h"
+#import "BWAppSettings.h"
 
 #define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
 
@@ -57,7 +58,7 @@ static NSString* const kAttribute               = @"attr";
     if(location == nil)
         return;
     
-    int coverageRadius = [[BWDataHandler sharedHandler] getCoverageRadius] * 1000;
+    int coverageRadius = [[BWAppSettings sharedInstance] getCoverageRadius] * 1000;
     NSURL *url = [self rootURL];
     NSString *urlPrefix = [NSString stringWithFormat:@"get/bins/%f/%f/%d", location.coordinate.latitude, location.coordinate.longitude,coverageRadius];
     NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:urlPrefix]
@@ -70,7 +71,7 @@ static NSString* const kAttribute               = @"attr";
                                                                                                       options:NSJSONReadingAllowFragments
                                                                                                         error:&jsonError];
                                                      [[BWDataHandler sharedHandler] insertBins:bins forLocation:location withAddress:address];
-                                                     NSString *errMsg = [NSString stringWithFormat:@"New set of bins %d", [bins count]];
+                                                     NSString *errMsg = [NSString stringWithFormat:@"New set of bins %lu", (unsigned long)[bins count]];
                                                      [BWLogger DoLog:errMsg];
                                                      completionBlock(bins,jsonError);
                                                  }

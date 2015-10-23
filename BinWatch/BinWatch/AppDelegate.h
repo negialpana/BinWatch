@@ -11,6 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UITabBarController *mainTBC;
+@property (strong, nonatomic) UITabBarController *userTBC;
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
@@ -18,6 +20,9 @@
 
 - (BOOL)connected;
 + (AppDelegate *)appDel;
+
+-(void)switchToMainStoryBoard;
+-(void)switchToUserModeStoryBoard;
 
 @end
 

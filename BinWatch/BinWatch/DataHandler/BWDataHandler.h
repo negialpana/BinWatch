@@ -11,8 +11,8 @@
 #import "CoreLocation/CLLocation.h"
 
 typedef NS_ENUM(NSUInteger, BWAppMode) {
-    BWCommonUser,
-    BWBBMP,
+    BWBBMPMode,
+    BWUserMode,
 };
 
 @interface BWDataHandler : NSObject
@@ -27,21 +27,4 @@ typedef NS_ENUM(NSUInteger, BWAppMode) {
 - (void) insertBins:(NSArray *)bins forLocation:(CLLocation *)location withAddress:(NSString *)address;
 - (NSArray *) fetchBins;
 
-- (void) saveAppMode:(BWAppMode)mode;
-- (BWAppMode) getAppMode;
-
-- (void) saveSupportMailID:(NSString *)mailID;
-- (NSString *) getSupportMailID;
-
-- (void) saveCoverageRadius:(int)radius;
-- (int) getCoverageRadius;
-
-- (void) saveExportPDF:(bool)enable;
-- (bool) getExportPDF;
-
-- (void) saveExportExcel:(bool)enable;
-- (bool) getExportExcel;
-
-- (void) saveExportCSV:(bool)enable;
-- (bool) getExportCSV;
 @end

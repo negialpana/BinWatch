@@ -74,6 +74,7 @@
 		F1F2B9151BC6E55A0019E662 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B90A1BC6E55A0019E662 /* MBProgressHUD.m */; };
 		F1F2B9161BC6E55A0019E662 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B90D1BC6E55A0019E662 /* Reachability.m */; };
 		F1F2B9341BCBEA250019E662 /* BWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F2B9331BCBEA250019E662 /* BWConstants.m */; };
+		F1FA5B021BD105B600C79D9F /* UserMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1FA5B011BD105B600C79D9F /* UserMode.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,7 @@
 		F1F2B90D1BC6E55A0019E662 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		F1F2B9321BCBEA250019E662 /* BWConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWConstants.h; sourceTree = "<group>"; };
 		F1F2B9331BCBEA250019E662 /* BWConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWConstants.m; sourceTree = "<group>"; };
+		F1FA5B011BD105B600C79D9F /* UserMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserMode.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +324,7 @@
 				1500ABE31B9C080500E0AF6C /* DataModel */,
 				F19AB6861BA2BD710084A879 /* UI */,
 				15EA4AEC1B98A9D7006CD602 /* Main.storyboard */,
+				F1FA5B011BD105B600C79D9F /* UserMode.storyboard */,
 				15EA4AEF1B98A9D7006CD602 /* Images.xcassets */,
 				15EA4AF11B98A9D7006CD602 /* LaunchScreen.xib */,
 				15EA4ADF1B98A9D7006CD602 /* Supporting Files */,
@@ -575,6 +578,7 @@
 			files = (
 				15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */,
 				15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */,
+				F1FA5B021BD105B600C79D9F /* UserMode.storyboard in Resources */,
 				15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */,
 				903F07181BD2A99F0072386B /* xlslib in Resources */,
 				903F07161BD2A8AF0072386B /* include in Resources */,

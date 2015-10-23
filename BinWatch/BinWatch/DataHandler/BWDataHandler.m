@@ -24,20 +24,10 @@ static NSString* const kBinPlace = @"name";
 static NSString* const kAddress = @"address";
 static NSString* const kCity = @"city";
 static NSString* const kArea = @"area";
-
-// UserDefaults
-static NSString* const kCoverageRadius = @"Radius";
-static NSString* const kSupportMailID = @"MailID";
-static NSString* const kExportPDFOn = @"PDF";
-static NSString* const kExportExcelOn = @"EXCEL";
-static NSString* const kExportCSVOn = @"CSV";
-static NSString* const kAppMode = @"AppMode";
 static NSString* const kBinsLatitude = @"BinsLatitude";
 static NSString* const kBinsLongitude = @"BinsLongitude";
 static NSString* const kBinsAddress = @"BinsAddress";
 
-static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
-#define DEFAULT_RADIUS 5
 
 @interface BWDataHandler () <CLLocationManagerDelegate>
 
@@ -70,18 +60,6 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 {
     if (self = [super init])
     {
-        // Saving default Data to user defaults
-        NSString *mailID = [self getSupportMailID];
-        if(!mailID)
-        {
-            // App launching for first time
-            [self saveSupportMailID:kDefaultMailID];
-            [self saveCoverageRadius:DEFAULT_RADIUS];
-            [self saveExportCSV:YES];
-            [self saveExportExcel:YES];
-            [self saveExportPDF:YES];
-            // TODO: This has to be changed
-            [self saveAppMode:BWBBMP];
             locationManager = [[CLLocationManager alloc] init];
             locationManager.delegate = self;
             locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -89,7 +67,6 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
             if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
                 [locationManager requestWhenInUseAuthorization];
             [locationManager startUpdatingLocation];
-        }
     }
     
     return self;
@@ -185,77 +162,6 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     return sortedArray;
 }
 
--(void) saveAppMode:(BWAppMode)mode
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithInt:mode] forKey:kAppMode];
-}
-
--(BWAppMode) getAppMode
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults valueForKey:kAppMode] integerValue];
-}
-
--(void) saveSupportMailID:(NSString *)mailID
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:mailID forKey:kSupportMailID];
-}
-
--(NSString *) getSupportMailID
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults valueForKey:kSupportMailID];
-}
-
--(void) saveCoverageRadius:(int)radius
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithInt:radius] forKey:kCoverageRadius];
-}
-
--(int) getCoverageRadius
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults valueForKey:kCoverageRadius] integerValue];
-}
-
--(void) saveExportPDF:(bool)enable
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithBool:enable] forKey:kExportPDFOn];
-}
-
--(bool) getExportPDF
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults valueForKey:kExportPDFOn] boolValue];
-}
-
--(void) saveExportExcel:(bool)enable
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithBool:enable] forKey:kExportExcelOn];
-}
-
--(bool) getExportExcel
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults valueForKey:kExportExcelOn] boolValue];
-}
-
--(void) saveExportCSV:(bool)enable
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithBool:enable] forKey:kExportCSVOn];
-}
-
--(bool) getExportCSV
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults valueForKey:kExportCSVOn] boolValue];
-}
 
 #pragma mark - Private Methods
 - (void) flushData

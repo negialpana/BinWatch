@@ -88,22 +88,25 @@ BOOL shouldBeginEditing;
     self.searchDisplayController.searchResultsTableView.dataSource = self;
     self.searchDisplayController.delegate = self;
 
+}
+-(void)viewWillAppear:(BOOL)animated
+{
     // Adding settings control
     settingsControl = [BWSettingsControl new];
     NSString *switchTo;
-    if([[BWDataHandler sharedHandler] getAppMode] == BWBBMP)
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
-
+    
     [settingsControl createMenuInViewController:self withCells:@[kExport,kSettings,switchTo] andWidth:200];
     settingsControl.delegate = self;
+ 
     
     [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.searchBar setTranslucent:NO];
 
 }
-
 -(void)fetchData
 {
     // TODO: Need to geocode
@@ -112,9 +115,9 @@ BOOL shouldBeginEditing;
 
 -(void)fetchDataForLocation:(CLLocation*)location withAddress:(NSString *)address
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
-  });
+    runOnMainThread(^{
+        [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+    });
   BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
   [connectionHandler getBinsAtPlace:location withAddress:address
               WithCompletionHandler:^(NSArray *bins, NSError *error) {
@@ -125,9 +128,9 @@ BOOL shouldBeginEditing;
                 } else {
                   NSLog(@"***********Failed to get bins***************");
                   if (![[AppDelegate appDel] connected]) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                      runOnMainThread(^{
                         SHOWALERT(kNotConnectedTitle, kNotConnectedText);
-                    });
+                      });
                   }
                 }
               }];
@@ -261,7 +264,7 @@ BOOL shouldBeginEditing;
             [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
             searchResultPlaces = places;
-            dispatch_async(dispatch_get_main_queue(), ^{
+            runOnMainThread(^{
                 [self.searchDisplayController.searchResultsTableView reloadData];
             });
 
@@ -276,24 +279,6 @@ BOOL shouldBeginEditing;
     return YES;
 }
 
-//-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
-//        [UIView animateWithDuration:0.25 animations:^{
-//            for (UIView *subview in self.view.subviews)
-//                subview.transform = CGAffineTransformMakeTranslation(0, -(statusBarFrame.size.height+19));
-//        }];
-//    }
-//}
-//
-//-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//        [UIView animateWithDuration:0.25 animations:^{
-//            for (UIView *subview in self.view.subviews)
-//                subview.transform = CGAffineTransformIdentity;
-//        }];
-//    }
-//}
 
 -(void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
 }
@@ -331,7 +316,7 @@ BOOL shouldBeginEditing;
         [self.searchBar resignFirstResponder];
 
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
+    runOnMainThread(^{
         [self.tableView reloadData];
     });
 }
@@ -360,16 +345,17 @@ BOOL shouldBeginEditing;
             [center postNotificationName:kSettingsSelectedNotification object:nil];
             break;
         case 2:
-            [center postNotificationName:kSwitchedToUserModeNotification object:nil];
+            [center postNotificationName:kSwitchedAppModeNotification object:nil];
             break;
             
         default:
             break;
     }
+    [settingsControl hideControl];
 }
 -(void)didChangeDeviceOrientation
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    runOnMainThread(^{
         [self.tableView reloadData];
     });
 }
@@ -381,10 +367,10 @@ BOOL shouldBeginEditing;
     noBins = activeBins.count ? NO : YES;
 
     // Nice fix. This has to be on main thread. Otherwise it takes time
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
+    runOnMainThread(^{
+      [self.tableView reloadData];
     });
-    
+
     if (refreshControl) {
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

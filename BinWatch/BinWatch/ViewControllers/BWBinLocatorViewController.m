@@ -105,8 +105,7 @@
     
     settingsControl = [[BWSettingsControl alloc] init];
     NSString *switchTo;
-    
-    if([[BWDataHandler sharedHandler] getAppMode] == BWBBMP)
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
         switchTo = kSwitchToUser;
     else
         switchTo = kSwitchToBBMP;
@@ -160,7 +159,9 @@
 
 -(void) refreshMap
 {
-    [mapView clear];
+    runOnMainThread(^{
+        [mapView clear];
+    });
     [self drawBins];
 }
 
@@ -250,28 +251,31 @@
 
 -(void) drawBins
 {
-    NSMutableArray *bins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    int noOfBins = bins.count;
-    
-    for(int iter = 0; iter < noOfBins; iter++)
-    {
-        BWBin *bin = [bins objectAtIndex:iter];
-        GMSMarker *marker = [[GMSMarker alloc] init];
-        marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue, bin.longitude.floatValue);
-        marker.appearAnimation = kGMSMarkerAnimationPop;
-        marker.title = bin.place;
+  NSMutableArray *bins =
+      [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+  int noOfBins = bins.count;
+  runOnMainThread(^{
+    for (int iter = 0; iter < noOfBins; iter++) {
+      BWBin *bin = [bins objectAtIndex:iter];
+      GMSMarker *marker = [[GMSMarker alloc] init];
+      marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue,
+                                                   bin.longitude.floatValue);
+      marker.appearAnimation = kGMSMarkerAnimationPop;
+      marker.title = bin.place;
 
-        NSDictionary *binData = [self getIconAndDataFor:bin];
-        marker.icon = [binData objectForKey:kIcon];
-        marker.userData = [binData objectForKey:kUserData];
-        marker.map = mapView;
-        
-        NSMutableArray *arr = [[NSMutableArray alloc] init];
-        [arr addObject:bin];
-        [arr addObject:marker];
-        
-        [mapMarkers setValue:arr forKey:bin.binID];
+      NSDictionary *binData = [self getIconAndDataFor:bin];
+      marker.icon = [binData objectForKey:kIcon];
+      marker.userData = [binData objectForKey:kUserData];
+      marker.map = mapView;
+
+      NSMutableArray *arr = [[NSMutableArray alloc] init];
+      [arr addObject:bin];
+      [arr addObject:marker];
+
+      [mapMarkers setValue:arr forKey:bin.binID];
     }
+
+  });
     //[self drawRoute];
 }
 
@@ -588,8 +592,7 @@
             [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
             break;
         case 6:
-            [center postNotificationName:kSwitchedToUserModeNotification object:nil];
-            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
+            [center postNotificationName:kSwitchedAppModeNotification object:nil];
             break;
         default:
             break;
