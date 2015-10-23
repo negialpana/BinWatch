@@ -13,7 +13,7 @@
 
 + (void) DoLog:(NSString *)logMsg
 {
-    CLSLog(logMsg);
+    CLSNSLog(logMsg);
 }
 
 @end

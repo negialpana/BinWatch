@@ -13,6 +13,14 @@
 
 #define kRootUrl  @"http://binwatch-ghci.rhcloud.com"
 
+static NSString* const kBinParamHumidity        = @"humidity";
+static NSString* const kBinParamFillPercentage  = @"fill";
+static NSString* const kBinParamTemperature     = @"temperature";
+
+static NSString* const kStart                   = @"start";
+static NSString* const kEnd                     = @"end";
+static NSString* const kAttribute               = @"attr";
+
 @interface BWConnectionHandler  ()<NSURLSessionDelegate>
 
 @property (nonatomic, retain) NSURLSession *session;
@@ -74,23 +82,77 @@
     [dataTask resume];
 }
 
-- (void)getBinData:(NSString *)binID from:(long)utcFrom to:(long)utcTo WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
-    NSURL *url = [self rootURL];
+- (void)getBinData:(NSString *)binID from:(NSDate *)utcFrom to:(NSDate *)utcTo forParam:(BWBinParam)param WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
     
-    //TODO: Change URL
-    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"get/bins"]
-                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                 NSError *jsonError = nil;
-                                                 if (!error) {
-                                                     NSArray * bins = [NSJSONSerialization JSONObjectWithData:[self dummyBinData]
-                                                                                                      options:NSJSONReadingAllowFragments
-                                                                                                        error:&jsonError];
-                                                     completionBlock(bins,jsonError);
-                                                 }else {
-                                                     completionBlock(nil,error);
-                                                 }
-                                             }];
-    [dataTask resume];
+    NSString* attrValue;
+
+    if(binID == nil || utcTo == nil || utcFrom == nil || param < BWFillPercentage || param > BWTemperature)
+    {
+        [BWLogger DoLog:[NSString stringWithFormat:@"Bin Data request discarded due to invalid parameters. BinID: %@ Param:%d From:%@ To:%@", binID,param,utcFrom,utcTo]];
+        completionBlock(nil, [BWHelpers generateError:@"Invalid parameter"]);
+        return;
+    }
+    
+    switch (param) {
+        case BWFillPercentage:
+            attrValue = kBinParamFillPercentage;
+            break;
+        case BWHumidity:
+            attrValue = kBinParamHumidity;
+            break;
+        case BWTemperature:
+            attrValue = kBinParamTemperature;
+            break;
+        default:
+            // This will never occur
+            attrValue = nil;
+            break;
+    }
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSString* dateFrom = [dateFormat stringFromDate:utcFrom];
+    NSString* dateTo = [dateFormat stringFromDate:utcTo];
+
+    // Getting payload ready
+    NSDictionary *payload = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             dateFrom,kStart,
+                             dateTo,kEnd,
+                             attrValue,kAttribute,
+                             nil];
+
+    NSString *urlReq = [NSString stringWithFormat:@"%@/get/bin/%@/activity", [self rootURL], binID];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:
+                                    [NSURL URLWithString:urlReq]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError *error;
+    NSData *postdata = [NSJSONSerialization dataWithJSONObject:payload options:0 error:&error];
+    [request setHTTPBody:postdata];
+    
+    [BWLogger DoLog:[NSString stringWithFormat:@"Bin Data requested BinID: %@ Param:%@ From:%@ To:%@", binID,attrValue,dateFrom,dateTo]];
+
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               NSError *jsonError = nil;
+                               if(!error)
+                               {
+                                   NSArray *binData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                    options:NSJSONReadingAllowFragments
+                                                                                      error:&jsonError];
+                                   [BWLogger DoLog:[NSString stringWithFormat:@"Bin Data retrieved BinID: %@ Param:%@ From:%@ To:%@ Data: %@", binID,attrValue,dateFrom,dateTo,binData]];
+                                   completionBlock(binData,jsonError);
+
+                               }
+                               else
+                               {
+                                   NSLog(@"ERROR");
+                                   completionBlock(nil,jsonError);
+
+                               }
+                           }];
 }
 
 - (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{

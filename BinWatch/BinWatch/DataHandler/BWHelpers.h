@@ -25,4 +25,5 @@
 + (NSString *)areanameFromFullAddress : (NSString*)fullAddress;
 + (float)currentOSVersion;
 + (void) displayHud:(NSString *)message onView:(UIView *)view;
++ (NSError *)generateError:(NSString *)errorMsg;
 @end

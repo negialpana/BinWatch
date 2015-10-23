@@ -18,6 +18,7 @@ NSString* const binColor = @"binColor";
 NSString* const date = @"date";
 NSString* const temperature = @"temperature";
 NSString* const fillPercent = @"fill"; 
+
 @implementation BWHelpers
 
 /**
@@ -139,6 +140,12 @@ NSString* const fillPercent = @"fill";
     
     [HUD show:YES];
     [HUD hide:YES afterDelay:1];
+}
+
++ (NSError *)generateError:(NSString *)errorMsg
+{
+    NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
+    return [NSError errorWithDomain:@"BWErrorDomain" code:1 userInfo:errorInfo];
 }
 
 @end
