@@ -24,6 +24,9 @@ static NSString* const kBinPlace = @"name";
 static NSString* const kAddress = @"address";
 static NSString* const kCity = @"city";
 static NSString* const kArea = @"area";
+static NSString* const kBinsLatitude = @"BinsLatitude";
+static NSString* const kBinsLongitude = @"BinsLongitude";
+static NSString* const kBinsAddress = @"BinsAddress";
 
 
 @interface BWDataHandler () <CLLocationManagerDelegate>
@@ -78,8 +81,20 @@ static NSString* const kArea = @"area";
         return locationFromAppKit;
 }
 
-- (void)insertBins:(NSArray *)bins{
-    
+-(CLLocation *)getBinsLocation
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[CLLocation alloc] initWithLatitude:[[defaults valueForKey:kBinsLatitude] floatValue] longitude:[[defaults valueForKey:kBinsLongitude] floatValue]];
+}
+
+-(CLLocation *)getBinsAddress
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults valueForKey:kBinsAddress];
+}
+
+- (void)insertBins:(NSArray *)bins forLocation:(CLLocation *)location withAddress:(NSString *)address
+{
     // Save a fresh data set
     [self flushData];
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -103,24 +118,30 @@ static NSString* const kArea = @"area";
         bin.area = [[obj valueForKey:kAddress] valueForKey:kArea];
         bin.city = [[obj valueForKey:kAddress] valueForKey:kCity];
         
-
         // UTC is in milliseconds. Converting to seconds
         NSNumber *dateInSeconds = [obj valueForKey:kBinDate];
         dateInSeconds = @([dateInSeconds floatValue] / 1000);
         bin.date = [NSDate dateWithTimeIntervalSince1970:[dateInSeconds floatValue]];
 
-        // TODO: Hard coded
         int abc = [BWHelpers colorForPercent:[[obj valueForKey:kBinFillPercentage] floatValue]];
         NSNumber *numInt = [NSNumber numberWithInt:abc];
         bin.color = numInt;
-        //bin.color = [BWHelpers colorForPercentTemp:[[obj valueForKey:kBinFillPercentage] floatValue]];
     }
     
     NSError *error= nil;
-    if (![context save:&error]) {
+    if (![context save:&error])
+    {
         NSLog(@"Could not save the bins to Application Database");
     }
-    
+    else
+    {
+        _binsLocation = location;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:[NSNumber numberWithFloat:location.coordinate.latitude] forKey:kBinsLatitude];
+        [defaults setValue:[NSNumber numberWithFloat:location.coordinate.longitude] forKey:kBinLongitude];
+        [defaults setValue:address forKey:kBinsAddress];
+        [[NSNotificationCenter defaultCenter] postNotificationName: kBinDataChangedNotification object: nil];
+    }
 }
 
 - (NSArray *)fetchBins{

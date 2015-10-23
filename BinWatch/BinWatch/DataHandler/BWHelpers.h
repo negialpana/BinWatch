@@ -12,6 +12,8 @@
 #import "BWConstants.h"
 @interface BWHelpers : NSObject
 
+void runOnMainThread(void(^block)(void));
+
 /**
  Returns the URL to the application's documents directory.
  */

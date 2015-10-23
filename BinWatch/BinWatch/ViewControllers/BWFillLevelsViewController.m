@@ -46,6 +46,9 @@ BOOL shouldBeginEditing;
 #pragma  mark - View Life Cycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
+
     activeBins = [[NSMutableArray alloc]init];
 
     // Init for google places search
@@ -53,7 +56,8 @@ BOOL shouldBeginEditing;
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
-
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     // Init Hud
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
@@ -105,16 +109,17 @@ BOOL shouldBeginEditing;
 }
 -(void)fetchData
 {
-    [self fetchDataForLocation:@"Bangalore"];
+    // TODO: Need to geocode
+    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation] withAddress:nil];
 }
 
--(void)fetchDataForLocation:(CLLocation*)location
+-(void)fetchDataForLocation:(CLLocation*)location withAddress:(NSString *)address
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
-  });
+    runOnMainThread(^{
+        [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+    });
   BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-  [connectionHandler getBinsAtPlace:location
+  [connectionHandler getBinsAtPlace:location withAddress:address
               WithCompletionHandler:^(NSArray *bins, NSError *error) {
                 if (!error) {
                   NSLog(@"*********Bins: %@", [bins description]);
@@ -123,9 +128,9 @@ BOOL shouldBeginEditing;
                 } else {
                   NSLog(@"***********Failed to get bins***************");
                   if (![[AppDelegate appDel] connected]) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                      runOnMainThread(^{
                         SHOWALERT(kNotConnectedTitle, kNotConnectedText);
-                    });
+                      });
                   }
                 }
               }];
@@ -232,7 +237,7 @@ BOOL shouldBeginEditing;
                 [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
             } else if (placemark)
             {
-                [self fetchDataForLocation:placemark.location];
+                [self fetchDataForLocation:placemark.location withAddress:addressString];
                 [self.searchDisplayController setActive:NO];
                 [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
             }
@@ -259,7 +264,10 @@ BOOL shouldBeginEditing;
             [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
             searchResultPlaces = places;
-            [self.searchDisplayController.searchResultsTableView reloadData];
+            runOnMainThread(^{
+                [self.searchDisplayController.searchResultsTableView reloadData];
+            });
+
         }
     }];
 }
@@ -308,7 +316,9 @@ BOOL shouldBeginEditing;
         [self.searchBar resignFirstResponder];
 
     }
-    [self.tableView reloadData];
+    runOnMainThread(^{
+        [self.tableView reloadData];
+    });
 }
 
 - (SPGooglePlacesAutocompletePlace *)placeAtIndexPath:(NSIndexPath *)indexPath {
@@ -345,16 +355,22 @@ BOOL shouldBeginEditing;
 }
 -(void)didChangeDeviceOrientation
 {
-    [self.tableView reloadData];
+    runOnMainThread(^{
+        [self.tableView reloadData];
+    });
 }
 #pragma mark - Utility Methods
 - (void) refreshBins
 {
     activeBins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    NSLog(@"existingBins: %lu", (unsigned long)activeBins.count);
+    NSLog(@"Refreshing Bins: %lu", (unsigned long)activeBins.count);
     noBins = activeBins.count ? NO : YES;
-    [self.tableView reloadData];
-    
+
+    // Nice fix. This has to be on main thread. Otherwise it takes time
+    runOnMainThread(^{
+      [self.tableView reloadData];
+    });
+
     if (refreshControl) {
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -375,6 +391,12 @@ BOOL shouldBeginEditing;
     BWBin *bin = (BWBin *)[activeBins objectAtIndex:indexPath.row];
     return bin;
 }
+
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshBins];
+}
+
 /*
 #pragma mark - Navigation
 

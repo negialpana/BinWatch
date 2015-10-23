@@ -16,7 +16,7 @@
 #import "BWConstants.h"
 #import "BWConnectionHandler.h"
 
-#define DEFAULT_ZOOM_LEVEL 15
+#define DEFAULT_ZOOM_LEVEL 13
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
@@ -41,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
     searchOn = NO;
     zoomLevel = DEFAULT_ZOOM_LEVEL;
     firstLocationUpdate_ = NO;
@@ -67,6 +68,8 @@
 
     // UISearchBar Init
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.mapSearchBar setTranslucent:NO];
 
@@ -154,9 +157,11 @@
     [mapView setFrame:CGRectMake(self.view.frame.origin.x, mapviewOriginY, self.view.frame.size.width, mapViewHeight)];
 }
 
--(void) flushAllRoutes
+-(void) refreshMap
 {
-    [mapView clear];
+    runOnMainThread(^{
+        [mapView clear];
+    });
     [self drawBins];
 }
 
@@ -164,7 +169,7 @@
 {
     if(selectedLocations.count <= 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"No bins are selected"];
         [BWHelpers displayHud:kNoSelectedBins onView:self.navigationController.view];
         return;
@@ -173,7 +178,7 @@
     CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"Couldnt retrieve current location"];
         [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
@@ -196,7 +201,7 @@
     CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"Couldnt retrieve current location"];
         [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
@@ -222,7 +227,7 @@
     CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        [self flushAllRoutes];
+        [self refreshMap];
         [BWLogger DoLog:@"Couldnt retrieve current location"];
         [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
@@ -246,28 +251,31 @@
 
 -(void) drawBins
 {
-    NSMutableArray *bins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    int noOfBins = bins.count;
-    
-    for(int iter = 0; iter < noOfBins; iter++)
-    {
-        BWBin *bin = [bins objectAtIndex:iter];
-        GMSMarker *marker = [[GMSMarker alloc] init];
-        marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue, bin.longitude.floatValue);
-        marker.appearAnimation = kGMSMarkerAnimationPop;
-        marker.title = bin.place;
+  NSMutableArray *bins =
+      [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+  int noOfBins = bins.count;
+  runOnMainThread(^{
+    for (int iter = 0; iter < noOfBins; iter++) {
+      BWBin *bin = [bins objectAtIndex:iter];
+      GMSMarker *marker = [[GMSMarker alloc] init];
+      marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue,
+                                                   bin.longitude.floatValue);
+      marker.appearAnimation = kGMSMarkerAnimationPop;
+      marker.title = bin.place;
 
-        NSDictionary *binData = [self getIconAndDataFor:bin];
-        marker.icon = [binData objectForKey:kIcon];
-        marker.userData = [binData objectForKey:kUserData];
-        marker.map = mapView;
-        
-        NSMutableArray *arr = [[NSMutableArray alloc] init];
-        [arr addObject:bin];
-        [arr addObject:marker];
-        
-        [mapMarkers setValue:arr forKey:bin.binID];
+      NSDictionary *binData = [self getIconAndDataFor:bin];
+      marker.icon = [binData objectForKey:kIcon];
+      marker.userData = [binData objectForKey:kUserData];
+      marker.map = mapView;
+
+      NSMutableArray *arr = [[NSMutableArray alloc] init];
+      [arr addObject:bin];
+      [arr addObject:marker];
+
+      [mapMarkers setValue:arr forKey:bin.binID];
     }
+
+  });
     //[self drawRoute];
 }
 
@@ -328,17 +336,17 @@
     }
 }
 
--(void)fetchDataForLocation:(CLLocation *)location
+-(void)fetchDataForLocation:(CLLocation *)location withAddress:(NSString *)address
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
     });
     BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-    [connectionHandler getBinsAtPlace:location
+    [connectionHandler getBinsAtPlace:location withAddress:address
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
                         NSLog(@"*********Bins: %@", [bins description]);
-                        [self flushAllRoutes];
+                        [self refreshMap];
                     } else {
 //                        NSLog(@"***********Failed to get bins***************");
 //                        if (![[AppDelegate appDel] connected]) {
@@ -348,8 +356,9 @@
 //                        }
                     }
                 }];
-    [self flushAllRoutes];
+    [self refreshMap];
 }
+
 #pragma mark - KVO updates
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -368,6 +377,12 @@
     }
 }
 
+#pragma mark - Notifications
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshMap];
+}
+
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
@@ -378,7 +393,7 @@
 
     //[self resetBinIcons];
     [selectedLocations removeAllObjects];
-    [self flushAllRoutes];
+    [self refreshMap];
     isMapEdited = NO;
 }
 
@@ -456,7 +471,7 @@
         else if (placemark)
         {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
-            [self fetchDataForLocation:placemark.location];
+            [self fetchDataForLocation:placemark.location withAddress:addressString];
             [self recenterMapToPlacemark:placemark];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
             [self.searchDisplayController setActive:NO];

@@ -14,6 +14,8 @@
 extern NSString* const kGoogleAPIKey;
 extern NSString* const kGoogleAPIKey_Browser;
 
+extern NSString* const kBinDataChangedNotification;
+
 #define RED_BOUNDARY 70
 #define YELLOW_BOUNDARY 50
 #define DEFAULT_RADIUS 5

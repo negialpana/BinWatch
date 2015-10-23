@@ -17,6 +17,7 @@
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
+#import "GradientView.h"
 
 #define TABLE_VIEW_PLACES_SEARCH 0
 #define TABLE_VIEW_DISPLAY_BINS 111
@@ -57,10 +58,15 @@ static NSString *kSelectHeader   = @"Select Bins";
     
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
+
     searchResultPlaces = [[NSArray alloc]init];
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.searchBar setTranslucent:NO];
@@ -121,6 +127,26 @@ static NSString *kSelectHeader   = @"Select Bins";
             return nil;
     }
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 25.0;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 25.0;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    long tableViewTag = (long)tableView.tag;
+    if(tableViewTag == TABLE_VIEW_DISPLAY_BINS)
+    {
+        BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
+        GradientView *gradientView = [[GradientView alloc]initWithFrame:cell.frame forfill:[bin.fill floatValue]];
+        cell.backgroundView = gradientView;
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -132,6 +158,8 @@ static NSString *kSelectHeader   = @"Select Bins";
             BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
             cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
             cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
+            cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
+            cell.detailTextLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
             if ([self.selectedBins count]) {
                 [cell.selectionBtn setSelected:[self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]];
             }
@@ -195,7 +223,7 @@ static NSString *kSelectHeader   = @"Select Bins";
                     [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
                 } else if (placemark)
                 {
-                    [self fetchDataForPlace:searchResultPlaces[indexPath.row]];
+                    [self fetchDataForPlace:placemark.location withAddress:addressString];
                     [self.searchDisplayController setActive:NO];
                     [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
                 }
@@ -327,18 +355,17 @@ static NSString *kSelectHeader   = @"Select Bins";
     return formatter;
 }
 
--(void)fetchDataForPlace:(NSString*)place
+-(void)fetchDataForPlace:(CLLocation*)location withAddress:addressString
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
     });
     BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
-    [connectionHandler getBinsAtPlace:place
+    [connectionHandler getBinsAtPlace:location withAddress:addressString
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
                         NSLog(@"*********Bins: %@", [bins description]);
-                        // TODO: RefreshView
-                        //[self refreshBins];
+                        [self refreshBins];
                     } else {
                         // TODO: Show Error
 //                        NSLog(@"***********Failed to get bins***************");
@@ -349,8 +376,18 @@ static NSString *kSelectHeader   = @"Select Bins";
 //                        }
                     }
                 }];
-    // TODO: RefreshView
-    //[self refreshBins];
+    [self refreshBins];
+}
+
+-(void) refreshBins
+{
+    
+}
+
+#pragma mark - Notifications
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshBins];
 }
 
 @end
