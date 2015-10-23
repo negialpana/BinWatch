@@ -87,7 +87,7 @@ static NSString* const kBinsAddress = @"BinsAddress";
     return [[CLLocation alloc] initWithLatitude:[[defaults valueForKey:kBinsLatitude] floatValue] longitude:[[defaults valueForKey:kBinsLongitude] floatValue]];
 }
 
--(CLLocation *)getBinsAddress
+-(NSString *)getBinsAddress
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults valueForKey:kBinsAddress];

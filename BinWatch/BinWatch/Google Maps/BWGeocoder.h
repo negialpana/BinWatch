@@ -11,8 +11,8 @@
 
 @protocol BWGeocoderDelegate <NSObject>
 
+@optional
 - (void)geocoderFailedWithError:(NSError *)error;
-
 - (void)geocoderDidReceiveResponse:(NSString *)points;
 
 @end

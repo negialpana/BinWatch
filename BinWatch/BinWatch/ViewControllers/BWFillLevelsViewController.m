@@ -109,8 +109,7 @@ BOOL shouldBeginEditing;
 }
 -(void)fetchData
 {
-    // TODO: Need to geocode
-    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation] withAddress:nil];
+    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation] withAddress:[[BWDataHandler sharedHandler] myLocationAddress]];
 }
 
 -(void)fetchDataForLocation:(CLLocation*)location withAddress:(NSString *)address

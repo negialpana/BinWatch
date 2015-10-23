@@ -62,6 +62,7 @@
                                                object:nil];
     
     [[BWRoute sharedInstance] setDelegate:self];
+    [[BWGeocoder sharedInstance] setDelegate:self];
     
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
@@ -367,6 +368,7 @@
     NSLog(@"Location Update");
     //CLLocation *location;
     CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    [[BWGeocoder sharedInstance]reverseGeocode:currentLocation.coordinate];
     [BWDataHandler sharedHandler].myLocation = currentLocation;
     if (!firstLocationUpdate_) {
         // If the first location update has not yet been recieved, then jump to that
@@ -561,6 +563,12 @@
     polyline.strokeColor = [UIColor blackColor];
     polyline.map = mapView;
     isMapEdited = YES;
+}
+
+#pragma mark - BWGeocoderDelegate
+- (void)geocoderDidReceiveResponse:(NSString *)address
+{
+    [BWDataHandler sharedHandler].myLocationAddress = address;
 }
 
 #pragma mark - BWSettingsControlDelegate
