@@ -447,23 +447,36 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
+    if(indexPath.row == 0)
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+    else
+        cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
     
-    cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
     cell.textLabel.text = [self placeAtIndexPath:indexPath].name;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)recenterMapToPlacemark:(CLPlacemark *)placemark {
+- (void)recenterMapToPlacemark:(CLLocation *)placemark {
     
-    GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:placemark.location.coordinate.latitude
-                                                            longitude:placemark.location.coordinate.longitude
-                                                                 zoom:zoomLevel];
+    GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:placemark.coordinate.latitude
+                                                                 longitude:placemark.coordinate.longitude
+                                                                      zoom:zoomLevel];
     [mapView animateToCameraPosition:newPosition];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row == 0)
+    {
+        [self fetchDataForLocation:[BWDataHandler sharedHandler].myLocation withAddress:[BWDataHandler sharedHandler].myLocationAddress];
+        [self recenterMapToPlacemark:[BWDataHandler sharedHandler].myLocation];
+        // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
+        [self.searchDisplayController setActive:NO];
+        [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    else
+    {
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
     [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
         if (error) {
@@ -474,12 +487,13 @@
         {
             //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
             [self fetchDataForLocation:placemark.location withAddress:addressString];
-            [self recenterMapToPlacemark:placemark];
+            [self recenterMapToPlacemark:placemark.location];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
             [self.searchDisplayController setActive:NO];
             [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
         }
     }];
+    }
 }
 
 #pragma mark - UISearchDisplayDelegate

@@ -186,7 +186,10 @@ BOOL shouldBeginEditing;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
         
-        cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
+        if(indexPath.row == 0)
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        else
+            cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
         cell.textLabel.text = [self placeAtIndexPath:indexPath].name;
         return cell;
     }
@@ -226,21 +229,31 @@ BOOL shouldBeginEditing;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     long tableViewTag = (long)tableView.tag;
-    if(tableViewTag == 0)
+    if(tableViewTag == TABLE_VIEW_PLACES_SEARCH)
     {
-        SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
-        [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
-            if (error)
-            {
-                [BWLogger DoLog:@"Could not map selected Place"];
-                [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
-            } else if (placemark)
-            {
-                [self fetchDataForLocation:placemark.location withAddress:addressString];
-                [self.searchDisplayController setActive:NO];
-                [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
-            }
-        }];
+        if(indexPath.row == 0)
+        {
+            [self fetchDataForLocation:[BWDataHandler sharedHandler].myLocation withAddress:[BWDataHandler sharedHandler].myLocationAddress];
+            // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
+            [self.searchDisplayController setActive:NO];
+            [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
+        }
+        else
+        {
+            SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
+            [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
+                if (error)
+                {
+                    [BWLogger DoLog:@"Could not map selected Place"];
+                    [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
+                } else if (placemark)
+                {
+                    [self fetchDataForLocation:placemark.location withAddress:addressString];
+                    [self.searchDisplayController setActive:NO];
+                    [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
+                }
+            }];
+        }
     }
     else
     {

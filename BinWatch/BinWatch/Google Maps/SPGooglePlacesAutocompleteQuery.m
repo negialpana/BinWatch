@@ -106,6 +106,7 @@
     for (NSDictionary *place in places) {
         [parsedPlaces addObject:[SPGooglePlacesAutocompletePlace placeFromDictionary:place apiKey:self.key]];
     }
+    [parsedPlaces insertObject:[SPGooglePlacesAutocompletePlace placeFromMyLocation:nil apiKey:self.key] atIndex:0];
     if (self.resultBlock != nil) {
         self.resultBlock(parsedPlaces, nil);
     }
