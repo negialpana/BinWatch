@@ -115,6 +115,14 @@
     [settingsControl setDelegate:self];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    if([BWDataHandler sharedHandler].binsLocation)
+        mapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
+                                                        zoom:zoomLevel];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

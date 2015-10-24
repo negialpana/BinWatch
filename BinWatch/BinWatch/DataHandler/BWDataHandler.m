@@ -135,10 +135,13 @@ static NSString* const kBinsAddress = @"BinsAddress";
     }
     else
     {
+        NSString *errMsg = [NSString stringWithFormat:@"Saving set of bins %f %f %@", location.coordinate.latitude, location.coordinate.longitude, address];
+        [BWLogger DoLog:errMsg];
+
         _binsLocation = location;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:[NSNumber numberWithFloat:location.coordinate.latitude] forKey:kBinsLatitude];
-        [defaults setValue:[NSNumber numberWithFloat:location.coordinate.longitude] forKey:kBinLongitude];
+        [defaults setValue:[NSNumber numberWithFloat:location.coordinate.longitude] forKey:kBinsLongitude];
         [defaults setValue:address forKey:kBinsAddress];
         [[NSNotificationCenter defaultCenter] postNotificationName: kBinDataChangedNotification object: nil];
     }
