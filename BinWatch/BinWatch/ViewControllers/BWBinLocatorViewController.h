@@ -10,15 +10,10 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "BWRoute.h"
 #import "BWSettingsControl.h"
-#import "BWGeocoder.h"
 
 @class SPGooglePlacesAutocompleteQuery;
 
-@interface BWBinLocatorViewController : UIViewController <GMSMapViewDelegate, BWRouteDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, BWSettingsControlDelegate, BWGeocoderDelegate> {
-    NSArray *searchResultPlaces;
-    SPGooglePlacesAutocompleteQuery *searchQuery;
-    
-    BOOL shouldBeginEditing;
+@interface BWBinLocatorViewController : UIViewController <GMSMapViewDelegate, BWRouteDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, BWSettingsControlDelegate> {
 }
 
 

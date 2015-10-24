@@ -18,8 +18,8 @@ typedef enum tagTravelMode
 
 @protocol BWRouteDelegate <NSObject>
 
+@optional
 - (void)routeFetchFailedWithError:(NSError *)error;
-
 - (void)routeFetchDidReceiveResponse:(NSString *)points;
 
 @end

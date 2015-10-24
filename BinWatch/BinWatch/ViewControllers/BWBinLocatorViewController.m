@@ -15,8 +15,10 @@
 #import "BWAppSettings.h"
 #import "BWConstants.h"
 #import "BWConnectionHandler.h"
+#import "AppDelegate.h"
 
 #define DEFAULT_ZOOM_LEVEL 13
+#define activeMapView [AppDelegate appDel].mapView
 
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
@@ -26,7 +28,7 @@
 
 @implementation BWBinLocatorViewController
 {
-    GMSMapView *mapView;
+    //GMSMapView *activeMapView;
     BOOL firstLocationUpdate_;
     float zoomLevel;
     NSMutableDictionary *mapMarkers;
@@ -34,12 +36,18 @@
     BOOL isMapEdited;
     BWSettingsControl *settingsControl;
     BOOL searchOn;
+    NSArray *searchResultPlaces;
+    SPGooglePlacesAutocompleteQuery *searchQuery;
+    
+    BOOL shouldBeginEditing;
 }
 
 #pragma mark - View Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    //mapView = [AppDelegate appDel].mapView;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
     searchOn = NO;
@@ -62,7 +70,6 @@
                                                object:nil];
     
     [[BWRoute sharedInstance] setDelegate:self];
-    [[BWGeocoder sharedInstance] setDelegate:self];
     
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
@@ -74,34 +81,32 @@
     [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.mapSearchBar setTranslucent:NO];
 
-    // Bangalore MG Road
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9667
-                                                            longitude:77.5667
-                                                                 zoom:zoomLevel];
+    CLLocation *positionNow;
+    // Load mapview to current location
+    if([BWDataHandler sharedHandler].binsLocation)
+        positionNow = [BWDataHandler sharedHandler].binsLocation;
+    else if ([BWDataHandler sharedHandler].myLocation)
+        positionNow = [BWDataHandler sharedHandler].myLocation;
+    else
+        positionNow = [[CLLocation alloc] initWithLatitude:12.9667 longitude:77.5667];
 
-    mapView = [GMSMapView mapWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
-    // TODO: Give an option for hybrid view
-    //mapView.mapType = kGMSTypeHybrid;
+    [self recenterMapToPlacemark:positionNow];
     [self resizeMapView];
-    mapView.delegate = self;
+    activeMapView.delegate = self;
 
     [self drawBins];
     
-    mapView.settings.compassButton = YES;
-    mapView.settings.myLocationButton = YES;
-    mapView.trafficEnabled = YES;
-    mapView.buildingsEnabled = YES;
-    [mapView addObserver:self
-              forKeyPath:@"myLocation"
-                 options:NSKeyValueObservingOptionNew
-                 context:NULL];
+    activeMapView.settings.compassButton = YES;
+    activeMapView.settings.myLocationButton = YES;
+    activeMapView.trafficEnabled = YES;
+    activeMapView.buildingsEnabled = YES;
     
     // Ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
-        mapView.myLocationEnabled = YES;
+        activeMapView.myLocationEnabled = YES;
     });
     
-    [self.view addSubview:mapView];
+    [self.view addSubview:activeMapView];
     [self.view bringSubviewToFront:_mapSearchBar];
     
     settingsControl = [[BWSettingsControl alloc] init];
@@ -118,7 +123,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     if([BWDataHandler sharedHandler].binsLocation)
-        mapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
+        activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
                                                         zoom:zoomLevel];
     
 }
@@ -126,12 +131,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc {
-    [mapView removeObserver:self
-                 forKeyPath:@"myLocation"
-                    context:NULL];
 }
 
 #pragma mark - Event Handlers
@@ -163,13 +162,13 @@
         
         mapViewHeight = self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height -mapviewOriginY;
     }
-    [mapView setFrame:CGRectMake(self.view.frame.origin.x, mapviewOriginY, self.view.frame.size.width, mapViewHeight)];
+    [activeMapView setFrame:CGRectMake(self.view.frame.origin.x, mapviewOriginY, self.view.frame.size.width, mapViewHeight)];
 }
 
 -(void) refreshMap
 {
     runOnMainThread(^{
-        [mapView clear];
+        [activeMapView clear];
     });
     [self drawBins];
 }
@@ -275,7 +274,7 @@
       NSDictionary *binData = [self getIconAndDataFor:bin];
       marker.icon = [binData objectForKey:kIcon];
       marker.userData = [binData objectForKey:kUserData];
-      marker.map = mapView;
+      marker.map = activeMapView;
 
       NSMutableArray *arr = [[NSMutableArray alloc] init];
       [arr addObject:bin];
@@ -368,25 +367,6 @@
     [self refreshMap];
 }
 
-#pragma mark - KVO updates
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    NSLog(@"Location Update");
-    //CLLocation *location;
-    CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
-    [[BWGeocoder sharedInstance]reverseGeocode:currentLocation.coordinate];
-    [BWDataHandler sharedHandler].myLocation = currentLocation;
-    if (!firstLocationUpdate_) {
-        // If the first location update has not yet been recieved, then jump to that
-        // location.
-        firstLocationUpdate_ = YES;
-        mapView.camera = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate
-                                                        zoom:zoomLevel];
-    }
-}
-
 #pragma mark - Notifications
 - (void)binDataChanged:(NSNotification *)notification
 {
@@ -471,7 +451,7 @@
     GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:placemark.coordinate.latitude
                                                                  longitude:placemark.coordinate.longitude
                                                                       zoom:zoomLevel];
-    [mapView animateToCameraPosition:newPosition];
+    [activeMapView animateToCameraPosition:newPosition];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -493,7 +473,6 @@
         }
         else if (placemark)
         {
-            //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
             [self fetchDataForLocation:placemark.location withAddress:addressString];
             [self recenterMapToPlacemark:placemark.location];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
@@ -583,14 +562,8 @@
     GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
     polyline.strokeWidth = 5.f;
     polyline.strokeColor = [UIColor blackColor];
-    polyline.map = mapView;
+    polyline.map = activeMapView;
     isMapEdited = YES;
-}
-
-#pragma mark - BWGeocoderDelegate
-- (void)geocoderDidReceiveResponse:(NSString *)address
-{
-    [BWDataHandler sharedHandler].myLocationAddress = address;
 }
 
 #pragma mark - BWSettingsControlDelegate
