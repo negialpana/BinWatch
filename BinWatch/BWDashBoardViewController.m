@@ -76,6 +76,7 @@
 {
     // TODO: Enable this
     //[self refreshViews];
+    [self.settingsControl hideControl];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

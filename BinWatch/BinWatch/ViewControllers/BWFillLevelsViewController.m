@@ -87,20 +87,22 @@ BOOL shouldBeginEditing;
     self.searchDisplayController.searchResultsTableView.delegate = self;
     self.searchDisplayController.searchResultsTableView.dataSource = self;
     self.searchDisplayController.delegate = self;
-
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    // Adding settings control
+    
     settingsControl = [BWSettingsControl new];
     [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
     settingsControl.delegate = self;
- 
+    
     
     [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.searchBar setTranslucent:NO];
-
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    // Adding settings control
+    [settingsControl hideControl];
+}
+
 -(void)fetchData
 {
     [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation] withAddress:[[BWDataHandler sharedHandler] myLocationAddress]];

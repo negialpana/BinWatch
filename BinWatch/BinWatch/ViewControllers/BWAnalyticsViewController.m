@@ -94,6 +94,12 @@ static NSString *kSelectHeader   = @"Select Bins";
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    // Adding settings control
+    [settingsControl hideControl];
+}
+
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
