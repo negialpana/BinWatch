@@ -40,11 +40,11 @@ NSString* const kSelectedPlaceFetchFailed    = @"Couldn't fetch selected locatio
 NSString* const kNoSelectedBins              = @"No bins are selected";
 
 NSString* const kRequestBinEmailSubject  = @"Request For a New Bin";
-NSString* const kRequestBinEmailBody     = @"Dear Binwatch,\n\t I would like to have a new bin at my location.";
+NSString* const kRequestBinEmailBody     = @"BinWatch,\n\n\t I would like to have a new bin at my location.";
 NSString* const kReportBinEmailSubject   = @"Report a bin not picked up";
-NSString* const kReportBinEmailBody      = @"Dear Binwatch,\n\t A bin at my location is not being picked up.Kindly inform the responsible authorities.";
-NSString* const kReportIssueEmailSubject = @"Issue in Binwatch";
-NSString* const kReportIssueEmailBody    = @"";
+NSString* const kReportBinEmailBody      = @"BinWatch,\n\t A bin at my location is not being picked up.Kindly inform the responsible authorities.";
+NSString* const kReportIssueEmailSubject = @"Issue in BinWatch";
+NSString* const kReportIssueEmailBody    = @"<Type in your message>";
 
 
 NSString* const kIcon         = @"icon";

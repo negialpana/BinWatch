@@ -95,7 +95,8 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 }
 -(void)requestBinSelected
 {
-    [BWMailer composeMailWithSubject:kRequestBinEmailSubject andBody:kRequestBinEmailBody];
+    NSString *mailContent = [NSString stringWithFormat:@"%@\n\nLocation: %@\nLatitude: %f\nLongitude: %f", kRequestBinEmailBody, [BWDataHandler sharedHandler].myLocationAddress, [BWDataHandler sharedHandler].myLocation.coordinate.latitude, [BWDataHandler sharedHandler].myLocation.coordinate.longitude];
+    [BWMailer composeMailWithSubject:kRequestBinEmailSubject andBody:mailContent];
 }
 
 -(void)reportBinSelected
