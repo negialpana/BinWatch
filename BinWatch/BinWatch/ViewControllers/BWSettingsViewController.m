@@ -7,6 +7,7 @@
 //
 
 #import "BWSettingsViewController.h"
+#import "BWAppSettings.h"
 
 @interface BWSettingsViewController ()<UITextFieldDelegate>
 - (IBAction)switchOnOffChanged:(id)sender;
@@ -38,11 +39,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    self.radiusTextField.text = [ud valueForKey:@"RADIUS"]?[ud valueForKey:@"RADIUS"]:@"6";
-    self.pdfSwitch.on = [ud boolForKey:@"PDF"];
-    self.excelSwitch.on = [ud boolForKey:@"EXCEL"];
-    self.csvSwitch.on = [ud boolForKey:@"CSV"];
-    self.emailtextField.text = [ud valueForKey:@"EMAIL"];
+    self.radiusTextField.text = [ud valueForKey:kCoverageRadius]?[[ud valueForKey:kCoverageRadius] stringValue]:[NSString stringWithFormat:@"%d",DEFAULT_RADIUS];
+    self.pdfSwitch.on = [[BWAppSettings sharedInstance] getExportPDF];
+    self.excelSwitch.on = [[BWAppSettings sharedInstance] getExportExcel];
+    self.csvSwitch.on = [[BWAppSettings sharedInstance] getExportCSV];
+    self.emailtextField.text = [ud valueForKey:kSupportMailID];
 }
 
 - (void)tappedOutSide:(id)sender{
@@ -63,9 +64,9 @@
     if (textField.tag == 100) {
         
         if (![textField.text length]) {
-            textField.text = @"5";
+            textField.text = [NSString stringWithFormat:@"%d",DEFAULT_RADIUS];
         }
-        [userDefaults setValue:[NSNumber numberWithInt:[textField.text intValue]] forKey:@"RADIUS"];
+        [userDefaults setValue:[NSNumber numberWithInt:[textField.text intValue]] forKey:kCoverageRadius];
         
     }else{
         
@@ -79,7 +80,7 @@
             return NO;
             
         }else{
-            [userDefaults setValue:textField.text forKey:@"EMAIL"];
+            [userDefaults setValue:textField.text forKey:kSupportMailID];
 
         }
     
@@ -90,78 +91,6 @@
     return YES;
 }
 
-#pragma mark - Table view data source
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    // Return the number of sections.
-//    return 3;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    // Return the number of rows in the section.
-//    
-//    if (section == 1)
-//        return 3;
-//    return 1;
-//}
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    
-//}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)switchOnOffChanged:(id)sender {
     
@@ -172,18 +101,17 @@
     switch (swith.tag) {
         case 1:
         {
-            [userDefaults setBool:swith.isOn forKey:@"PDF"];
+            [[BWAppSettings sharedInstance] saveExportPDF:swith.on];
         }
             break;
         case 2:
         {
-            [userDefaults setBool:swith.isOn forKey:@"EXCEL"];
-
+            [[BWAppSettings sharedInstance] saveExportExcel:swith.on];
         }
             break;
         case 3:
         {
-            [userDefaults setBool:swith.isOn forKey:@"CSV"];
+            [[BWAppSettings sharedInstance] saveExportCSV:swith.on];
         }
             break;
         default:
@@ -192,8 +120,10 @@
     
     [userDefaults synchronize];
 }
+
 - (IBAction)donePressed:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

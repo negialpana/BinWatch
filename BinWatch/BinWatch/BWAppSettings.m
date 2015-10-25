@@ -11,17 +11,8 @@
 #import "BWHelpers.h"
 #import "BWMailer.h"
 #import "BWSettingsViewController.h"
-#define DEFAULT_RADIUS 5
 
 @implementation BWAppSettings
-
-// UserDefaults
-static NSString* const kCoverageRadius = @"Radius";
-static NSString* const kSupportMailID = @"MailID";
-static NSString* const kExportPDFOn = @"PDF";
-static NSString* const kExportExcelOn = @"EXCEL";
-static NSString* const kExportCSVOn = @"CSV";
-static NSString* const kAppMode = @"AppMode";
 
 static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 
