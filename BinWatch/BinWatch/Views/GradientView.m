@@ -22,7 +22,7 @@ CAGradientLayer *gradientLayer;
         BWBinColor color = [BWHelpers colorForPercent:fill];
         switch (color) {
             case BWGreen:
-                first = DarkGreen;
+                first = GreenColor;
                 last = LightGreen;
                 break;
             case BWYellow:
@@ -30,12 +30,12 @@ CAGradientLayer *gradientLayer;
                 last = LightYellow;
                 break;
             case BWRed:
-                first = DarkRed;
+                first = RedColor;
                 last = LightRed;
                 break;
                 
             default:
-                first = DarkGreen;
+                first = GreenColor;
                 last = LightGreen;
                 break;
         }
