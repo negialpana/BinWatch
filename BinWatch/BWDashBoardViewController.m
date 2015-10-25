@@ -8,14 +8,17 @@
 
 #import "BWDashBoardViewController.h"
 #import "UIColor+HexColor.h"
+#import "BWConstants.h"
 #import "VBPieChart.h"
 #import "BWDataHandler.h"
+#import "BWSettingsControl.h"
 
 @interface BWDashBoardViewController ()
 @property (nonatomic, retain) VBPieChart *chart;
 @property (nonatomic, retain) VBPieChart *tempchart;
 @property (nonatomic, retain) VBPieChart *humiditychart;
 @property (nonatomic, retain) VBPieChart *activechart;
+@property (nonatomic, retain) BWSettingsControl *settingsControl;
 
 @property (nonatomic, retain) NSArray *chartValues;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
@@ -35,6 +38,13 @@
     _binsArray = [NSArray array];
     
     [self setUpChartValuesForIndex:0];
+    
+    // Navigation Bar Init
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
+    self.navigationItem.rightBarButtonItem = menuButton;
+    
+    self.settingsControl = [[BWSettingsControl alloc] init];
+    [self.settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
     
 }
 
@@ -278,6 +288,11 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+#pragma mark - Event Handlers
+- (void)menuTapped
+{
+    [self.settingsControl toggleControl];
 }
 
 - (IBAction)segmentTapped:(id)sender {

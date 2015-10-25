@@ -42,24 +42,11 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 {
     self = [super init];
     if (self) {
-        [self registerNotifications];
         [self saveUserDefaults];
     }
     return self;
 }
 
--(void)registerNotifications
-{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(switchedAppMode) name:kSwitchedAppModeNotification object:nil];
-    [center addObserver:self selector:@selector(exportSelected) name:kExportSelectedNotification object:nil];
-    [center addObserver:self selector:@selector(settingsSelected) name:kSettingsSelectedNotification object:nil];
-}
-
--(void)unregisterNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 -(void)saveUserDefaults
 {

@@ -8,6 +8,7 @@
 
 #import "BWSettingsControl.h"
 #import "BWConstants.h"
+#import "BWAppSettings.h"
 
 #define HEIGHT 300
 #define MINWIDTH 100
@@ -30,7 +31,54 @@
     CGRect frame = CGRectMake(tableViewX, tableViewY, width, HEIGHT);
     return frame;
 }
-
+-(NSArray*)settingsLabelsFromCells:(NSArray*)cells
+{
+    NSMutableArray *labels = [NSMutableArray new];
+    NSString *switchTo;
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
+        switchTo = kSwitchToUser;
+    else
+        switchTo = kSwitchToBBMP;
+    
+    for (NSNumber *cell in cells) {
+        BWMenuItems menuItem = [cell integerValue];
+        switch (menuItem) {
+            case BWMenuItemDrawRoutes:
+                [labels addObjectsFromArray:@[kRouteToRed, kRouteToRedYellow,kRouteToSelected]];
+                break;
+            case BWMenuItemRouteToNearest:
+                [labels addObject:kRouteToNearest];
+                break;
+            case BWMenuItemAllBBMPDefaults:
+                [labels addObjectsFromArray:@[kRequestForBin,kReportAnIssue,kExport,kSettings,switchTo]];
+                break;
+            case BWMenuItemAllUserDefaults:
+                [labels addObjectsFromArray:@[kRequestForBin,kReportAnIssue,kReportBin,switchTo]];
+                break;
+            case BWMenuItemExport:
+                [labels addObject:kExport];
+                break;
+            case BWMenuItemSettings:
+                [labels addObject:kSettings];
+                break;
+            case BWMenuItemSwitchMode:
+                [labels addObject:switchTo];
+                break;
+            case BWMenuItemReportBin:
+                [labels addObject:kReportBin];
+                break;
+            case BWMenuItemReportIssue:
+                [labels addObject:kReportAnIssue];
+                break;
+            case BWMenuItemRequestForBin:
+                [labels addObject:kRequestForBin];
+                break;
+            default:
+                break;
+        }
+    }
+    return labels;
+}
 - (void) createMenuInViewController:(UIViewController *)vc withCells:(NSArray *)cells andWidth:(CGFloat)width{
     
     UIView *view = [vc.navigationItem.rightBarButtonItem valueForKey:@"view"];
@@ -54,9 +102,9 @@
 
 - (void) createControlInView:(UIView *)view withCells:(NSArray *)cells andFrame:(CGRect)frame
 {
-    settingsLabels = cells;
+    settingsLabels = [self settingsLabelsFromCells:cells];
     rowHeight = ROWHEIGHT;
-    CGFloat height = cells.count * rowHeight;
+    CGFloat height = settingsLabels.count * rowHeight;
     CGRect tableViewRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, height);
     settingsTableView = [[UITableView alloc] initWithFrame:tableViewRect
                                              style:UITableViewStylePlain];
@@ -121,9 +169,29 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     tableView.hidden = YES;
-    if ([self.delegate respondsToSelector:@selector(didTapSettingsRow:)])
+    NSString *selectedOption = [settingsLabels objectAtIndex:indexPath.row];
+    if ([selectedOption isEqualToString:kExport]) {
+        [[BWAppSettings sharedInstance] exportSelected];
+    }
+    else if ([selectedOption isEqualToString:kSettings]) {
+        [[BWAppSettings sharedInstance] settingsSelected];
+    }
+    else if ([selectedOption isEqualToString:kSwitchToBBMP] || [selectedOption isEqualToString:kSwitchToUser]) {
+        [[BWAppSettings sharedInstance] switchedAppMode];
+    }
+    else if ([selectedOption isEqualToString:kReportAnIssue]) {
+        [[BWAppSettings sharedInstance] reportIssueSelected];
+    }
+    else if ([selectedOption isEqualToString:kReportBin]) {
+        [[BWAppSettings sharedInstance] reportBinSelected];
+    }
+    else if ([selectedOption isEqualToString:kRequestForBin]) {
+        [[BWAppSettings sharedInstance] requestBinSelected];
+    }
+    else
+    if ([self.delegate respondsToSelector:@selector(didTapSettingsRowWithText:)])
     {
-        [self.delegate didTapSettingsRow:indexPath.row];
+        [self.delegate didTapSettingsRowWithText:selectedOption];
     }
 }
 

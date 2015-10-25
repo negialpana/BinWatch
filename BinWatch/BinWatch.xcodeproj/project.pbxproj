@@ -127,8 +127,8 @@
 		15ED60D11BC940B700EA6285 /* BWAnalyseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWAnalyseTableViewCell.m; path = ../BWAnalyseTableViewCell.m; sourceTree = "<group>"; };
 		15ED60D31BC94B8C00EA6285 /* BWAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAnalyseViewController.h; sourceTree = "<group>"; };
 		15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAnalyseViewController.m; sourceTree = "<group>"; };
-		15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDashBoardViewController.h; sourceTree = "<group>"; };
-		15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDashBoardViewController.m; sourceTree = "<group>"; };
+		15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWDashBoardViewController.h; path = ../../BWDashBoardViewController.h; sourceTree = "<group>"; };
+		15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWDashBoardViewController.m; path = ../../BWDashBoardViewController.m; sourceTree = "<group>"; };
 		321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinDetailsViewController.h; sourceTree = "<group>"; };
 		321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinDetailsViewController.m; sourceTree = "<group>"; };
 		32861A8B1BC4A1D400D0568F /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientView.h; path = Views/GradientView.h; sourceTree = "<group>"; };
@@ -227,6 +227,8 @@
 		1500ABC41B9ABAD200E0AF6C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */,
+				15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */,
 				1500ABC51B9ABAD200E0AF6C /* BWAnalyticsViewController.h */,
 				1500ABC61B9ABAD200E0AF6C /* BWAnalyticsViewController.m */,
 				1500ABC71B9ABAD200E0AF6C /* BWBinLocatorViewController.h */,
@@ -292,8 +294,6 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
-				15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */,
-				15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,

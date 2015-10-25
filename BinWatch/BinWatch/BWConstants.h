@@ -44,6 +44,12 @@ extern NSString* const kSwitchToBBMP     ;
 extern NSString* const kExport           ;
 extern NSString* const kSettings         ;
 extern NSString* const kReportAnIssue    ;
+extern NSString* const kRequestForBin    ;
+extern NSString* const kReportBin        ;
+extern NSString* const kRouteToNearest   ;
+extern NSString* const kRouteToRed       ;
+extern NSString* const kRouteToRedYellow ;
+extern NSString* const kRouteToSelected  ;
 
 extern NSString* const kSearchPlaceHolder           ; 
 extern NSString* const kRouteFetchFailed            ; 

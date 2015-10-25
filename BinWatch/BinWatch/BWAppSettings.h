@@ -18,6 +18,14 @@ extern NSString* const kSettingsSelectedNotification;
 
 + (BWAppSettings *)sharedInstance;
 
+-(void)switchedAppMode;
+-(void)exportSelected;
+-(void)settingsSelected;
+-(void)requestBinSelected;
+-(void)reportIssueSelected;
+-(void)reportBinSelected;
+
+
 - (void) saveAppMode:(BWAppMode)mode;
 - (BWAppMode) getAppMode;
 

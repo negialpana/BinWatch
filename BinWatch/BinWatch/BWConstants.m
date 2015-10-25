@@ -25,6 +25,12 @@ NSString* const kSwitchToBBMP     = @"Switch to BBMP Mode";
 NSString* const kExport           = @"Export";
 NSString* const kSettings         = @"Settings";
 NSString* const kReportAnIssue    = @"Report an issue";
+NSString* const kRequestForBin    = @"Request For Bin";
+NSString* const kReportBin        = @"Report bins not being picked up";
+NSString* const kRouteToNearest   = @"Route to nearest bin";
+NSString* const kRouteToRed       = @"Route to all Red bins";
+NSString* const kRouteToRedYellow = @"Route to all Red/Yellow bins";
+NSString* const kRouteToSelected    = @"Route to selected bins";
 
 NSString* const kSearchPlaceHolder           = @"Search";
 NSString* const kRouteFetchFailed            = @"Route fetch failed";
