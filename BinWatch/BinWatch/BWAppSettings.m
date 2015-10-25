@@ -143,7 +143,7 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 -(int) getCoverageRadius
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults valueForKey:kCoverageRadius] integerValue];
+    return (int)[[defaults valueForKey:kCoverageRadius] integerValue];
 }
 
 -(void) saveExportPDF:(bool)enable

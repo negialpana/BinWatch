@@ -320,7 +320,7 @@
 				1500ABEF1B9C080D00E0AF6C /* ConnectionHandler */,
 				1500ABFC1B9C10CF00E0AF6C /* DataModelClass */,
 				1500ABE01B9C080500E0AF6C /* DataHandler */,
-				F19AB6851BA2BD4C0084A879 /* Classes */,
+				F19AB6851BA2BD4C0084A879 /* Utility */,
 				1500ABE31B9C080500E0AF6C /* DataModel */,
 				F19AB6861BA2BD710084A879 /* UI */,
 				15EA4AEC1B98A9D7006CD602 /* Main.storyboard */,
@@ -416,7 +416,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F19AB6851BA2BD4C0084A879 /* Classes */ = {
+		F19AB6851BA2BD4C0084A879 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				F1F2B9321BCBEA250019E662 /* BWConstants.h */,
@@ -440,7 +440,7 @@
 				903F071E1BD3AAF40072386B /* BWMailer.h */,
 				903F071F1BD3AAF40072386B /* BWMailer.m */,
 			);
-			name = Classes;
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		F19AB6861BA2BD710084A879 /* UI */ = {

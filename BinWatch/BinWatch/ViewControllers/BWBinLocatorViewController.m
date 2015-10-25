@@ -270,7 +270,7 @@
 {
   NSMutableArray *bins =
       [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-  int noOfBins = bins.count;
+  int noOfBins = (int)(bins.count);
   runOnMainThread(^{
     for (int iter = 0; iter < noOfBins; iter++) {
       BWBin *bin = [bins objectAtIndex:iter];

@@ -360,10 +360,10 @@ BOOL shouldBeginEditing;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:lastUpdate]];
-        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:Black
-                                                                    forKey:NSForegroundColorAttributeName];
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        //NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:lastUpdate]];
+        //NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:Black
+        //                                                           forKey:NSForegroundColorAttributeName];
+        //NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
         //TODO :There is a crash please fix
         //refreshControl.attributedTitle = !attributedTitle?@"":attributedTitle;
         [refreshControl endRefreshing];

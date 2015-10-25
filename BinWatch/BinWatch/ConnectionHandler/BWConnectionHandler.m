@@ -91,7 +91,7 @@ static NSString* const kAttribute               = @"attr";
 
     if(binID == nil || utcTo == nil || utcFrom == nil || param < BWFillPercentage || param > BWTemperature)
     {
-        [BWLogger DoLog:[NSString stringWithFormat:@"Bin Data request discarded due to invalid parameters. BinID: %@ Param:%d From:%@ To:%@", binID,param,utcFrom,utcTo]];
+        [BWLogger DoLog:[NSString stringWithFormat:@"Bin Data request discarded due to invalid parameters. BinID: %@ Param:%lu From:%@ To:%@", binID,(unsigned long)param,utcFrom,utcTo]];
         completionBlock(nil, [BWHelpers generateError:@"Invalid parameter"]);
         return;
     }
