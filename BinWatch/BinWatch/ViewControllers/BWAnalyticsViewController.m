@@ -19,6 +19,8 @@
 #import "BWConnectionHandler.h"
 #import "GradientView.h"
 #import "BWSettingsControl.h"
+#import "AppDelegate.h"
+
 #define TABLE_VIEW_PLACES_SEARCH 0
 #define TABLE_VIEW_DISPLAY_BINS 111
 #define TABLE_VIEW_ANALYTICS 222
@@ -413,13 +415,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                         NSLog(@"*********Bins: %@", [bins description]);
                         [self refreshBins];
                     } else {
-                        // TODO: Show Error
-//                        NSLog(@"***********Failed to get bins***************");
-//                        if (![[AppDelegate appDel] connected]) {
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                SHOWALERT(kNotConnectedTitle, kNotConnectedText);
-//                            });
-//                        }
+                        if (![[AppDelegate appDel] connected]) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+                            });
+                        }
+                        else
+                        {
+                            [BWHelpers displayHud:kBinFetchFailed onView:self.navigationController.view];
+                        }
                     }
                 }];
     [self refreshBins];

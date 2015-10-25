@@ -20,6 +20,10 @@ extern NSString* const kBinDataChangedNotification;
 #define YELLOW_BOUNDARY 50
 #define DEFAULT_RADIUS 5
 
+#define RedColor    [UIColor colorWithRed:188.0/255.0f green:33.0/255.0f blue:33.0/255.0f alpha:1.0]
+#define GreenColor  [UIColor colorWithRed:56.0/255.0f green:139.0/255.0f blue:59.0/255.0f alpha:1.0]
+#define YellowColor [UIColor colorWithRed:255.0/255.0f green:152.0/255.0f blue:0.0/255.0f alpha:1.0]
+
 #define DarkRed     [UIColor colorWithRed:113.0/255.0f green:3.0/255.0f blue:3.0/255.0f alpha:1.0]
 #define DarkYellow  [UIColor colorWithRed:181.0/255.0f green:135.0/255.0f blue:22.0/255.0f alpha:1.0]
 #define DarkGreen   [UIColor colorWithRed:15.0/255.0f green:77.0/255.0f blue:19.0/255.0f alpha:1.0]
@@ -55,7 +59,8 @@ extern NSString* const kSearchPlaceHolder           ;
 extern NSString* const kRouteFetchFailed            ; 
 extern NSString* const kCurrentLocationFailed       ; 
 extern NSString* const kPlacesFetchFailed           ; 
-extern NSString* const kSelectedPlaceFetchFailed    ; 
+extern NSString* const kSelectedPlaceFetchFailed    ;
+extern NSString* const kBinFetchFailed              ;
 extern NSString* const kNoSelectedBins              ;
 
 extern NSString* const kRequestBinEmailSubject  ;

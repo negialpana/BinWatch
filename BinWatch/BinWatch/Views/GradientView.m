@@ -40,7 +40,7 @@ CAGradientLayer *gradientLayer;
                 break;
         }
         CGFloat fraction = fill / 100.0 ;
-        CGRect gradientFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, fraction * self.bounds.size.width, self.bounds.size.height);
+        CGRect gradientFrame = CGRectMake(self.bounds.origin.x + 1, self.bounds.origin.y + 1, (fraction * self.bounds.size.width) - 1, self.bounds.size.height -1);
 
         gradientLayer = [CAGradientLayer layer];
         gradientLayer.frame = gradientFrame;

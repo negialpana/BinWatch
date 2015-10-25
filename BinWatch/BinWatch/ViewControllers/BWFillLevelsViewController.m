@@ -121,12 +121,15 @@ BOOL shouldBeginEditing;
                   lastUpdate = [NSDate date];
                   [self refreshBins];
                 } else {
-                  NSLog(@"***********Failed to get bins***************");
-                  if (![[AppDelegate appDel] connected]) {
-                      runOnMainThread(^{
-                        SHOWALERT(kNotConnectedTitle, kNotConnectedText);
-                      });
-                  }
+                    if (![[AppDelegate appDel] connected]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+                        });
+                    }
+                    else
+                    {
+                        [BWHelpers displayHud:kBinFetchFailed onView:self.navigationController.view];
+                    }
                 }
               }];
   [self refreshBins];

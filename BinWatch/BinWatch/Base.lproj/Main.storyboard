@@ -706,7 +706,7 @@
                                     </imageView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.79711471592145411" green="0.55974491985692887" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="KBK-MZ-WZr"/>
                                     <constraint firstAttribute="bottom" secondItem="sPY-5i-kbz" secondAttribute="bottom" constant="25" id="Osb-Gs-pz8"/>

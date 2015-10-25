@@ -71,6 +71,13 @@
     if (currentBin == nil)
         currentBin = [[[BWBinCollection sharedInstance] bins]objectAtIndex:_currentSelectedBinIndex];
     //[_binIDView addSubview: [[GradientView alloc]initWithFrame:_binIDView.frame forColor:currentBin.color]];
+    if([currentBin.fill integerValue] > RED_BOUNDARY)
+        _binIDView.backgroundColor = RedColor;
+    else if ([currentBin.fill integerValue] > YELLOW_BOUNDARY)
+        _binIDView.backgroundColor = YellowColor;
+    else
+        _binIDView.backgroundColor = GreenColor;
+    
     [_binLocationLabel setText:[BWHelpers areanameFromFullAddress:currentBin.place]];
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[currentBin.fill integerValue]]];
 }

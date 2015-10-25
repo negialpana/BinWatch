@@ -37,6 +37,7 @@ NSString* const kRouteFetchFailed            = @"Route fetch failed";
 NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
 NSString* const kPlacesFetchFailed           = @"Couldn't fetch places";
 NSString* const kSelectedPlaceFetchFailed    = @"Couldn't fetch selected location";
+NSString* const kBinFetchFailed              = @"Couldn't fetch bins for selected location";
 NSString* const kNoSelectedBins              = @"No bins are selected";
 
 NSString* const kRequestBinEmailSubject  = @"Request For a New Bin";
