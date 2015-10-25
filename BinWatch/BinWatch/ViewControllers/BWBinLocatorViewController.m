@@ -60,8 +60,8 @@
     selectedLocations = [[NSMutableArray alloc] init];
 
     // Navigation Bar Init
-    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
-    self.navigationItem.rightBarButtonItem = moreButton;
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
+    self.navigationItem.rightBarButtonItem = menuButton;
 
     // Register for orientation change
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -109,14 +109,19 @@
     [self.view addSubview:activeMapView];
     [self.view bringSubviewToFront:_mapSearchBar];
     
-    settingsControl = [[BWSettingsControl alloc] init];
-    NSString *switchTo;
-    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
-        switchTo = kSwitchToUser;
-    else
-        switchTo = kSwitchToBBMP;
+    NSNumber *drawRoutes;
+    NSNumber *defaults;
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode){
+        drawRoutes = [NSNumber numberWithInt:BWMenuItemDrawRoutes];
+        defaults   = [NSNumber numberWithInt:BWMenuItemAllBBMPDefaults];
+    }
+    else{
+        drawRoutes = [NSNumber numberWithInt:BWMenuItemRouteToNearest];
+        defaults   = [NSNumber numberWithInt:BWMenuItemAllUserDefaults];
+    }
     
-    [settingsControl createMenuInViewController:self withCells:@[@"Route to all Red bins", @"Route to all Red/Yellow bins", @"Route to selected bins", kSettings, kExport, kReportAnIssue, switchTo] andWidth:200];
+    settingsControl = [[BWSettingsControl alloc] init];
+    [settingsControl createMenuInViewController:self withCells:@[drawRoutes,defaults] andWidth:200];
     [settingsControl setDelegate:self];
 }
 
@@ -134,7 +139,7 @@
 }
 
 #pragma mark - Event Handlers
-- (void)moreTapped
+- (void)menuTapped
 {
     [settingsControl toggleControl];
 }
@@ -173,6 +178,10 @@
     [self drawBins];
 }
 
+-(void) drawRouteToNearestBin
+{
+    //TODO : implementation
+}
 -(void) drawRouteSelectedBins
 {
     if(selectedLocations.count <= 0)
@@ -568,37 +577,19 @@
 
 #pragma mark - BWSettingsControlDelegate
 
-- (void)didTapSettingsRow:(NSInteger)row
+- (void)didTapSettingsRowWithText:(NSString *)text
 {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    NSLog(@"Tapped : %d", (int)row);
-    int rowIndex = (int)row;
-    switch (rowIndex) {
-        case 0:
-            [self drawRouteAllReds];
-            break;
-        case 1:
-            [self drawRouteRedYellow];
-            break;
-        case 2:
-            [self drawRouteSelectedBins];
-            break;
-        case 3:
-            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
-            [center postNotificationName:kSettingsSelectedNotification object:nil];
-            break;
-        case 4:
-            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
-            [center postNotificationName:kExportSelectedNotification object:nil];
-            break;
-        case 5:
-            [BWHelpers displayHud:@"TODO" onView:self.navigationController.view];
-            break;
-        case 6:
-            [center postNotificationName:kSwitchedAppModeNotification object:nil];
-            break;
-        default:
-            break;
+    if ([text isEqualToString:kRouteToRed]) {
+        [self drawRouteAllReds];
+    }
+    else if ([text isEqualToString:kRouteToRedYellow]){
+        [self drawRouteRedYellow];
+    }
+    else if ([text isEqualToString:kRouteToSelected]){
+        [self drawRouteSelectedBins];
+    }
+    else if ([text isEqualToString:kRouteToNearest]){
+        [self drawRouteToNearestBin];
     }
 }
 

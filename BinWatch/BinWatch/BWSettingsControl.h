@@ -11,9 +11,23 @@
 
 @protocol BWSettingsControlDelegate <NSObject>
 
-- (void)didTapSettingsRow:(NSInteger)row;
+- (void)didTapSettingsRowWithText:(NSString*)text;
 
 @end
+
+typedef NS_ENUM(NSUInteger, BWMenuItems) {
+    BWMenuItemSettings,
+    BWMenuItemExport,
+    BWMenuItemSwitchMode,
+    BWMenuItemDrawRoutes,
+    BWMenuItemRequestForBin,
+    BWMenuItemReportIssue,
+    BWMenuItemReportBin,
+    BWMenuItemRouteToNearest,
+    BWMenuItemAllBBMPDefaults,
+    BWMenuItemAllUserDefaults,
+    
+};
 
 @interface BWSettingsControl : NSObject <UITableViewDataSource, UITableViewDelegate>
 

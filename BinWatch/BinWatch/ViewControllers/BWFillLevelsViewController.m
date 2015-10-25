@@ -93,13 +93,7 @@ BOOL shouldBeginEditing;
 {
     // Adding settings control
     settingsControl = [BWSettingsControl new];
-    NSString *switchTo;
-    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
-        switchTo = kSwitchToUser;
-    else
-        switchTo = kSwitchToBBMP;
-    
-    [settingsControl createMenuInViewController:self withCells:@[kExport,kSettings,switchTo] andWidth:200];
+    [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
     settingsControl.delegate = self;
  
     
@@ -159,10 +153,11 @@ BOOL shouldBeginEditing;
         
         self.tableView.backgroundView = messageLabel;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+    }
+    else{
+        self.tableView.backgroundView = nil;
     }
     return 1;
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -343,28 +338,6 @@ BOOL shouldBeginEditing;
     [settingsControl toggleControl];
 }
 
-#pragma mark - BWSettingsControlDelegate
-
-- (void)didTapSettingsRow:(NSInteger)row
-{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    NSLog(@"Tapped : %d", (int)row);
-    switch (row) {
-        case 0:
-            [center postNotificationName:kExportSelectedNotification object:nil];
-            break;
-        case 1:
-            [center postNotificationName:kSettingsSelectedNotification object:nil];
-            break;
-        case 2:
-            [center postNotificationName:kSwitchedAppModeNotification object:nil];
-            break;
-            
-        default:
-            break;
-    }
-    [settingsControl hideControl];
-}
 -(void)didChangeDeviceOrientation
 {
     runOnMainThread(^{

@@ -18,7 +18,7 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
 #import "GradientView.h"
-
+#import "BWSettingsControl.h"
 #define TABLE_VIEW_PLACES_SEARCH 0
 #define TABLE_VIEW_DISPLAY_BINS 111
 #define TABLE_VIEW_ANALYTICS 222
@@ -29,7 +29,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 static NSString *kAnalyseHeader  = @"Select Parameter";
 static NSString *kSelectHeader   = @"Select Bins";
 
-@interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate , BWSettingsControlDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView2;
 @property (weak, nonatomic) IBOutlet UITableView *tableView1;
 @property (nonatomic, strong) NSArray *table1Data;
@@ -51,6 +51,7 @@ static NSString *kSelectHeader   = @"Select Bins";
     SPGooglePlacesAutocompleteQuery *searchQuery;
     BOOL shouldBeginEditing;
     NSArray *searchResultPlaces;
+    BWSettingsControl *settingsControl;
 }
 
 #pragma mark - View Life Cycle
@@ -81,6 +82,14 @@ static NSString *kSelectHeader   = @"Select Bins";
     self.queryParam = [self.table2Data objectAtIndex:0];
     _tableView1.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.selectedBins = [NSMutableArray array];
+
+    // Navigation Bar Init
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
+    self.navigationItem.rightBarButtonItem = menuButton;
+
+    settingsControl = [[BWSettingsControl alloc] init];
+    [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
+    [settingsControl setDelegate:self];
 
     // Do any additional setup after loading the view.
 }
@@ -265,7 +274,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 //    return headerView;
 //}
 
-#pragma mark - Event Handler
+#pragma mark - Event Handlers
+- (void)menuTapped
+{
+    [settingsControl toggleControl];
+}
+
 - (IBAction)dateBtnPressed:(id)sender {
     
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
