@@ -89,7 +89,10 @@
     AppDelegate *theDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     return theDelegate;
 }
-
+-(UIViewController *)getTabBarContoller
+{
+    return self.window.rootViewController;
+}
 - (void)setTheStoryBoards {
     
     UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];

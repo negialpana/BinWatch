@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface BWMailer : NSObject
+@interface BWMailer : NSObject <MFMailComposeViewControllerDelegate>
 
--(void) sendMail:(UIViewController *)viewController;
++(void) composeMailWithSubject:(NSString*)subject andBody:(NSString*)body;
 @end

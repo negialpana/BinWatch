@@ -58,6 +58,13 @@ extern NSString* const kPlacesFetchFailed           ;
 extern NSString* const kSelectedPlaceFetchFailed    ; 
 extern NSString* const kNoSelectedBins              ;
 
+extern NSString* const kRequestBinEmailSubject  ;
+extern NSString* const kRequestBinEmailBody     ;
+extern NSString* const kReportBinEmailSubject   ;
+extern NSString* const kReportBinEmailBody      ;
+extern NSString* const kReportIssueEmailSubject ;
+extern NSString* const kReportIssueEmailBody    ;
+
 
 extern NSString* const kIcon         ; 
 extern NSString* const kUserData     ; 

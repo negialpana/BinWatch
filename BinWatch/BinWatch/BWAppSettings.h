@@ -11,11 +11,6 @@
 
 @interface BWAppSettings : NSObject
 
-
-extern NSString* const kSwitchedAppModeNotification;
-extern NSString* const kExportSelectedNotification;
-extern NSString* const kSettingsSelectedNotification;
-
 + (BWAppSettings *)sharedInstance;
 
 -(void)switchedAppMode;

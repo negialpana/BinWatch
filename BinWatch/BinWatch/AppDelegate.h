@@ -27,6 +27,6 @@
 
 -(void)switchToMainStoryBoard;
 -(void)switchToUserModeStoryBoard;
-
+-(UIViewController*)getTabBarContoller;
 @end
 

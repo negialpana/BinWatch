@@ -9,28 +9,47 @@
 #import "BWMailer.h"
 #import "BWLogger.h"
 #import "BWHelpers.h"
-#import <MessageUI/MFMailComposeViewController.h>
+#import "AppDelegate.h"
 
 @implementation BWMailer
 
--(void) sendMail:(UIViewController *)viewController
++ (BWMailer *)sharedInstance
 {
+    static dispatch_once_t onceToken;
+    static BWMailer *instance = nil;
+    dispatch_once(&onceToken, ^{
+        instance = [[BWMailer alloc] init];
+    });
+    
+    return instance;
+}
+
++(void) composeMailWithSubject:(NSString*)subject andBody:(NSString*)body
+{
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
-        controller.mailComposeDelegate = viewController;
-        [controller setSubject:@"My Subject"];
-        [controller setMessageBody:@"Hello there." isHTML:NO];
+        controller.mailComposeDelegate = [self sharedInstance];
+        [controller setSubject:subject];
+        [controller setMessageBody:body isHTML:NO];
         if (controller)
         {
-            [viewController presentViewController:controller animated:YES completion:nil];
+            [controllerToShowTo presentViewController:controller animated:YES completion:nil];
         }
     }
     else
     {
         // Handle the error
         [BWLogger DoLog:@"Mail not configured"];
-        [BWHelpers displayHud:@"Mail not configured" onView:viewController.view];
+        [BWHelpers displayHud:@"Mail not configured" onView:controllerToShowTo.view];
     }
 }
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    [controllerToShowTo dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

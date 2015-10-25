@@ -8,14 +8,11 @@
 
 #import "BWAppSettings.h"
 #import "AppDelegate.h"
-
+#import "BWHelpers.h"
+#import "BWMailer.h"
 #define DEFAULT_RADIUS 5
 
 @implementation BWAppSettings
-
-NSString* const kSwitchedAppModeNotification    = @"SwitchedAppModeNotification";
-NSString* const kExportSelectedNotification     = @"ExportSelectedNotification";
-NSString* const kSettingsSelectedNotification   = @"SettingsSelectedNotification";
 
 // UserDefaults
 static NSString* const kCoverageRadius = @"Radius";
@@ -96,7 +93,21 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     NSLog(@"settingsSelected notif");
     
 }
+-(void)requestBinSelected
+{
+    [BWMailer composeMailWithSubject:kRequestBinEmailSubject andBody:kRequestBinEmailBody];
+}
 
+-(void)reportBinSelected
+{
+    [BWMailer composeMailWithSubject:kReportBinEmailSubject andBody:kReportBinEmailBody];
+ 
+}
+-(void)reportIssueSelected
+{
+    [BWMailer composeMailWithSubject:kReportIssueEmailSubject andBody:kReportIssueEmailBody];
+
+}
 #pragma mark - Settings getters and setters
 
 -(void) saveAppMode:(BWAppMode)mode
