@@ -19,7 +19,7 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
 
-#define CHART_ORIGIN_Y 100
+#define CHART_ORIGIN_Y 225
 @interface BWDashBoardViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, retain) VBPieChart *chart;
 @property (nonatomic, retain) VBPieChart *tempchart;
@@ -76,6 +76,8 @@
 {
     // TODO: Enable this
     //[self refreshViews];
+    
+    [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -94,7 +96,7 @@
     if (!_chart || ![[self.view subviews] containsObject:_chart]) {
         _chart = [[VBPieChart alloc] init];
         [self.view addSubview:_chart];
-        [_chart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 250 , 250)];
+        [_chart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
         _chart.center = self.view.center;
         [_chart setEnableStrokeColor:YES];
         [_chart.layer setShadowOffset:CGSizeMake(2, 2)];
@@ -111,7 +113,7 @@
     if (!_activechart || ![[self.view subviews] containsObject:_activechart]) {
         _activechart = [[VBPieChart alloc] init];
         [self.view addSubview:_activechart];
-        [_activechart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 250 , 250)];
+        [_activechart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
         _activechart.center = self.view.center;
         [_activechart setEnableStrokeColor:YES];
         [_activechart.layer setShadowOffset:CGSizeMake(2, 2)];
@@ -128,7 +130,7 @@
     if (!_humiditychart || ![[self.view subviews] containsObject:_humiditychart]) {
         _humiditychart = [[VBPieChart alloc] init];
         [self.view addSubview:_humiditychart];
-        [_humiditychart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 250 , 250)];
+        [_humiditychart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
         _humiditychart.center = self.view.center;
         [_humiditychart setEnableStrokeColor:YES];
         [_humiditychart.layer setShadowOffset:CGSizeMake(2, 2)];
@@ -146,7 +148,7 @@
     if (!_tempchart || ![[self.view subviews] containsObject:_tempchart]) {
         _tempchart = [[VBPieChart alloc] init];
         [self.view addSubview:_tempchart];
-        [_tempchart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 250 , 250)];
+        [_tempchart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
         _tempchart.center = self.view.center;
         [_tempchart setEnableStrokeColor:YES];
         [_tempchart.layer setShadowOffset:CGSizeMake(2, 2)];
