@@ -11,6 +11,7 @@
 #import "BWHelpers.h"
 #import "BWMailer.h"
 #import "BWSettingsViewController.h"
+#import "BWExportTableViewController.h"
 
 @implementation BWAppSettings
 
@@ -78,19 +79,22 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     
 }
 -(void)exportSelected{
-    NSLog(@"exportSelected notif");
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    BWExportTableViewController *sv = [sb instantiateViewControllerWithIdentifier:@"exportNavigation"];
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    [controllerToShowTo presentViewController:sv animated:YES completion:nil];
     
 }
 -(void)settingsSelected{
-    NSLog(@"settingsSelected notif");
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     BWSettingsViewController *sv = [sb instantiateViewControllerWithIdentifier:@"settingsNavigation"];
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
-
     [controllerToShowTo presentViewController:sv animated:YES completion:nil];
     
 }
+
 -(void)requestBinSelected
 {
     NSString *mailContent = [NSString stringWithFormat:@"%@\n\nLocation: %@\nLatitude: %f\nLongitude: %f", kRequestBinEmailBody, [BWDataHandler sharedHandler].myLocationAddress, [BWDataHandler sharedHandler].myLocation.coordinate.latitude, [BWDataHandler sharedHandler].myLocation.coordinate.longitude];
