@@ -15,7 +15,7 @@
 }
 
 + (SPGooglePlacesAutocompletePlace *)placeFromDictionary:(NSDictionary *)placeDictionary apiKey:(NSString *)apiKey;
-
++ (SPGooglePlacesAutocompletePlace *)placeFromMyLocation:(NSDictionary *)placeDictionary apiKey:(NSString *)apiKey;
 /*!
  Contains the human-readable name for the returned result. For establishment results, this is usually the business name.
  */

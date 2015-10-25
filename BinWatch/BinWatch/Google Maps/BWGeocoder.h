@@ -11,9 +11,9 @@
 
 @protocol BWGeocoderDelegate <NSObject>
 
+@optional
 - (void)geocoderFailedWithError:(NSError *)error;
-
-- (void)geocoderDidReceiveResponse:(NSString *)points;
+- (void)geocoderDidReceiveResponse:(NSString *)address forLocation:(CLLocation *)location;
 
 @end
 
@@ -22,7 +22,7 @@
 @property (nonatomic, assign) id<BWGeocoderDelegate> delegate;
 
 + (BWGeocoder *)sharedInstance;
-- (void) reverseGeocode:(CLLocationCoordinate2D)location;
-- (void) reverseGeocoder:(CLLocationCoordinate2D)location;
+//- (void) reverseGeocode:(CLLocationCoordinate2D)location;
+- (void) reverseGeocode:(CLLocation *)location;
 
 @end

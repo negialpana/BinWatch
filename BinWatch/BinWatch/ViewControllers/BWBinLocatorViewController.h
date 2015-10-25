@@ -14,10 +14,6 @@
 @class SPGooglePlacesAutocompleteQuery;
 
 @interface BWBinLocatorViewController : UIViewController <GMSMapViewDelegate, BWRouteDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, BWSettingsControlDelegate> {
-    NSArray *searchResultPlaces;
-    SPGooglePlacesAutocompleteQuery *searchQuery;
-    
-    BOOL shouldBeginEditing;
 }
 
 

@@ -32,6 +32,20 @@
     return place;
 }
 
++ (SPGooglePlacesAutocompletePlace *)placeFromMyLocation:(NSDictionary *)placeDictionary apiKey:(NSString *)apiKey
+{
+    SPGooglePlacesAutocompletePlace *place = [[self alloc] init];
+    place.name = @"My Location";
+    place.placeId = @"RandomString";
+    place.type = SPPlaceTypeGeocode;
+    //NSMutableArray* terms = [NSMutableArray array];
+//    for (NSDictionary* term in [placeDictionary objectForKey:@"terms"])
+//        [terms addObject:term[@"value"]];
+    //place.terms = terms;
+    place.key = apiKey;
+    return place;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Name: %@, Place Id: %@, Type: %@",
             self.name, self.placeId, SPPlaceTypeStringForPlaceType(self.type)];

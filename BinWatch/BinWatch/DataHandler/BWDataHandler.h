@@ -19,8 +19,9 @@ typedef NS_ENUM(NSUInteger, BWAppMode) {
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, getter = getMyLocation) CLLocation *myLocation;
+@property (nonatomic, retain) NSString *myLocationAddress;
 @property (nonatomic, retain, getter = getBinsLocation) CLLocation *binsLocation;
-@property (nonatomic, retain, getter = getBinsAddress) CLLocation *binsAddress;
+@property (nonatomic, retain, getter = getBinsAddress) NSString *binsAddress;
 
 + (instancetype) sharedHandler;
 
