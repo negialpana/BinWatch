@@ -147,7 +147,8 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
-    NSLog(@"Location Update %f %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+    NSString *infoMsg = [NSString stringWithFormat:@"Location Update %f %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+    [BWLogger DoLog:infoMsg];
     [[BWGeocoder sharedInstance] reverseGeocode:currentLocation];
 }
 

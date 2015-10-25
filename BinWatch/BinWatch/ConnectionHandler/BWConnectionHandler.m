@@ -54,7 +54,9 @@ static NSString* const kAttribute               = @"attr";
 }
 
 - (void)getBinsAtPlace:(CLLocation*)location withAddress:(NSString *)address WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
-    NSLog(@"Requesting for bins at %f %f", location.coordinate.latitude, location.coordinate.longitude);
+    NSString *infoMsg = [NSString stringWithFormat:@"Requesting for bins at %f %f", location.coordinate.latitude, location.coordinate.longitude];
+    [BWLogger DoLog:infoMsg];
+
     if(location == nil)
         return;
     
@@ -149,7 +151,7 @@ static NSString* const kAttribute               = @"attr";
                                }
                                else
                                {
-                                   NSLog(@"ERROR");
+                                   [BWLogger DoLog:@"Failed to retrieve bin info"];
                                    completionBlock(nil,jsonError);
 
                                }
