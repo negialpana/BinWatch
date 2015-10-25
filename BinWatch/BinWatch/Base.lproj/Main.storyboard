@@ -623,7 +623,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="slr-7v-BTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3438" y="1521"/>
+            <point key="canvasLocation" x="3577" y="1430"/>
         </scene>
         <!--Bin Details View Controller-->
         <scene sceneID="tyH-fe-xXn">
@@ -804,6 +804,41 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Email" footerTitle="Specify the mail ID to which exported data has to be sent" id="2oC-lQ-CF9">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Dzv-sd-KmI">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dzv-sd-KmI" id="CEd-cg-QA8">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email-ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEx-vd-e58">
+                                                    <rect key="frame" x="15" y="11" width="66" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter email ID" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lrW-lm-En7">
+                                                    <rect key="frame" x="102" y="7" width="484" height="28"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="hSQ-5g-2V0" id="zw0-HE-CjD"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lrW-lm-En7" firstAttribute="leading" secondItem="NEx-vd-e58" secondAttribute="trailing" constant="21" id="1M2-zH-32T"/>
+                                                <constraint firstItem="NEx-vd-e58" firstAttribute="leading" secondItem="CEd-cg-QA8" secondAttribute="leading" constant="15" id="DwV-7h-g3T"/>
+                                                <constraint firstAttribute="trailing" secondItem="lrW-lm-En7" secondAttribute="trailing" constant="14" id="IBH-zo-kgQ"/>
+                                                <constraint firstItem="lrW-lm-En7" firstAttribute="top" secondItem="CEd-cg-QA8" secondAttribute="top" constant="7" id="Mz7-8C-o1u"/>
+                                                <constraint firstAttribute="bottom" secondItem="NEx-vd-e58" secondAttribute="bottom" constant="11" id="QZt-v3-I4z"/>
+                                                <constraint firstItem="NEx-vd-e58" firstAttribute="top" secondItem="CEd-cg-QA8" secondAttribute="top" constant="11" id="RkG-z1-E3N"/>
+                                                <constraint firstAttribute="bottom" secondItem="lrW-lm-En7" secondAttribute="bottom" constant="8" id="eGR-zj-ih5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Export" footerTitle="Choose the format in which you wish to transfer data" id="7EE-ck-m7g">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="K3f-OA-vVS">
@@ -918,41 +953,6 @@
                                                     <exclude reference="bJ8-mZ-iNc"/>
                                                 </mask>
                                             </variation>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Email" footerTitle="Specify the mail ID to which exported data has to be sent" id="2oC-lQ-CF9">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Dzv-sd-KmI">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dzv-sd-KmI" id="CEd-cg-QA8">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email-ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEx-vd-e58">
-                                                    <rect key="frame" x="15" y="11" width="66" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter email ID" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lrW-lm-En7">
-                                                    <rect key="frame" x="102" y="7" width="484" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="hSQ-5g-2V0" id="zw0-HE-CjD"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="lrW-lm-En7" firstAttribute="leading" secondItem="NEx-vd-e58" secondAttribute="trailing" constant="21" id="1M2-zH-32T"/>
-                                                <constraint firstItem="NEx-vd-e58" firstAttribute="leading" secondItem="CEd-cg-QA8" secondAttribute="leading" constant="15" id="DwV-7h-g3T"/>
-                                                <constraint firstAttribute="trailing" secondItem="lrW-lm-En7" secondAttribute="trailing" constant="14" id="IBH-zo-kgQ"/>
-                                                <constraint firstItem="lrW-lm-En7" firstAttribute="top" secondItem="CEd-cg-QA8" secondAttribute="top" constant="7" id="Mz7-8C-o1u"/>
-                                                <constraint firstAttribute="bottom" secondItem="NEx-vd-e58" secondAttribute="bottom" constant="11" id="QZt-v3-I4z"/>
-                                                <constraint firstItem="NEx-vd-e58" firstAttribute="top" secondItem="CEd-cg-QA8" secondAttribute="top" constant="11" id="RkG-z1-E3N"/>
-                                                <constraint firstAttribute="bottom" secondItem="lrW-lm-En7" secondAttribute="bottom" constant="8" id="eGR-zj-ih5"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

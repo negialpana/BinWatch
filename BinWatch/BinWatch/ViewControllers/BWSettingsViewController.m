@@ -37,12 +37,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    self.radiusTextField.text = [ud valueForKey:@"RADIUS"]?[ud valueForKey:@"RADIUS"]:@"6";
-    self.pdfSwitch.on = [ud boolForKey:@"PDF"];
-    self.excelSwitch.on = [ud boolForKey:@"EXCEL"];
-    self.csvSwitch.on = [ud boolForKey:@"CSV"];
-    self.emailtextField.text = [ud valueForKey:@"EMAIL"];
+//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//    self.radiusTextField.text = [ud valueForKey:@"RADIUS"]?[ud valueForKey:@"RADIUS"]:@"6";
+//    self.pdfSwitch.on = [ud boolForKey:@"PDF"];
+//    self.excelSwitch.on = [ud boolForKey:@"EXCEL"];
+//    self.csvSwitch.on = [ud boolForKey:@"CSV"];
+//    self.emailtextField.text = [ud valueForKey:@"EMAIL"];
 }
 
 - (void)tappedOutSide:(id)sender{
