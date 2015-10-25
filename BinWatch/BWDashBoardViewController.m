@@ -76,7 +76,6 @@
 {
     // TODO: Enable this
     //[self refreshViews];
-    
     [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
 }
 

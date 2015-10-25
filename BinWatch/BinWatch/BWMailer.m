@@ -10,6 +10,7 @@
 #import "BWLogger.h"
 #import "BWHelpers.h"
 #import "AppDelegate.h"
+#import "BWAppSettings.h"
 
 @implementation BWMailer
 
@@ -32,6 +33,7 @@
         controller.mailComposeDelegate = [self sharedInstance];
         [controller setSubject:subject];
         [controller setMessageBody:body isHTML:NO];
+        [controller setToRecipients:@[[[BWAppSettings sharedInstance] getSupportMailID]]];
         if (controller)
         {
             [controllerToShowTo presentViewController:controller animated:YES completion:nil];

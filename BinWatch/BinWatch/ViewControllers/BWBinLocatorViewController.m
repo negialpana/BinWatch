@@ -127,6 +127,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [settingsControl hideControl];
     if([BWDataHandler sharedHandler].binsLocation)
         activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
                                                         zoom:zoomLevel];
