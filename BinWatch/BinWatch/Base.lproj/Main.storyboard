@@ -284,7 +284,7 @@
                                     </button>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725496530532837" green="0.92549026012420654" blue="0.729411780834198" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstItem="8tA-q2-Aus" firstAttribute="leading" secondItem="Gp4-5l-P6t" secondAttribute="leading" id="5IK-gr-1Am"/>
                                     <constraint firstItem="z6b-oS-1ht" firstAttribute="leading" secondItem="yXP-4N-xY5" secondAttribute="trailing" constant="57" id="9ff-eg-krq"/>
@@ -346,7 +346,7 @@
                     <navigationItem key="navigationItem" title="Analytics" id="bh7-hU-LH8">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="lSX-3O-wmC">
                             <connections>
-                                <segue destination="RTH-sk-Edt" kind="show" identifier="AnalyzeSegue" id="du6-kx-081"/>
+                                <action selector="donePressed:" destination="o0I-lk-Al9" id="3Iv-aY-UWQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -359,6 +359,7 @@
                         <outlet property="tableView1" destination="rIp-3W-Ivx" id="mly-ye-5aT"/>
                         <outlet property="tableView2" destination="7xN-ad-5GM" id="O2v-10-PLO"/>
                         <outlet property="toDateBtn" destination="zAc-kN-D3H" id="gyR-Jp-qIb"/>
+                        <segue destination="RTH-sk-Edt" kind="show" identifier="AnalyzeSegue" id="RyS-Hh-VFc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cL8-Ge-6VI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -643,7 +644,19 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySg-i6-Z03">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="232"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackLine" translatesAutoresizingMaskIntoConstraints="NO" id="DJb-OB-wBB">
+                                                            <rect key="frame" x="0.0" y="205" width="768" height="2"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="ddt-NN-DqD"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="DJb-OB-wBB" secondAttribute="bottom" constant="25" id="G3k-Hv-uyc"/>
+                                                        <constraint firstItem="DJb-OB-wBB" firstAttribute="leading" secondItem="ySg-i6-Z03" secondAttribute="leading" id="wR6-1A-8xU"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -697,6 +710,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjM-GA-Zhb">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchIsOnOff:" destination="FrY-zd-PpG" eventType="valueChanged" id="4zl-zn-xww"/>
                                                     </connections>
@@ -719,6 +733,7 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zgb-VS-7E9">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchIsOnOff:" destination="FrY-zd-PpG" eventType="valueChanged" id="9hH-Xc-v0M"/>
                                                     </connections>
@@ -747,6 +762,7 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="khJ-6R-dkG">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchIsOnOff:" destination="FrY-zd-PpG" eventType="valueChanged" id="1wF-8j-lcY"/>
                                                     </connections>
@@ -784,9 +800,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="blackLine" destination="DJb-OB-wBB" id="0Lb-FL-Iv1"/>
                         <outlet property="csv" destination="khJ-6R-dkG" id="oad-v4-jUH"/>
                         <outlet property="emailTextField" destination="3I1-iK-30h" id="Bll-Di-lWV"/>
                         <outlet property="excelSwitch" destination="zgb-VS-7E9" id="9IA-rP-W43"/>
+                        <outlet property="exportView" destination="ySg-i6-Z03" id="9Ha-ne-FL0"/>
                         <outlet property="fileView" destination="ySg-i6-Z03" id="XAq-Z6-wze"/>
                         <outlet property="pdfSwitch" destination="vjM-GA-Zhb" id="dGr-Iq-fsa"/>
                     </connections>
@@ -1024,6 +1042,7 @@
                                                 </label>
                                                 <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-ds-NPl">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchOnOffChanged:" destination="hSQ-5g-2V0" eventType="valueChanged" id="USd-QP-0Qe"/>
                                                     </connections>
@@ -1056,6 +1075,7 @@
                                             <subviews>
                                                 <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-aH-3SS">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchOnOffChanged:" destination="hSQ-5g-2V0" eventType="valueChanged" id="vcF-BN-xPO"/>
                                                     </connections>
@@ -1094,6 +1114,7 @@
                                             <subviews>
                                                 <switch opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QD5-ei-ymD">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchOnOffChanged:" destination="hSQ-5g-2V0" eventType="valueChanged" id="8tK-Nu-qqS"/>
                                                     </connections>
