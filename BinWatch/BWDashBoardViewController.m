@@ -52,7 +52,7 @@
     _segmentedControl.tintColor = AppTheme;
     _binsArray = [NSArray array];
     self.segmentedControl.selectedSegmentIndex = 1;
-    [self setUpChartValuesForIndex:0];
+   // [self setUpChartValuesForIndex:0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
     

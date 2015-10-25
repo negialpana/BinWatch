@@ -284,7 +284,7 @@
                                     </button>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725496530532837" green="0.92549026012420654" blue="0.729411780834198" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstItem="8tA-q2-Aus" firstAttribute="leading" secondItem="Gp4-5l-P6t" secondAttribute="leading" id="5IK-gr-1Am"/>
                                     <constraint firstItem="z6b-oS-1ht" firstAttribute="leading" secondItem="yXP-4N-xY5" secondAttribute="trailing" constant="57" id="9ff-eg-krq"/>
@@ -346,7 +346,7 @@
                     <navigationItem key="navigationItem" title="Analytics" id="bh7-hU-LH8">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="lSX-3O-wmC">
                             <connections>
-                                <segue destination="RTH-sk-Edt" kind="show" identifier="AnalyzeSegue" id="du6-kx-081"/>
+                                <action selector="donePressed:" destination="o0I-lk-Al9" id="3Iv-aY-UWQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -359,6 +359,7 @@
                         <outlet property="tableView1" destination="rIp-3W-Ivx" id="mly-ye-5aT"/>
                         <outlet property="tableView2" destination="7xN-ad-5GM" id="O2v-10-PLO"/>
                         <outlet property="toDateBtn" destination="zAc-kN-D3H" id="gyR-Jp-qIb"/>
+                        <segue destination="RTH-sk-Edt" kind="show" identifier="AnalyzeSegue" id="RyS-Hh-VFc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cL8-Ge-6VI" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -45,6 +45,7 @@ static NSString *kSelectHeader   = @"Select Bins";
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBarForTableView1;
 
 - (IBAction)dateBtnPressed:(id)sender;
+- (IBAction)donePressed:(id)sender;
 
 @end
 
@@ -323,6 +324,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
 }
 
+- (IBAction)donePressed:(id)sender {
+    
+    NSDate *fromdate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
+    NSDate *todate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
+    
+    
+    if ([self.selectedBins count] && ![fromdate isEqualToDate:todate]) {
+        
+        [self performSegueWithIdentifier:@"AnalyzeSegue" sender:nil];
+        
+    }else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"NOTE!"
+                                                        message:@"Please make sure to choose bins and different dates for analysis"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 
  #pragma mark - Navigation
  
@@ -331,10 +353,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
  
      if ([segue.identifier isEqualToString:@"AnalyzeSegue"]) {
          BWAnalyseViewController *dvc = segue.destinationViewController;
-         
-         //IMP TODO: Change the data later dynamic
-         
-         dvc.bins = [NSArray arrayWithObjects:@"Bin1",@"Bin2", nil];
+                  
+         dvc.bins = [NSArray arrayWithArray:self.selectedBins];
          dvc.query = self.queryParam;
          dvc.fromDate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
          dvc.toDate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];

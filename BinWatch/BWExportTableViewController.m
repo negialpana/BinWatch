@@ -99,6 +99,7 @@
 }
 
 - (IBAction)switchIsOnOff:(id)sender {
+    
     UISwitch *swith = (UISwitch *)sender;
     if (swith == self.pdfSwitch) {
         [[BWAppSettings sharedInstance] saveExportPDF:swith.on];
@@ -110,7 +111,6 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    
     [self.view endEditing:YES];
     return YES;
 }
@@ -122,7 +122,6 @@
 }
 
 - (IBAction)donePressed:(id)sender {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
