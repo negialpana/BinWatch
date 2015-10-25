@@ -50,6 +50,29 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    NSString *message;
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            message = @"Email Cancelled";
+            break;
+        case MFMailComposeResultSaved:
+            message = @"Email Saved";
+            break;
+        case MFMailComposeResultSent:
+            message = @"Email Sent";
+            break;
+        case MFMailComposeResultFailed:
+            message = @"Email Failed";
+            break;
+        default:
+            message = @"Email Not Sent";
+            break;
+    }
+    runOnMainThread(^{
+        [BWHelpers displayHud:message onView:controllerToShowTo.view];
+    });
+    
     [controllerToShowTo dismissViewControllerAnimated:YES completion:nil];
 }
 
