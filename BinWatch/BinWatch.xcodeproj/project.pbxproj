@@ -29,6 +29,7 @@
 		15EA4AFF1B98A9D7006CD602 /* BinWatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AFE1B98A9D7006CD602 /* BinWatchTests.m */; };
 		15ED60D51BC94B8C00EA6285 /* BWAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */; };
 		15ED60D81BC95A1600EA6285 /* BWDashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */; };
+		15F596391BDD2CBD008F714F /* BWExportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F596381BDD2CBD008F714F /* BWExportTableViewController.m */; };
 		321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */; };
 		32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861A8C1BC4A1D400D0568F /* GradientView.m */; };
 		32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 32861AA51BC4D09100D0568F /* BWViewRenderingHelper.m */; };
@@ -123,6 +124,8 @@
 		15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAnalyseViewController.m; sourceTree = "<group>"; };
 		15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWDashBoardViewController.h; path = ../../BWDashBoardViewController.h; sourceTree = "<group>"; };
 		15ED60D71BC95A1600EA6285 /* BWDashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWDashBoardViewController.m; path = ../../BWDashBoardViewController.m; sourceTree = "<group>"; };
+		15F596371BDD2CBD008F714F /* BWExportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWExportTableViewController.h; path = ../../BWExportTableViewController.h; sourceTree = "<group>"; };
+		15F596381BDD2CBD008F714F /* BWExportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWExportTableViewController.m; path = ../../BWExportTableViewController.m; sourceTree = "<group>"; };
 		321C58D11BBCDF4300F025AA /* BinDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinDetailsViewController.h; sourceTree = "<group>"; };
 		321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinDetailsViewController.m; sourceTree = "<group>"; };
 		32861A8B1BC4A1D400D0568F /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientView.h; path = Views/GradientView.h; sourceTree = "<group>"; };
@@ -230,6 +233,8 @@
 		1500ABC41B9ABAD200E0AF6C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				15F596371BDD2CBD008F714F /* BWExportTableViewController.h */,
+				15F596381BDD2CBD008F714F /* BWExportTableViewController.m */,
 				903F07AD1BDCF1B80072386B /* BWSettingsViewController.h */,
 				903F07AE1BDCF1B80072386B /* BWSettingsViewController.m */,
 				15ED60D61BC95A1600EA6285 /* BWDashBoardViewController.h */,
@@ -640,6 +645,7 @@
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				F1F2B9101BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				903F05DC1BD0194C0072386B /* BWDocumentHelper.mm in Sources */,
+				15F596391BDD2CBD008F714F /* BWExportTableViewController.m in Sources */,
 				151874A41BCC19720076BD21 /* VBPiePiece.m in Sources */,
 				900072121BC700F7003B2562 /* BWLogger.m in Sources */,
 				1500ABFF1B9C10CF00E0AF6C /* Bin.m in Sources */,
