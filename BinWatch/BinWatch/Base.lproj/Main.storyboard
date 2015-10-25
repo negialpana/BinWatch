@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -522,14 +522,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO : Mention Location here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdX-b8-lvt">
-                                <rect key="frame" x="183" y="84" width="234" height="21"/>
+                                <rect key="frame" x="183" y="118" width="234" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsO-1X-2jy">
-                                <rect key="frame" x="275" y="496" width="50" height="21"/>
+                                <rect key="frame" x="275" y="496" width="49.5" height="21"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Ads-nt-6XS"/>
@@ -539,41 +539,62 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8pN-fi-RUw">
-                                <rect key="frame" x="0.0" y="133" width="600" height="29"/>
-                                <color key="backgroundColor" red="1" green="0.89145795531979921" blue="0.26132282717147981" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="163" width="600" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
-                                    <segment title="Fill %"/>
-                                    <segment title="Bin Status"/>
-                                    <segment title="Humidity"/>
-                                    <segment title="Temperature"/>
+                                    <segment title="FILL"/>
+                                    <segment title="ACTIVE/INACTIVE"/>
+                                    <segment title="HUMIDITY"/>
+                                    <segment title="TEMP"/>
                                 </segments>
                                 <color key="tintColor" red="0.98431378602981567" green="0.074509806931018829" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <action selector="segmentTapped:" destination="KyC-Du-kYR" eventType="valueChanged" id="LVN-Sh-gS4"/>
                                 </connections>
                             </segmentedControl>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="YZa-Y2-aZx">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KyC-Du-kYR" id="0wz-w5-tQ8"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8pN-fi-RUw" firstAttribute="top" secondItem="xdX-b8-lvt" secondAttribute="bottom" constant="27.5" id="1tE-fP-3Wu"/>
                             <constraint firstAttribute="trailing" secondItem="8pN-fi-RUw" secondAttribute="trailing" id="4Og-Kv-ANJ"/>
                             <constraint firstAttribute="centerX" secondItem="8pN-fi-RUw" secondAttribute="centerX" id="65q-z7-tfV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YZa-Y2-aZx" secondAttribute="trailing" constant="-16" id="6Sy-OE-TKi"/>
+                            <constraint firstItem="YZa-Y2-aZx" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" id="99r-bQ-scj"/>
                             <constraint firstItem="xdX-b8-lvt" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="DoE-I6-fKs"/>
                             <constraint firstItem="nsO-1X-2jy" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="QhH-wF-Ph1"/>
+                            <constraint firstItem="8pN-fi-RUw" firstAttribute="top" secondItem="xdX-b8-lvt" secondAttribute="bottom" constant="24.5" id="UfC-Xj-nCM"/>
+                            <constraint firstItem="YZa-Y2-aZx" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leadingMargin" constant="-16" id="Xvm-Xb-7c1"/>
+                            <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="YZa-Y2-aZx" secondAttribute="bottom" constant="10" id="b5e-1D-IsO"/>
                             <constraint firstItem="8pN-fi-RUw" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leading" id="eRZ-ML-GBO"/>
                             <constraint firstItem="TVW-9F-zhR" firstAttribute="top" secondItem="nsO-1X-2jy" secondAttribute="bottom" constant="34" id="fLC-4Y-2Mu"/>
-                            <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" constant="20" id="nMr-sk-rUV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="fxH-kW-lnC"/>
                     <connections>
                         <outlet property="binsLabel" destination="nsO-1X-2jy" id="PUZ-W5-FI4"/>
                         <outlet property="locationLabel" destination="xdX-b8-lvt" id="3ha-jC-vxV"/>
+                        <outlet property="searchBar" destination="YZa-Y2-aZx" id="b6j-hK-UdC"/>
+                        <outlet property="searchDisplayController" destination="0pl-bi-WwP" id="DAi-Mb-s0J"/>
                         <outlet property="segmentedControl" destination="8pN-fi-RUw" id="0i3-rr-ZCC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Glq-Y8-u1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="0pl-bi-WwP">
+                    <connections>
+                        <outlet property="delegate" destination="KyC-Du-kYR" id="aqk-TJ-Q7s"/>
+                        <outlet property="searchBar" destination="YZa-Y2-aZx" id="1fn-DS-t93"/>
+                        <outlet property="searchContentsController" destination="KyC-Du-kYR" id="mJc-Ob-yOv"/>
+                        <outlet property="searchResultsDataSource" destination="KyC-Du-kYR" id="HF7-Ye-HIH"/>
+                        <outlet property="searchResultsDelegate" destination="KyC-Du-kYR" id="U3O-wG-6he"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2912" y="1110"/>
         </scene>

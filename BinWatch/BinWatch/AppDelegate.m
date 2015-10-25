@@ -171,7 +171,7 @@
                         }
                         else
                         {
-                            // TODO retry? Try 3 times. Still not there, let user search.
+                            // retry? No. Let user search.
                         }
                     }];
     }

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BWDashBoardViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
