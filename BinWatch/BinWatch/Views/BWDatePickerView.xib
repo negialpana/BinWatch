@@ -31,7 +31,7 @@
                             </connections>
                         </barButtonItem>
                     </items>
-                    <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.082352941176470587" green="0.58431372549019611" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </toolbar>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="4sp-t3-KrY">
                     <rect key="frame" x="0.0" y="46.5" width="600" height="180"/>
