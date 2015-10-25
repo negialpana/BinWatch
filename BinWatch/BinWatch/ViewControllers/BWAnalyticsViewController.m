@@ -171,6 +171,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         {
             BWAnalyseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:analyseBinCell];
             BWBin *bin = (BWBin *)[self.table1Data objectAtIndex:indexPath.row];
+
+            UIImage *imageRed = [UIImage imageNamed:@"ButtonSelectedRed"];
+            UIImage *imageGreen = [UIImage imageNamed:@"ButtonSelectedGreen"];
+            UIImage *imageYellow = [UIImage imageNamed:@"ButtonSelectedYellow"];
+            
+            if([bin.fill longValue] > RED_BOUNDARY)
+                [cell.selectionBtn setBackgroundImage:imageRed forState: UIControlStateSelected];
+            else if([bin.fill longValue] > YELLOW_BOUNDARY)
+                [cell.selectionBtn setBackgroundImage:imageYellow forState: UIControlStateSelected];
+            else
+                [cell.selectionBtn setBackgroundImage:imageGreen forState: UIControlStateSelected];
+            
             cell.binDetailsLabel.text = [BWHelpers areanameFromFullAddress:bin.place];
             cell.fillPercentLabel.text = [NSString stringWithFormat:@"%ld%%",[bin.fill longValue]];
             cell.textLabel.textColor = [BWHelpers textColorForBinColor:bin.color];
