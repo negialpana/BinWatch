@@ -697,6 +697,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjM-GA-Zhb">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchIsOnOff:" destination="FrY-zd-PpG" eventType="valueChanged" id="4zl-zn-xww"/>
                                                     </connections>
@@ -719,6 +720,7 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zgb-VS-7E9">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchIsOnOff:" destination="FrY-zd-PpG" eventType="valueChanged" id="9hH-Xc-v0M"/>
                                                     </connections>
@@ -747,6 +749,7 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="khJ-6R-dkG">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchIsOnOff:" destination="FrY-zd-PpG" eventType="valueChanged" id="1wF-8j-lcY"/>
                                                     </connections>
@@ -1024,6 +1027,7 @@
                                                 </label>
                                                 <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-ds-NPl">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchOnOffChanged:" destination="hSQ-5g-2V0" eventType="valueChanged" id="USd-QP-0Qe"/>
                                                     </connections>
@@ -1056,6 +1060,7 @@
                                             <subviews>
                                                 <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-aH-3SS">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchOnOffChanged:" destination="hSQ-5g-2V0" eventType="valueChanged" id="vcF-BN-xPO"/>
                                                     </connections>
@@ -1094,6 +1099,7 @@
                                             <subviews>
                                                 <switch opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QD5-ei-ymD">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.08235294118" green="0.58431372550000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchOnOffChanged:" destination="hSQ-5g-2V0" eventType="valueChanged" id="8tK-Nu-qqS"/>
                                                     </connections>
