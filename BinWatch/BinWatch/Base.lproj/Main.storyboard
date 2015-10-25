@@ -753,7 +753,7 @@
         <!--Settings-->
         <scene sceneID="J7d-W6-Jot">
             <objects>
-                <tableViewController id="hSQ-5g-2V0" customClass="BWSettingsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="settingsVC" id="hSQ-5g-2V0" customClass="BWSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TAO-e8-gZq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -963,11 +963,24 @@
                             <outlet property="delegate" destination="hSQ-5g-2V0" id="uVL-R0-v39"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="p5S-Zl-Dyh"/>
+                    <navigationItem key="navigationItem" title="Settings" id="4y0-l5-KVc">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="0Hp-nz-gR1">
+                            <connections>
+                                <action selector="donePressed:" destination="hSQ-5g-2V0" id="n8e-IO-zFw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="csvSwitch" destination="QD5-ei-ymD" id="BBn-4e-uUv"/>
+                        <outlet property="emailtextField" destination="lrW-lm-En7" id="jB3-hE-CJr"/>
+                        <outlet property="excelSwitch" destination="dKr-aH-3SS" id="fPA-4z-eLO"/>
+                        <outlet property="pdfSwitch" destination="9oU-ds-NPl" id="lkL-Ye-9e1"/>
+                        <outlet property="radiusTextField" destination="hsp-3Q-BZR" id="Xsr-Ox-a3F"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ut2-51-7LB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1261" y="3203"/>
+            <point key="canvasLocation" x="2073" y="3203"/>
         </scene>
         <!--Bin Locator-->
         <scene sceneID="wg7-f3-ORb">
@@ -1042,7 +1055,6 @@
                         <segue destination="L24-Hs-DaS" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="8zt-FO-N3N" kind="relationship" relationship="viewControllers" id="AJ0-7s-NvZ"/>
                         <segue destination="Ogr-1D-mWv" kind="relationship" relationship="viewControllers" id="szK-7G-pqU"/>
-                        <segue destination="hSQ-5g-2V0" kind="relationship" relationship="viewControllers" id="dGA-vn-Uih"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -1128,6 +1140,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBC-Eb-Yzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2100" y="1110"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="cPh-j9-huE">
+            <objects>
+                <navigationController storyboardIdentifier="settingsNavigation" automaticallyAdjustsScrollViewInsets="NO" id="mBv-3b-FQD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="p5S-Zl-Dyh"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="txo-mQ-BgH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hSQ-5g-2V0" kind="relationship" relationship="rootViewController" id="55D-38-vw8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9xo-ca-tmA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1261" y="3203"/>
         </scene>
     </scenes>
     <resources>

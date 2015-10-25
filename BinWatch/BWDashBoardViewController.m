@@ -20,7 +20,7 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
 
-#define CHART_ORIGIN_Y 225
+#define CHART_ORIGIN_Y 300
 @interface BWDashBoardViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, retain) VBPieChart *chart;
 @property (nonatomic, retain) VBPieChart *tempchart;

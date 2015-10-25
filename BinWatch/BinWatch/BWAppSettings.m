@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "BWHelpers.h"
 #import "BWMailer.h"
+#import "BWSettingsViewController.h"
 #define DEFAULT_RADIUS 5
 
 @implementation BWAppSettings
@@ -91,6 +92,12 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 }
 -(void)settingsSelected{
     NSLog(@"settingsSelected notif");
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    BWSettingsViewController *sv = [sb instantiateViewControllerWithIdentifier:@"settingsNavigation"];
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+
+    [controllerToShowTo presentViewController:sv animated:YES completion:nil];
     
 }
 -(void)requestBinSelected

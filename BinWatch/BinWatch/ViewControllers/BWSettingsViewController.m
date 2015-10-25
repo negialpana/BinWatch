@@ -10,7 +10,13 @@
 
 @interface BWSettingsViewController ()<UITextFieldDelegate>
 - (IBAction)switchOnOffChanged:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *radiusTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailtextField;
+@property (weak, nonatomic) IBOutlet UISwitch *excelSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *csvSwitch;
+- (IBAction)donePressed:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UISwitch *pdfSwitch;
 @end
 
 @implementation BWSettingsViewController
@@ -27,6 +33,16 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    self.radiusTextField.text = [ud valueForKey:@"RADIUS"]?[ud valueForKey:@"RADIUS"]:@"6";
+    self.pdfSwitch.on = [ud boolForKey:@"PDF"];
+    self.excelSwitch.on = [ud boolForKey:@"EXCEL"];
+    self.csvSwitch.on = [ud boolForKey:@"CSV"];
+    self.emailtextField.text = [ud valueForKey:@"EMAIL"];
 }
 
 - (void)tappedOutSide:(id)sender{
@@ -54,7 +70,11 @@
     }else{
         
         if (![textField.text length]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"Please enter mailID" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice"
+                                                            message:@"Please enter mailID"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
             [alert show];
             return NO;
             
@@ -171,5 +191,9 @@
     }
     
     [userDefaults synchronize];
+}
+- (IBAction)donePressed:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
