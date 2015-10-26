@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BWExportTableViewController : UITableViewController
+#import "CorePlot-CocoaTouch.h"
+#import "CPDConstants.h"
+#import "CPDStockPriceStore.h"
+@interface BWExportTableViewController : UITableViewController <CPTBarPlotDataSource, CPTBarPlotDelegate>
 @property (strong, nonatomic) IBOutlet UIView *exportView;
 
 @end

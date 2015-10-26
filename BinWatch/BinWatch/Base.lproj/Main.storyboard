@@ -644,7 +644,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="232.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySg-i6-Z03">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySg-i6-Z03" customClass="CPTGraphHostingView">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="232"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -803,6 +803,7 @@
                         <outlet property="excelSwitch" destination="zgb-VS-7E9" id="9IA-rP-W43"/>
                         <outlet property="exportView" destination="ySg-i6-Z03" id="9Ha-ne-FL0"/>
                         <outlet property="fileView" destination="ySg-i6-Z03" id="XAq-Z6-wze"/>
+                        <outlet property="hostView" destination="ySg-i6-Z03" id="LKT-IX-Z5V"/>
                         <outlet property="pdfSwitch" destination="vjM-GA-Zhb" id="dGr-Iq-fsa"/>
                     </connections>
                 </tableViewController>

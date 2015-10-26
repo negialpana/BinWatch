@@ -58,6 +58,10 @@
 		903F071D1BD3A6960072386B /* libDHxls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 903F071C1BD3A6960072386B /* libDHxls.a */; };
 		903F07201BD3AAF40072386B /* BWMailer.m in Sources */ = {isa = PBXBuildFile; fileRef = 903F071F1BD3AAF40072386B /* BWMailer.m */; };
 		903F07AF1BDCF1B80072386B /* BWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903F07AE1BDCF1B80072386B /* BWSettingsViewController.m */; };
+		905CDBE91BDEA9BF00A18D96 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 905CDBE81BDEA9BF00A18D96 /* libCorePlot-CocoaTouch.a */; };
+		905CDBEB1BDEA9D600A18D96 /* CorePlotHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 905CDBEA1BDEA9D600A18D96 /* CorePlotHeaders */; };
+		905CDBF01BDEAA7800A18D96 /* CPDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CDBED1BDEAA7800A18D96 /* CPDConstants.m */; };
+		905CDBF11BDEAA7800A18D96 /* CPDStockPriceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CDBEF1BDEAA7800A18D96 /* CPDStockPriceStore.m */; };
 		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
 		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
 		F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* BWHelpers.m */; };
@@ -166,6 +170,12 @@
 		903F071F1BD3AAF40072386B /* BWMailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWMailer.m; sourceTree = "<group>"; };
 		903F07AD1BDCF1B80072386B /* BWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettingsViewController.h; sourceTree = "<group>"; };
 		903F07AE1BDCF1B80072386B /* BWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettingsViewController.m; sourceTree = "<group>"; };
+		905CDBE81BDEA9BF00A18D96 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		905CDBEA1BDEA9D600A18D96 /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CorePlotHeaders; sourceTree = "<group>"; };
+		905CDBEC1BDEAA7800A18D96 /* CPDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDConstants.h; sourceTree = "<group>"; };
+		905CDBED1BDEAA7800A18D96 /* CPDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDConstants.m; sourceTree = "<group>"; };
+		905CDBEE1BDEAA7800A18D96 /* CPDStockPriceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDStockPriceStore.h; sourceTree = "<group>"; };
+		905CDBEF1BDEAA7800A18D96 /* CPDStockPriceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDStockPriceStore.m; sourceTree = "<group>"; };
 		F19AB6381B9BEB270084A879 /* BWBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBin.h; sourceTree = "<group>"; };
 		F19AB6391B9BEB270084A879 /* BWBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBin.m; sourceTree = "<group>"; };
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
@@ -233,6 +243,7 @@
 				9027210A1BBBE50B00108D1E /* CoreBluetooth.framework in Frameworks */,
 				902721061BBBE48B00108D1E /* GoogleMaps.framework in Frameworks */,
 				1500ABD91B9C01AE00E0AF6C /* CoreData.framework in Frameworks */,
+				905CDBE91BDEA9BF00A18D96 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +428,7 @@
 		9027211F1BBBE5BF00108D1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				905CDBE81BDEA9BF00A18D96 /* libCorePlot-CocoaTouch.a */,
 				903F071C1BD3A6960072386B /* libDHxls.a */,
 				9000720C1BC6F9C1003B2562 /* Fabric.framework */,
 				9000720D1BC6F9C1003B2562 /* Crashlytics.framework */,
@@ -491,6 +503,11 @@
 		F1F2B9051BC6E55A0019E662 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				905CDBEC1BDEAA7800A18D96 /* CPDConstants.h */,
+				905CDBED1BDEAA7800A18D96 /* CPDConstants.m */,
+				905CDBEE1BDEAA7800A18D96 /* CPDStockPriceStore.h */,
+				905CDBEF1BDEAA7800A18D96 /* CPDStockPriceStore.m */,
+				905CDBEA1BDEA9D600A18D96 /* CorePlotHeaders */,
 				903F07171BD2A99F0072386B /* xlslib */,
 				903F07151BD2A8AF0072386B /* include */,
 				1518749B1BCC19400076BD21 /* PieChart */,
@@ -602,6 +619,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */,
+				905CDBEB1BDEA9D600A18D96 /* CorePlotHeaders in Resources */,
 				15EA4AF31B98A9D7006CD602 /* LaunchScreen.xib in Resources */,
 				15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */,
 				903F07181BD2A99F0072386B /* xlslib in Resources */,
@@ -647,6 +665,7 @@
 				1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */,
 				1500ABE91B9C080500E0AF6C /* BWDataHandler.m in Sources */,
 				321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */,
+				905CDBF01BDEAA7800A18D96 /* CPDConstants.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
 				151874A21BCC19720076BD21 /* UIColor+HexColor.m in Sources */,
@@ -658,6 +677,7 @@
 				F1F8BF991BDCA89700154D90 /* BWAnalyseTableViewCell.m in Sources */,
 				F1F8BFBC1BDE5D2500154D90 /* BWMessagesViewController.m in Sources */,
 				F1F8BF9F1BDCB48C00154D90 /* ChatDialogViewCell.m in Sources */,
+				905CDBF11BDEAA7800A18D96 /* CPDStockPriceStore.m in Sources */,
 				32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				F1F8BFA21BDCB4A400154D90 /* Message.m in Sources */,
