@@ -20,7 +20,7 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
 
-#define CHART_ORIGIN_Y 300
+#define CHART_ORIGIN_Y 350
 @interface BWDashBoardViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, retain) VBPieChart *chart;
 @property (nonatomic, retain) VBPieChart *tempchart;
@@ -184,11 +184,9 @@
 
 -(NSArray *)getBins{
     
-    if (![_binsArray count]) {
-        BWDataHandler *dbHandler = [BWDataHandler sharedHandler];
-        _binsArray = [dbHandler fetchBins];
-    }
-    return _binsArray;
+    BWDataHandler *dbHandler = [BWDataHandler sharedHandler];
+    return  [dbHandler fetchBins];
+  
 }
 
 - (void)setUpChartValuesForFillPercent{

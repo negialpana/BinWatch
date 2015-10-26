@@ -151,6 +151,7 @@ static NSString* const kBinsAddress = @"BinsAddress";
     
     NSManagedObjectContext *context = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setReturnsObjectsAsFaults:NO];
     NSEntityDescription *entity = [NSEntityDescription entityForName:kEntity inManagedObjectContext:context];
     [request setEntity:entity];
     NSError *error = nil;
