@@ -77,6 +77,9 @@
 		F1F8BF9A1BDCA89700154D90 /* BWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F8BF951BDCA89700154D90 /* BWDatePickerView.m */; };
 		F1F8BF9B1BDCA89700154D90 /* BWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1F8BF961BDCA89700154D90 /* BWDatePickerView.xib */; };
 		F1F8BF9C1BDCA89700154D90 /* QueryParameterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F8BF981BDCA89700154D90 /* QueryParameterCell.m */; };
+		F1F8BF9F1BDCB48C00154D90 /* ChatDialogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F8BF9E1BDCB48C00154D90 /* ChatDialogViewCell.m */; };
+		F1F8BFA21BDCB4A400154D90 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F8BFA11BDCB4A400154D90 /* Message.m */; };
+		F1F8BFBC1BDE5D2500154D90 /* BWMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F8BFBB1BDE5D2500154D90 /* BWMessagesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +203,12 @@
 		F1F8BF961BDCA89700154D90 /* BWDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BWDatePickerView.xib; path = Views/BWDatePickerView.xib; sourceTree = "<group>"; };
 		F1F8BF971BDCA89700154D90 /* QueryParameterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryParameterCell.h; path = Views/QueryParameterCell.h; sourceTree = "<group>"; };
 		F1F8BF981BDCA89700154D90 /* QueryParameterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryParameterCell.m; path = Views/QueryParameterCell.m; sourceTree = "<group>"; };
+		F1F8BF9D1BDCB48C00154D90 /* ChatDialogViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDialogViewCell.h; sourceTree = "<group>"; };
+		F1F8BF9E1BDCB48C00154D90 /* ChatDialogViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDialogViewCell.m; sourceTree = "<group>"; };
+		F1F8BFA01BDCB4A400154D90 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		F1F8BFA11BDCB4A400154D90 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		F1F8BFBA1BDE5D2500154D90 /* BWMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWMessagesViewController.h; sourceTree = "<group>"; };
+		F1F8BFBB1BDE5D2500154D90 /* BWMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWMessagesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +258,8 @@
 				321C58D21BBCDF4300F025AA /* BinDetailsViewController.m */,
 				15ED60D31BC94B8C00EA6285 /* BWAnalyseViewController.h */,
 				15ED60D41BC94B8C00EA6285 /* BWAnalyseViewController.m */,
+				F1F8BFBA1BDE5D2500154D90 /* BWMessagesViewController.h */,
+				F1F8BFBB1BDE5D2500154D90 /* BWMessagesViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -372,6 +383,8 @@
 		15ED60CA1BC8365F00EA6285 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				F1F8BF9D1BDCB48C00154D90 /* ChatDialogViewCell.h */,
+				F1F8BF9E1BDCB48C00154D90 /* ChatDialogViewCell.m */,
 				32861A8B1BC4A1D400D0568F /* GradientView.h */,
 				32861A8C1BC4A1D400D0568F /* GradientView.m */,
 				F1F8BF921BDCA89700154D90 /* BWAnalyseTableViewCell.h */,
@@ -429,6 +442,8 @@
 		F19AB6851BA2BD4C0084A879 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				F1F8BFA01BDCB4A400154D90 /* Message.h */,
+				F1F8BFA11BDCB4A400154D90 /* Message.m */,
 				F1F2B9321BCBEA250019E662 /* BWConstants.h */,
 				F1F2B9331BCBEA250019E662 /* BWConstants.m */,
 				903F05DA1BD0194C0072386B /* BWDocumentHelper.h */,
@@ -641,8 +656,11 @@
 				F1F2B9141BC6E55A0019E662 /* HudDemoViewController.m in Sources */,
 				151874A31BCC19720076BD21 /* VBPieChart.m in Sources */,
 				F1F8BF991BDCA89700154D90 /* BWAnalyseTableViewCell.m in Sources */,
+				F1F8BFBC1BDE5D2500154D90 /* BWMessagesViewController.m in Sources */,
+				F1F8BF9F1BDCB48C00154D90 /* ChatDialogViewCell.m in Sources */,
 				32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
+				F1F8BFA21BDCB4A400154D90 /* Message.m in Sources */,
 				F1F2B9101BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				903F05DC1BD0194C0072386B /* BWDocumentHelper.mm in Sources */,
 				15F596391BDD2CBD008F714F /* BWExportTableViewController.m in Sources */,

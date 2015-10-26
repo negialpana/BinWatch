@@ -358,7 +358,6 @@
     [self.settingsControl toggleControl];
 }
 
-#pragma mark - Event Handler
 - (IBAction)segmentTapped:(id)sender {
     UISegmentedControl *segmentCtrl = (UISegmentedControl *)sender;
     for(UIView *chart in [self.view subviews]){
