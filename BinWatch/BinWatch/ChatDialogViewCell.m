@@ -39,9 +39,9 @@ CGFloat screenWidth;
     }
 }
 
-+ (CGFloat)heightForCellWithMessage:(Message *)message
++ (CGFloat)heightForCellWithMessage:(NSString *)message
 {
-    NSString *text = message.text;
+    NSString *text = message;
     
     
     CGSize  textSize = {260.0, 10000.0};
