@@ -10,6 +10,5 @@
 
 @interface BWExportTableViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UIView *exportView;
-@property (strong, nonatomic) IBOutlet UIImageView *blackLine;
 
 @end
