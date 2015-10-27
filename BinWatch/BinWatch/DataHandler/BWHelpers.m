@@ -115,8 +115,10 @@ void runOnMainThread(void(^block)(void))
     int indexOfAreaName = -1;
     for (NSString *string in arrayOfAddressStrings) {
         //todo improvement : it would be better if the street address, areaname, city are given with header and deliminator as area : BTM layout, city : Bengaluru. In that case we can just scan for "area :" header to get the area name instead of hard-coding the cityname as Bengaluru.
-        if([string containsString:@"Bengaluru"])
-        {
+        
+        NSRange range = [string rangeOfString:@"Bengaluru"];
+        if (range.location != NSNotFound) {
+            
             break;
         }
         indexOfAreaName++;
