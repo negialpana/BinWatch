@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *queryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateRangeLabel;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphView;
+@property (weak, nonatomic) IBOutlet UITextView *binDetailsTextView;
 
 @property (nonatomic, strong) CPTBarPlot *aaplPlot;
 @property (nonatomic, strong) CPTBarPlot *googPlot;
@@ -52,6 +53,9 @@ CGFloat const CPDBarInitialX = 0.25f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    for(BWBin *obj in self.bins){
+        self.binDetailsTextView.text = [self.binDetailsTextView.text stringByAppendingString:[NSString stringWithFormat:@"%@ - %@%%\n",obj.area,obj.fill]];
+    }
     activeBins = [[BWDataHandler sharedHandler] fetchBins];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd"];
