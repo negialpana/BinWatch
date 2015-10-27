@@ -193,6 +193,9 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 -(IBAction)msftSwitched:(id)sender {
 }
+- (IBAction)cancelBtnClick:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (IBAction)donePressed:(id)sender {
     

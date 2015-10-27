@@ -756,6 +756,11 @@
                                 <action selector="donePressed:" destination="FrY-zd-PpG" id="z3I-zS-tzL"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Acw-Yp-OoM">
+                            <connections>
+                                <action selector="cancelBtnClick:" destination="FrY-zd-PpG" id="PiF-Gj-aFB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="csv" destination="khJ-6R-dkG" id="oad-v4-jUH"/>
