@@ -20,10 +20,6 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
 
-#define CHART_ORIGIN_X 0
-#define CHART_ORIGIN_Y 300
-#define CHART_WIDTH 200
-#define CHART_HEIGHT 200
 #define CHART_RADIUS 3
 #define CHART_HOLE_RADIUS 0.3
 #define CHART_SHADOW_OPACITY 0.7
@@ -52,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *binsLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, strong)NSArray *binsArray;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 - (IBAction)segmentTapped:(id)sender;
 
@@ -94,15 +91,12 @@
     self.navigationItem.rightBarButtonItem = menuButton;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     [self refreshViews];
     [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
     [self.settingsControl hideControl];
-}
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,9 +118,8 @@
     
     if (!_chart || ![[self.view subviews] containsObject:_chart]) {
         _chart = [[VBPieChart alloc] init];
-        [self.view addSubview:_chart];
-        [_chart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _chart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
+        [_chart setFrame:CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height)];
+        [self.containerView addSubview:_chart];
         [_chart setEnableStrokeColor:YES];
         [_chart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_chart.layer setShadowRadius:CHART_RADIUS];
@@ -142,9 +135,9 @@
 -(VBPieChart *)activechart{
     if (!_activechart || ![[self.view subviews] containsObject:_activechart]) {
         _activechart = [[VBPieChart alloc] init];
-        [self.view addSubview:_activechart];
-        [_activechart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _activechart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
+        [_activechart setFrame:CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height)];
+
+        [self.containerView addSubview:_activechart];
         [_activechart setEnableStrokeColor:YES];
         [_activechart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_activechart.layer setShadowRadius:CHART_RADIUS];
@@ -159,9 +152,9 @@
 - (VBPieChart *)humiditychart{
     if (!_humiditychart || ![[self.view subviews] containsObject:_humiditychart]) {
         _humiditychart = [[VBPieChart alloc] init];
-        [self.view addSubview:_humiditychart];
-        [_humiditychart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _humiditychart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
+        [_humiditychart setFrame:CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height)];
+
+        [self.containerView addSubview:_humiditychart];
         [_humiditychart setEnableStrokeColor:YES];
         [_humiditychart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_humiditychart.layer setShadowRadius:CHART_RADIUS];
@@ -177,9 +170,9 @@
     
     if (!_tempchart || ![[self.view subviews] containsObject:_tempchart]) {
         _tempchart = [[VBPieChart alloc] init];
-        [self.view addSubview:_tempchart];
-        [_tempchart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _tempchart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
+        [_tempchart setFrame:CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height)];
+
+        [self.containerView addSubview:_tempchart];
         [_tempchart setEnableStrokeColor:YES];
         [_tempchart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_tempchart.layer setShadowRadius:CHART_RADIUS];
@@ -384,7 +377,7 @@
 
 - (IBAction)segmentTapped:(id)sender {
     UISegmentedControl *segmentCtrl = (UISegmentedControl *)sender;
-    for(UIView *chart in [self.view subviews]){
+    for(UIView *chart in [self.containerView subviews]){
         
         if ([chart isKindOfClass:[VBPieChart class]]) {
             [chart removeFromSuperview];
