@@ -69,8 +69,6 @@
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
     self.navigationItem.rightBarButtonItem = menuButton;
     
-    self.settingsControl = [[BWSettingsControl alloc] init];
-    [self.settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -78,6 +76,7 @@
     // TODO: Enable this
     //[self refreshViews];
     [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
+    [self.settingsControl hideControl];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -90,6 +89,14 @@
 
 #pragma mark - Utility Methods
 
+-(BWSettingsControl *)settingsControl
+{
+    if (!_settingsControl) {
+        _settingsControl = [BWSettingsControl new];
+        [_settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:MENU_DEFAULT_RADIUS];
+    }
+    return _settingsControl;
+}
 -(VBPieChart *)chart{
     
     //[[self.view subviews] containsObject:_chart];

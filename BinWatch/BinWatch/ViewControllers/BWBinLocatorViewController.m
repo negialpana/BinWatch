@@ -23,6 +23,7 @@
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
+@property (nonatomic, retain) BWSettingsControl *settingsControl;
 
 @end
 
@@ -34,7 +35,6 @@
     NSMutableDictionary *mapMarkers;
     NSMutableArray *selectedLocations;
     BOOL isMapEdited;
-    BWSettingsControl *settingsControl;
     BOOL searchOn;
     NSArray *searchResultPlaces;
     SPGooglePlacesAutocompleteQuery *searchQuery;
@@ -120,14 +120,11 @@
         defaults   = [NSNumber numberWithInt:BWMenuItemAllUserDefaults];
     }
     
-    settingsControl = [[BWSettingsControl alloc] init];
-    [settingsControl createMenuInViewController:self withCells:@[drawRoutes,defaults] andWidth:200];
-    [settingsControl setDelegate:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [settingsControl hideControl];
+    [self.settingsControl hideControl];
     if([BWDataHandler sharedHandler].binsLocation)
         activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
                                                         zoom:zoomLevel];
@@ -139,10 +136,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - getters
+-(BWSettingsControl *)settingsControl
+{
+    if (!_settingsControl) {
+        _settingsControl = [BWSettingsControl new];
+        [_settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:MENU_DEFAULT_RADIUS];
+        _settingsControl.delegate = self;
+    }
+    return _settingsControl;
+}
+
+
 #pragma mark - Event Handlers
 - (void)menuTapped
 {
-    [settingsControl toggleControl];
+    [self.settingsControl toggleControl];
 }
 
 #pragma mark - Map Utils
@@ -389,7 +398,7 @@
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    [settingsControl hideControl];
+    [self.settingsControl hideControl];
     NSLog(@"did tap at cordinate");
     if(!isMapEdited)
         return;
@@ -406,7 +415,7 @@
  */
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
-    [settingsControl hideControl];
+    [self.settingsControl hideControl];
 
     isMapEdited = YES;
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);

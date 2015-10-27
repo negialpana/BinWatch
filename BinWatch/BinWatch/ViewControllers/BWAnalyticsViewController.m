@@ -43,6 +43,7 @@ static NSString *kSelectHeader   = @"Select Bins";
 @property (nonatomic, strong) NSString *queryParam;
 @property (nonatomic, strong) NSMutableArray *selectedBins;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBarForTableView1;
+@property (nonatomic, strong) BWSettingsControl *settingsControl;
 
 - (IBAction)dateBtnPressed:(id)sender;
 - (IBAction)donePressed:(id)sender;
@@ -90,10 +91,6 @@ static NSString *kSelectHeader   = @"Select Bins";
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
     self.navigationItem.rightBarButtonItem = menuButton;
 
-    settingsControl = [[BWSettingsControl alloc] init];
-    [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
-
-    // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -106,6 +103,16 @@ static NSString *kSelectHeader   = @"Select Bins";
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - getters
+-(BWSettingsControl *)settingsControl
+{
+    if (!_settingsControl) {
+        _settingsControl = [BWSettingsControl new];
+        [_settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:MENU_DEFAULT_RADIUS];
+    }
+    return _settingsControl;
 }
 
 #pragma mark - UITableViewDataSource

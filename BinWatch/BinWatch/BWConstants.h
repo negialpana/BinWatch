@@ -19,6 +19,7 @@ extern NSString* const kBinDataChangedNotification;
 #define RED_BOUNDARY 70
 #define YELLOW_BOUNDARY 50
 #define DEFAULT_RADIUS 5
+#define MENU_DEFAULT_RADIUS 200
 
 #define RedColor    [UIColor colorWithRed:188.0/255.0f green:33.0/255.0f blue:33.0/255.0f alpha:0.8]
 #define GreenColor  [UIColor colorWithRed:56.0/255.0f green:139.0/255.0f blue:59.0/255.0f alpha:0.8]

@@ -30,17 +30,18 @@ const NSString *noBinsMessage = @"No data is currently available. Please pull do
 
 @interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate >
 
+@property (nonatomic, strong) BWSettingsControl *settingsControl;
+@property (nonatomic, strong) SPGooglePlacesAutocompleteQuery *searchQuery;
+@property (nonatomic, strong) NSArray *searchResultPlaces;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSMutableArray *activeBins;
+
 @end
 
 @implementation BWFillLevelsViewController
 
 bool noBins = NO;
-NSMutableArray *activeBins;
-UIRefreshControl *refreshControl;
 NSDate *lastUpdate;
-NSArray *searchResultPlaces;
-SPGooglePlacesAutocompleteQuery *searchQuery;
-BWSettingsControl *settingsControl;
 BOOL shouldBeginEditing;
 
 #pragma  mark - View Life Cycle Methods
@@ -49,11 +50,11 @@ BOOL shouldBeginEditing;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
 
-    activeBins = [[NSMutableArray alloc]init];
+    self.activeBins = [[NSMutableArray alloc]init];
 
     // Init for google places search
-    searchResultPlaces = [[NSArray alloc]init];
-    searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
+    self.searchResultPlaces = [[NSArray alloc]init];
+    self.searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
     self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -76,20 +77,17 @@ BOOL shouldBeginEditing;
                name:UIDeviceOrientationDidChangeNotification
              object:nil];
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
                        action:@selector(fetchData)
              forControlEvents:UIControlEventValueChanged];
     
-    [self.tableView addSubview:refreshControl];
+    [self.tableView addSubview:self.refreshControl];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.searchDisplayController.searchResultsTableView.delegate = self;
     self.searchDisplayController.searchResultsTableView.dataSource = self;
     self.searchDisplayController.delegate = self;
-    
-    settingsControl = [BWSettingsControl new];
-    [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
     
     
     [self.searchBar setBackgroundImage:[[UIImage alloc]init]];
@@ -99,7 +97,17 @@ BOOL shouldBeginEditing;
 -(void)viewWillAppear:(BOOL)animated
 {
     // Adding settings control
-    [settingsControl hideControl];
+    [self.settingsControl hideControl];
+}
+
+#pragma mark - getters
+-(BWSettingsControl *)settingsControl
+{
+    if (!_settingsControl) {
+        _settingsControl = [BWSettingsControl new];
+        [_settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:MENU_DEFAULT_RADIUS];
+    }
+    return _settingsControl;
 }
 
 -(void)fetchData
@@ -169,9 +177,9 @@ BOOL shouldBeginEditing;
     long tableViewTag = (long)tableView.tag;
 
     if(tableViewTag == TABLE_VIEW_PLACES_SEARCH)
-        return [searchResultPlaces count];
+        return [self.searchResultPlaces count];
     else
-        return activeBins.count;
+        return self.activeBins.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -267,14 +275,14 @@ BOOL shouldBeginEditing;
 #pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
-    searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
-    searchQuery.input = searchString;
-    [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
+    self.searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
+    self.searchQuery.input = searchString;
+    [self.searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
             [BWLogger DoLog:@"Could not fetch Places"];
             [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
-            searchResultPlaces = places;
+            self.searchResultPlaces = places;
             runOnMainThread(^{
                 [self.searchDisplayController.searchResultsTableView reloadData];
             });
@@ -333,13 +341,13 @@ BOOL shouldBeginEditing;
 }
 
 - (SPGooglePlacesAutocompletePlace *)placeAtIndexPath:(NSIndexPath *)indexPath {
-    return searchResultPlaces[indexPath.row];
+    return self.searchResultPlaces[indexPath.row];
 }
 
 #pragma mark - Event Handlers
 - (void)moreTapped
 {
-    [settingsControl toggleControl];
+    [self.settingsControl toggleControl];
 }
 
 -(void)didChangeDeviceOrientation
@@ -351,16 +359,16 @@ BOOL shouldBeginEditing;
 #pragma mark - Utility Methods
 - (void) refreshBins
 {
-    activeBins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    NSLog(@"Refreshing Bins: %lu", (unsigned long)activeBins.count);
-    noBins = activeBins.count ? NO : YES;
+    self.activeBins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+    NSLog(@"Refreshing Bins: %lu", (unsigned long)self.activeBins.count);
+    noBins = self.activeBins.count ? NO : YES;
 
     // Nice fix. This has to be on main thread. Otherwise it takes time
     runOnMainThread(^{
       [self.tableView reloadData];
     });
 
-    if (refreshControl) {
+    if (self.refreshControl) {
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
@@ -370,14 +378,14 @@ BOOL shouldBeginEditing;
         //NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
         //TODO :There is a crash please fix
         //refreshControl.attributedTitle = !attributedTitle?@"":attributedTitle;
-        [refreshControl endRefreshing];
+        [self.refreshControl endRefreshing];
     }
 
 }
 
 -(BWBin*)binForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BWBin *bin = (BWBin *)[activeBins objectAtIndex:indexPath.row];
+    BWBin *bin = (BWBin *)[self.activeBins objectAtIndex:indexPath.row];
     return bin;
 }
 
