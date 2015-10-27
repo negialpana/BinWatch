@@ -28,7 +28,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.messages = [NSArray arrayWithObjects:@"This is a message from BBMP.\n If your bins are not being collected, please report.", @"This is a message from BBMP.\n Please don't use the bin in front of PSN because it is faulty", @"This is a message from BinWatch.\n Checkout our new feature of request bin. You can now request a bin to BBMP using our menu item. \n Thank you for your continued support", nil];
+    self.messages = [NSArray arrayWithObjects:@"This is a message from BBMP.\nIf your bins are not being collected, please report.", @"This is a message from BBMP.\nPlease don't use the bin in front of PSN because it is faulty", @"This is a message from BinWatch.\nCheckout our new feature of request bin. You can now request a bin to BBMP using our menu item. \nThank you for your continued support", nil];
     
     // Navigation Bar Init
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
