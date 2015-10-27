@@ -109,16 +109,6 @@
     [self.view addSubview:activeMapView];
     [self.view bringSubviewToFront:_mapSearchBar];
     
-    NSNumber *drawRoutes;
-    NSNumber *defaults;
-    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode){
-        drawRoutes = [NSNumber numberWithInt:BWMenuItemDrawRoutes];
-        defaults   = [NSNumber numberWithInt:BWMenuItemAllBBMPDefaults];
-    }
-    else{
-        drawRoutes = [NSNumber numberWithInt:BWMenuItemRouteToNearest];
-        defaults   = [NSNumber numberWithInt:BWMenuItemAllUserDefaults];
-    }
     
 }
 
@@ -140,8 +130,18 @@
 -(BWSettingsControl *)settingsControl
 {
     if (!_settingsControl) {
+        NSNumber *drawRoutes;
+        NSNumber *defaults;
+        if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode){
+            drawRoutes = [NSNumber numberWithInt:BWMenuItemDrawRoutes];
+            defaults   = [NSNumber numberWithInt:BWMenuItemAllBBMPDefaults];
+        }
+        else{
+            drawRoutes = [NSNumber numberWithInt:BWMenuItemRouteToNearest];
+            defaults   = [NSNumber numberWithInt:BWMenuItemAllUserDefaults];
+        }
         _settingsControl = [BWSettingsControl new];
-        [_settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:MENU_DEFAULT_RADIUS];
+        [_settingsControl createMenuInViewController:self withCells:@[drawRoutes,defaults] andWidth:MENU_DEFAULT_RADIUS];
         _settingsControl.delegate = self;
     }
     return _settingsControl;

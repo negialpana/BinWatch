@@ -55,7 +55,6 @@ static NSString *kSelectHeader   = @"Select Bins";
     SPGooglePlacesAutocompleteQuery *searchQuery;
     BOOL shouldBeginEditing;
     NSArray *searchResultPlaces;
-    BWSettingsControl *settingsControl;
 }
 
 #pragma mark - View Life Cycle
@@ -96,7 +95,7 @@ static NSString *kSelectHeader   = @"Select Bins";
 -(void)viewWillAppear:(BOOL)animated
 {
     // Adding settings control
-    [settingsControl hideControl];
+    [self.settingsControl hideControl];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -304,7 +303,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 #pragma mark - Event Handlers
 - (void)menuTapped
 {
-    [settingsControl toggleControl];
+    [self.settingsControl toggleControl];
 }
 
 - (IBAction)dateBtnPressed:(id)sender {
