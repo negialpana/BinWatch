@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -501,33 +502,52 @@
                                     <outlet property="delegate" destination="KyC-Du-kYR" id="0wz-w5-tQ8"/>
                                 </connections>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Fo-YD-12l">
+                                <rect key="frame" x="133" y="173" width="335" height="335"/>
+                                <color key="backgroundColor" red="0.9758308631" green="1" blue="0.27338790530000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7Fo-YD-12l" secondAttribute="height" multiplier="1:1" id="gG1-V9-Zlu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="xdX-b8-lvt" secondAttribute="trailing" id="10P-B0-vDV"/>
+                            <constraint firstItem="7Fo-YD-12l" firstAttribute="top" secondItem="8pN-fi-RUw" secondAttribute="bottom" constant="5" id="1Qy-vY-QoD"/>
+                            <constraint firstItem="7Fo-YD-12l" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leading" constant="20" id="3yC-xV-2eD"/>
                             <constraint firstAttribute="trailing" secondItem="8pN-fi-RUw" secondAttribute="trailing" id="4Og-Kv-ANJ"/>
                             <constraint firstAttribute="centerX" secondItem="8pN-fi-RUw" secondAttribute="centerX" id="65q-z7-tfV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YZa-Y2-aZx" secondAttribute="trailing" constant="-16" id="6Sy-OE-TKi"/>
                             <constraint firstItem="YZa-Y2-aZx" firstAttribute="top" secondItem="4X6-Bo-Icn" secondAttribute="bottom" id="99r-bQ-scj"/>
+                            <constraint firstAttribute="trailing" secondItem="7Fo-YD-12l" secondAttribute="trailing" constant="20" id="9XK-tw-6A9"/>
                             <constraint firstItem="xdX-b8-lvt" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="DoE-I6-fKs"/>
+                            <constraint firstItem="7Fo-YD-12l" firstAttribute="top" secondItem="8pN-fi-RUw" secondAttribute="bottom" constant="15" id="EmG-Fx-uAb"/>
+                            <constraint firstItem="nsO-1X-2jy" firstAttribute="top" secondItem="7Fo-YD-12l" secondAttribute="bottom" constant="32" id="Kwc-Du-Ynl"/>
                             <constraint firstItem="nsO-1X-2jy" firstAttribute="centerX" secondItem="cJQ-el-4be" secondAttribute="centerX" id="QhH-wF-Ph1"/>
                             <constraint firstItem="8pN-fi-RUw" firstAttribute="top" secondItem="xdX-b8-lvt" secondAttribute="bottom" constant="5" id="UfC-Xj-nCM"/>
                             <constraint firstItem="YZa-Y2-aZx" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leadingMargin" constant="-16" id="Xvm-Xb-7c1"/>
                             <constraint firstItem="xdX-b8-lvt" firstAttribute="top" secondItem="YZa-Y2-aZx" secondAttribute="bottom" constant="10" id="b5e-1D-IsO"/>
+                            <constraint firstItem="nsO-1X-2jy" firstAttribute="top" secondItem="7Fo-YD-12l" secondAttribute="bottom" constant="7" id="eGh-xA-XNp"/>
                             <constraint firstItem="8pN-fi-RUw" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leading" id="eRZ-ML-GBO"/>
                             <constraint firstItem="TVW-9F-zhR" firstAttribute="top" secondItem="nsO-1X-2jy" secondAttribute="bottom" constant="15" id="fLC-4Y-2Mu"/>
                             <constraint firstItem="xdX-b8-lvt" firstAttribute="leading" secondItem="cJQ-el-4be" secondAttribute="leading" id="rze-1E-eIx"/>
+                            <constraint firstItem="7Fo-YD-12l" firstAttribute="centerX" secondItem="8pN-fi-RUw" secondAttribute="centerX" id="twV-FU-1R9"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="DoE-I6-fKs"/>
+                                <exclude reference="3yC-xV-2eD"/>
+                                <exclude reference="9XK-tw-6A9"/>
+                                <exclude reference="EmG-Fx-uAb"/>
+                                <exclude reference="Kwc-Du-Ynl"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="fxH-kW-lnC"/>
                     <connections>
                         <outlet property="binsLabel" destination="nsO-1X-2jy" id="PUZ-W5-FI4"/>
+                        <outlet property="containerView" destination="7Fo-YD-12l" id="gFR-LE-j1P"/>
                         <outlet property="locationLabel" destination="xdX-b8-lvt" id="3ha-jC-vxV"/>
                         <outlet property="searchBar" destination="YZa-Y2-aZx" id="b6j-hK-UdC"/>
                         <outlet property="searchDisplayController" destination="0pl-bi-WwP" id="DAi-Mb-s0J"/>
