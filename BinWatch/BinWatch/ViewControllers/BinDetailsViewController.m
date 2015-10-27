@@ -36,6 +36,7 @@
 
     [self initVars];
     [self setUpView];
+    [self setNextFill];
     [self getCurrentBinData];
 }
 
@@ -156,7 +157,6 @@
     [self setUpBarGraphViews];
     [self setUpTemperatureGraph];
     [self joinCirclesWithLine];
-    [self setNextFill];
 }
 -(void)setNextFill
 {
@@ -165,12 +165,15 @@
     [dateFormatter setDateFormat: @"dd-MM-yyyy"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
     __block NSString *text;
-    [[BWConnectionHandler sharedInstance] getNextFillForBinWithId:self.currentBin.binID andCompletionBlock:^(NSDate *next, NSError *err) {
-        text = [dateFormatter stringFromDate:next];
-//        runOnMainThread(^{
+    [[BWConnectionHandler sharedInstance] getNextFillForBinWithId:self.currentBin.binID andCompletionBlock:^(NSDate *next, NSError *error) {
+        if (!error) {
+            text = [dateFormatter stringFromDate:next];
             self.nextFillDate.text = text;
-        
-//        });
+        }
+        else {
+            [BWLogger DoLog:@"Failed to get next fill date"];
+            [BWHelpers displayHud:@"Failed to get next fill date" onView:self.view];
+        }
     }];
 }
 - (void)setUpBarGraphViews

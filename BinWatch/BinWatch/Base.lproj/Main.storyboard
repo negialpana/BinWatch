@@ -903,10 +903,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWw-ae-JaB">
-                                        <rect key="frame" x="421" y="8" width="161" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fetching..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWw-ae-JaB">
+                                        <rect key="frame" x="422" y="8" width="160" height="20.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="161" id="uS7-Zu-k8H"/>
+                                            <constraint firstAttribute="width" constant="160" id="uS7-Zu-k8H"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -918,6 +918,7 @@
                                 <constraints>
                                     <constraint firstItem="6wc-xO-s1M" firstAttribute="top" secondItem="MC0-Vx-sr7" secondAttribute="top" constant="8" id="1cs-nJ-sd3"/>
                                     <constraint firstAttribute="height" constant="120" id="3yf-Si-u5C"/>
+                                    <constraint firstItem="kWw-ae-JaB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6wc-xO-s1M" secondAttribute="trailing" constant="30" id="dBM-Ko-ibi"/>
                                     <constraint firstItem="6wc-xO-s1M" firstAttribute="leading" secondItem="MC0-Vx-sr7" secondAttribute="leading" constant="8" id="iiV-6x-VUx"/>
                                     <constraint firstItem="kWw-ae-JaB" firstAttribute="top" secondItem="MC0-Vx-sr7" secondAttribute="top" constant="8" id="jhb-Ls-c44"/>
                                     <constraint firstAttribute="trailing" secondItem="kWw-ae-JaB" secondAttribute="trailing" constant="8" id="rYF-yh-6QV"/>
