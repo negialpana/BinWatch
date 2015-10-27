@@ -126,7 +126,6 @@
 
     [settingsTableView reloadData];
     [settingsTableView setSeparatorColor:[UIColor clearColor]];
-    NSLog(@"HHH: %f", settingsTableView.rowHeight);
 }
 
 - (void) hideControl

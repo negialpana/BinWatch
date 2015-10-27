@@ -20,8 +20,22 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWConnectionHandler.h"
 
+#define CHART_ORIGIN_X 0
 #define CHART_ORIGIN_Y 350
+#define CHART_WIDTH 200
+#define CHART_HEIGHT 200
+#define CHART_RADIUS 3
+#define CHART_HOLE_RADIUS 0.3
+#define CHART_SHADOW_OPACITY 0.7
+
+#define COLOR_RED [UIColor colorWithHex:0xdd191daa]
+#define COLOR_MAGENTA [UIColor colorWithHex:0xd81b60aa]
+#define COLOR_PURPLE [UIColor colorWithHex:0x8e24aaaa]
+#define COLOR_BLUE [UIColor colorWithHex:0x3f51b5aa]
+#define COLOR_YELLOW [UIColor colorWithHex:0xf57c00aa]
+
 @interface BWDashBoardViewController () <UITableViewDataSource,UITableViewDelegate>
+
 @property (nonatomic, retain) VBPieChart *chart;
 @property (nonatomic, retain) VBPieChart *tempchart;
 @property (nonatomic, retain) VBPieChart *humiditychart;
@@ -33,6 +47,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *binsLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, strong)NSArray *binsArray;
+
 - (IBAction)segmentTapped:(id)sender;
 
 @end
@@ -45,17 +60,21 @@
 }
 
 #pragma mark - Life Cycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setNeedsLayout];
-    [self.locationLabel setText:@"TODO: mention location here"];
+
+    // Init labels
+    [self.locationLabel setText:[BWDataHandler sharedHandler].binsAddress];
+    [self.binsLabel setText:[NSString stringWithFormat:@"Bin Count : %lu",(unsigned long)[[[BWDataHandler sharedHandler]fetchBins] count]]];
+
+    // Init segmented control
     _segmentedControl.tintColor = AppTheme;
     _binsArray = [NSArray array];
-    self.segmentedControl.selectedSegmentIndex = 1;
-   // [self setUpChartValuesForIndex:0];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
-    
+    self.segmentedControl.selectedSegmentIndex = 0;
+
+    // Init search bar and search query classes
     searchResultPlaces = [[NSArray alloc]init];
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
@@ -68,13 +87,11 @@
     // Navigation Bar Init
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
     self.navigationItem.rightBarButtonItem = menuButton;
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    // TODO: Enable this
-    //[self refreshViews];
+    [self refreshViews];
     [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
     [self.settingsControl hideControl];
 }
@@ -97,37 +114,38 @@
     }
     return _settingsControl;
 }
+
 -(VBPieChart *)chart{
     
-    //[[self.view subviews] containsObject:_chart];
     if (!_chart || ![[self.view subviews] containsObject:_chart]) {
         _chart = [[VBPieChart alloc] init];
         [self.view addSubview:_chart];
-        [_chart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
+        [_chart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
         _chart.center = self.view.center;
         [_chart setEnableStrokeColor:YES];
         [_chart.layer setShadowOffset:CGSizeMake(2, 2)];
-        [_chart.layer setShadowRadius:3];
+        [_chart.layer setShadowRadius:CHART_RADIUS];
         [_chart.layer setShadowColor:[UIColor blackColor].CGColor];
-        [_chart.layer setShadowOpacity:0.7];
-        [_chart setHoleRadiusPrecent:0.3];
+        [_chart.layer setShadowOpacity:CHART_SHADOW_OPACITY];
+        [_chart setHoleRadiusPrecent:CHART_HOLE_RADIUS];
         [_chart setLabelsPosition:VBLabelsPositionOnChart];
 
     }
     return _chart;
 }
+
 -(VBPieChart *)activechart{
     if (!_activechart || ![[self.view subviews] containsObject:_activechart]) {
         _activechart = [[VBPieChart alloc] init];
         [self.view addSubview:_activechart];
-        [_activechart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
+        [_activechart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
         _activechart.center = self.view.center;
         [_activechart setEnableStrokeColor:YES];
         [_activechart.layer setShadowOffset:CGSizeMake(2, 2)];
-        [_activechart.layer setShadowRadius:3];
+        [_activechart.layer setShadowRadius:CHART_RADIUS];
         [_activechart.layer setShadowColor:[UIColor blackColor].CGColor];
-        [_activechart.layer setShadowOpacity:0.7];
-        [_activechart setHoleRadiusPrecent:0.3];
+        [_activechart.layer setShadowOpacity:CHART_SHADOW_OPACITY];
+        [_activechart setHoleRadiusPrecent:CHART_HOLE_RADIUS];
         [_activechart setLabelsPosition:VBLabelsPositionOnChart];
     }
     return _activechart;
@@ -137,14 +155,14 @@
     if (!_humiditychart || ![[self.view subviews] containsObject:_humiditychart]) {
         _humiditychart = [[VBPieChart alloc] init];
         [self.view addSubview:_humiditychart];
-        [_humiditychart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
+        [_humiditychart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
         _humiditychart.center = self.view.center;
         [_humiditychart setEnableStrokeColor:YES];
         [_humiditychart.layer setShadowOffset:CGSizeMake(2, 2)];
-        [_humiditychart.layer setShadowRadius:3];
+        [_humiditychart.layer setShadowRadius:CHART_RADIUS];
         [_humiditychart.layer setShadowColor:[UIColor blackColor].CGColor];
-        [_humiditychart.layer setShadowOpacity:0.7];
-        [_humiditychart setHoleRadiusPrecent:0.3];
+        [_humiditychart.layer setShadowOpacity:CHART_SHADOW_OPACITY];
+        [_humiditychart setHoleRadiusPrecent:CHART_HOLE_RADIUS];
         [_humiditychart setLabelsPosition:VBLabelsPositionOnChart];
     }
     return _humiditychart;
@@ -155,14 +173,14 @@
     if (!_tempchart || ![[self.view subviews] containsObject:_tempchart]) {
         _tempchart = [[VBPieChart alloc] init];
         [self.view addSubview:_tempchart];
-        [_tempchart setFrame:CGRectMake(0, CHART_ORIGIN_Y, 200 , 200)];
+        [_tempchart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
         _tempchart.center = self.view.center;
         [_tempchart setEnableStrokeColor:YES];
         [_tempchart.layer setShadowOffset:CGSizeMake(2, 2)];
-        [_tempchart.layer setShadowRadius:3];
+        [_tempchart.layer setShadowRadius:CHART_RADIUS];
         [_tempchart.layer setShadowColor:[UIColor blackColor].CGColor];
-        [_tempchart.layer setShadowOpacity:0.7];
-        [_tempchart setHoleRadiusPrecent:0.3];
+        [_tempchart.layer setShadowOpacity:CHART_SHADOW_OPACITY];
+        [_tempchart setHoleRadiusPrecent:CHART_HOLE_RADIUS];
         [_tempchart setLabelsPosition:VBLabelsPositionOnChart];
     }
     return _tempchart;
@@ -190,10 +208,7 @@
 }
 
 -(NSArray *)getBins{
-    
-    BWDataHandler *dbHandler = [BWDataHandler sharedHandler];
-    return  [dbHandler fetchBins];
-  
+    return [[BWDataHandler sharedHandler] fetchBins];
 }
 
 - (void)setUpChartValuesForFillPercent{
@@ -205,7 +220,7 @@
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
         for(int i = 0 ;i<5 ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.fill < %d && SELF.fill >= %d)",(i+1)*20,(i)*20];
-            NSLog(@"....%d & %d",(i+1)*20,(i)*20);
+            //NSLog(@"....%d & %d",(i+1)*20,(i)*20);
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
             long double percent = ((long double)[arr count]/(long double)[bins count]*100);
             
@@ -214,11 +229,11 @@
             [percentages addObject:dict];
         }
         self.chartValues = @[
-                             @{@"name":[NSString stringWithFormat:@"<20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xdd191daa]},
-                             @{@"name":[NSString stringWithFormat:@"<40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xd81b60aa]},
-                             @{@"name":[NSString stringWithFormat:@"<60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x8e24aaaa]},
-                             @{@"name":[NSString stringWithFormat:@"<80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x3f51b5aa]},
-                             @{@"name":[NSString stringWithFormat:@"<100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xf57c00aa]}
+                             @{@"name":[NSString stringWithFormat:@"< 20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":COLOR_RED},
+                             @{@"name":[NSString stringWithFormat:@"< 40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":COLOR_MAGENTA},
+                             @{@"name":[NSString stringWithFormat:@"< 60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":COLOR_PURPLE},
+                             @{@"name":[NSString stringWithFormat:@"< 80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":COLOR_BLUE},
+                             @{@"name":[NSString stringWithFormat:@"< 100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":COLOR_YELLOW}
                              ];
         
         [self.chart setChartValues:_chartValues animation:YES];
@@ -244,8 +259,8 @@
             [percentages addObject:dict];
         }
         self.chartValues = @[
-                             @{@"name":[NSString stringWithFormat:@"InActive: %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xdd191daa]},
-                             @{@"name":[NSString stringWithFormat:@"Active: %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xd81b60aa]}
+                             @{@"name":[NSString stringWithFormat:@"In-Active: %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":COLOR_RED},
+                             @{@"name":[NSString stringWithFormat:@"Active: %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":COLOR_MAGENTA}
                              ];
         
         [self.activechart setChartValues:self.chartValues animation:YES options:VBPieChartAnimationFan];
@@ -263,7 +278,7 @@
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
         for(int i = 0 ;i<5 ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.humidity < %d && SELF.humidity >= %d)",(i+1)*20,(i)*20];
-            NSLog(@"....%d & %d",(i+1)*20,(i)*20);
+            //NSLog(@"....%d & %d",(i+1)*20,(i)*20);
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
             long double percent = ((long double)[arr count]/(long double)[bins count]*100);
             
@@ -272,11 +287,11 @@
             [percentages addObject:dict];
         }
         self.chartValues = @[
-                             @{@"name":[NSString stringWithFormat:@"<20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xdd191daa]},
-                             @{@"name":[NSString stringWithFormat:@"<40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xd81b60aa]},
-                             @{@"name":[NSString stringWithFormat:@"<60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x8e24aaaa]},
-                             @{@"name":[NSString stringWithFormat:@"<80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x3f51b5aa]},
-                             @{@"name":[NSString stringWithFormat:@"<100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xf57c00aa]}
+                             @{@"name":[NSString stringWithFormat:@"< 20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":COLOR_RED},
+                             @{@"name":[NSString stringWithFormat:@"< 40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":COLOR_MAGENTA},
+                             @{@"name":[NSString stringWithFormat:@"< 60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":COLOR_PURPLE},
+                             @{@"name":[NSString stringWithFormat:@"< 80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":COLOR_BLUE},
+                             @{@"name":[NSString stringWithFormat:@"< 100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":COLOR_YELLOW}
                              ];
         
         [self.humiditychart setChartValues:_chartValues animation:YES];
@@ -294,7 +309,7 @@
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
         for(int i = 0 ;i<5 ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.temperature < %d && SELF.temperature >= %d)",(i+1)*20,(i)*20];
-            NSLog(@"....%d & %d",(i+1)*20,(i)*20);
+            //NSLog(@"....%d & %d",(i+1)*20,(i)*20);
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
             long double percent = ((long double)[arr count]/(long double)[bins count]*100);
             
@@ -303,11 +318,11 @@
             [percentages addObject:dict];
         }
         self.chartValues = @[
-                             @{@"name":[NSString stringWithFormat:@"<20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xdd191daa]},
-                             @{@"name":[NSString stringWithFormat:@"<40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xd81b60aa]},
-                             @{@"name":[NSString stringWithFormat:@"<60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x8e24aaaa]},
-                             @{@"name":[NSString stringWithFormat:@"<80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0x3f51b5aa]},
-                             @{@"name":[NSString stringWithFormat:@"<100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":[UIColor colorWithHex:0xf57c00aa]}
+                             @{@"name":[NSString stringWithFormat:@"< 20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":COLOR_RED},
+                             @{@"name":[NSString stringWithFormat:@"< 40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":COLOR_MAGENTA},
+                             @{@"name":[NSString stringWithFormat:@"< 60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":COLOR_PURPLE},
+                             @{@"name":[NSString stringWithFormat:@"< 80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":COLOR_BLUE},
+                             @{@"name":[NSString stringWithFormat:@"< 100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":COLOR_YELLOW}
                              ];
         
         [self.tempchart setChartValues:_chartValues animation:YES];
@@ -318,14 +333,11 @@
 
 -(void) refreshViews
 {
-    NSLog(@"REFRESH VIEWS ****************************************************");
     runOnMainThread(^{
         NSArray *bins = [[BWDataHandler sharedHandler] fetchBins];
         [self.locationLabel setText:[BWDataHandler sharedHandler].binsAddress];
         [self.binsLabel setText:[NSString stringWithFormat:@"Bin Count : %lu",(unsigned long)[bins count]]];
-        // TODO: Enable this.
-        // Get index of seledted control
-        //[self setUpChartValuesForIndex:0];
+        [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
     });
 }
 - (SPGooglePlacesAutocompletePlace *)placeAtIndexPath:(NSIndexPath *)indexPath {
@@ -341,7 +353,6 @@
     [connectionHandler getBinsAtPlace:location withAddress:addressString
                 WithCompletionHandler:^(NSArray *bins, NSError *error) {
                     if (!error) {
-                        NSLog(@"*********Bins: %@", [bins description]);
                         [self refreshViews];
                     } else {
                         if (![[AppDelegate appDel] connected]) {
@@ -355,7 +366,7 @@
                         }
                     }
                 }];
-    [self refreshViews];
+    //[self refreshViews];
 }
 #pragma mark - Event Handlers
 - (void)menuTapped
@@ -372,12 +383,6 @@
         }
     }
     [self setUpChartValuesForIndex:segmentCtrl.selectedSegmentIndex];
-}
-
-#pragma mark - Notifications
-- (void)binDataChanged:(NSNotification *)notification
-{
-    [self refreshViews];
 }
 
 #pragma mark - UITableViewDataSource
