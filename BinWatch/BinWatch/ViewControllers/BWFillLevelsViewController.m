@@ -28,7 +28,7 @@
 
 const NSString *noBinsMessage = @"No data is currently available. Please pull down to refresh.";
 
-@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate , BWSettingsControlDelegate >
+@interface BWFillLevelsViewController () <UITableViewDataSource , UITableViewDelegate , UISearchBarDelegate ,UISearchDisplayDelegate, MBProgressHUDDelegate >
 
 @end
 
@@ -90,7 +90,6 @@ BOOL shouldBeginEditing;
     
     settingsControl = [BWSettingsControl new];
     [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
-    settingsControl.delegate = self;
     
     
     [self.searchBar setBackgroundImage:[[UIImage alloc]init]];

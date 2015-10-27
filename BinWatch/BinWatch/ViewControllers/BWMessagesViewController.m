@@ -76,7 +76,8 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ChatDialogViewCell heightForCellWithMessage:self.messages[indexPath.row]];
+    Message *message = [[Message alloc]initWithText:self.messages[indexPath.row]];
+    return [ChatDialogViewCell heightForCellWithMessage:message];
 }
 
 

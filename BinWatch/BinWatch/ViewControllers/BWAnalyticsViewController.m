@@ -31,7 +31,7 @@ static NSString *analyseBinCell  = @"binCellAnalyse";
 static NSString *kAnalyseHeader  = @"Select Parameter";
 static NSString *kSelectHeader   = @"Select Bins";
 
-@interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate , BWSettingsControlDelegate>
+@interface BWAnalyticsViewController ()<UITableViewDataSource,UITableViewDelegate >
 @property (weak, nonatomic) IBOutlet UITableView *tableView2;
 @property (weak, nonatomic) IBOutlet UITableView *tableView1;
 @property (nonatomic, strong) NSArray *table1Data;
@@ -92,7 +92,6 @@ static NSString *kSelectHeader   = @"Select Bins";
 
     settingsControl = [[BWSettingsControl alloc] init];
     [settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
-    [settingsControl setDelegate:self];
 
     // Do any additional setup after loading the view.
 }

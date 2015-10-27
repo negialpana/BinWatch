@@ -36,5 +36,6 @@ NSDate *dateTo = [NSDate dateWithTimeIntervalSince1970:1478822400];
                            }];
 */
 - (void)getBinData:(NSString *)binID from:(NSDate *)utcFrom to:(NSDate *)utcTo forParam:(BWBinParam)param WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock;
+- (void)getNextFillForBinWithId:(NSString*)binId andCompletionBlock:(void(^)(NSDate *, NSError *))completionBlock;
 
 @end

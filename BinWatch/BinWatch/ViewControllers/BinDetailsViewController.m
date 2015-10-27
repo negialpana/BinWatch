@@ -63,7 +63,7 @@
 
 - (IBAction)segmentedControlTapped:(id)sender
 {
-    NSLog(@"segmented control tapped with index %d", _segmentControl.selectedSegmentIndex);
+    NSLog(@"segmented control tapped with index %ld", (long)_segmentControl.selectedSegmentIndex);
 }
 
 #pragma mark - User Defined Methods
@@ -156,8 +156,23 @@
     [self setUpBarGraphViews];
     [self setUpTemperatureGraph];
     [self joinCirclesWithLine];
+    [self setNextFill];
 }
-
+-(void)setNextFill
+{
+    // init datetime formatter
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"dd-MM-yyyy"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    __block NSString *text;
+    [[BWConnectionHandler sharedInstance] getNextFillForBinWithId:self.currentBin.binID andCompletionBlock:^(NSDate *next, NSError *err) {
+        text = [dateFormatter stringFromDate:next];
+//        runOnMainThread(^{
+            self.nextFillDate.text = text;
+        
+//        });
+    }];
+}
 - (void)setUpBarGraphViews
 {
     float offsetX = 10.0f;

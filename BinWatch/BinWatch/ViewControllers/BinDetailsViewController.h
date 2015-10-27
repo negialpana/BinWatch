@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *binFillPercentLabel;
 @property (strong, nonatomic) IBOutlet UIView *binIDView;
 @property (weak, nonatomic) IBOutlet UIImageView *blackLineImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nextFillDate;
 
 @property (assign) int currentSelectedBinIndex;
 

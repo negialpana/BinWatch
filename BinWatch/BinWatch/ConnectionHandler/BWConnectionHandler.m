@@ -182,6 +182,33 @@ static NSString* const kAttribute               = @"attr";
     
 }
 
+- (void)getNextFillForBinWithId:(NSString*)binId andCompletionBlock:(void(^)(NSDate *, NSError *))completionBlock{
+    NSURL *url = [self rootURL];
+    NSString *pathComponent = [NSString stringWithFormat:@"get/bin/%@/prediction",binId];
+    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:pathComponent]
+                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                 
+                                                 NSError *jsonError = nil;
+                                                 NSDate *nextFillDate;
+                                                 if (!error)
+                                                 {
+                                                     NSArray * binFillData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                      options:NSJSONReadingAllowFragments
+                                                                                                        error:&jsonError];
+                                                     NSNumber *date = [binFillData valueForKey:@"nextFill"];
+                                                     NSTimeInterval ti = [date doubleValue];
+                                                     nextFillDate = [NSDate dateWithTimeIntervalSinceReferenceDate:ti];
+                                                     completionBlock(nextFillDate,jsonError);
+                                                 }
+                                                 else
+                                                 {
+                                                     completionBlock(nil,error);
+                                                 }
+                                             }];
+    [dataTask resume];
+    
+ 
+}
 - (NSURL *)rootURL
 {
     NSString *rootURLString = kRootUrl;
