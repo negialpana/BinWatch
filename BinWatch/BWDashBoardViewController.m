@@ -21,7 +21,7 @@
 #import "BWConnectionHandler.h"
 
 #define CHART_ORIGIN_X 0
-#define CHART_ORIGIN_Y 350
+#define CHART_ORIGIN_Y 300
 #define CHART_WIDTH 200
 #define CHART_HEIGHT 200
 #define CHART_RADIUS 3
@@ -126,7 +126,7 @@
         _chart = [[VBPieChart alloc] init];
         [self.view addSubview:_chart];
         [_chart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _chart.center = self.view.center;
+        _chart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
         [_chart setEnableStrokeColor:YES];
         [_chart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_chart.layer setShadowRadius:CHART_RADIUS];
@@ -144,7 +144,7 @@
         _activechart = [[VBPieChart alloc] init];
         [self.view addSubview:_activechart];
         [_activechart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _activechart.center = self.view.center;
+        _activechart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
         [_activechart setEnableStrokeColor:YES];
         [_activechart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_activechart.layer setShadowRadius:CHART_RADIUS];
@@ -161,7 +161,7 @@
         _humiditychart = [[VBPieChart alloc] init];
         [self.view addSubview:_humiditychart];
         [_humiditychart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _humiditychart.center = self.view.center;
+        _humiditychart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
         [_humiditychart setEnableStrokeColor:YES];
         [_humiditychart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_humiditychart.layer setShadowRadius:CHART_RADIUS];
@@ -179,7 +179,7 @@
         _tempchart = [[VBPieChart alloc] init];
         [self.view addSubview:_tempchart];
         [_tempchart setFrame:CGRectMake(CHART_ORIGIN_X, CHART_ORIGIN_Y, CHART_WIDTH , CHART_HEIGHT)];
-        _tempchart.center = self.view.center;
+        _tempchart.center = CGPointMake(self.view.center.x, CHART_ORIGIN_Y);
         [_tempchart setEnableStrokeColor:YES];
         [_tempchart.layer setShadowOffset:CGSizeMake(2, 2)];
         [_tempchart.layer setShadowRadius:CHART_RADIUS];
