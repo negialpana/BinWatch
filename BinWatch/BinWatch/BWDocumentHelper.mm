@@ -42,6 +42,11 @@ using namespace xlslib_core;
     sh1->label(0,7,"ACTIVE");
     sh1->label(0,8,"DATE");
     
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd-HH-mm-ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    
     NSArray *bins = [[BWDataHandler sharedHandler]fetchBins];
     int col;
     for(int i = 0; i < bins.count; i++)
@@ -56,7 +61,7 @@ using namespace xlslib_core;
         sh1->label(i + 1, col++, [[NSString stringWithFormat:@"%f",[bin.temperature floatValue]] UTF8String]);
         sh1->label(i + 1, col++, [[NSString stringWithFormat:@"%f",[bin.humidity floatValue]] UTF8String]);
         sh1->label(i + 1, col++, [bin.isAcive?@"YES":@"NO" UTF8String]);
-        sh1->label(i + 1, col++, [[NSString stringWithFormat:@"%@",bin.date] UTF8String]);
+        sh1->label(i + 1, col++, [[dateFormatter stringFromDate:bin.date] UTF8String]);
     }
     int err = wb.Dump([filePathLib UTF8String]);
     if(err)
@@ -71,11 +76,15 @@ using namespace xlslib_core;
     NSFileHandle *myHandle = [self getFileHandle:filePath];
     [self writeHeader:myHandle];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd-HH-mm-ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+
     NSArray *bins = [[BWDataHandler sharedHandler] fetchBins];
     for (BWBin *bin in bins)
     {
         NSString *binAddress = [bin.place stringByReplacingOccurrencesOfString:@"," withString:@" "];
-        NSString *objects = [NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@,%@,%@,%@", binAddress,bin.binID, bin.latitude, bin.longitude,bin.fill, bin.temperature, bin.humidity, bin.isAcive? @"YES":@"NO",bin.date];
+        NSString *objects = [NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@,%@,%@,%@", binAddress,bin.binID, bin.latitude, bin.longitude,bin.fill, bin.temperature, bin.humidity, bin.isAcive? @"YES":@"NO",[dateFormatter stringFromDate:bin.date]];
         [self writeNewline:myHandle];
         [self writeData:[objects dataUsingEncoding:NSUTF8StringEncoding] toFile:myHandle];
     }
@@ -108,7 +117,6 @@ using namespace xlslib_core;
     
     // instructs the mutable data object to write its context to a file on disk
     [pdfData writeToFile:documentDirectoryFilename atomically:YES];
-    NSLog(@"documentDirectoryFileName: %@",documentDirectoryFilename);
 }
 
 -(void) deleteAllFiles
