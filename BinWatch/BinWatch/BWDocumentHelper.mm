@@ -82,7 +82,7 @@ using namespace xlslib_core;
 }
 
 // http://stackoverflow.com/questions/5443166/how-to-convert-uiview-to-pdf-within-ios
-- (void)createPDFfromUIView:(UIView*)aView saveToDocumentsWithFileName:(NSString*)aFilename
+- (void)createPDFfromUIView:(UIView*)aView
 {
     // Creates a mutable data object for updating with binary data, like a byte array
     NSMutableData *pdfData = [NSMutableData data];
@@ -104,34 +104,32 @@ using namespace xlslib_core;
     NSArray* documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
     
     NSString* documentDirectory = [documentDirectories objectAtIndex:0];
-    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:aFilename];
+    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:FILE_NAME_PDF];
     
     // instructs the mutable data object to write its context to a file on disk
     [pdfData writeToFile:documentDirectoryFilename atomically:YES];
     NSLog(@"documentDirectoryFileName: %@",documentDirectoryFilename);
 }
 
-//+ (void)sendByMail:(NSString *)fileName forView:(UIViewController*)parent
-//{
-//    NSString *extn = [fileName pathExtension];
-//    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-//    picker.mailComposeDelegate = parent;
-//
-//    //NSString *fileName = [[NSString alloc]initWithFormat:@"%@.pdf",@"BinWatch"];
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *pdfFileName = [documentsDirectory stringByAppendingPathComponent:fileName];
-//
-//    NSMutableData *myPdfData = [NSMutableData dataWithContentsOfFile:pdfFileName];
-//    if([extn isEqualToString:@"pdf"])
-//        [picker addAttachmentData:myPdfData mimeType:@"application/pdf" fileName:FILE_NAME_PDF];
-//    else if ([extn isEqualToString:@"csv"])
-//        [picker addAttachmentData:myPdfData mimeType:@"text/csv" fileName:FILE_NAME_CSV];
-//    else if ([extn isEqualToString:@"xls"])
-//        [picker addAttachmentData:myPdfData mimeType:@"application/vnd.ms-excel" fileName:FILE_NAME_XLS];
-//    
-//    [parent.navigationController presentViewController:picker animated:YES completion:nil];
-//}
+-(void) deleteAllFiles
+{
+    NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePathCSV = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:FILE_NAME_CSV]];
+    NSString *filePathPDF = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:FILE_NAME_PDF]];
+    NSString *filePathXLS = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:FILE_NAME_XLS]];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    
+    if([fileManager fileExistsAtPath:filePathCSV])
+        [fileManager removeItemAtPath:filePathCSV error:&error];
+
+    if([fileManager fileExistsAtPath:filePathPDF])
+        [fileManager removeItemAtPath:filePathPDF error:&error];
+
+    if([fileManager fileExistsAtPath:filePathXLS])
+        [fileManager removeItemAtPath:filePathXLS error:&error];
+}
 
 #pragma mark - Utility Methods
 -(NSString *)createCSV

@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface BWDocumentHelper : NSObject
+
+- (void) exportToXLS;
 - (void) exportToCSV;
-- (void)createPDFfromUIView:(UIView*)aView saveToDocumentsWithFileName:(NSString*)aFilename;
-//+ (void)sendByMail:(NSString *)name forView:(UIViewController*)parent;
+- (void) createPDFfromUIView:(UIView*)aView;
+- (void) deleteAllFiles;
 @end

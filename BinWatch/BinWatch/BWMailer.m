@@ -11,6 +11,11 @@
 #import "BWHelpers.h"
 #import "AppDelegate.h"
 #import "BWAppSettings.h"
+#import "BWDocumentHelper.h"
+
+#define FILE_NAME_CSV @"BinWatch.csv"
+#define FILE_NAME_PDF @"BinWatch.pdf"
+#define FILE_NAME_XLS @"BinWatch.xls"
 
 @implementation BWMailer
 
@@ -47,7 +52,7 @@
     }
 }
 
-+(void) composeMailWithSubject:(NSString*)subject body:(NSString*)body andAttachment:(NSString*)file
++(void) composeMailWithSubject:(NSString*)subject body:(NSString*)body andAttachment:(NSArray*)files
 {
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
     if ([MFMailComposeViewController canSendMail]) {
@@ -57,34 +62,36 @@
         [controller setMessageBody:body isHTML:NO];
         [controller setToRecipients:@[[[BWAppSettings sharedInstance] getSupportMailID]]];
 
-        // Determine the file name and extension
-        NSArray *filepart = [file componentsSeparatedByString:@"."];
-        NSString *filename = [filepart objectAtIndex:0];
-        NSString *extension = [filepart objectAtIndex:1];
-        
-        // Get the resource path and read the file using NSData
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:filename ofType:extension];
-        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-        
-        // Determine the MIME type
-        NSString *mimeType;
-        if ([extension isEqualToString:@"jpg"]) {
-            mimeType = @"image/jpeg";
-        } else if ([extension isEqualToString:@"png"]) {
-            mimeType = @"image/png";
-        } else if ([extension isEqualToString:@"doc"]) {
-            mimeType = @"application/msword";
-        } else if ([extension isEqualToString:@"ppt"]) {
-            mimeType = @"application/vnd.ms-powerpoint";
-        } else if ([extension isEqualToString:@"html"]) {
-            mimeType = @"text/html";
-        } else if ([extension isEqualToString:@"pdf"]) {
-            mimeType = @"application/pdf";
+        for(NSString *filePath in files)
+        {
+            // Determine the file name and extension
+            NSString *filename = [filePath lastPathComponent];
+            NSString *extension = [filename pathExtension];
+            
+            // Get the resource path and read the file using NSData
+            NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+            
+            // Determine the MIME type
+            NSString *mimeType;
+            if ([extension isEqualToString:@"jpg"]) {
+                mimeType = @"image/jpeg";
+            } else if ([extension isEqualToString:@"png"]) {
+                mimeType = @"image/png";
+            } else if ([extension isEqualToString:@"doc"]) {
+                mimeType = @"application/msword";
+            } else if ([extension isEqualToString:@"ppt"]) {
+                mimeType = @"application/vnd.ms-powerpoint";
+            } else if ([extension isEqualToString:@"html"]) {
+                mimeType = @"text/html";
+            } else if ([extension isEqualToString:@"pdf"]) {
+                mimeType = @"application/pdf";
+            } else if ([extension isEqualToString:@"xls"]) {
+                mimeType = @"application/vnd.ms-excel";
+            }
+            
+             if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+                 [controller addAttachmentData:fileData mimeType:mimeType fileName:filename];
         }
-        
-        // Add attachment
-        [controller addAttachmentData:fileData mimeType:mimeType fileName:filename];
-        
 
         if (controller)
         {
@@ -98,22 +105,26 @@
         [BWHelpers displayHud:@"Mail not configured" onView:controllerToShowTo.view];
     }
 }
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+    
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
     NSString *message;
     switch (result)
     {
         case MFMailComposeResultCancelled:
+            [[[BWDocumentHelper alloc]init] deleteAllFiles];
             message = @"Email Cancelled";
             break;
         case MFMailComposeResultSaved:
             message = @"Email Saved";
             break;
         case MFMailComposeResultSent:
+            [[[BWDocumentHelper alloc]init] deleteAllFiles];
             message = @"Email Sent";
             break;
         case MFMailComposeResultFailed:
+            [[[BWDocumentHelper alloc]init] deleteAllFiles];
             message = @"Email Failed";
             break;
         default:

@@ -11,6 +11,12 @@
 #import "BWConstants.h"
 #import "BWDataHandler.h"
 #import "BWBin.h"
+#import "BWDocumentHelper.h"
+#import "BWMailer.h"
+
+#define FILE_NAME_CSV @"BinWatch.csv"
+#define FILE_NAME_PDF @"BinWatch.pdf"
+#define FILE_NAME_XLS @"BinWatch.xls"
 
 @interface BWExportTableViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *fileView;
@@ -103,15 +109,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     return YES;
 }
 
-
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
     [[BWAppSettings sharedInstance] saveSupportMailID:textField.text];
 }
 
-- (IBAction)donePressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 #pragma mark - CPTPlotDataSource methods
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
     return [activeBins count];
@@ -181,6 +183,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     // 8 - Add the annotation 
     [plot.graph.plotAreaFrame.plotArea addAnnotation:self.priceAnnotation];
 }
+
 #pragma mark - IBActions
 -(IBAction)aaplSwitched:(id)sender {
 }
@@ -189,6 +192,49 @@ CGFloat const CPDBarInitialX = 0.25f;
 }
 
 -(IBAction)msftSwitched:(id)sender {
+}
+
+- (IBAction)donePressed:(id)sender {
+    
+    BWDocumentHelper *docHelper = [[BWDocumentHelper alloc] init];
+    NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+    NSMutableArray *fileNames = [[NSMutableArray alloc] init];
+
+    if([_excelSwitch isOn])
+    {
+        [docHelper exportToXLS];
+        NSString *filePathxls = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:FILE_NAME_XLS]];
+        [fileNames addObject:filePathxls];
+    }
+
+    if([_csv isOn])
+    {
+        [docHelper exportToCSV];
+        NSString *filePathcsv = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:FILE_NAME_CSV]];
+        [fileNames addObject:filePathcsv];
+    }
+
+    if([_pdfSwitch isOn])
+    {
+        [docHelper createPDFfromUIView:self.hostView];
+        NSString *filePathpdf = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:FILE_NAME_PDF]];
+        [fileNames addObject:filePathpdf];
+    }
+    if([fileNames count] > 0)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [BWMailer composeMailWithSubject:@"ExportedData" body:@"Attached" andAttachment:fileNames];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"NOTE"
+                                                        message:@"Please select alteast one format to export data."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - Chart behavior
