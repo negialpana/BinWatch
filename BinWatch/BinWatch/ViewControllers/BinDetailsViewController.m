@@ -22,6 +22,7 @@
 
 @interface BinDetailsViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *timeFrameLabel;
 @property (nonatomic, retain) BWBin *currentBin;
 @property (nonatomic, retain) NSArray *currentBinHumidityData;
 @property (nonatomic, retain) NSArray *currentBinTemperatureData;
@@ -97,6 +98,8 @@
     NSDate *today = [NSDate date];
     NSDate *sevenDaysAgo = [today dateByAddingTimeInterval:- 7*24*60*60];
     
+    [self setTimeFrameLabelWith:sevenDaysAgo andEndDate:today];
+    
     //get temperature data
     [[BWConnectionHandler sharedInstance] getBinData:self.currentBin.binID from:sevenDaysAgo to:today forParam:BWTemperature
                                WithCompletionHandler:^(NSArray *binData, NSError *error) {
@@ -121,6 +124,31 @@
                                        NSLog(@"%@", [error localizedDescription]);
                                    }
                                }];
+}
+
+- (void)setTimeFrameLabelWith:(NSDate *)startDate andEndDate:(NSDate*)endDate
+{
+    NSDateComponents *startDateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:startDate];
+    int startDay = [startDateComponents day];
+    int startMonth = [startDateComponents month];
+    NSString *startMonthName = [([[[NSDateFormatter alloc] init] monthSymbols][startMonth - 1]) substringToIndex:3];
+    int startYear = [startDateComponents year];
+    
+    NSDateComponents *endDateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:endDate];
+    
+    int endDay = [endDateComponents day];
+    int endMonth = [endDateComponents month];
+    NSString *endMonthName = [([[[NSDateFormatter alloc] init] monthSymbols][endMonth - 1]) substringToIndex:3];
+    int endYear = [endDateComponents year];
+    
+    NSString *labelString = [NSString stringWithFormat:@"%d %@ - %d %@", startDay, startMonthName, endDay, endMonthName];
+    
+    if([startDate compare:endDate] == NSOrderedSame)
+        labelString = [NSString stringWithFormat:@"%d %@", startDay, endMonthName];
+    if(startYear != endYear)
+        labelString = [NSString stringWithFormat:@"%d %@ %d - %d %@ %d", startDay, startMonthName, startYear, endDay, endMonthName, endYear];
+    
+    [self.timeFrameLabel setText:labelString];
 }
 
 - (void)plotGraphs
