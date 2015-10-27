@@ -28,6 +28,11 @@
 #define CHART_HOLE_RADIUS 0.3
 #define CHART_SHADOW_OPACITY 0.7
 
+#define CHART_FILL_DIVISIONS 5
+#define CHART_BINSTATUS_DIVISIONS 2
+#define CHART_HUMIDITY_DIVISIONS 5
+#define CHART_TEMP_DIVISIONS 5
+
 #define COLOR_RED [UIColor colorWithHex:0xdd191daa]
 #define COLOR_MAGENTA [UIColor colorWithHex:0xd81b60aa]
 #define COLOR_PURPLE [UIColor colorWithHex:0x8e24aaaa]
@@ -218,7 +223,8 @@
     
     if ([bins count]) {
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
-        for(int i = 0 ;i<5 ;i++){
+
+        for(int i = 0 ;i < CHART_FILL_DIVISIONS ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.fill < %d && SELF.fill >= %d)",(i+1)*20,(i)*20];
             //NSLog(@"....%d & %d",(i+1)*20,(i)*20);
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
@@ -249,7 +255,8 @@
     
     if ([bins count]) {
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
-        for(int i = 0 ;i<2 ;i++){
+
+        for(int i = 0 ;i < CHART_BINSTATUS_DIVISIONS ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.isAcive == %d",i];
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
             long double percent = ((long double)[arr count]/(long double)[bins count]*100);
@@ -276,7 +283,8 @@
     
     if ([bins count]) {
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
-        for(int i = 0 ;i<5 ;i++){
+
+        for(int i = 0 ;i < CHART_HUMIDITY_DIVISIONS ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.humidity < %d && SELF.humidity >= %d)",(i+1)*20,(i)*20];
             //NSLog(@"....%d & %d",(i+1)*20,(i)*20);
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
@@ -307,7 +315,7 @@
     
     if ([bins count]) {
         [self.binsLabel setText:[NSString stringWithFormat:@"Total Bins : %lu",(unsigned long)[bins count]]];
-        for(int i = 0 ;i<5 ;i++){
+        for(int i = 0 ;i < CHART_TEMP_DIVISIONS ;i++){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.temperature < %d && SELF.temperature >= %d)",(i+1)*20,(i)*20];
             //NSLog(@"....%d & %d",(i+1)*20,(i)*20);
             NSArray *arr = [bins filteredArrayUsingPredicate:predicate];
