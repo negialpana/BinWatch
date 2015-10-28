@@ -38,6 +38,9 @@
     [self setUpView];
     [self setNextFill];
     [self getCurrentBinData];
+    
+    [_weekView setHidden:NO];
+    [_customDateView setHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,6 +68,25 @@
 - (IBAction)segmentedControlTapped:(id)sender
 {
     NSLog(@"segmented control tapped with index %ld", (long)_segmentControl.selectedSegmentIndex);
+    
+    switch ([_segmentControl selectedSegmentIndex]) {
+        case 0:
+        {
+            [_weekView setHidden:NO];
+            [_customDateView setHidden:YES];
+        }
+            break;
+            
+        case 1:
+        {
+            [_weekView setHidden:YES];
+            [_customDateView setHidden:NO];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - User Defined Methods

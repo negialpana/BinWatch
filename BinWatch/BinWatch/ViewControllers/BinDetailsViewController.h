@@ -10,6 +10,8 @@
 
 @interface BinDetailsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *weekView;
+@property (weak, nonatomic) IBOutlet UIView *customDateView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIView *binVariablesView;
 @property (weak, nonatomic) IBOutlet UIView *barGraphView;
