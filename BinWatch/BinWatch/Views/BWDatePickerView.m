@@ -31,20 +31,20 @@
 - (void)awakeFromNib
 {
     self.selectedDate = _datePickerView.date;
-    _removeFromSuperview = YES;
+    _shouldRemoveFromSuperview = YES;
 }
 
 - (IBAction)donePressed:(id)sender
 {
     self.selectedDate = _datePickerView.date;
     self.complBlock(self.selectedDate);
-    if(_removeFromSuperview)
+    if(_shouldRemoveFromSuperview)
         [self removeFromSuperview];
 }
 
 - (IBAction)cancelPressed:(id)sender
 {
-    if(_removeFromSuperview)
+    if(_shouldRemoveFromSuperview)
         [self removeFromSuperview];
 }
 

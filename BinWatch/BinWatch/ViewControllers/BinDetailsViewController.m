@@ -289,15 +289,14 @@
 {
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
     _datePicker = [views objectAtIndex:0];
-    _datePicker.removeFromSuperview = NO;
+    _datePicker.shouldRemoveFromSuperview = NO;
     _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
                                    self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.20f,
                                    self.dateComponentsContainerView.bounds.size.width, 250);
     
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
-        
-        [_fromDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
+        [weakSelf.fromDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
     }];
     
     [self.customDateView addSubview:_datePicker];
