@@ -91,11 +91,16 @@
     self.navigationItem.rightBarButtonItem = menuButton;
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+- (void)awakeFromNib{
+    
     [self refreshViews];
-    [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
     [self.settingsControl hideControl];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
 
 }
 

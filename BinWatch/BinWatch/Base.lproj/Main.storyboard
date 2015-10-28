@@ -183,7 +183,7 @@
                                     <outlet property="delegate" destination="o0I-lk-Al9" id="Jy0-h3-h07"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" tag="222" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7xN-ad-5GM">
+                            <tableView clipsSubviews="YES" tag="222" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="7xN-ad-5GM">
                                 <rect key="frame" x="0.0" y="426" width="600" height="125"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.05608124516296209" green="1" blue="0.86828688573758117" alpha="1" colorSpace="calibratedRGB"/>
@@ -487,7 +487,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="FILL"/>
-                                    <segment title="ACTIVE/INACTIVE"/>
+                                    <segment title="ACTIVE"/>
                                     <segment title="HUMIDITY"/>
                                     <segment title="TEMP"/>
                                 </segments>
