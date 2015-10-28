@@ -18,6 +18,7 @@
 {
     UITableView *settingsTableView;
     NSArray *settingsLabels;
+    NSArray *settingsImages;
     CGFloat rowHeight;
 }
 
@@ -31,53 +32,71 @@
     CGRect frame = CGRectMake(tableViewX, tableViewY, width, HEIGHT);
     return frame;
 }
--(NSArray*)settingsLabelsFromCells:(NSArray*)cells
+
+-(void)setImagesAndLabelsFromCells:(NSArray*)cells
 {
     NSMutableArray *labels = [NSMutableArray new];
+    NSMutableArray *images = [NSMutableArray new];
     NSString *switchTo;
-    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode)
+    NSString *loginImage;
+    if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode){
         switchTo = kSwitchToUser;
-    else
+        loginImage = kLogoutImageName;
+    }
+    else{
         switchTo = kSwitchToBBMP;
+        loginImage = kLoginImageName;
+    }
     
     for (NSNumber *cell in cells) {
         BWMenuItems menuItem = [cell integerValue];
         switch (menuItem) {
             case BWMenuItemDrawRoutes:
                 [labels addObjectsFromArray:@[kRouteToRed, kRouteToRedYellow,kRouteToSelected]];
+                [images addObjectsFromArray:@[kMapMarkerImageName,kMapMarkerImageName,kMapMarkerImageName]];
                 break;
             case BWMenuItemRouteToNearest:
                 [labels addObject:kRouteToNearest];
+                [images addObject:kMapMarkerImageName];
                 break;
             case BWMenuItemAllBBMPDefaults:
                 [labels addObjectsFromArray:@[kRequestForBin,kReportAnIssue,kExport,kSettings,switchTo]];
+                [images addObjectsFromArray:@[kEmailImageName,kEmailImageName,kExportImageName,kSettingsImageName,loginImage]];
                 break;
             case BWMenuItemAllUserDefaults:
                 [labels addObjectsFromArray:@[kRequestForBin,kReportAnIssue,kReportBin,switchTo]];
+                [images addObjectsFromArray:@[kEmailImageName,kEmailImageName,kEmailImageName,loginImage]];
                 break;
             case BWMenuItemExport:
                 [labels addObject:kExport];
+                [images addObject:kExportImageName];
                 break;
             case BWMenuItemSettings:
                 [labels addObject:kSettings];
+                [images addObject:kSettingsImageName];
                 break;
             case BWMenuItemSwitchMode:
                 [labels addObject:switchTo];
+                [images addObject:loginImage];
                 break;
             case BWMenuItemReportBin:
                 [labels addObject:kReportBin];
+                [images addObject:kEmailImageName];
                 break;
             case BWMenuItemReportIssue:
                 [labels addObject:kReportAnIssue];
+                [images addObject:kEmailImageName];
                 break;
             case BWMenuItemRequestForBin:
                 [labels addObject:kRequestForBin];
+                [images addObject:kEmailImageName];
                 break;
             default:
                 break;
         }
     }
-    return labels;
+    settingsLabels = labels;
+    settingsImages = images;
 }
 - (void) createMenuInViewController:(UIViewController *)vc withCells:(NSArray *)cells andWidth:(CGFloat)width{
     
@@ -102,7 +121,7 @@
 
 - (void) createControlInView:(UIView *)view withCells:(NSArray *)cells andFrame:(CGRect)frame
 {
-    settingsLabels = [self settingsLabelsFromCells:cells];
+    [self setImagesAndLabelsFromCells:cells];
     rowHeight = ROWHEIGHT;
     CGFloat height = settingsLabels.count * rowHeight;
     CGRect tableViewRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, height);
@@ -155,7 +174,7 @@
     //backgroundView.layer.backgroundColor = [[UIColor colorWithRed:0.529 green:0.808 blue:0.922 alpha:1]CGColor];
     backgroundView.layer.backgroundColor = [AppTheme CGColor];
     cell.selectedBackgroundView = backgroundView;
-    
+    cell.imageView.image = [UIImage imageNamed:settingsImages[indexPath.row]];
     return cell;
 }
 

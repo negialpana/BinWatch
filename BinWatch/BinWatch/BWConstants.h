@@ -89,6 +89,12 @@ extern NSString* const kTrashPickerRed     ;
 
 
 extern NSString* const kMoreButtonImageName ;
+extern NSString* const kMapMarkerImageName  ;
+extern NSString* const kEmailImageName      ;
+extern NSString* const kExportImageName     ;
+extern NSString* const kSettingsImageName   ;
+extern NSString* const kLoginImageName      ;
+extern NSString* const kLogoutImageName     ;
 
 
 typedef NS_ENUM(NSUInteger, BWBinColor) {

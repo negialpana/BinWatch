@@ -64,5 +64,11 @@ NSString* const kTrashPickerGreen   = @"trashPickerGreen";
 NSString* const kTrashPickerRed     = @"trashPickerRed";
 
 NSString* const kMoreButtonImageName = @"more_dashes" ;
+NSString* const kMapMarkerImageName  = @"map-marker" ;
+NSString* const kExportImageName     = @"Export" ;
+NSString* const kSettingsImageName   = @"settings" ;
+NSString* const kEmailImageName      = @"Email" ;
+NSString* const kLoginImageName      = @"login" ;
+NSString* const kLogoutImageName     = @"logout" ;
 
 @end
