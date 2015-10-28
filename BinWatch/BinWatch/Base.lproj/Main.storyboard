@@ -116,10 +116,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="111" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="rIp-3W-Ivx">
-                                <rect key="frame" x="0.0" y="108" width="600" height="253"/>
+                            <tableView clipsSubviews="YES" tag="111" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="15" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="rIp-3W-Ivx">
+                                <rect key="frame" x="0.0" y="108" width="600" height="237"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.95686274509803926" green="0.89082415102624957" blue="0.9370190621113349" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="binCellAnalyse" id="WAt-z8-meF" customClass="BWAnalyseTableViewCell">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
@@ -183,12 +183,12 @@
                                     <outlet property="delegate" destination="o0I-lk-Al9" id="Jy0-h3-h07"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" tag="222" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7xN-ad-5GM">
-                                <rect key="frame" x="0.0" y="442" width="600" height="109"/>
+                            <tableView clipsSubviews="YES" tag="222" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7xN-ad-5GM">
+                                <rect key="frame" x="0.0" y="426" width="600" height="125"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.05608124516296209" green="1" blue="0.86828688573758117" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="109" id="et8-0a-yiX"/>
+                                    <constraint firstAttribute="height" constant="125" id="et8-0a-yiX"/>
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -200,7 +200,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k34-bc-QVm">
-                                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                                    <rect key="frame" x="8" y="8" width="24" height="23"/>
                                                     <animations/>
                                                     <state key="normal" backgroundImage="Button_Unselected">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -212,7 +212,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znV-rH-pzs">
-                                                    <rect key="frame" x="44" y="8" width="42" height="30"/>
+                                                    <rect key="frame" x="44" y="8" width="42" height="29"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -242,7 +242,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gp4-5l-P6t">
-                                <rect key="frame" x="0.0" y="361" width="600" height="80"/>
+                                <rect key="frame" x="0.0" y="345" width="600" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tA-q2-Aus">
                                         <rect key="frame" x="0.0" y="40" width="600" height="1"/>
@@ -250,21 +250,21 @@
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From :" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXP-4N-xY5">
-                                        <rect key="frame" x="8" y="5" width="50" height="30"/>
+                                        <rect key="frame" x="8" y="5" width="51" height="30"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To :" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-IF-oCa">
                                         <rect key="frame" x="30" y="45" width="28" height="30"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-oS-1ht">
-                                        <rect key="frame" x="115" y="5" width="46" height="30"/>
+                                        <rect key="frame" x="116" y="5" width="46" height="30"/>
                                         <animations/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
