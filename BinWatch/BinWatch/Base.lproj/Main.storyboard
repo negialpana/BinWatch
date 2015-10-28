@@ -828,6 +828,42 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rW9-9j-gEl" userLabel="CustomView">
                                 <rect key="frame" x="0.0" y="50" width="600" height="550"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ym-j1-IdO" userLabel="CustomViewBinID">
+                                        <rect key="frame" x="5" y="452" width="590" height="28"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iP1-bb-ybo" userLabel="BinLocationLabel">
+                                                <rect key="frame" x="10" y="4" width="423" height="21"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="423" id="WXD-Al-hiT"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 %" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0NC-Qv-YDR" userLabel="BinFillPercentLabel">
+                                                <rect key="frame" x="533" y="3" width="42" height="22"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="42" id="Ohj-3z-Ca3"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" red="1" green="0.1089136448" blue="0.057290884209999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="iP1-bb-ybo" firstAttribute="centerY" secondItem="0ym-j1-IdO" secondAttribute="centerY" id="AIf-bf-dqA"/>
+                                            <constraint firstItem="iP1-bb-ybo" firstAttribute="leading" secondItem="0ym-j1-IdO" secondAttribute="leading" constant="10" id="LTF-W2-tYE"/>
+                                            <constraint firstAttribute="trailing" secondItem="0NC-Qv-YDR" secondAttribute="trailing" constant="15" id="Lp0-pj-AfF"/>
+                                            <constraint firstAttribute="height" constant="28" id="S9K-tQ-jnJ"/>
+                                            <constraint firstItem="iP1-bb-ybo" firstAttribute="centerY" secondItem="0NC-Qv-YDR" secondAttribute="centerY" id="btD-sZ-XkT"/>
+                                            <constraint firstItem="iP1-bb-ybo" firstAttribute="baseline" secondItem="0NC-Qv-YDR" secondAttribute="baseline" id="dGc-Io-yq2"/>
+                                            <constraint firstItem="iP1-bb-ybo" firstAttribute="top" secondItem="0ym-j1-IdO" secondAttribute="top" constant="4" id="yw9-XL-cwS"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVi-v2-D2D" userLabel="DateRangeView">
                                         <rect key="frame" x="0.0" y="20" width="600" height="80"/>
                                         <subviews>
@@ -899,26 +935,35 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="vVi-v2-D2D" firstAttribute="top" secondItem="rW9-9j-gEl" secondAttribute="top" constant="20" id="2SS-A0-hVt"/>
+                                    <constraint firstItem="0ym-j1-IdO" firstAttribute="leading" secondItem="rW9-9j-gEl" secondAttribute="leading" constant="5" id="5hu-TW-k3f"/>
                                     <constraint firstItem="vVi-v2-D2D" firstAttribute="leading" secondItem="rW9-9j-gEl" secondAttribute="leading" id="LD3-Kw-kDv"/>
+                                    <constraint firstAttribute="trailing" secondItem="0ym-j1-IdO" secondAttribute="trailing" constant="5" id="Lie-tK-BB1"/>
                                     <constraint firstAttribute="trailing" secondItem="vVi-v2-D2D" secondAttribute="trailing" id="S3l-9B-fAK"/>
+                                    <constraint firstAttribute="bottom" secondItem="0ym-j1-IdO" secondAttribute="bottom" constant="70" id="lXH-ku-6qD"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEB-Jp-LxP" userLabel="WeekView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEB-Jp-LxP" userLabel="WeekView">
                                 <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3U9-Dc-VNK" userLabel="BinIDView">
                                         <rect key="frame" x="5" y="5" width="590" height="28"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Lt-zCH" userLabel="BinLocationLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Lt-zCH" userLabel="BinLocationLabel">
                                                 <rect key="frame" x="10" y="4" width="423" height="21"/>
                                                 <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="423" id="eOO-tA-Faq"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 %" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTo-II-v74" userLabel="BinFillPercentLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 %" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTo-II-v74" userLabel="BinFillPercentLabel">
                                                 <rect key="frame" x="533" y="3" width="42" height="22"/>
                                                 <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="42" id="h43-HB-HXz"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -927,6 +972,12 @@
                                         <animations/>
                                         <color key="backgroundColor" red="1" green="0.1089136448" blue="0.057290884209999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="7kQ-Lt-zCH" firstAttribute="baseline" secondItem="PTo-II-v74" secondAttribute="baseline" id="9ch-Sf-20h"/>
+                                            <constraint firstItem="7kQ-Lt-zCH" firstAttribute="centerY" secondItem="3U9-Dc-VNK" secondAttribute="centerY" id="Qrt-H4-yCl"/>
+                                            <constraint firstItem="7kQ-Lt-zCH" firstAttribute="top" secondItem="3U9-Dc-VNK" secondAttribute="top" constant="4" id="STx-J1-qB3"/>
+                                            <constraint firstItem="7kQ-Lt-zCH" firstAttribute="leading" secondItem="3U9-Dc-VNK" secondAttribute="leading" constant="10" id="cBD-D8-vni"/>
+                                            <constraint firstAttribute="trailing" secondItem="PTo-II-v74" secondAttribute="trailing" constant="15" id="cmc-MV-sqh"/>
+                                            <constraint firstItem="7kQ-Lt-zCH" firstAttribute="centerY" secondItem="PTo-II-v74" secondAttribute="centerY" id="rgU-w3-WNT"/>
                                             <constraint firstAttribute="height" constant="28" id="sLb-nc-lol"/>
                                         </constraints>
                                     </view>
@@ -1053,6 +1104,9 @@
                         <outlet property="binVariablesView" destination="MC0-Vx-sr7" id="4dP-T2-u6e"/>
                         <outlet property="blackLineImageView" destination="sPY-5i-kbz" id="9O4-a5-8fK"/>
                         <outlet property="customDateView" destination="rW9-9j-gEl" id="6KV-wX-Fbc"/>
+                        <outlet property="customViewBillFillPerLabel" destination="0NC-Qv-YDR" id="y5S-tq-W7O"/>
+                        <outlet property="customViewBinId" destination="0ym-j1-IdO" id="XdX-gd-ZUN"/>
+                        <outlet property="customViewBinLocLabel" destination="iP1-bb-ybo" id="qWY-6S-fYI"/>
                         <outlet property="dateComponentsContainerView" destination="vVi-v2-D2D" id="N7I-iQ-eKK"/>
                         <outlet property="fromDateBtn" destination="Ooq-ll-uPD" id="NU6-nC-NFM"/>
                         <outlet property="nextFillDate" destination="kWw-ae-JaB" id="dFS-as-WBK"/>

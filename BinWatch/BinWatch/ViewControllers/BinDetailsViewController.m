@@ -31,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
+@property (weak, nonatomic) IBOutlet UIView *customViewBinId;
+@property (weak, nonatomic) IBOutlet UILabel *customViewBinLocLabel;
+@property (weak, nonatomic) IBOutlet UILabel *customViewBillFillPerLabel;
 
 @end
 
@@ -43,7 +46,7 @@
     [self setUpView];
     [self setNextFill];
     [self getCurrentBinData];
-    [self initDatesInCustomView];
+    [self initCustomView];
     
     [_weekView setHidden:NO];
     [_customDateView setHidden:YES];
@@ -121,13 +124,8 @@
     // TODO: hack for iOS9
     if (self.currentBin == nil)
         self.currentBin = [[[BWBinCollection sharedInstance] bins]objectAtIndex:_currentSelectedBinIndex];
-    //[_binIDView addSubview: [[GradientView alloc]initWithFrame:_binIDView.frame forColor:currentBin.color]];
-    if([self.currentBin.fill integerValue] > RED_BOUNDARY)
-        _binIDView.backgroundColor = RedColor;
-    else if ([self.currentBin.fill integerValue] > YELLOW_BOUNDARY)
-        _binIDView.backgroundColor = YellowColor;
-    else
-        _binIDView.backgroundColor = GreenColor;
+    
+    [self setUpBgColorForBinIdView : _binIDView];
     
     [_binLocationLabel setText:[BWHelpers areanameFromFullAddress:self.currentBin.place]];
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[self.currentBin.fill integerValue]]];
@@ -257,12 +255,29 @@
     }
 }
 
-#pragma mark - Custom Date Selection Methods
-- (void) initDatesInCustomView
+- (void)setUpBgColorForBinIdView : (UIView*) binIdView
 {
+    if([self.currentBin.fill integerValue] > RED_BOUNDARY)
+        binIdView.backgroundColor = RedColor;
+    else if ([self.currentBin.fill integerValue] > YELLOW_BOUNDARY)
+        binIdView.backgroundColor = YellowColor;
+    else
+        binIdView.backgroundColor = GreenColor;
+}
+
+#pragma mark - Custom Date Selection Methods
+- (void) initCustomView
+{
+    //init dates
     NSString *today = [[self dateFormatter] stringFromDate:[NSDate date]];
     [_fromDateBtn setTitle:today forState:UIControlStateNormal];
     [_toDateBtn setTitle:today forState:UIControlStateNormal];
+    
+    //init labels
+    [_customViewBinLocLabel setText:[BWHelpers areanameFromFullAddress:self.currentBin.place]];
+    [_customViewBillFillPerLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[self.currentBin.fill integerValue]]];
+    
+    [self setUpBgColorForBinIdView : _customViewBinId];
 }
 
 - (NSDateFormatter *)dateFormatter
