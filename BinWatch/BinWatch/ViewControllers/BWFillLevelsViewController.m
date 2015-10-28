@@ -65,7 +65,7 @@ BOOL shouldBeginEditing;
     HUD.delegate = self;
     HUD.labelText = @"Loading";
     
-    [HUD showWhileExecuting:@selector(fetchData) onTarget:self withObject:nil animated:YES];
+    [HUD showWhileExecuting:@selector(refreshBins) onTarget:self withObject:nil animated:YES];
 
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
     self.navigationItem.rightBarButtonItem = moreButton;
@@ -112,7 +112,7 @@ BOOL shouldBeginEditing;
 
 -(void)fetchData
 {
-    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getMyLocation] withAddress:[[BWDataHandler sharedHandler] myLocationAddress]];
+    [self fetchDataForLocation:[[BWDataHandler sharedHandler] getBinsLocation] withAddress:[[BWDataHandler sharedHandler] myLocationAddress]];
 }
 
 -(void)fetchDataForLocation:(CLLocation*)location withAddress:(NSString *)address
