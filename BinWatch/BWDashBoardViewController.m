@@ -91,17 +91,11 @@
     self.navigationItem.rightBarButtonItem = menuButton;
 }
 
-- (void)awakeFromNib{
-    
-    [self refreshViews];
-    [self.settingsControl hideControl];
-}
-
 - (void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
-
+    [self refreshViews];
+    [self.settingsControl hideControl];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -343,6 +337,10 @@
         NSArray *bins = [[BWDataHandler sharedHandler] fetchBins];
         [self.locationLabel setText:[BWDataHandler sharedHandler].binsAddress];
         [self.binsLabel setText:[NSString stringWithFormat:@"Bin Count : %lu",(unsigned long)[bins count]]];
+        
+        for(VBPieChart *chart in [self.containerView subviews]){
+            [chart removeFromSuperview];
+        }
         [self setUpChartValuesForIndex:self.segmentedControl.selectedSegmentIndex];
     });
 }
@@ -372,7 +370,6 @@
                         }
                     }
                 }];
-    //[self refreshViews];
 }
 #pragma mark - Event Handlers
 - (void)menuTapped
