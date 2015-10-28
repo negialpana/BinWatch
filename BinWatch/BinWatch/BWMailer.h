@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface BWMailer : NSObject <MFMailComposeViewControllerDelegate>
+@interface BWMailer : NSObject <MFMailComposeViewControllerDelegate , UIImagePickerControllerDelegate , UINavigationControllerDelegate>
 
 +(void) composeMailWithSubject:(NSString*)subject andBody:(NSString*)body;
 +(void) composeMailWithSubject:(NSString*)subject body:(NSString*)body andAttachment:(NSArray*)file;
++(void)showCamera;
 @end

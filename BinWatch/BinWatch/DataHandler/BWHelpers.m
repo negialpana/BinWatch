@@ -161,4 +161,26 @@ void runOnMainThread(void(^block)(void))
     return [NSError errorWithDomain:@"BWErrorDomain" code:1 userInfo:errorInfo];
 }
 
++ (NSString *)generateUniqueFilePath
+{
+    //This creates a filepath with the current date/time as the name
+    NSString *presentTimeStamp = [self getPresentDateTimeString];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileSavePath = [documentsDirectory stringByAppendingPathComponent:presentTimeStamp];
+    return fileSavePath;
+}
+
++ (NSString *)getPresentDateTimeString
+{
+    NSDateFormatter *dateTimeFormat = [[NSDateFormatter alloc] init];
+    [dateTimeFormat setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    
+    NSDate *now = [NSDate date];
+    
+    NSString *theDateTime = [dateTimeFormat stringFromDate:now];
+
+    return theDateTime;
+}
+
 @end

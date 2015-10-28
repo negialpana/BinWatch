@@ -103,8 +103,7 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
 
 -(void)reportBinSelected
 {
-    [BWMailer composeMailWithSubject:kReportBinEmailSubject andBody:kReportBinEmailBody];
- 
+    [BWMailer showCamera];
 }
 -(void)reportIssueSelected
 {

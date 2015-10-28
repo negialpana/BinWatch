@@ -55,6 +55,7 @@
 +(void) composeMailWithSubject:(NSString*)subject body:(NSString*)body andAttachment:(NSArray*)files
 {
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
         controller.mailComposeDelegate = [self sharedInstance];
@@ -104,8 +105,28 @@
         [BWLogger DoLog:@"Mail not configured"];
         [BWHelpers displayHud:@"Mail not configured" onView:controllerToShowTo.view];
     }
+ 
 }
-    
+
++(void)showCamera
+{
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+        imagePicker.delegate = [self sharedInstance];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.allowsEditing = YES;
+        
+        [controllerToShowTo presentViewController:imagePicker animated:YES completion:nil];
+    }else{
+        SHOWALERT(@"Camera Unavailable", @"Unable to find a camera on your device.");
+    }
+
+}
+
+#pragma mark - Mail composer delegates
+
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
@@ -138,5 +159,36 @@
     [controllerToShowTo dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - ImagePicker delegates
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSString *fileSavePath = [BWHelpers generateUniqueFilePath];
+    fileSavePath = [fileSavePath stringByAppendingString:@".png"];
+    
+    //This checks to see if the image was edited, if it was it saves the edited version as a .png
+    if ([info objectForKey:UIImagePickerControllerEditedImage]) {
+        //save the edited image
+        NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerEditedImage]);
+        [imgPngData writeToFile:fileSavePath atomically:YES];
+    }else{
+        //save the original image
+        NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage]);
+        [imgPngData writeToFile:fileSavePath atomically:YES];
+    }
+
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    [controllerToShowTo dismissViewControllerAnimated:YES completion:nil];
+    
+    [BWMailer composeMailWithSubject:kReportBinEmailSubject body:kReportBinEmailBody andAttachment:@[fileSavePath]];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    [controllerToShowTo dismissViewControllerAnimated:YES completion:nil];
+    
+    [BWMailer composeMailWithSubject:kReportBinEmailSubject andBody:kReportBinEmailBody];
+}
 
 @end

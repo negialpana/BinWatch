@@ -28,4 +28,7 @@ void runOnMainThread(void(^block)(void));
 + (float)currentOSVersion;
 + (void) displayHud:(NSString *)message onView:(UIView *)view;
 + (NSError *)generateError:(NSString *)errorMsg;
++ (NSString *)generateUniqueFilePath;
++ (NSString *)getPresentDateTimeString;
+
 @end
