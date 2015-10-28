@@ -19,27 +19,33 @@
 
 @implementation BWDatePickerView
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder{
-    if (self = [super initWithCoder:aDecoder]) {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
         //any initialization in future
     }
     return self;
 }
 
-- (void)awakeFromNib{
+- (void)awakeFromNib
+{
     self.selectedDate = _datePickerView.date;
+    _removeFromSuperview = YES;
 }
 
-- (IBAction)donePressed:(id)sender {
-    
+- (IBAction)donePressed:(id)sender
+{
     self.selectedDate = _datePickerView.date;
     self.complBlock(self.selectedDate);
-    [self removeFromSuperview];
+    if(_removeFromSuperview)
+        [self removeFromSuperview];
 }
 
-- (IBAction)cancelPressed:(id)sender {
-    
-    [self removeFromSuperview];
+- (IBAction)cancelPressed:(id)sender
+{
+    if(_removeFromSuperview)
+        [self removeFromSuperview];
 }
 
 @end

@@ -52,6 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self addDatePicker];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,23 +98,11 @@
 
 - (IBAction)dateSelectButtonPressed:(id)sender
 {
-    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
-    _datePicker = [views objectAtIndex:0];
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
         
         UIButton *btn = (UIButton *)sender;
         [btn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
-    }];
-    _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
-                                   self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.6f,
-                                   self.view.bounds.size.width, 250);
-    
-    [self.view addSubview:_datePicker];
-    [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
-    
-    [UIView animateWithDuration:0.1 animations:^{
-        [_datePicker setAlpha:1.0];
     }];
 }
 
@@ -281,6 +270,25 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     return formatter;
+}
+
+- (void)addDatePicker
+{
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
+    _datePicker = [views objectAtIndex:0];
+    _datePicker.removeFromSuperview = NO;
+    _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
+                                   self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.20f,
+                                   self.dateComponentsContainerView.bounds.size.width, 250);
+    
+    __weak typeof(self) weakSelf = self;
+    [_datePicker setComplBlock:^void(NSDate *selDate){
+        
+        [_fromDateBtn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
+    }];
+    
+    [self.customDateView addSubview:_datePicker];
+    [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
 }
 
 @end
