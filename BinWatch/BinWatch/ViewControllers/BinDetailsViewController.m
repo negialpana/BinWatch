@@ -15,6 +15,7 @@
 #import "BWHelpers.h"
 #import "BWViewRenderingHelper.h"
 #import "BWConnectionHandler.h"
+#import "BWDatePickerView.h"
 
 #define BAR_VIEW_WIDTH_WITH_SPACING     43.0f
 #define CIRCLE_VIEW_TAG_START_VAL       100
@@ -26,6 +27,10 @@
 @property (nonatomic, retain) BWBin *currentBin;
 @property (nonatomic, retain) NSArray *currentBinHumidityData;
 @property (nonatomic, retain) NSArray *currentBinTemperatureData;
+@property (nonatomic, strong) BWDatePickerView *datePicker;
+@property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
+@property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
+@property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
 
 @end
 
@@ -38,6 +43,7 @@
     [self setUpView];
     [self setNextFill];
     [self getCurrentBinData];
+    [self initDatesInCustomView];
     
     [_weekView setHidden:NO];
     [_customDateView setHidden:YES];
@@ -89,7 +95,29 @@
     }
 }
 
-#pragma mark - User Defined Methods
+- (IBAction)dateSelectButtonPressed:(id)sender
+{
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
+    _datePicker = [views objectAtIndex:0];
+    __weak typeof(self) weakSelf = self;
+    [_datePicker setComplBlock:^void(NSDate *selDate){
+        
+        UIButton *btn = (UIButton *)sender;
+        [btn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
+    }];
+    _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
+                                   self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.6f,
+                                   self.view.bounds.size.width, 250);
+    
+    [self.view addSubview:_datePicker];
+    [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        [_datePicker setAlpha:1.0];
+    }];
+}
+
+#pragma mark - Week Segment Methods
 
 - (void)initVars
 {
@@ -180,6 +208,7 @@
     [self setUpTemperatureGraph];
     [self joinCirclesWithLine];
 }
+
 -(void)setNextFill
 {
     // init datetime formatter
@@ -198,6 +227,7 @@
         }
     }];
 }
+
 - (void)setUpBarGraphViews
 {
     float offsetX = 10.0f;
@@ -236,6 +266,21 @@
         
         [BWViewRenderingHelper joinCircleCenters:circleCenter1 and:circleCenter2 onView:_barGraphView];
     }
+}
+
+#pragma mark - Custom Date Selection Methods
+- (void) initDatesInCustomView
+{
+    NSString *today = [[self dateFormatter] stringFromDate:[NSDate date]];
+    [_fromDateBtn setTitle:today forState:UIControlStateNormal];
+    [_toDateBtn setTitle:today forState:UIControlStateNormal];
+}
+
+- (NSDateFormatter *)dateFormatter
+{    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    return formatter;
 }
 
 @end

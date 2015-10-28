@@ -858,6 +858,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="dateBtnPressed:" destination="o0I-lk-Al9" eventType="touchUpInside" id="01f-cm-qw4"/>
+                                                    <action selector="dateSelectButtonPressed:" destination="mNN-B9-EVQ" eventType="touchUpInside" id="bUv-Rp-aDQ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eL4-VF-FeX">
@@ -868,6 +869,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="dateBtnPressed:" destination="o0I-lk-Al9" eventType="touchUpInside" id="Ity-DZ-uts"/>
+                                                    <action selector="dateSelectButtonPressed:" destination="mNN-B9-EVQ" eventType="touchUpInside" id="4Fh-WS-Q4t"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1051,9 +1053,12 @@
                         <outlet property="binVariablesView" destination="MC0-Vx-sr7" id="4dP-T2-u6e"/>
                         <outlet property="blackLineImageView" destination="sPY-5i-kbz" id="9O4-a5-8fK"/>
                         <outlet property="customDateView" destination="rW9-9j-gEl" id="6KV-wX-Fbc"/>
+                        <outlet property="dateComponentsContainerView" destination="vVi-v2-D2D" id="N7I-iQ-eKK"/>
+                        <outlet property="fromDateBtn" destination="Ooq-ll-uPD" id="NU6-nC-NFM"/>
                         <outlet property="nextFillDate" destination="kWw-ae-JaB" id="dFS-as-WBK"/>
                         <outlet property="segmentControl" destination="Qhm-R2-9pv" id="z8B-Ch-AOw"/>
                         <outlet property="timeFrameLabel" destination="RVa-Oc-9Io" id="eAx-8u-QRi"/>
+                        <outlet property="toDateBtn" destination="eL4-VF-FeX" id="S5z-Tb-0gl"/>
                         <outlet property="weekView" destination="zEB-Jp-LxP" id="JXI-Ov-Fct"/>
                     </connections>
                 </viewController>

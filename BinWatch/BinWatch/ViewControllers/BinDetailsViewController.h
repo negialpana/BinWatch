@@ -24,5 +24,6 @@
 @property (assign) int currentSelectedBinIndex;
 
 - (IBAction)segmentedControlTapped:(id)sender;
+- (IBAction)dateSelectButtonPressed:(id)sender;
 
 @end
