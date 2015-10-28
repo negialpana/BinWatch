@@ -20,6 +20,8 @@ xcuserdata
 
 ## Other
 *.xccheckout
+*.xcuserdata
+*.xcshareddata
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BWDatePickerView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="221"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oU0-4M-1xb">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="95v-Mm-ToR"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem title="Done" id="3sC-xF-d37">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="donePressed:" destination="iN0-l3-epB" id="62F-KJ-qEZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="pz7-EK-zub"/>
+                        <barButtonItem title="Cancel" id="nJ1-0H-bBk">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancelPressed:" destination="iN0-l3-epB" id="mhy-Er-qI2"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                    <color key="barTintColor" red="0.082352941176470587" green="0.58431372549019611" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </toolbar>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="4sp-t3-KrY">
+                    <rect key="frame" x="0.0" y="46.5" width="600" height="180"/>
+                    <date key="date" timeIntervalSinceReferenceDate="466098721.99817097">
+                        <!--2015-10-09 15:52:01 +0000-->
+                    </date>
+                </datePicker>
+            </subviews>
+            <color key="backgroundColor" red="0.86326152146464641" green="0.86326152146464641" blue="0.86326152146464641" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="4sp-t3-KrY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="78R-tK-JkB"/>
+                <constraint firstItem="4sp-t3-KrY" firstAttribute="top" secondItem="oU0-4M-1xb" secondAttribute="bottom" constant="2.5" id="8NE-qh-bwp"/>
+                <constraint firstAttribute="trailing" secondItem="oU0-4M-1xb" secondAttribute="trailing" id="Epz-QB-e4e"/>
+                <constraint firstItem="oU0-4M-1xb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aU4-pW-3dB"/>
+                <constraint firstItem="oU0-4M-1xb" firstAttribute="leading" secondItem="4sp-t3-KrY" secondAttribute="leading" id="ouh-AF-tY0"/>
+                <constraint firstAttribute="bottom" secondItem="4sp-t3-KrY" secondAttribute="bottom" constant="-5.5" id="uNO-Rw-nhj"/>
+                <constraint firstAttribute="trailing" secondItem="4sp-t3-KrY" secondAttribute="trailing" id="wo1-Z8-Vkw"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="datePickerView" destination="4sp-t3-KrY" id="hEs-ud-SWt"/>
+            </connections>
+            <point key="canvasLocation" x="384" y="82.5"/>
+        </view>
+    </objects>
+</document>

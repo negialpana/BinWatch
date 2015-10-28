@@ -19,6 +19,8 @@
 @synthesize humidity;
 @synthesize place;
 @synthesize date;
+@synthesize area;
+@synthesize city;
 @synthesize isAcive;
 
 @end

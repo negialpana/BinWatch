@@ -7,14 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GoogleMaps/GoogleMaps.h>
+#import "BWGeocoder.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, BWGeocoderDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UITabBarController *mainTBC;
+@property (strong, nonatomic) UITabBarController *userTBC;
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (strong, nonatomic, retain) GMSMapView *mapView;
+
+- (BOOL)connected;
++ (AppDelegate *)appDel;
+
+-(void)switchToMainStoryBoard;
+-(void)switchToUserModeStoryBoard;
+-(UIViewController*)getTabBarContoller;
 @end
 

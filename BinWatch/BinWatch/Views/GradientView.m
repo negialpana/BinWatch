@@ -22,7 +22,7 @@ CAGradientLayer *gradientLayer;
         BWBinColor color = [BWHelpers colorForPercent:fill];
         switch (color) {
             case BWGreen:
-                first = DarkGreen;
+                first = GreenColor;
                 last = LightGreen;
                 break;
             case BWYellow:
@@ -30,17 +30,17 @@ CAGradientLayer *gradientLayer;
                 last = LightYellow;
                 break;
             case BWRed:
-                first = DarkRed;
+                first = RedColor;
                 last = LightRed;
                 break;
                 
             default:
-                first = DarkGreen;
+                first = GreenColor;
                 last = LightGreen;
                 break;
         }
         CGFloat fraction = fill / 100.0 ;
-        CGRect gradientFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, fraction * self.bounds.size.width, self.bounds.size.height);
+        CGRect gradientFrame = CGRectMake(self.bounds.origin.x + 1, self.bounds.origin.y + 1, (fraction * self.bounds.size.width) - 1, self.bounds.size.height -1);
 
         gradientLayer = [CAGradientLayer layer];
         gradientLayer.frame = gradientFrame;

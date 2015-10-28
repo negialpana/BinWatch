@@ -25,7 +25,7 @@
         self.key = apiKey;
         self.offset = NSNotFound;
         self.location = CLLocationCoordinate2DMake(-1, -1);
-        self.radius = 500;
+        self.radius = 300;
         self.types = SPPlaceTypeAll;
     }
     return self;
@@ -106,6 +106,7 @@
     for (NSDictionary *place in places) {
         [parsedPlaces addObject:[SPGooglePlacesAutocompletePlace placeFromDictionary:place apiKey:self.key]];
     }
+    [parsedPlaces insertObject:[SPGooglePlacesAutocompletePlace placeFromMyLocation:nil apiKey:self.key] atIndex:0];
     if (self.resultBlock != nil) {
         self.resultBlock(parsedPlaces, nil);
     }

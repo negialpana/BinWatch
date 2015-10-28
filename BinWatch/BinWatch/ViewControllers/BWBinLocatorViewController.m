@@ -10,23 +10,36 @@
 #import "SPGooglePlacesAutocomplete.h"
 #import "BWDataHandler.h"
 #import "BWBin.h"
-#import "BWCommon.h"
+#import "BWLogger.h"
+#import "BWHelpers.h"
+#import "BWAppSettings.h"
+#import "BWConstants.h"
+#import "BWConnectionHandler.h"
+#import "AppDelegate.h"
 
-#define DEFAULT_ZOOM_LEVEL 15
+#define DEFAULT_ZOOM_LEVEL 13
+#define activeMapView [AppDelegate appDel].mapView
+
 @interface BWBinLocatorViewController () <GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *mapSearchBar;
+@property (nonatomic, retain) BWSettingsControl *settingsControl;
 
 @end
 
 @implementation BWBinLocatorViewController
 {
-    GMSMapView *mapView;
+    //GMSMapView *activeMapView;
     BOOL firstLocationUpdate_;
     float zoomLevel;
     NSMutableDictionary *mapMarkers;
-    CLLocation *currentLocation;
     NSMutableArray *selectedLocations;
+    BOOL isMapEdited;
+    BOOL searchOn;
+    NSArray *searchResultPlaces;
+    SPGooglePlacesAutocompleteQuery *searchQuery;
+    
+    BOOL shouldBeginEditing;
 }
 
 #pragma mark - View Life Cycle
@@ -34,72 +47,78 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
+    //mapView = [AppDelegate appDel].mapView;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
+    searchOn = NO;
     zoomLevel = DEFAULT_ZOOM_LEVEL;
+    firstLocationUpdate_ = NO;
+    isMapEdited = NO;
 
     mapMarkers = [[NSMutableDictionary alloc] init];
-    currentLocation = [[CLLocation alloc] init];
+    //currentLocation = [[CLLocation alloc] init];
     selectedLocations = [[NSMutableArray alloc] init];
 
-    firstLocationUpdate_ = NO;
-    [[BWRoute sharedInstance] setDelegate:self];
+    // Navigation Bar Init
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
+    self.navigationItem.rightBarButtonItem = menuButton;
+
+    // Register for orientation change
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceOrientationDidChangeNotification:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(deviceOrientationDidChangeNotification:)
-     name:UIDeviceOrientationDidChangeNotification
-     object:nil];
+    [[BWRoute sharedInstance] setDelegate:self];
     
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
-    self.searchDisplayController.searchBar.placeholder = @"Search Locations";
 
-    // Bangalore MG Road
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:12.9667
-                                                            longitude:77.5667
-                                                                 zoom:zoomLevel];
+    // UISearchBar Init
+    self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
-    mapView = [GMSMapView mapWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height) camera:camera];
-    // TODO: Give an option for hybrid view
-    //mapView.mapType = kGMSTypeHybrid;
+    [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
+    [self.mapSearchBar setTranslucent:NO];
+
+    CLLocation *positionNow;
+    // Load mapview to current location
+    if([BWDataHandler sharedHandler].binsLocation)
+        positionNow = [BWDataHandler sharedHandler].binsLocation;
+    else if ([BWDataHandler sharedHandler].myLocation)
+        positionNow = [BWDataHandler sharedHandler].myLocation;
+    else
+        positionNow = [[CLLocation alloc] initWithLatitude:12.9667 longitude:77.5667];
+
+    [self recenterMapToPlacemark:positionNow];
     [self resizeMapView];
-    mapView.delegate = self;
+    activeMapView.delegate = self;
 
     [self drawBins];
     
-    mapView.settings.myLocationButton = YES;
-    mapView.trafficEnabled = YES;
-    mapView.buildingsEnabled = YES;
-    // TODO: Does this help?
-    //mapView.indoorEnabled = YES;
-    [mapView addObserver:self
-              forKeyPath:@"myLocation"
-                 options:NSKeyValueObservingOptionNew
-                 context:NULL];
+    activeMapView.settings.compassButton = YES;
+    activeMapView.settings.myLocationButton = YES;
+    activeMapView.trafficEnabled = YES;
+    activeMapView.buildingsEnabled = YES;
     
     // Ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
-        mapView.myLocationEnabled = YES;
+        activeMapView.myLocationEnabled = YES;
     });
     
-    [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
-    [self.mapSearchBar setTranslucent:NO];
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:14.0/255.0 green:114.0/255.0 blue:199.0/255.0 alpha:1]];
-    
-//    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.mapSearchBar];
-//    self.navigationItem.rightBarButtonItem = searchBarItem;
-    
-    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"more_dashes"] style:UIBarButtonItemStyleDone target:self action:@selector(moreTapped)];
-    self.navigationItem.rightBarButtonItem = moreButton;
-
-//    UIButton* myLocationButton = (UIButton*)[[mapView subviews] lastObject];
-//    myLocationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
-//    CGRect frame = myLocationButton.frame;
-//    frame.origin.x = 5;
-//    myLocationButton.frame = frame;
-    
-    [self.view addSubview:mapView];
+    [self.view addSubview:activeMapView];
     [self.view bringSubviewToFront:_mapSearchBar];
+    
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.settingsControl hideControl];
+    if([BWDataHandler sharedHandler].binsLocation)
+        activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
+                                                        zoom:zoomLevel];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,38 +126,88 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [mapView removeObserver:self
-                 forKeyPath:@"myLocation"
-                    context:NULL];
+#pragma mark - getters
+-(BWSettingsControl *)settingsControl
+{
+    if (!_settingsControl) {
+        NSNumber *drawRoutes;
+        NSNumber *defaults;
+        if([[BWAppSettings sharedInstance] getAppMode] == BWBBMPMode){
+            drawRoutes = [NSNumber numberWithInt:BWMenuItemDrawRoutes];
+            defaults   = [NSNumber numberWithInt:BWMenuItemAllBBMPDefaults];
+        }
+        else{
+            drawRoutes = [NSNumber numberWithInt:BWMenuItemRouteToNearest];
+            defaults   = [NSNumber numberWithInt:BWMenuItemAllUserDefaults];
+        }
+        _settingsControl = [BWSettingsControl new];
+        [_settingsControl createMenuInViewController:self withCells:@[drawRoutes,defaults] andWidth:MENU_DEFAULT_RADIUS];
+        _settingsControl.delegate = self;
+    }
+    return _settingsControl;
 }
 
+
 #pragma mark - Event Handlers
-- (void)moreTapped
+- (void)menuTapped
 {
-    NSLog(@"More tapped");
-    [self drawRouteSelectedBins];
+    [self.settingsControl toggleControl];
 }
 
 #pragma mark - Map Utils
 - (void) resizeMapView
 {
-    [mapView setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+    CGFloat mapviewOriginY;
+    CGFloat mapViewHeight;
+
+    // This is a hack fix. No idea why search bar animates to cover navigation bar on click of search
+    if(searchOn)
+    {
+        //NSLog(@"TabBar Height: %f SearchBar Control Height: %f NAvigation: %f statusbar height: %f", self.tabBarController.tabBar.frame.size.height, self.searchDisplayController.searchBar.frame.size.height, self.navigationController.navigationBar.frame.size.height, [UIApplication sharedApplication].statusBarFrame.size.height);
+
+        mapviewOriginY = self.view.frame.origin.y + [UIApplication sharedApplication].statusBarFrame.size.height + self.searchDisplayController.searchBar.frame.size.height;
+        
+        mapViewHeight = self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height -mapviewOriginY;
+    }
+    else
+    {
+        //NSLog(@"TabBar Height: %f SearchBar Control Height: %f NAvigation: %f statusbar height: %f", self.tabBarController.tabBar.frame.size.height, self.searchDisplayController.searchBar.frame.size.height, self.navigationController.navigationBar.frame.size.height, [UIApplication sharedApplication].statusBarFrame.size.height);
+
+        mapviewOriginY = self.view.frame.origin.y + [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height + self.searchDisplayController.searchBar.frame.size.height;
+        
+        mapViewHeight = self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height -mapviewOriginY;
+    }
+    [activeMapView setFrame:CGRectMake(self.view.frame.origin.x, mapviewOriginY, self.view.frame.size.width, mapViewHeight)];
 }
 
--(void) flushAllRoutes
+-(void) refreshMap
 {
-    [mapView clear];
+    runOnMainThread(^{
+        [activeMapView clear];
+    });
     [self drawBins];
 }
 
+-(void) drawRouteToNearestBin
+{
+    //TODO : implementation
+}
 -(void) drawRouteSelectedBins
 {
-    // TODO: Hardcoded for testing
-    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    if(selectedLocations.count <= 0)
+    {
+        [self refreshMap];
+        [BWLogger DoLog:@"No bins are selected"];
+        [BWHelpers displayHud:kNoSelectedBins onView:self.navigationController.view];
+        return;
+    }
+
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        NSLog(@"Couldnt retrieve current location");
+        [self refreshMap];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
     }
     
@@ -156,11 +225,12 @@
 
 -(void) drawRouteAllReds
 {
-    // TODO: Hardcoded for testing
-    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        NSLog(@"Couldnt retrieve current location");
+        [self refreshMap];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
     }
 
@@ -181,10 +251,12 @@
 
 -(void) drawRouteRedYellow
 {
-    currentLocation = [[CLLocation alloc] initWithLatitude:12.927991 longitude:77.60381700000001];
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
     if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
     {
-        NSLog(@"Couldnt retrieve current location");
+        [self refreshMap];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
         return;
     }
     
@@ -206,26 +278,31 @@
 
 -(void) drawBins
 {
-    NSMutableArray *bins = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    int noOfBins = bins.count;
-    
-    for(int iter = 0; iter < noOfBins; iter++)
-    {
-        BWBin *bin = [bins objectAtIndex:iter];
-        GMSMarker *marker = [[GMSMarker alloc] init];
-        marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue, bin.longitude.floatValue);
-        marker.appearAnimation = kGMSMarkerAnimationPop;
-        marker.title = bin.place;
-        marker.icon = [self getIconFor:bin.color];
-        marker.map = mapView;
-        
-        // TODO: is there a better alternative for this? Objective C equivalent of C struct
-        NSMutableArray *arr = [[NSMutableArray alloc] init];
-        [arr addObject:bin];
-        [arr addObject:marker];
-        
-        [mapMarkers setValue:arr forKey:bin.binID];
+  NSMutableArray *bins =
+      [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
+  int noOfBins = (int)(bins.count);
+  runOnMainThread(^{
+    for (int iter = 0; iter < noOfBins; iter++) {
+      BWBin *bin = [bins objectAtIndex:iter];
+      GMSMarker *marker = [[GMSMarker alloc] init];
+      marker.position = CLLocationCoordinate2DMake(bin.latitude.floatValue,
+                                                   bin.longitude.floatValue);
+      marker.appearAnimation = kGMSMarkerAnimationPop;
+      marker.title = bin.place;
+
+      NSDictionary *binData = [self getIconAndDataFor:bin];
+      marker.icon = [binData objectForKey:kIcon];
+      marker.userData = [binData objectForKey:kUserData];
+      marker.map = activeMapView;
+
+      NSMutableArray *arr = [[NSMutableArray alloc] init];
+      [arr addObject:bin];
+      [arr addObject:marker];
+
+      [mapMarkers setValue:arr forKey:bin.binID];
     }
+
+  });
     //[self drawRoute];
 }
 
@@ -238,6 +315,34 @@
         BWBin *obj = item[0];
         GMSMarker *marker = item[1];
         marker.icon = [self getIconFor:obj.color];
+    }
+}
+
+-(NSDictionary *) getIconAndDataFor:(BWBin *) bin
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    NSInteger binColor = [bin.color integerValue];
+
+    switch(binColor)
+    {
+        case BWYellow:
+            [dict setValue:[UIImage imageNamed:kTrashYellow] forKey:kIcon];
+            [dict setValue:kYellow forKey:kUserData];
+            return dict;
+
+        case BWRed:
+            [dict setValue:[UIImage imageNamed:kTrashRed] forKey:kIcon];
+            [dict setValue:kRed forKey:kUserData];
+            return dict;
+
+        case BWGreen:
+            [dict setValue:[UIImage imageNamed:kTrashGreen] forKey:kIcon];
+            [dict setValue:kGreen forKey:kUserData];
+            return dict;
+
+        default:
+            // TODO:
+            return nil;
     }
 }
 
@@ -258,33 +363,50 @@
     }
 }
 
-#pragma mark - KVO updates
+-(void)fetchDataForLocation:(CLLocation *)location withAddress:(NSString *)address
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [BWHelpers displayHud:@"Loading..." onView:self.navigationController.view];
+    });
+    BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+    [connectionHandler getBinsAtPlace:location withAddress:address
+                WithCompletionHandler:^(NSArray *bins, NSError *error) {
+                    if (!error) {
+                        NSLog(@"*********Bins: %@", [bins description]);
+                        [self refreshMap];
+                    } else {
+                        if (![[AppDelegate appDel] connected]) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+                            });
+                        }
+                        else
+                        {
+                            [BWHelpers displayHud:kBinFetchFailed onView:self.navigationController.view];
+                        }
+                    }
+                }];
+    [self refreshMap];
+}
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    NSLog(@"Location Update");
-    CLLocation *location;
-    if (!firstLocationUpdate_) {
-        // If the first location update has not yet been recieved, then jump to that
-        // location.
-        firstLocationUpdate_ = YES;
-        location = [change objectForKey:NSKeyValueChangeNewKey];
-        mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
-                                                        zoom:zoomLevel];
-    }
-    
-    // TODO: Is this the correct place to do this?
-    currentLocation = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+#pragma mark - Notifications
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshMap];
 }
 
 #pragma mark - GMSMapViewDelegates
 - (void) mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
+    [self.settingsControl hideControl];
     NSLog(@"did tap at cordinate");
-    [self resetBinIcons];
+    if(!isMapEdited)
+        return;
+
+    //[self resetBinIcons];
     [selectedLocations removeAllObjects];
+    [self refreshMap];
+    isMapEdited = NO;
 }
 
 /*
@@ -293,8 +415,17 @@
  */
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
+    [self.settingsControl hideControl];
+
+    isMapEdited = YES;
     NSLog(@"did tap at marker - %f %f - %@", marker.position.latitude, marker.position.longitude, marker.title);
-    marker.icon = [UIImage imageNamed:@"trashSelected"];
+
+    if([marker.userData isEqualToString:kYellow])
+        marker.icon = [UIImage imageNamed:kTrashPickerYellow];
+    else if([marker.userData isEqualToString:kGreen])
+        marker.icon = [UIImage imageNamed:kTrashPickerGreen];
+    else if([marker.userData isEqualToString:kRed])
+        marker.icon = [UIImage imageNamed:kTrashPickerRed];
     
     [selectedLocations addObject:[[CLLocation alloc] initWithLatitude:marker.position.latitude longitude:marker.position.longitude]];
     return NO;
@@ -310,7 +441,7 @@
 }
 */
 
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [searchResultPlaces count];
@@ -326,67 +457,63 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
+    if(indexPath.row == 0)
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+    else
+        cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
     
-    cell.textLabel.font = [UIFont fontWithName:@"GillSans" size:16.0];
     cell.textLabel.text = [self placeAtIndexPath:indexPath].name;
     return cell;
 }
 
-#pragma mark -
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
-- (void)recenterMapToPlacemark:(CLPlacemark *)placemark {
+- (void)recenterMapToPlacemark:(CLLocation *)placemark {
     
-    GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:placemark.location.coordinate.latitude
-                                                            longitude:placemark.location.coordinate.longitude
-                                                                 zoom:zoomLevel];
-    [mapView animateToCameraPosition:newPosition];
+    GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:placemark.coordinate.latitude
+                                                                 longitude:placemark.coordinate.longitude
+                                                                      zoom:zoomLevel];
+    [activeMapView animateToCameraPosition:newPosition];
 }
 
-//- (void)addPlacemarkAnnotationToMap:(CLPlacemark *)placemark addressString:(NSString *)address {
-//    [self.mapView removeAnnotation:selectedPlaceAnnotation];
-//
-//    selectedPlaceAnnotation = [[MKPointAnnotation alloc] init];
-//    selectedPlaceAnnotation.coordinate = placemark.location.coordinate;
-//    selectedPlaceAnnotation.title = address;
-//    [self.mapView addAnnotation:selectedPlaceAnnotation];
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row == 0)
+    {
+        [self fetchDataForLocation:[BWDataHandler sharedHandler].myLocation withAddress:[BWDataHandler sharedHandler].myLocationAddress];
+        [self recenterMapToPlacemark:[BWDataHandler sharedHandler].myLocation];
+        // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
+        [self.searchDisplayController setActive:NO];
+        [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    else
+    {
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
     [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not map selected Place"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
-        } else if (placemark) {
-            //[self addPlacemarkAnnotationToMap:placemark addressString:addressString];
-            [self recenterMapToPlacemark:placemark];
+            [BWLogger DoLog:@"Could not map selected Place"];
+            [BWHelpers displayHud:kSelectedPlaceFetchFailed onView:self.navigationController.view];
+        }
+        else if (placemark)
+        {
+            [self fetchDataForLocation:placemark.location withAddress:addressString];
+            [self recenterMapToPlacemark:placemark.location];
             // ref: https://github.com/chenyuan/SPGooglePlacesAutocomplete/issues/10
             [self.searchDisplayController setActive:NO];
             [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
         }
     }];
+    }
 }
 
 #pragma mark - UISearchDisplayDelegate
 
 - (void)handleSearchForSearchString:(NSString *)searchString {
-    //searchQuery.location = self.mapView.userLocation.coordinate;
-    // TODO: This has to be corrected
-    searchQuery.location = CLLocationCoordinate2DMake(12.9898231, 77.7148933);
+    searchQuery.location = [[BWDataHandler sharedHandler] getMyLocation].coordinate;
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not fetch Places"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
+            [BWLogger DoLog:@"Could not fetch Places"];
+            [BWHelpers displayHud:kPlacesFetchFailed onView:self.navigationController.view];
         } else {
             searchResultPlaces = places;
             [self.searchDisplayController.searchResultsTableView reloadData];
@@ -428,7 +555,16 @@
     return boolToReturn;
 }
 
-// TODO: Can I do this using auto resize masks?
+-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    searchOn = YES;
+    [self resizeMapView];
+}
+
+-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+    searchOn = NO;
+    [self resizeMapView];
+}
+
 - (void)deviceOrientationDidChangeNotification:(NSNotification*)note
 {
     [self resizeMapView];
@@ -438,17 +574,46 @@
 
 - (void)routeFetchFailedWithError:(NSError *)error
 {
-    NSLog(@"Route Fetch failed");
+    [BWLogger DoLog:@"Route Fetch failed"];
+    [BWHelpers displayHud:kRouteFetchFailed onView:self.navigationController.view];
 }
-
 
 - (void)routeFetchDidReceiveResponse:(NSString *)points
 {
     GMSPath *path = [GMSPath pathFromEncodedPath:points];
     GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
-    polyline.strokeWidth = 3.f;
-    polyline.strokeColor = [UIColor redColor];
-    polyline.map = mapView;
+    polyline.strokeWidth = 5.f;
+    polyline.strokeColor = [UIColor blackColor];
+    polyline.map = activeMapView;
+    isMapEdited = YES;
 }
 
+#pragma mark - BWSettingsControlDelegate
+
+- (void)didTapSettingsRowWithText:(NSString *)text
+{
+    if ([text isEqualToString:kRouteToRed]) {
+        [self drawRouteAllReds];
+    }
+    else if ([text isEqualToString:kRouteToRedYellow]){
+        [self drawRouteRedYellow];
+    }
+    else if ([text isEqualToString:kRouteToSelected]){
+        [self drawRouteSelectedBins];
+    }
+    else if ([text isEqualToString:kRouteToNearest]){
+        [self drawRouteToNearestBin];
+    }
+}
+
+//- (void)mailComposeController:(MFMailComposeViewController*)controller
+//          didFinishWithResult:(MFMailComposeResult)result
+//                        error:(NSError*)error;
+//{
+//    if (result != MFMailComposeResultSent) {
+//        [BWLogger DoLog:@"Failed to send mail"];
+//        [BWHelpers displayHud:@"Failed to send mail" onView:self.navigationController.view];
+//    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 @end

@@ -7,8 +7,9 @@
 //
 
 #import "BWHelpers.h"
-#import "BWCommon.h"
+#import "BWConstants.h"
 #import "BWBin.h"
+#import "MBProgressHUD.h"
 
 NSString* const latitude = @"latitude";
 NSString* const longitude = @"longitude";
@@ -17,7 +18,16 @@ NSString* const binColor = @"binColor";
 NSString* const date = @"date";
 NSString* const temperature = @"temperature";
 NSString* const fillPercent = @"fill"; 
+
 @implementation BWHelpers
+
+void runOnMainThread(void(^block)(void))
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_async(dispatch_get_main_queue(), block);
+}
 
 /**
  Returns the URL to the application's documents directory.
@@ -105,8 +115,10 @@ NSString* const fillPercent = @"fill";
     int indexOfAreaName = -1;
     for (NSString *string in arrayOfAddressStrings) {
         //todo improvement : it would be better if the street address, areaname, city are given with header and deliminator as area : BTM layout, city : Bengaluru. In that case we can just scan for "area :" header to get the area name instead of hard-coding the cityname as Bengaluru.
-        if([string containsString:@"Bengaluru"])
-        {
+        
+        NSRange range = [string rangeOfString:@"Bengaluru"];
+        if (range.location != NSNotFound) {
+            
             break;
         }
         indexOfAreaName++;
@@ -119,6 +131,34 @@ NSString* const fillPercent = @"fill";
 + (float)currentOSVersion
 {
     return [[[UIDevice currentDevice] systemVersion] floatValue];
+}
+
++ (void) displayHud:(NSString *)message onView:(UIView *)view
+{
+    runOnMainThread(^{
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
+        [view addSubview:HUD];
+        
+        // The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
+        // Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+        HUD.customView = [[UIImageView alloc] initWithImage:nil];
+        
+        // Set custom view mode
+        HUD.mode = MBProgressHUDModeCustomView;
+        
+        //HUD.delegate = self;
+        HUD.labelText = message;
+        
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:1];
+    });
+
+}
+
++ (NSError *)generateError:(NSString *)errorMsg
+{
+    NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
+    return [NSError errorWithDomain:@"BWErrorDomain" code:1 userInfo:errorInfo];
 }
 
 @end

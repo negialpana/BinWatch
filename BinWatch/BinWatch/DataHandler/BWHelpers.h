@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "BWCommon.h"
+#import "BWConstants.h"
 @interface BWHelpers : NSObject
+
+void runOnMainThread(void(^block)(void));
 
 /**
  Returns the URL to the application's documents directory.
@@ -24,4 +26,6 @@
 + (UIColor*) textColorForBinColor:(NSNumber *)color;
 + (NSString *)areanameFromFullAddress : (NSString*)fullAddress;
 + (float)currentOSVersion;
++ (void) displayHud:(NSString *)message onView:(UIView *)view;
++ (NSError *)generateError:(NSString *)errorMsg;
 @end

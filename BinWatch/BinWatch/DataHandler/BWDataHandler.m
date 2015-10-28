@@ -16,13 +16,20 @@ static NSString* const kBinID = @"_id";
 static NSString* const kBinIsActive = @"isActive";
 static NSString* const kBinTemperature = @"temperature";
 static NSString* const kBinHumidity = @"humidity";
-static NSString* const kBinDate = @"date";
+static NSString* const kBinDate = @"last_sensed_timestamp";
 static NSString* const kBinFillPercentage = @"fill";
 static NSString* const kBinLatitude = @"latitude";
 static NSString* const kBinLongitude = @"longitude";
 static NSString* const kBinPlace = @"name";
+static NSString* const kAddress = @"address";
+static NSString* const kCity = @"city";
+static NSString* const kArea = @"area";
+static NSString* const kBinsLatitude = @"BinsLatitude";
+static NSString* const kBinsLongitude = @"BinsLongitude";
+static NSString* const kBinsAddress = @"BinsAddress";
 
-@interface BWDataHandler ()
+
+@interface BWDataHandler () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
@@ -30,6 +37,13 @@ static NSString* const kBinPlace = @"name";
 @end
 
 @implementation BWDataHandler
+{
+    NSString *savedBinsLocation;
+    CLLocationManager *locationManager;
+    CLLocation *locationFromAppKit;
+}
+
+@synthesize myLocation;
 
 + (instancetype)sharedHandler{
     
@@ -42,8 +56,45 @@ static NSString* const kBinPlace = @"name";
     return sharedHandler;
 }
 
-- (void)insertBins:(NSArray *)bins{
+- (id) init
+{
+    if (self = [super init])
+    {
+            locationManager = [[CLLocationManager alloc] init];
+            locationManager.delegate = self;
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+                [locationManager requestWhenInUseAuthorization];
+            [locationManager startUpdatingLocation];
+    }
     
+    return self;
+    
+}
+
+-(CLLocation *)getMyLocation
+{
+    if(myLocation)
+        return myLocation;
+    else
+        return locationFromAppKit;
+}
+
+-(CLLocation *)getBinsLocation
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[CLLocation alloc] initWithLatitude:[[defaults valueForKey:kBinsLatitude] floatValue] longitude:[[defaults valueForKey:kBinsLongitude] floatValue]];
+}
+
+-(NSString *)getBinsAddress
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults valueForKey:kBinsAddress];
+}
+
+- (void)insertBins:(NSArray *)bins forLocation:(CLLocation *)location withAddress:(NSString *)address
+{
     // Save a fresh data set
     [self flushData];
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -60,30 +111,47 @@ static NSString* const kBinPlace = @"name";
         bin.isAcive = [[obj valueForKey:kBinIsActive] boolValue];
         bin.temperature = [obj valueForKey:kBinTemperature];
         bin.humidity = [obj valueForKey:kBinHumidity];
-        bin.date = [obj valueForKey:kBinDate];
-        bin.fill = [formatter numberFromString:[obj valueForKey:kBinFillPercentage]];
+        bin.fill = [obj valueForKey:kBinFillPercentage];
         bin.latitude = [obj valueForKey:kBinLatitude];
         bin.longitude = [obj valueForKey:kBinLongitude];
         bin.place = [obj valueForKey:kBinPlace];
+        bin.area = [[obj valueForKey:kAddress] valueForKey:kArea];
+        bin.city = [[obj valueForKey:kAddress] valueForKey:kCity];
+        
+        // UTC is in milliseconds. Converting to seconds
+        NSNumber *dateInSeconds = [obj valueForKey:kBinDate];
+        dateInSeconds = @([dateInSeconds floatValue] / 1000);
+        bin.date = [NSDate dateWithTimeIntervalSince1970:[dateInSeconds floatValue]];
 
-        // TODO: Hard coded
         int abc = [BWHelpers colorForPercent:[[obj valueForKey:kBinFillPercentage] floatValue]];
         NSNumber *numInt = [NSNumber numberWithInt:abc];
         bin.color = numInt;
-        //bin.color = [BWHelpers colorForPercentTemp:[[obj valueForKey:kBinFillPercentage] floatValue]];
     }
     
     NSError *error= nil;
-    if (![context save:&error]) {
-        NSLog(@"Could not save the bins to Application Database");
+    if (![context save:&error])
+    {
+        [BWLogger DoLog:@"Could not save the bins to Application Database"];
     }
-    
+    else
+    {
+        NSString *errMsg = [NSString stringWithFormat:@"Saving set of bins %f %f %@", location.coordinate.latitude, location.coordinate.longitude, address];
+        [BWLogger DoLog:errMsg];
+
+        _binsLocation = location;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:[NSNumber numberWithFloat:location.coordinate.latitude] forKey:kBinsLatitude];
+        [defaults setValue:[NSNumber numberWithFloat:location.coordinate.longitude] forKey:kBinsLongitude];
+        [defaults setValue:address forKey:kBinsAddress];
+        [[NSNotificationCenter defaultCenter] postNotificationName: kBinDataChangedNotification object: nil];
+    }
 }
 
 - (NSArray *)fetchBins{
     
     NSManagedObjectContext *context = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setReturnsObjectsAsFaults:NO];
     NSEntityDescription *entity = [NSEntityDescription entityForName:kEntity inManagedObjectContext:context];
     [request setEntity:entity];
     NSError *error = nil;
@@ -91,46 +159,13 @@ static NSString* const kBinPlace = @"name";
     NSArray *objects = [context executeFetchRequest:request error:&error];
     if(error || objects.count == 0)
         return nil;
-    
-//    for (BWBin *object in objects)
-//    {
-//        NSLog(@"%@", object.binID);
-//    }
-//    NSLog(@"---------------------------------");
-//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-//    f.numberStyle = NSNumberFormatterDecimalStyle;
-//
-//    //NSNumber *myNumber = [f numberFromString:@"42"];
-//
-//    NSMutableArray *bins = [[NSMutableArray alloc] init];
-//    //for(int i = 0; i < objects.count; i++)
-//    for (id object in objects)
-//    {
-//        BWBin *bin = [[BWBin alloc] init];
-//        bin.binID = [object valueForKey:@"binID"];
-//        bin.isAcive = [[object valueForKey:@"isAcive"] boolValue];
-//        bin.temperature = [object valueForKey:@"temperature"];
-//        bin.humidity = [object valueForKey:@"humidity"];
-//        bin.date = [object valueForKey:@"date"];
-//        bin.latitude = [object valueForKey:@"latitude"];
-//        bin.latitude = [object valueForKey:@"longitude"];
-//        //bin.latitude = [NSNumber numberWithFloat:[[object valueForKey:@"latitude"] floatValue]];
-////        bin.latitude = [f numberFromString:[object valueForKey:@"latitude"]];
-////        bin.latitude = [f numberFromString:[object valueForKey:@"longitude"]];
-//        //bin.longitude = [[object valueForKey:@"longitude"] floatValue];
-//        bin.color = [[object valueForKey:@"color"] integerValue];
-//        bin.place = [object valueForKey:@"place"];
-//        bin.fill = [object valueForKey:@"fill"];
-//        //bin.fill = [f numberFromString:[object valueForKey:@"fill"]];
-//        
-//        [bins addObject:bin];
-//    }
 
     // Returning sorted array of objects, based on fill %
     NSSortDescriptor *fillSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kBinFillPercentage ascending:NO];
     NSArray *sortedArray = [objects sortedArrayUsingDescriptors:@[fillSortDescriptor]];
     return sortedArray;
 }
+
 
 #pragma mark - Private Methods
 - (void) flushData
@@ -219,11 +254,19 @@ static NSString* const kBinPlace = @"name";
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        [BWLogger DoLog:[NSString stringWithFormat:@"Unresolved error %@, %@", error, [error userInfo]]];
+
         abort();
     }
     
     return _persistentStoreCoordinator;
 }
 
+#pragma mark - CLLocationManagerDelegate
+
+// This is just a backup. Just in case google maps is not initialised, we can get current location from here
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    locationFromAppKit = newLocation;
+}
 @end

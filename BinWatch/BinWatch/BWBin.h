@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreData/CoreData.h>
 
-#import "BWCommon.h"
+#import "BWConstants.h"
 
 @interface BWBin : NSObject
 
@@ -22,6 +22,8 @@
 @property (nonatomic, retain) NSNumber * temperature;
 @property (nonatomic, retain) NSNumber * humidity;
 @property (atomic, copy) NSString *place;
+@property (atomic, copy) NSString *area;
+@property (atomic, copy) NSString *city;
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, assign) BOOL isAcive;
 

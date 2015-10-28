@@ -7,26 +7,43 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 #import "AppDelegate.h"
-#import "BWCommon.h"
+#import "BWConstants.h"
+#import "BWAppSettings.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Parse/Parse.h>
+#import "Reachability.h"
+#import "BWDataHandler.h"
+#import "BWGeocoder.h"
+#import "BWConnectionHandler.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+{
+    BOOL firstLocationUpdate;
+}
 
+@synthesize mapView = _mapView;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+#pragma mark - Life Cycle Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    firstLocationUpdate = NO;
+    [[BWGeocoder sharedInstance] setDelegate:self];
+
+    [self setTheStoryBoards];
+    [self switchToMainStoryBoard];
     
     [Fabric with:@[[Crashlytics class]]];
 
@@ -44,7 +61,8 @@
 
     [GMSServices provideAPIKey:kGoogleAPIKey];
     
-    //[[Crashlytics sharedInstance] crash];
+    [self startReachabilityNotifier];
+    [self initMaps];
 
     return YES;
 }
@@ -76,10 +94,135 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    // This is already handled on initial bin fetch
+//    if (![self connected]) {
+//        SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+//    }
+
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [_mapView removeObserver:self
+                 forKeyPath:@"myLocation"
+                    context:NULL];
+
+}
+
+#pragma mark - Utility Methods
++ (AppDelegate *)appDel
+{
+    AppDelegate *theDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return theDelegate;
+}
+-(UIViewController *)getTabBarContoller
+{
+    return self.window.rootViewController;
+}
+- (void)setTheStoryBoards {
+    
+    UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIStoryboard *userModeSB = [UIStoryboard storyboardWithName:@"UserMode" bundle:[NSBundle mainBundle]];
+    UITabBarController *mainTBC = [mainSB instantiateInitialViewController];
+    UITabBarController *userTBC = [userModeSB instantiateInitialViewController];
+    self.mainTBC = mainTBC;
+    self.userTBC = userTBC;
+}
+
+-(void)switchToMainStoryBoard
+{
+    self.window.rootViewController = self.mainTBC;
+    [[BWAppSettings sharedInstance] saveAppMode:BWBBMPMode];
+}
+
+-(void)switchToUserModeStoryBoard
+{
+    self.window.rootViewController = self.userTBC;
+    [[BWAppSettings sharedInstance] saveAppMode:BWUserMode];
+}
+
+- (void)startReachabilityNotifier
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
+-(void) initMaps
+{
+    _mapView = [GMSMapView mapWithFrame:CGRectMake(0,0,0,0) camera:nil];
+    _mapView.settings.myLocationButton = YES;
+    [_mapView addObserver:self
+               forKeyPath:@"myLocation"
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
+    
+    // Ask for My Location data after the map has already been added to the UI.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _mapView.myLocationEnabled = YES;
+    });
+}
+
+#pragma mark - KVO updates
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    NSString *infoMsg = [NSString stringWithFormat:@"Location Update %f %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+    [BWLogger DoLog:infoMsg];
+    [[BWGeocoder sharedInstance] reverseGeocode:currentLocation];
+}
+
+#pragma mark - BWGeocoderDelegate
+
+- (void)geocoderDidReceiveResponse:(NSString *)address forLocation:(CLLocation *)location
+{
+    [BWDataHandler sharedHandler].myLocationAddress = address;
+    [BWDataHandler sharedHandler].myLocation = location;
+    
+    if (!firstLocationUpdate)
+    {
+        firstLocationUpdate = YES;
+        NSString *infoMsg = [NSString stringWithFormat:@"First Location Update %@ %f %f", address, location.coordinate.latitude, location.coordinate.longitude];
+        [BWLogger DoLog:infoMsg];
+        BWConnectionHandler *connectionHandler = [BWConnectionHandler sharedInstance];
+        [connectionHandler getBinsAtPlace:location withAddress:address
+                    WithCompletionHandler:^(NSArray *bins, NSError *error) {
+                        if (!error) {
+                            // Do Nothing
+                        }
+                        else
+                        {
+                            // retry? No. Let user search.
+                        }
+                    }];
+    }
+
+}
+
+#pragma mark - Notification
+- (void)networkChanged:(NSNotification *)notification
+{
+    if ([self connected]) {
+        SHOWALERT(kConnectedTitle, kConnectedText);
+    }
+    else{
+        SHOWALERT(kNotConnectedTitle, kNotConnectedText);
+    }
 }
 
 // TODO: Do we need CoreData code here?

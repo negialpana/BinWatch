@@ -135,8 +135,6 @@
             NSDictionary *routeDict = [routesArray objectAtIndex:0];
             NSDictionary *routeOverviewPolyline = [routeDict objectForKey:@"overview_polyline"];
             NSString *points = [routeOverviewPolyline objectForKey:@"points"];
-            GMSPath *path = [GMSPath pathFromEncodedPath:points];
-            GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
             
             if ([self.delegate respondsToSelector:@selector(routeFetchDidReceiveResponse:)])
             {

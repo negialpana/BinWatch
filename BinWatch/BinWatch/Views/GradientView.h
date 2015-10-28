@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BWCommon.h"
+#import "BWConstants.h"
 
 @interface GradientView : UIView
 

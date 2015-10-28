@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Bin.h"
 
 @interface BinDetailsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *weekView;
+@property (weak, nonatomic) IBOutlet UIView *customDateView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIView *binVariablesView;
 @property (weak, nonatomic) IBOutlet UIView *barGraphView;
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *binFillPercentLabel;
 @property (strong, nonatomic) IBOutlet UIView *binIDView;
 @property (weak, nonatomic) IBOutlet UIImageView *blackLineImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nextFillDate;
 
 @property (assign) int currentSelectedBinIndex;
 
