@@ -31,9 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
-@property (weak, nonatomic) IBOutlet UIView *customViewBinId;
-@property (weak, nonatomic) IBOutlet UILabel *customViewBinLocLabel;
-@property (weak, nonatomic) IBOutlet UILabel *customViewBillFillPerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *customViewBinIdBtn;
 
 @end
 
@@ -274,10 +272,10 @@
     [_toDateBtn setTitle:today forState:UIControlStateNormal];
     
     //init labels
-    [_customViewBinLocLabel setText:[BWHelpers areanameFromFullAddress:self.currentBin.place]];
-    [_customViewBillFillPerLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[self.currentBin.fill integerValue]]];
+    NSString *title = [NSString stringWithFormat:@"%@ \t\t\t\t\t %d %%", [BWHelpers areanameFromFullAddress:self.currentBin.place], [self.currentBin.fill integerValue]];
+    [_customViewBinIdBtn setTitle: title forState:UIControlStateNormal];
     
-    [self setUpBgColorForBinIdView : _customViewBinId];
+    [self setUpBgColorForBinIdView : _customViewBinIdBtn];
 }
 
 - (NSDateFormatter *)dateFormatter
