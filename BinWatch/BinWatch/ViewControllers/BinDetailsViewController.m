@@ -272,7 +272,7 @@
     [_toDateBtn setTitle:today forState:UIControlStateNormal];
     
     //init labels
-    NSString *title = [NSString stringWithFormat:@"%@ \t\t\t\t\t %d %%", [BWHelpers areanameFromFullAddress:self.currentBin.place], [self.currentBin.fill integerValue]];
+    NSString *title = [NSString stringWithFormat:@"%@ \t\t\t\t\t %ld %%", [BWHelpers areanameFromFullAddress:self.currentBin.place], (long)[self.currentBin.fill integerValue]];
     [_customViewBinIdBtn setTitle: title forState:UIControlStateNormal];
     
     [self setUpBgColorForBinIdView : _customViewBinIdBtn];
