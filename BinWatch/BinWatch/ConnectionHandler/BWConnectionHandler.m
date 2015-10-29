@@ -53,7 +53,7 @@ static NSString* const kAttribute               = @"attr";
     return self;
 }
 
-- (void)getBinsAtPlace:(CLLocation*)location withAddress:(NSString *)address WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
+- (void)getBinsAtPlace:(CLLocation*)location withAddress:(NSString *)address WithCompletionHandler:(ArrayAndErrorBlock)completionBlock{
     NSString *infoMsg = [NSString stringWithFormat:@"Requesting for bins at %f %f", location.coordinate.latitude, location.coordinate.longitude];
     [BWLogger DoLog:infoMsg];
 
@@ -85,7 +85,7 @@ static NSString* const kAttribute               = @"attr";
     [dataTask resume];
 }
 
-- (void)getBinData:(NSString *)binID from:(NSDate *)utcFrom to:(NSDate *)utcTo forParam:(BWBinParam)param WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
+- (void)getBinData:(NSString *)binID from:(NSDate *)utcFrom to:(NSDate *)utcTo forParam:(BWBinParam)param WithCompletionHandler:(ArrayAndErrorBlock)completionBlock{
     
     NSString* attrValue;
 
@@ -158,7 +158,7 @@ static NSString* const kAttribute               = @"attr";
                            }];
 }
 
-- (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock{
+- (void)getBinsWithCompletionHandler:(ArrayAndErrorBlock)completionBlock{
  
    NSURL *url = [self rootURL];
    NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:@"get/bins"]
@@ -182,7 +182,7 @@ static NSString* const kAttribute               = @"attr";
     
 }
 
-- (void)getNextFillForBinWithId:(NSString*)binId andCompletionBlock:(void(^)(NSDate *, NSError *))completionBlock{
+- (void)getNextFillForBinWithId:(NSString*)binId andCompletionBlock:(DateAndErrorBlock)completionBlock{
     NSURL *url = [self rootURL];
     NSString *pathComponent = [NSString stringWithFormat:@"get/bin/%@/prediction",binId];
     NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:[url URLByAppendingPathComponent:pathComponent]
