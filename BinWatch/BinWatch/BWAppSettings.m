@@ -60,24 +60,49 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     BWAppMode appMode = [self getAppMode];
     switch (appMode) {
         case BWUserMode:
-            [self saveAppMode:BWBBMPMode];
-            [[AppDelegate appDel] switchToMainStoryBoard];
+        {
+            [self showLoginAlert];
             break;
+        }
         case BWBBMPMode:
+        {
+            SHOWALERT(@"Logout", @"You're logging out of BBMP Mode");
             [self saveAppMode:BWUserMode];
             [[AppDelegate appDel] switchToUserModeStoryBoard];
             break;
-            
+        }
         default:
+        {
+            SHOWALERT(@"Logout", @"You're logging out of BBMP Mode");
             [self saveAppMode:BWUserMode];
             [[AppDelegate appDel] switchToUserModeStoryBoard];
             break;
+        }
     }
 }
--(void)switchedToBBMPMode{
-    NSLog(@"switchedToBBMPMode notif");
-    
+
+
+-(void)showLoginAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login Required"
+                                                                   message:@"Switching to BBMP Mode requires you to login"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* cancelButtonAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:nil];
+    UIAlertAction* loginButtonAction = [UIAlertAction actionWithTitle:@"Login"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action){
+                                                               [self saveAppMode:BWBBMPMode];
+                                                               [[AppDelegate appDel] switchToMainStoryBoard];
+
+                                                           }];
+    [alert addAction:cancelButtonAction];
+    [alert addAction:loginButtonAction];
+    UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    [controllerToShowTo presentViewController:alert animated:YES completion:nil];
 }
+
 -(void)exportSelected{
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
