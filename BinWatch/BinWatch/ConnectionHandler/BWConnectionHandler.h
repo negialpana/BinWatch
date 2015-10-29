@@ -15,12 +15,15 @@ typedef NS_ENUM(NSUInteger, BWBinParam) {
     BWTemperature,
 };
 
+typedef void (^ArrayAndErrorBlock)(NSArray *, NSError *);
+typedef void (^DateAndErrorBlock)(NSDate *, NSError *);
+
 @interface BWConnectionHandler : NSObject
 
 + (instancetype)sharedInstance;
 
-- (void)getBinsWithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock;
-- (void)getBinsAtPlace:(CLLocation*)location withAddress:(NSString *)address WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock;
+- (void)getBinsWithCompletionHandler:(ArrayAndErrorBlock)completionBlock;
+- (void)getBinsAtPlace:(CLLocation*)location withAddress:(NSString *)address WithCompletionHandler:(ArrayAndErrorBlock)completionBlock;
 
 /*
 NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:1301011200];
@@ -36,6 +39,6 @@ NSDate *dateTo = [NSDate dateWithTimeIntervalSince1970:1478822400];
                            }];
 */
 - (void)getBinData:(NSString *)binID from:(NSDate *)utcFrom to:(NSDate *)utcTo forParam:(BWBinParam)param WithCompletionHandler:(void(^)(NSArray *, NSError *))completionBlock;
-- (void)getNextFillForBinWithId:(NSString*)binId andCompletionBlock:(void(^)(NSDate *, NSError *))completionBlock;
+- (void)getNextFillForBinWithId:(NSString*)binId andCompletionBlock:(DateAndErrorBlock)completionBlock;
 
 @end

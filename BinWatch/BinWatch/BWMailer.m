@@ -111,6 +111,7 @@
 +(void)showCamera
 {
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
+    [BWHelpers displayHud:@"Take the photo of the unpicked bin" onView:controllerToShowTo.view];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];

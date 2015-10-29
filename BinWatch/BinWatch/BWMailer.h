@@ -13,5 +13,5 @@
 
 +(void) composeMailWithSubject:(NSString*)subject andBody:(NSString*)body;
 +(void) composeMailWithSubject:(NSString*)subject body:(NSString*)body andAttachment:(NSArray*)file;
-+(void)showCamera;
++(void) showCamera;
 @end

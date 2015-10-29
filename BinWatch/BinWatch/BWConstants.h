@@ -21,9 +21,9 @@ extern NSString* const kBinDataChangedNotification;
 #define DEFAULT_RADIUS 5
 #define MENU_DEFAULT_RADIUS 200
 
-#define RedColor    [UIColor colorWithRed:188.0/255.0f green:33.0/255.0f blue:33.0/255.0f alpha:0.8]
-#define GreenColor  [UIColor colorWithRed:56.0/255.0f green:139.0/255.0f blue:59.0/255.0f alpha:0.8]
-#define YellowColor [UIColor colorWithRed:255.0/255.0f green:152.0/255.0f blue:0.0/255.0f alpha:0.8]
+#define RedColor    [UIColor colorWithRed:240.0/255.0f green:80.0/255.0f blue:80.0/255.0f alpha:1.0]
+#define GreenColor  [UIColor colorWithRed:100.0/255.0f green:190.0/255.0f blue:120.0/255.0f alpha:1.0]
+#define YellowColor [UIColor colorWithRed:220.0/255.0f green:190.0/255.0f blue:70.0/255.0f alpha:1.0]
 
 #define DarkRed     [UIColor colorWithRed:113.0/255.0f green:3.0/255.0f blue:3.0/255.0f alpha:0.8]
 #define DarkYellow  [UIColor colorWithRed:181.0/255.0f green:135.0/255.0f blue:22.0/255.0f alpha:0.8]
