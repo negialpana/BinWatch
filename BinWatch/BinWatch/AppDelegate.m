@@ -43,7 +43,6 @@
     [[BWGeocoder sharedInstance] setDelegate:self];
 
     [self setTheStoryBoards];
-    [self switchToMainStoryBoard];
     
     [Fabric with:@[[Crashlytics class]]];
 
@@ -133,6 +132,13 @@
     UITabBarController *userTBC = [userModeSB instantiateInitialViewController];
     self.mainTBC = mainTBC;
     self.userTBC = userTBC;
+    BWAppMode appMode = [[BWAppSettings sharedInstance]getAppMode];
+    if (appMode == BWBBMPMode) {
+        [self switchToMainStoryBoard];
+    }
+    else{
+        [self switchToUserModeStoryBoard];
+    }
 }
 
 -(void)switchToMainStoryBoard
