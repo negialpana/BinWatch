@@ -10,6 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "BWRoute.h"
 #import "BWSettingsControl.h"
+#import "BWDistance.h"
 
 @class SPGooglePlacesAutocompleteQuery;
 

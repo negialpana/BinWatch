@@ -71,6 +71,7 @@
 		905CDBEB1BDEA9D600A18D96 /* CorePlotHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 905CDBEA1BDEA9D600A18D96 /* CorePlotHeaders */; };
 		905CDBF01BDEAA7800A18D96 /* CPDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CDBED1BDEAA7800A18D96 /* CPDConstants.m */; };
 		905CDBF11BDEAA7800A18D96 /* CPDStockPriceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CDBEF1BDEAA7800A18D96 /* CPDStockPriceStore.m */; };
+		905CDBF41BE1540000A18D96 /* BWDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CDBF31BE1540000A18D96 /* BWDistance.m */; };
 		F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6391B9BEB270084A879 /* BWBin.m */; };
 		F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB63B1B9BEB270084A879 /* BWBinCollection.m */; };
 		F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F19AB6451B9BF5E50084A879 /* BWHelpers.m */; };
@@ -194,6 +195,8 @@
 		905CDBED1BDEAA7800A18D96 /* CPDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDConstants.m; sourceTree = "<group>"; };
 		905CDBEE1BDEAA7800A18D96 /* CPDStockPriceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDStockPriceStore.h; sourceTree = "<group>"; };
 		905CDBEF1BDEAA7800A18D96 /* CPDStockPriceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDStockPriceStore.m; sourceTree = "<group>"; };
+		905CDBF21BE1540000A18D96 /* BWDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDistance.h; sourceTree = "<group>"; };
+		905CDBF31BE1540000A18D96 /* BWDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDistance.m; sourceTree = "<group>"; };
 		F19AB6381B9BEB270084A879 /* BWBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBin.h; sourceTree = "<group>"; };
 		F19AB6391B9BEB270084A879 /* BWBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWBin.m; sourceTree = "<group>"; };
 		F19AB63A1B9BEB270084A879 /* BWBinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWBinCollection.h; sourceTree = "<group>"; };
@@ -532,6 +535,8 @@
 				F1F2B8F91BC6E55A0019E662 /* BWGeocoder.m */,
 				F1F2B8FA1BC6E55A0019E662 /* BWRoute.h */,
 				F1F2B8FB1BC6E55A0019E662 /* BWRoute.m */,
+				905CDBF21BE1540000A18D96 /* BWDistance.h */,
+				905CDBF31BE1540000A18D96 /* BWDistance.m */,
 			);
 			path = "Google Maps";
 			sourceTree = "<group>";
@@ -699,6 +704,7 @@
 				F1F2B9161BC6E55A0019E662 /* Reachability.m in Sources */,
 				F1F2B90F1BC6E55A0019E662 /* BWRoute.m in Sources */,
 				1500ABCD1B9ABAD200E0AF6C /* BWFillLevelsViewController.m in Sources */,
+				905CDBF41BE1540000A18D96 /* BWDistance.m in Sources */,
 				1500ABE91B9C080500E0AF6C /* BWDataHandler.m in Sources */,
 				321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */,
 				905CDBF01BDEAA7800A18D96 /* CPDConstants.m in Sources */,

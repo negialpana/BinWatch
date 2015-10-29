@@ -40,6 +40,12 @@
     SPGooglePlacesAutocompleteQuery *searchQuery;
     
     BOOL shouldBeginEditing;
+    
+    // For distance calc
+    BOOL distanceCheckInProgress;
+    NSMutableArray *distances;
+    NSMutableArray *locationsSearched;
+    int numberOfBinsBeingChecked;
 }
 
 #pragma mark - View Life Cycle
@@ -55,6 +61,11 @@
     firstLocationUpdate_ = NO;
     isMapEdited = NO;
 
+    distanceCheckInProgress = NO;
+    numberOfBinsBeingChecked = 0;
+    distances = [[NSMutableArray alloc] init];
+    locationsSearched = [[NSMutableArray alloc] init];
+    
     mapMarkers = [[NSMutableDictionary alloc] init];
     //currentLocation = [[CLLocation alloc] init];
     selectedLocations = [[NSMutableArray alloc] init];
@@ -114,6 +125,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    distanceCheckInProgress = NO;
+    numberOfBinsBeingChecked = 0;
     [self.settingsControl hideControl];
     if([BWDataHandler sharedHandler].binsLocation)
         activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
@@ -160,7 +173,8 @@
     CGFloat mapviewOriginY;
     CGFloat mapViewHeight;
 
-    // This is a hack fix. No idea why search bar animates to cover navigation bar on click of search
+    // This is a hack fix. No idea why search bar animates to cover navigation bar on click of search.
+    // I understand, thats the way it works
     if(searchOn)
     {
         //NSLog(@"TabBar Height: %f SearchBar Control Height: %f NAvigation: %f statusbar height: %f", self.tabBarController.tabBar.frame.size.height, self.searchDisplayController.searchBar.frame.size.height, self.navigationController.navigationBar.frame.size.height, [UIApplication sharedApplication].statusBarFrame.size.height);
@@ -190,8 +204,79 @@
 
 -(void) drawRouteToNearestBin
 {
-    //TODO : implementation
+    if(distanceCheckInProgress)
+        return;
+
+    distanceCheckInProgress = YES;
+    [distances removeAllObjects];
+    [locationsSearched removeAllObjects];
+
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
+    if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
+    {
+        [self refreshMap];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
+        return;
+    }
+
+    NSArray *activeBins = [[BWDataHandler sharedHandler] fetchBins];
+    numberOfBinsBeingChecked = (int)[activeBins count];
+
+    for(BWBin *bin in activeBins)
+    {
+        [[BWDistance sharedInstance] getDistancefrom:currentLocation to:[[CLLocation alloc] initWithLatitude:[bin.latitude floatValue] longitude:[bin.longitude floatValue]] andCompletionBlock:^(NSNumber *value, CLLocation *toLoc,NSError *error) {
+            if (!error) {
+                // Do Nothing
+                [distances addObject:value];
+                [locationsSearched addObject:toLoc];
+                numberOfBinsBeingChecked--;
+                distanceCheckInProgress = NO;
+                if(numberOfBinsBeingChecked <= 0)
+                {
+                    //we are done
+                    NSArray *sortedDistances = [distances sortedArrayUsingSelector:@selector(compare:)];
+                    //NSLog(@"%@", sortedDistances);
+                    if([sortedDistances count] <= 0 || [distances count] <= 0)
+                    {
+                        [BWHelpers displayHud:@"Something went wrong!" onView:self.navigationController.view];
+                        return;
+                    }
+
+                    NSInteger anIndex = [distances indexOfObject:[sortedDistances objectAtIndex:0]];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if([locationsSearched count] > 0)
+                            [self drawRouteToBin:[locationsSearched objectAtIndex:anIndex]];
+                    });
+                }
+            }
+            else
+            {
+            }
+        }];
+    }
 }
+
+-(void) drawRouteToBin:(CLLocation *)bin
+{
+    CLLocation *currentLocation = [[BWDataHandler sharedHandler] getMyLocation];
+    if(currentLocation.coordinate.longitude == 0 || currentLocation.coordinate.latitude == 0)
+    {
+        [self refreshMap];
+        [BWLogger DoLog:@"Couldnt retrieve current location"];
+        [BWHelpers displayHud:kCurrentLocationFailed onView:self.navigationController.view];
+        return;
+    }
+    
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+    
+    // Adding current locations
+    [locations addObject:currentLocation];
+    [locations addObject:bin];
+    
+    [[BWRoute sharedInstance] fetchRoute:locations travelMode:TravelModeDriving];
+}
+
 -(void) drawRouteSelectedBins
 {
     if(selectedLocations.count <= 0)
@@ -606,14 +691,4 @@
     }
 }
 
-//- (void)mailComposeController:(MFMailComposeViewController*)controller
-//          didFinishWithResult:(MFMailComposeResult)result
-//                        error:(NSError*)error;
-//{
-//    if (result != MFMailComposeResultSent) {
-//        [BWLogger DoLog:@"Failed to send mail"];
-//        [BWHelpers displayHud:@"Failed to send mail" onView:self.navigationController.view];
-//    }
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
 @end
