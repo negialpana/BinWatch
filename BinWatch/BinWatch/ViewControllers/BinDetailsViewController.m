@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *customViewBinIdBtn;
+- (IBAction)customViewBinIdBtnClicked:(id)sender;
 
 @end
 
@@ -105,6 +106,13 @@
         UIButton *btn = (UIButton *)sender;
         [btn setTitle:[[weakSelf dateFormatter] stringFromDate:selDate] forState:UIControlStateNormal];
     }];
+}
+
+- (IBAction)customViewBinIdBtnClicked:(id)sender
+{
+    NSLog(@"customViewBinIdBtnClicked");
+    [self.weekView setHidden:NO];
+    [self.customDateView setHidden:YES];
 }
 
 #pragma mark - Week Segment Methods
