@@ -11,7 +11,11 @@
 #import "BWConstants.h"
 #import "BWBin.h"
 
-@interface BWAnalyseViewController (){
+#import "BWConnectionHandler.h"
+#import "GraphView.h"
+#import "UUChart.h"
+
+@interface BWAnalyseViewController ()<UUChartDataSource>{
     NSArray *activeBins;
 }
 
@@ -19,11 +23,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateRangeLabel;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphView;
 @property (weak, nonatomic) IBOutlet UITextView *binDetailsTextView;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic, strong) CPTBarPlot *aaplPlot;
 @property (nonatomic, strong) CPTBarPlot *googPlot;
 @property (nonatomic, strong) CPTBarPlot *msftPlot;
 @property (nonatomic, strong) CPTPlotSpaceAnnotation *priceAnnotation;
+
+@property (nonatomic, strong) UUChart *uuChart;
 
 -(IBAction)aaplSwitched:(id)sender;
 -(IBAction)googSwitched:(id)sender;
@@ -33,8 +40,6 @@
 -(void)configureGraph;
 -(void)configurePlots;
 -(void)configureAxes;
-
-
 
 -(void)hideAnnotation:(CPTGraph *)graph;
 
@@ -53,8 +58,9 @@ CGFloat const CPDBarInitialX = 0.25f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    for(BWBin *obj in self.bins){
-        self.binDetailsTextView.text = [self.binDetailsTextView.text stringByAppendingString:[NSString stringWithFormat:@"%@ - %@%%\n",obj.area,obj.fill]];
+    for(NSDictionary *obj in self.bins){
+        BWBin *bin  = [obj objectForKey:@"Bin"];
+        self.binDetailsTextView.text = [self.binDetailsTextView.text stringByAppendingString:[NSString stringWithFormat:@"%@ - %@%%\n",bin.area,bin.fill]];
     }
     activeBins = [[BWDataHandler sharedHandler] fetchBins];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -63,7 +69,19 @@ CGFloat const CPDBarInitialX = 0.25f;
     [_queryLabel setText:_query];
     
      [self initPlot];
-    // Do any additional setup after loading the view.
+    _uuChart = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(10, 10, self.view.bounds.size.width-20, 200)
+                                             withSource:self
+                                              withStyle:UUChartLineStyle];
+    [_uuChart showInView:self.bezirGraphView];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//    GraphView *gv = [[GraphView alloc] initWithFrame:self.bezirGraphView.bounds];
+//    gv.binsArray = self.bins;
+//    gv.backgroundColor = [UIColor clearColor];
+   // [self.bezirGraphView addSubview:gv];
 }
 
 
@@ -247,14 +265,133 @@ CGFloat const CPDBarInitialX = 0.25f;
     return [NSDecimalNumber numberWithUnsignedInteger:index];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+///////
+#pragma mark - @required
+- (NSArray *)UUChart_xLableArray:(UUChart *)chart
+{
+    NSDictionary *biggestDict = [_bins objectAtIndex:0];
+    
+    if ([_bins count]>1) {
+        
+        for(NSDictionary *dict in _bins){
+            if ([dict count]>[biggestDict count]) {
+                biggestDict = dict;
+            }
+        }
+    }
+    
+    NSArray *dataA = [biggestDict valueForKey:@"DataArray"];
+    NSString * str = [[dataA valueForKeyPath:@"timestamp"] componentsJoinedByString:@","];
+    NSArray *dateArray = [str componentsSeparatedByString:@","];
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:dateArray];
+    NSMutableArray *returnArray = [NSMutableArray array];
+    if ([mutableArray count]%7 == 0) {
+        
+        int multiplier = [mutableArray count]==7?1:7;
+        for(int i = 0;i <7; i++){
+            [returnArray addObject:[mutableArray objectAtIndex:i*multiplier]];
+        }
+        
+    }else{
+        if ([mutableArray count]>7) {
+            
+            [mutableArray removeObjectsInRange:NSMakeRange([mutableArray count]-([mutableArray count]%7)-1 , [mutableArray count]%7)];
+            int multiplier = [mutableArray count]== 7?1:7;
+            for(int i = 0; i < 7; i++){
+                [returnArray addObject:[mutableArray objectAtIndex:i*multiplier]];
+            }
+            
+        }else{
+            for(int i = 0;i <[mutableArray count]; i++){
+                [returnArray addObject:[mutableArray objectAtIndex:i]];
+            }
+        }
+    }
+    
+//    NSMutableArray *finalreturnArray = [NSMutableArray array];
+//    for(NSDate *date in returnArray){
+//        NSString *dateStr = [self.dateFormatter stringFromDate:date];
+//        [finalreturnArray addObject:dateStr];
+//    }
+    
+    return returnArray;
 }
-*/
 
+-(NSDateFormatter *)dateFormatter{
+    
+    if (!_dateFormatter) {
+         _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    }
+    return _dateFormatter;
+
+}
+
+- (NSArray *)UUChart_yValueArray:(UUChart *)chart
+{
+    NSMutableArray *objectsArr = [NSMutableArray array];
+    
+    for(NSDictionary *obj in _bins){
+        NSMutableArray *returnArray = [NSMutableArray array];
+        NSArray *dataA = [obj valueForKey:@"DataArray"];
+        NSString * str = [[dataA valueForKeyPath:@"fill"] componentsJoinedByString:@","];
+        NSArray *fillArray = [str componentsSeparatedByString:@","];
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:fillArray];
+        
+        if ([mutableArray count]%7 == 0) {
+            
+            int multiplier = [mutableArray count]==7?1:7;
+            for(int i = 0;i <7; i++){
+                [returnArray addObject:[mutableArray objectAtIndex:i*multiplier]];
+            }
+            
+        }else{
+            if ([mutableArray count]>7) {
+                
+                [mutableArray removeObjectsInRange:NSMakeRange([mutableArray count]-([mutableArray count]%7)-1 , [mutableArray count]%7)];
+                int multiplier = [mutableArray count]== 7?1:7;
+                for(int i = 0; i < 7; i++){
+                    [returnArray addObject:[mutableArray objectAtIndex:i*multiplier]];
+                }
+                
+            }else{
+                for(int i = 0;i <[mutableArray count]; i++){
+                    [returnArray addObject:[mutableArray objectAtIndex:i]];
+                }
+            }
+        }
+        
+        [objectsArr addObject:returnArray];
+    }
+    
+    return objectsArr;
+}
+
+#pragma mark - @optional
+- (NSArray *)UUChart_ColorArray:(UUChart *)chart
+{
+    return @[UUGreen,UURed,UUBrown];
+}
+
+- (CGRange)UUChartChooseRangeInLineChart:(UUChart *)chart
+{
+    
+    return CGRangeMake(100, 0);
+   
+}
+
+- (CGRange)UUChartMarkRangeInLineChart:(UUChart *)chart
+{
+   return  CGRangeMake(25, 75);
+}
+
+- (BOOL)UUChart:(UUChart *)chart ShowHorizonLineAtIndex:(NSInteger)index
+{
+    return YES;
+}
+
+- (BOOL)UUChart:(UUChart *)chart ShowMaxMinAtIndex:(NSInteger)index
+{
+    return YES;
+}
 @end

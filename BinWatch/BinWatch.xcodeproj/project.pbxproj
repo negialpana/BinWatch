@@ -22,6 +22,13 @@
 		151874A21BCC19720076BD21 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518749D1BCC19720076BD21 /* UIColor+HexColor.m */; };
 		151874A31BCC19720076BD21 /* VBPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518749F1BCC19720076BD21 /* VBPieChart.m */; };
 		151874A41BCC19720076BD21 /* VBPiePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 151874A11BCC19720076BD21 /* VBPiePiece.m */; };
+		159547A41BE274720021D2F0 /* UUBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 159547991BE274720021D2F0 /* UUBar.m */; settings = {ASSET_TAGS = (); }; };
+		159547A51BE274720021D2F0 /* UUBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1595479B1BE274720021D2F0 /* UUBarChart.m */; settings = {ASSET_TAGS = (); }; };
+		159547A61BE274720021D2F0 /* UUChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1595479D1BE274720021D2F0 /* UUChart.m */; settings = {ASSET_TAGS = (); }; };
+		159547A71BE274720021D2F0 /* UUChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1595479F1BE274720021D2F0 /* UUChartLabel.m */; settings = {ASSET_TAGS = (); }; };
+		159547A81BE274720021D2F0 /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 159547A11BE274720021D2F0 /* UUColor.m */; settings = {ASSET_TAGS = (); }; };
+		159547A91BE274720021D2F0 /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 159547A31BE274720021D2F0 /* UULineChart.m */; settings = {ASSET_TAGS = (); }; };
+		15B612891BE1EA1200FC486B /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B612881BE1EA1200FC486B /* GraphView.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
@@ -128,6 +135,20 @@
 		1518749F1BCC19720076BD21 /* VBPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPieChart.m; sourceTree = "<group>"; };
 		151874A01BCC19720076BD21 /* VBPiePiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPiePiece.h; sourceTree = "<group>"; };
 		151874A11BCC19720076BD21 /* VBPiePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPiePiece.m; sourceTree = "<group>"; };
+		159547981BE274720021D2F0 /* UUBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBar.h; sourceTree = "<group>"; };
+		159547991BE274720021D2F0 /* UUBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUBar.m; sourceTree = "<group>"; };
+		1595479A1BE274720021D2F0 /* UUBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBarChart.h; sourceTree = "<group>"; };
+		1595479B1BE274720021D2F0 /* UUBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUBarChart.m; sourceTree = "<group>"; };
+		1595479C1BE274720021D2F0 /* UUChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUChart.h; sourceTree = "<group>"; };
+		1595479D1BE274720021D2F0 /* UUChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUChart.m; sourceTree = "<group>"; };
+		1595479E1BE274720021D2F0 /* UUChartLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUChartLabel.h; sourceTree = "<group>"; };
+		1595479F1BE274720021D2F0 /* UUChartLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUChartLabel.m; sourceTree = "<group>"; };
+		159547A01BE274720021D2F0 /* UUColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUColor.h; sourceTree = "<group>"; };
+		159547A11BE274720021D2F0 /* UUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUColor.m; sourceTree = "<group>"; };
+		159547A21BE274720021D2F0 /* UULineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UULineChart.h; sourceTree = "<group>"; };
+		159547A31BE274720021D2F0 /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
+		15B612871BE1EA1200FC486B /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		15B612881BE1EA1200FC486B /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AE01B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AE11B98A9D7006CD602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -353,9 +374,30 @@
 			name = PieChart;
 			sourceTree = "<group>";
 		};
+		159547971BE2745C0021D2F0 /* UUChart */ = {
+			isa = PBXGroup;
+			children = (
+				159547981BE274720021D2F0 /* UUBar.h */,
+				159547991BE274720021D2F0 /* UUBar.m */,
+				1595479A1BE274720021D2F0 /* UUBarChart.h */,
+				1595479B1BE274720021D2F0 /* UUBarChart.m */,
+				1595479C1BE274720021D2F0 /* UUChart.h */,
+				1595479D1BE274720021D2F0 /* UUChart.m */,
+				1595479E1BE274720021D2F0 /* UUChartLabel.h */,
+				1595479F1BE274720021D2F0 /* UUChartLabel.m */,
+				159547A01BE274720021D2F0 /* UUColor.h */,
+				159547A11BE274720021D2F0 /* UUColor.m */,
+				159547A21BE274720021D2F0 /* UULineChart.h */,
+				159547A31BE274720021D2F0 /* UULineChart.m */,
+			);
+			name = UUChart;
+			sourceTree = "<group>";
+		};
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
+				15B612871BE1EA1200FC486B /* GraphView.h */,
+				15B612881BE1EA1200FC486B /* GraphView.m */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
@@ -544,6 +586,7 @@
 		F1F2B9051BC6E55A0019E662 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				159547971BE2745C0021D2F0 /* UUChart */,
 				905CDBEC1BDEAA7800A18D96 /* CPDConstants.h */,
 				905CDBED1BDEAA7800A18D96 /* CPDConstants.m */,
 				905CDBEE1BDEAA7800A18D96 /* CPDStockPriceStore.h */,
@@ -707,9 +750,11 @@
 				905CDBF41BE1540000A18D96 /* BWDistance.m in Sources */,
 				1500ABE91B9C080500E0AF6C /* BWDataHandler.m in Sources */,
 				321C58D31BBCDF4300F025AA /* BinDetailsViewController.m in Sources */,
+				159547A91BE274720021D2F0 /* UULineChart.m in Sources */,
 				905CDBF01BDEAA7800A18D96 /* CPDConstants.m in Sources */,
 				1500ABCC1B9ABAD200E0AF6C /* BWBinLocatorViewController.m in Sources */,
 				F19AB63E1B9BEB270084A879 /* BWBinCollection.m in Sources */,
+				159547A81BE274720021D2F0 /* UUColor.m in Sources */,
 				151874A21BCC19720076BD21 /* UIColor+HexColor.m in Sources */,
 				F1F8BF9C1BDCA89700154D90 /* QueryParameterCell.m in Sources */,
 				15ED60D51BC94B8C00EA6285 /* BWAnalyseViewController.m in Sources */,
@@ -717,10 +762,12 @@
 				F1F2B9141BC6E55A0019E662 /* HudDemoViewController.m in Sources */,
 				151874A31BCC19720076BD21 /* VBPieChart.m in Sources */,
 				F1F8BF991BDCA89700154D90 /* BWAnalyseTableViewCell.m in Sources */,
+				159547A61BE274720021D2F0 /* UUChart.m in Sources */,
 				F1F8BFBC1BDE5D2500154D90 /* BWMessagesViewController.m in Sources */,
 				F1F8BF9F1BDCB48C00154D90 /* ChatDialogViewCell.m in Sources */,
 				905CDBF11BDEAA7800A18D96 /* CPDStockPriceStore.m in Sources */,
 				32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */,
+				15B612891BE1EA1200FC486B /* GraphView.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				F1F8BFA21BDCB4A400154D90 /* Message.m in Sources */,
 				F1F2B9101BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m in Sources */,
@@ -733,15 +780,18 @@
 				F1F2B9111BC6E55A0019E662 /* SPGooglePlacesAutocompleteQuery.m in Sources */,
 				F19AB6831BA1CF5C0084A879 /* AppDelegate.m in Sources */,
 				1500ABF21B9C080D00E0AF6C /* BWConnectionHandler.m in Sources */,
+				159547A41BE274720021D2F0 /* UUBar.m in Sources */,
 				F1F2B9341BCBEA250019E662 /* BWConstants.m in Sources */,
 				1500ABEB1B9C080500E0AF6C /* BinWatch.xcdatamodeld in Sources */,
 				903F07AF1BDCF1B80072386B /* BWSettingsViewController.m in Sources */,
 				F1F2B9151BC6E55A0019E662 /* MBProgressHUD.m in Sources */,
+				159547A71BE274720021D2F0 /* UUChartLabel.m in Sources */,
 				F1F8BF9A1BDCA89700154D90 /* BWDatePickerView.m in Sources */,
 				32861AA61BC4D09100D0568F /* BWViewRenderingHelper.m in Sources */,
 				F1F2B90E1BC6E55A0019E662 /* BWGeocoder.m in Sources */,
 				900072661BCA69C6003B2562 /* BWSettingsControl.m in Sources */,
 				F1F2B9121BC6E55A0019E662 /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
+				159547A51BE274720021D2F0 /* UUBarChart.m in Sources */,
 				15ED60D81BC95A1600EA6285 /* BWDashBoardViewController.m in Sources */,
 				15EA4AE21B98A9D7006CD602 /* main.m in Sources */,
 				F19AB6461B9BF5E50084A879 /* BWHelpers.m in Sources */,

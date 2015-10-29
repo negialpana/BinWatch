@@ -146,7 +146,22 @@ static NSString* const kAttribute               = @"attr";
                                                                                     options:NSJSONReadingAllowFragments
                                                                                       error:&jsonError];
                                    [BWLogger DoLog:[NSString stringWithFormat:@"Bin Data retrieved BinID: %@ Param:%@ From:%@ To:%@ Data: %@", binID,attrValue,dateFrom,dateTo,binData]];
-                                   completionBlock(binData,jsonError);
+                                   
+                                   NSMutableArray *array = [NSMutableArray array];
+                                   if ([binData count]) {
+                                       
+                                       for(id obj in binData){
+                                           
+                                           // UTC is in milliseconds. Converting to seconds
+                                           NSNumber *dateInSeconds = [obj valueForKey:@"timestamp"];
+                                           dateInSeconds = @([dateInSeconds floatValue] / 1000);
+                                           NSDictionary *dict = @{attrValue : [obj valueForKey:attrValue],
+                                                                  @"timestamp":[NSDate dateWithTimeIntervalSince1970:[dateInSeconds floatValue]]};
+                                           [array addObject:dict];
+                                       }
+                                   }
+                                   
+                                   completionBlock(array,jsonError);
 
                                }
                                else

@@ -30,5 +30,7 @@ void runOnMainThread(void(^block)(void));
 + (NSError *)generateError:(NSString *)errorMsg;
 + (NSString *)generateUniqueFilePath;
 + (NSString *)getPresentDateTimeString;
++ (NSDate *)dateByAddingDays:(int)days toDate:(NSDate*)date;
+
 
 @end

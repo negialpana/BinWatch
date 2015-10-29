@@ -10,11 +10,14 @@
 #import "CorePlot-CocoaTouch.h"
 #import "CPDConstants.h"
 #import "CPDStockPriceStore.h"
-
+#import "GraphView.h"
 @interface BWAnalyseViewController : UIViewController<CPTBarPlotDataSource, CPTBarPlotDelegate>
 
 @property (nonatomic, strong) NSArray *bins;
 @property (nonatomic, strong) NSDate *fromDate;
 @property (nonatomic, strong) NSDate *toDate;
 @property (nonatomic, strong) NSString *query;
+
+@property (weak, nonatomic) IBOutlet UIView *bezirGraphView;
+
 @end

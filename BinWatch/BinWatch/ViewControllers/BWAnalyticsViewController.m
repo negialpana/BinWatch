@@ -45,6 +45,8 @@ static NSString *kSelectHeader   = @"Select Bins";
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBarForTableView1;
 @property (nonatomic, strong) BWSettingsControl *settingsControl;
 
+@property (nonatomic, strong) NSMutableArray *binsDataArray;
+
 - (IBAction)dateBtnPressed:(id)sender;
 - (IBAction)donePressed:(id)sender;
 
@@ -337,7 +339,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     if ([self.selectedBins count] && ![fromdate isEqualToDate:todate]) {
         
-        [self performSegueWithIdentifier:@"AnalyzeSegue" sender:nil];
+        [self getBinDataForSelectedBinsAndPerformSegue];
         
     }else{
         
@@ -350,6 +352,131 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     }
 }
 
+- (void)getBinDataForSelectedBinsAndPerformSegue{
+    
+    
+    NSDate *fromdate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
+    NSDate *todate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
+    self.binsDataArray = [NSMutableArray array];
+    BWBin *bin = [self.selectedBins objectAtIndex:0];
+    [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:BWFillPercentage WithCompletionHandler:^(NSArray *array, NSError *error) {
+        if (!error) {
+            if ([array count]) {
+                
+                NSDictionary *dict = @{@"Bin":[self.selectedBins objectAtIndex:0],
+                                       @"DataArray":array};
+                [self.binsDataArray addObject:dict];
+
+            }
+            if ([self.selectedBins count] > 1) {
+               BWBin *bin = [self.selectedBins objectAtIndex:1];
+                [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:BWFillPercentage WithCompletionHandler:^(NSArray *array, NSError *error) {
+                    
+                    if (!error) {
+                        if ([array count]) {
+                            
+                            NSDictionary *dict = @{@"Bin":[self.selectedBins objectAtIndex:1],
+                                                   @"DataArray":array};
+                            [self.binsDataArray addObject:dict];
+                            
+                        }
+                        if ([self.selectedBins count] > 2) {
+                            BWBin *bin = [self.selectedBins objectAtIndex:2];
+                            [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:BWFillPercentage WithCompletionHandler:^(NSArray *array, NSError *error) {
+                                
+                                if (!error) {
+                                    
+                                    if ([array count]) {
+                                        
+                                        NSDictionary *dict = @{@"Bin":[self.selectedBins objectAtIndex:2],
+                                                               @"DataArray":array};
+                                        [self.binsDataArray addObject:dict];
+                                        
+                                    }
+
+                                }else {
+                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                                                    message:[NSString stringWithFormat:@"%@",[error localizedDescription]]
+                                                                                   delegate:nil
+                                                                          cancelButtonTitle:@"OK"
+                                                                          otherButtonTitles: nil];
+                                    [alert show];
+
+                                }
+                                
+                                if ([self.binsDataArray count]) {
+                                    
+                                    [self performSegueWithIdentifier:@"AnalyzeSegue" sender:nil];
+                                    
+                                }else{
+                                    
+                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice!"
+                                                                                    message:@"No Data available for bins in selected date ranges"
+                                                                                   delegate:nil
+                                                                          cancelButtonTitle:@"OK"
+                                                                          otherButtonTitles: nil];
+                                    [alert show];
+                                }
+                                
+                                
+                            }];
+                        }else{
+                            
+                            if ([self.binsDataArray count]) {
+                                
+                                [self performSegueWithIdentifier:@"AnalyzeSegue" sender:nil];
+                                
+                            }else{
+                                
+                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice!"
+                                                                                message:@"No Data available for bins in selected date ranges"
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"OK"
+                                                                      otherButtonTitles: nil];
+                                [alert show];
+                            }
+                        }
+
+                    }else{
+                    
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                                            message:[NSString stringWithFormat:@"%@",[error localizedDescription]]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles: nil];
+                            [alert show];
+                    }
+                    
+                }];
+            }else{
+                
+                if ([self.binsDataArray count]) {
+                    
+                    [self performSegueWithIdentifier:@"AnalyzeSegue" sender:nil];
+                    
+                }else{
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice!"
+                                                                    message:@"No Data available to analyse for bins in selected date ranges"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles: nil];
+                    [alert show];
+                }
+            }
+            
+        } else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                            message:[NSString stringWithFormat:@"%@",[error localizedDescription]]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+            [alert show];
+        }
+
+    }];
+    
+}
 
  #pragma mark - Navigation
  
@@ -359,7 +486,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
      if ([segue.identifier isEqualToString:@"AnalyzeSegue"]) {
          BWAnalyseViewController *dvc = segue.destinationViewController;
                   
-         dvc.bins = [NSArray arrayWithArray:self.selectedBins];
+         dvc.bins = [NSArray arrayWithArray:self.binsDataArray];
          dvc.query = self.queryParam;
          dvc.fromDate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
          dvc.toDate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
