@@ -19,6 +19,8 @@
 
 #define BAR_VIEW_WIDTH_WITH_SPACING     43.0f
 #define CIRCLE_VIEW_TAG_START_VAL       100
+#define LINE_VIEW_TAG_START_VAL         500
+#define BAR_GRAPH_TAG_START_VAL        1000
 #define MAX_GRAPHS_TO_BE_RENDERED       7
 
 @interface BinDetailsViewController ()
@@ -28,6 +30,7 @@
 @property (nonatomic, retain) NSArray *currentBinHumidityData;
 @property (nonatomic, retain) NSArray *currentBinTemperatureData;
 @property (nonatomic, strong) BWDatePickerView *datePicker;
+@property (nonatomic, retain) NSArray *finalBinTemperatureData;
 @property (weak, nonatomic) IBOutlet UIView *dateComponentsContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
@@ -47,7 +50,7 @@
     [self initVars];
     [self setUpView];
     [self setNextFill];
-    [self getCurrentBinData];
+    [self setUpBarGraphView];
     [self initCustomView];
     
     [_weekView setHidden:NO];
@@ -87,6 +90,7 @@
         {
             [_weekView setHidden:NO];
             [_customDateView setHidden:YES];
+            [self setUpBarGraphView];
         }
             break;
             
@@ -117,6 +121,10 @@
     [self.weekView setHidden:NO];
     [self.customDateView setHidden:YES];
     [self.customViewGraphDismissBtn setHidden:NO];
+    
+    NSDate *fromDate = [[self dateFormatter] dateFromString:[[_fromDateBtn titleLabel] text]];
+    NSDate *toDate = [[self dateFormatter] dateFromString:[[_toDateBtn titleLabel] text]];
+    [self getCurrentBinDataFromDate:fromDate toDate:toDate];
 }
 
 - (IBAction)customViewDismissGraphBtnClicked:(id)sender
@@ -131,6 +139,7 @@
 {
     _currentBinHumidityData = nil;
     _currentBinTemperatureData = nil;
+    _finalBinTemperatureData = nil;
 }
 
 - (void)setUpView
@@ -147,22 +156,26 @@
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[self.currentBin.fill integerValue]]];
 }
 
-- (void)getCurrentBinData
+- (void)setUpBarGraphView
 {
     NSDate *today = [NSDate date];
     NSDate *sevenDaysAgo = [today dateByAddingTimeInterval:- 7*24*60*60];
-    
-    [self setTimeFrameLabelWith:sevenDaysAgo andEndDate:today];
+    [self getCurrentBinDataFromDate:sevenDaysAgo toDate:today];
+}
+
+- (void)getCurrentBinDataFromDate:(NSDate*)fromDate toDate:(NSDate*)toDate
+{
+    [self setTimeFrameLabelWith:fromDate andEndDate:toDate];
     
     //get temperature data
-    [[BWConnectionHandler sharedInstance] getBinData:self.currentBin.binID from:sevenDaysAgo to:today forParam:BWTemperature
+    [[BWConnectionHandler sharedInstance] getBinData:self.currentBin.binID from:fromDate to:toDate forParam:BWTemperature
                                WithCompletionHandler:^(NSArray *binData, NSError *error) {
                                    
                                    if (!error) {
                                         _currentBinTemperatureData = binData;
                                        
                                        //get humidity data after temperature data is fetched
-                                       [[BWConnectionHandler sharedInstance] getBinData:self.currentBin.binID from:sevenDaysAgo to:today forParam:BWHumidity
+                                       [[BWConnectionHandler sharedInstance] getBinData:self.currentBin.binID from:fromDate to:toDate forParam:BWHumidity
                                                                   WithCompletionHandler:^(NSArray *binData, NSError *error) {
                                                                       
                                                                       if (!error) {
@@ -234,32 +247,116 @@
 - (void)setUpBarGraphViews
 {
     float offsetX = 10.0f;
-    for (int i = 0; i < [_currentBinHumidityData count]; i++) {
+    
+    NSMutableArray *modifiedBinHumidityData = nil;
+    
+    //plot only 7 graphs at a time for now, in case the data values are more than that, then create group of values based on total count, and the averge the values belonging to one group
+
+    NSArray *finalHumidityDataArray = _currentBinHumidityData;
+    if([_currentBinHumidityData count] > 7)
+    {
+        modifiedBinHumidityData = [self getModifiedDataForCurrentData:_currentBinHumidityData forParam:BWHumidity];
+        
+        if(modifiedBinHumidityData)
+            finalHumidityDataArray = modifiedBinHumidityData;
+    }
+    
+    //plot graphs
+    for (int i = 0; i < [finalHumidityDataArray count]; i++) {
         CGRect barGraphViewFrame = _blackLineImageView.frame;
         
-        int humidityLevel = [[[_currentBinHumidityData objectAtIndex:i]objectForKey:@"humidity"]intValue];
+        int humidityLevelForPlots = 0;
+        if(modifiedBinHumidityData)
+            humidityLevelForPlots = [[finalHumidityDataArray objectAtIndex:i]intValue];
+        else
+            humidityLevelForPlots = [[[finalHumidityDataArray objectAtIndex:i]objectForKey:@"humidity"]intValue];
         
-        [BWViewRenderingHelper addBarGraphOnView:_barGraphView atOrigin:CGPointMake(offsetX + (BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y) withFillLevel:humidityLevel];
+        if(humidityLevelForPlots < 0)
+            humidityLevelForPlots = 0;
+        
+        UIView *prevView = [_barGraphView viewWithTag:BAR_GRAPH_TAG_START_VAL+i];
+        if(prevView)
+            [prevView removeFromSuperview];
+        
+        [BWViewRenderingHelper addBarGraphOnView:_barGraphView atOrigin:CGPointMake(offsetX + (BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y) withFillLevel:humidityLevelForPlots andTag:BAR_GRAPH_TAG_START_VAL+i];
     }
 }
 
+- (NSMutableArray *)getModifiedDataForCurrentData:(NSArray*)currentData forParam:(BWBinParam)param
+{
+    int humdityValueForModifiedData = 0;
+    NSMutableArray *modifiedData = nil;
+    modifiedData = [NSMutableArray array];
+    
+    NSString *parameterType = nil;
+    switch (param) {
+        case BWHumidity:
+            parameterType = @"humidity";
+            break;
+            
+        case BWTemperature:
+            parameterType = @"temperature";
+            break;
+            
+        default:
+            break;
+    }
+    
+    int totalItemsInOneGroup = ceil([currentData count]/(float)MAX_GRAPHS_TO_BE_RENDERED);
+    
+    for (int i = 1; i <= [currentData count]; i++) {
+        humdityValueForModifiedData += [[[currentData objectAtIndex:i-1]objectForKey:parameterType]intValue];
+        if(i % totalItemsInOneGroup == 0)
+        {
+            humdityValueForModifiedData /= totalItemsInOneGroup;
+            [modifiedData addObject:[NSNumber numberWithInt:humdityValueForModifiedData]];
+            humdityValueForModifiedData = 0;
+        }
+    }
+    
+    return modifiedData;
+}
 - (void)setUpTemperatureGraph
 {
     float offsetY = 20.0f;
     float offsetX = 17.0f;
     
-    for (int i = 0; i < [_currentBinTemperatureData count]; i++) {
+    NSMutableArray *modifiedBinTemperatureData = nil;
+
+    _finalBinTemperatureData = _currentBinTemperatureData;
+    
+    if([_currentBinTemperatureData count] > 7)
+    {
+        modifiedBinTemperatureData = [self getModifiedDataForCurrentData:_currentBinTemperatureData forParam:BWTemperature];
+        
+        if(modifiedBinTemperatureData)
+            _finalBinTemperatureData = modifiedBinTemperatureData;
+    }
+    
+    for (int i = 0; i < [_finalBinTemperatureData count]; i++) {
         CGRect barGraphViewFrame = _blackLineImageView.frame;
         
-        int temperature = [[[_currentBinTemperatureData objectAtIndex:i]objectForKey:@"temperature"]intValue];
+        int temperatureLevelForPlots = 0;
+        if(modifiedBinTemperatureData)
+            temperatureLevelForPlots = [[_finalBinTemperatureData objectAtIndex:i]intValue];
+        else
+            temperatureLevelForPlots = [[[_finalBinTemperatureData objectAtIndex:i]objectForKey:@"temperature"]intValue];
         
-        [BWViewRenderingHelper addCircleOnView:_barGraphView atOrigin:CGPointMake(offsetX + (BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y - offsetY - temperature) andTag:CIRCLE_VIEW_TAG_START_VAL+i];
+        if(temperatureLevelForPlots < 0)
+            temperatureLevelForPlots = 0;
+        
+        //in case same view was previously rendered then remove it
+        UIView *prevView = [_barGraphView viewWithTag:CIRCLE_VIEW_TAG_START_VAL+i];
+        if(prevView)
+            [prevView removeFromSuperview];
+        
+        [BWViewRenderingHelper addCircleOnView:_barGraphView atOrigin:CGPointMake(offsetX + (BAR_VIEW_WIDTH_WITH_SPACING * i), barGraphViewFrame.origin.y - offsetY - temperatureLevelForPlots) andTag:CIRCLE_VIEW_TAG_START_VAL+i];
     }
 }
 
 - (void)joinCirclesWithLine
-{
-    for (int i = 0; i < [_currentBinTemperatureData count] - 1; i++)
+{    
+    for (int i = 0; i < [_finalBinTemperatureData count] - 1; i++)
     {
         UIView *circleView1 = [_barGraphView viewWithTag:CIRCLE_VIEW_TAG_START_VAL+i];
         UIView *circleView2 = [_barGraphView viewWithTag:CIRCLE_VIEW_TAG_START_VAL+i+1];
@@ -267,7 +364,20 @@
         CGPoint circleCenter1 = CGPointMake(circleView1.frame.origin.x + circleView1.frame.size.width * 0.5f, circleView1.frame.origin.y + circleView1.frame.size.height * 0.5f);
         CGPoint circleCenter2 = CGPointMake(circleView2.frame.origin.x + circleView2.frame.size.width * 0.5f, circleView2.frame.origin.y + circleView2.frame.size.height * 0.5f);
         
-        [BWViewRenderingHelper joinCircleCenters:circleCenter1 and:circleCenter2 onView:_barGraphView];
+        CALayer *prevLayer = nil;
+        
+        for (CALayer *layer in _barGraphView.layer.sublayers) {
+            NSString *shapeLayerName = [NSString stringWithFormat:@"%d",LINE_VIEW_TAG_START_VAL+i];
+            if([[layer name] isEqualToString:shapeLayerName])
+            {
+                prevLayer = layer;
+                break;
+            }
+        }
+        if(prevLayer)
+            [prevLayer removeFromSuperlayer];
+
+        [BWViewRenderingHelper joinCircleCenters:circleCenter1 and:circleCenter2 onView:_barGraphView andTag:LINE_VIEW_TAG_START_VAL+i];
     }
 }
 

@@ -10,8 +10,8 @@
 
 @interface BWViewRenderingHelper : NSObject
 
-+ (void)addBarGraphOnView:(UIView*)view atOrigin:(CGPoint)origin withFillLevel:(int)fillLevel;
++ (void)addBarGraphOnView:(UIView*)view atOrigin:(CGPoint)origin withFillLevel:(int)fillLevel andTag:(int)tag;
 + (void)addCircleOnView:(UIView*)view atOrigin:(CGPoint)origin andTag:(int)tag;
-+ (void)joinCircleCenters:(CGPoint)circleCenter1 and:(CGPoint)circleCenter2 onView:(UIView*)view;
++ (void)joinCircleCenters:(CGPoint)circleCenter1 and:(CGPoint)circleCenter2 onView:(UIView*)view andTag:(int)tag;
 
 @end

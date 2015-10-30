@@ -18,11 +18,12 @@
 
 //draw bar graph
 
-+ (void)addBarGraphOnView:(UIView*)view atOrigin:(CGPoint)origin withFillLevel:(int)fillLevel
++ (void)addBarGraphOnView:(UIView*)view atOrigin:(CGPoint)origin withFillLevel:(int)fillLevel andTag:(int)tag
 {
     CGRect frame = CGRectMake(origin.x, origin.y - fillLevel, BAR_VIEW_WIDTH, fillLevel);
     UIView *barGraphView = [[UIView alloc]initWithFrame:frame];
     [barGraphView setBackgroundColor:[UIColor brownColor]];
+    [barGraphView setTag:tag];
     [view addSubview:barGraphView];
 }
 
@@ -45,7 +46,7 @@
 
 //draws a line joining two circles
 
-+ (void)joinCircleCenters:(CGPoint)circleCenter1 and:(CGPoint)circleCenter2 onView:(UIView*)view
++ (void)joinCircleCenters:(CGPoint)circleCenter1 and:(CGPoint)circleCenter2 onView:(UIView*)view andTag:(int)tag
 {
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(circleCenter1.x, circleCenter1.y)];
@@ -55,6 +56,7 @@
     lineLayer.lineWidth = LINE_WIDTH;
     lineLayer.path = linePath.CGPath;
     lineLayer.strokeColor = [[UIColor yellowColor]CGColor];
+    [lineLayer setName:[NSString stringWithFormat:@"%d",tag]];
     
     [[view layer] addSublayer:lineLayer];
 }
