@@ -422,6 +422,7 @@
     _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
                                    self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.20f,
                                    self.dateComponentsContainerView.bounds.size.width, 250);
+    [_datePicker.datePickerView addTarget:self action:@selector(datePickerSelectDate:) forControlEvents:UIControlEventValueChanged];
     
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
@@ -430,6 +431,10 @@
     
     [self.customDateView addSubview:_datePicker];
     [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
+}
+
+- (void)datePickerSelectDate:(UIDatePicker *)picker{
+    [self.fromDateBtn setTitle:[[self dateFormatter] stringFromDate:picker.date] forState:UIControlStateNormal];
 }
 
 @end

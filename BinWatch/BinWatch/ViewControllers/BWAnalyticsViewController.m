@@ -234,7 +234,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     switch (tableView.tag) {
             
         case TABLE_VIEW_DISPLAY_BINS:
-            if ([self.selectedBins count] == 3 && ![self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]])
+            
+            if ([self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]]) {
+                [self.selectedBins removeObject:[self.table1Data objectAtIndex:indexPath.row]];
+            }
+            else if ([self.selectedBins count] == 3 && ![self.selectedBins containsObject:[self.table1Data objectAtIndex:indexPath.row]])
             {
                 [self.selectedBins replaceObjectAtIndex:0 withObject:[self.table1Data objectAtIndex:indexPath.row]];
                 [self.selectedBins exchangeObjectAtIndex:0 withObjectAtIndex:1];
