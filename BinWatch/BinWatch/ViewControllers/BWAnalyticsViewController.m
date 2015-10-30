@@ -91,6 +91,13 @@ static NSString *kSelectHeader   = @"Select Bins";
     // Navigation Bar Init
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
     self.navigationItem.rightBarButtonItem = menuButton;
+    _tableView1.layer.borderWidth = 1.0;
+    _tableView1.layer.cornerRadius = 3.0;
+    _tableView2.layer.borderWidth = 1.0;
+    _tableView2.layer.cornerRadius = 3.0;
+    
+    _dateComponentsContainerView.layer.borderWidth = 1.0;
+    _dateComponentsContainerView.layer.cornerRadius = 3.0;
 
 }
 
@@ -340,9 +347,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSDate *fromdate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
     NSDate *todate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
     
-    
     if ([self.selectedBins count] && ![fromdate isEqualToDate:todate]) {
         
+        [BWHelpers displayHud:@"Loading" onView:self.view hidesAfter:3];
         [self getBinDataForSelectedBinsAndPerformSegue];
         
     }else{
