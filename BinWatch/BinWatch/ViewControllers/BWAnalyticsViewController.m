@@ -359,7 +359,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSDate *todate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
     self.binsDataArray = [NSMutableArray array];
     BWBin *bin = [self.selectedBins objectAtIndex:0];
-    [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:BWFillPercentage WithCompletionHandler:^(NSArray *array, NSError *error) {
+    NSUInteger param = [self.queryParam isEqualToString:@"Fill Trend"]?BWFillPercentage:BWTemperature;
+    [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:param WithCompletionHandler:^(NSArray *array, NSError *error) {
         if (!error) {
             if ([array count]) {
                 
@@ -370,7 +371,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
             }
             if ([self.selectedBins count] > 1) {
                BWBin *bin = [self.selectedBins objectAtIndex:1];
-                [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:BWFillPercentage WithCompletionHandler:^(NSArray *array, NSError *error) {
+                [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:param WithCompletionHandler:^(NSArray *array, NSError *error) {
                     
                     if (!error) {
                         if ([array count]) {
@@ -382,7 +383,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                         }
                         if ([self.selectedBins count] > 2) {
                             BWBin *bin = [self.selectedBins objectAtIndex:2];
-                            [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:BWFillPercentage WithCompletionHandler:^(NSArray *array, NSError *error) {
+                            [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:param WithCompletionHandler:^(NSArray *array, NSError *error) {
                                 
                                 if (!error) {
                                     

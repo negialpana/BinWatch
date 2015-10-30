@@ -28,7 +28,6 @@
 		159547A71BE274720021D2F0 /* UUChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1595479F1BE274720021D2F0 /* UUChartLabel.m */; settings = {ASSET_TAGS = (); }; };
 		159547A81BE274720021D2F0 /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 159547A11BE274720021D2F0 /* UUColor.m */; settings = {ASSET_TAGS = (); }; };
 		159547A91BE274720021D2F0 /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 159547A31BE274720021D2F0 /* UULineChart.m */; settings = {ASSET_TAGS = (); }; };
-		15B612891BE1EA1200FC486B /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B612881BE1EA1200FC486B /* GraphView.m */; };
 		15EA4AE21B98A9D7006CD602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA4AE11B98A9D7006CD602 /* main.m */; };
 		15EA4AEE1B98A9D7006CD602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEC1B98A9D7006CD602 /* Main.storyboard */; };
 		15EA4AF01B98A9D7006CD602 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15EA4AEF1B98A9D7006CD602 /* Images.xcassets */; };
@@ -147,8 +146,6 @@
 		159547A11BE274720021D2F0 /* UUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUColor.m; sourceTree = "<group>"; };
 		159547A21BE274720021D2F0 /* UULineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UULineChart.h; sourceTree = "<group>"; };
 		159547A31BE274720021D2F0 /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
-		15B612871BE1EA1200FC486B /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
-		15B612881BE1EA1200FC486B /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		15EA4ADC1B98A9D7006CD602 /* BinWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15EA4AE01B98A9D7006CD602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15EA4AE11B98A9D7006CD602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -396,8 +393,6 @@
 		15EA4AD31B98A9D7006CD602 = {
 			isa = PBXGroup;
 			children = (
-				15B612871BE1EA1200FC486B /* GraphView.h */,
-				15B612881BE1EA1200FC486B /* GraphView.m */,
 				9027211F1BBBE5BF00108D1E /* Frameworks */,
 				15EA4ADE1B98A9D7006CD602 /* BinWatch */,
 				15EA4AFB1B98A9D7006CD602 /* BinWatchTests */,
@@ -767,7 +762,6 @@
 				F1F8BF9F1BDCB48C00154D90 /* ChatDialogViewCell.m in Sources */,
 				905CDBF11BDEAA7800A18D96 /* CPDStockPriceStore.m in Sources */,
 				32861A8E1BC4A1D400D0568F /* GradientView.m in Sources */,
-				15B612891BE1EA1200FC486B /* GraphView.m in Sources */,
 				F19AB63D1B9BEB270084A879 /* BWBin.m in Sources */,
 				F1F8BFA21BDCB4A400154D90 /* Message.m in Sources */,
 				F1F2B9101BC6E55A0019E662 /* SPGooglePlacesAutocompletePlace.m in Sources */,

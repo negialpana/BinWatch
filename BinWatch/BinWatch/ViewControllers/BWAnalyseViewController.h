@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CorePlot-CocoaTouch.h"
-#import "CPDConstants.h"
-#import "CPDStockPriceStore.h"
-#import "GraphView.h"
-@interface BWAnalyseViewController : UIViewController<CPTBarPlotDataSource, CPTBarPlotDelegate>
-
+@interface BWAnalyseViewController : UIViewController
 @property (nonatomic, strong) NSArray *bins;
 @property (nonatomic, strong) NSDate *fromDate;
 @property (nonatomic, strong) NSDate *toDate;
