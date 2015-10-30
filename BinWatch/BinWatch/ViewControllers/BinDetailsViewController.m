@@ -430,6 +430,7 @@
     }];
     
     [self.customDateView addSubview:_datePicker];
+    
     [_datePicker bringSubviewToFront:self.dateComponentsContainerView];
 }
 

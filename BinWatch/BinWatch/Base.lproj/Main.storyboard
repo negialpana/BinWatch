@@ -2,8 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-       <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -388,38 +388,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duU-ff-IEK">
-                                <rect key="frame" x="0.0" y="201" width="600" height="348"/>
+                                <rect key="frame" x="0.0" y="218" width="600" height="331"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="0.57999450409999997" blue="0.71067852350000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by1-WB-oJK">
-                                <rect key="frame" x="0.0" y="142" width="600" height="25"/>
+                                <rect key="frame" x="0.0" y="152" width="600" height="25"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="wIQ-uE-zV5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8YX-7J-kme">
-                                <rect key="frame" x="0.0" y="172" width="600" height="21"/>
+                                <rect key="frame" x="0.0" y="187" width="600" height="21"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="WI9-2m-v1E"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gg7-3r-qfv">
-                                <rect key="frame" x="0.0" y="72" width="600" height="65"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gg7-3r-qfv">
+                                <rect key="frame" x="0.0" y="72" width="600" height="70"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.96943304109999995" blue="0.71732925299999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="65" id="cyx-J5-hiM"/>
+                                    <constraint firstAttribute="height" constant="70" id="cyx-J5-hiM"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -432,11 +432,11 @@
                             <constraint firstAttribute="trailing" secondItem="by1-WB-oJK" secondAttribute="trailing" id="Mf4-vb-KLi"/>
                             <constraint firstAttribute="trailing" secondItem="8YX-7J-kme" secondAttribute="trailing" id="Nfm-I6-HvB"/>
                             <constraint firstItem="duU-ff-IEK" firstAttribute="leading" secondItem="goP-Ks-BCN" secondAttribute="leading" id="Tis-Yx-bTU"/>
-                            <constraint firstItem="duU-ff-IEK" firstAttribute="top" secondItem="8YX-7J-kme" secondAttribute="bottom" constant="8" id="hPZ-Ag-5L4"/>
+                            <constraint firstItem="duU-ff-IEK" firstAttribute="top" secondItem="8YX-7J-kme" secondAttribute="bottom" constant="10" id="hPZ-Ag-5L4"/>
                             <constraint firstItem="gg7-3r-qfv" firstAttribute="leading" secondItem="goP-Ks-BCN" secondAttribute="leading" id="hkB-C2-5Ju"/>
-                            <constraint firstItem="by1-WB-oJK" firstAttribute="top" secondItem="gg7-3r-qfv" secondAttribute="bottom" constant="5" id="pYq-9C-1oJ"/>
+                            <constraint firstItem="by1-WB-oJK" firstAttribute="top" secondItem="gg7-3r-qfv" secondAttribute="bottom" constant="10" id="pYq-9C-1oJ"/>
                             <constraint firstItem="0Hc-69-qcR" firstAttribute="top" secondItem="duU-ff-IEK" secondAttribute="bottom" constant="2" id="rSl-3f-h9n"/>
-                            <constraint firstItem="8YX-7J-kme" firstAttribute="top" secondItem="by1-WB-oJK" secondAttribute="bottom" constant="5" id="sdU-Bn-kKy"/>
+                            <constraint firstItem="8YX-7J-kme" firstAttribute="top" secondItem="by1-WB-oJK" secondAttribute="bottom" constant="10" id="sdU-Bn-kKy"/>
                             <constraint firstAttribute="trailing" secondItem="duU-ff-IEK" secondAttribute="trailing" id="yyx-jk-0jZ"/>
                             <constraint firstAttribute="trailing" secondItem="gg7-3r-qfv" secondAttribute="trailing" id="zUt-fX-kDU"/>
                         </constraints>
