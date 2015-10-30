@@ -235,7 +235,10 @@
     [[BWConnectionHandler sharedInstance] getNextFillForBinWithId:self.currentBin.binID andCompletionBlock:^(NSDate *next, NSError *error) {
         if (!error) {
             text = [dateFormatter stringFromDate:next];
-            self.nextFillDate.text = text;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.nextFillDate.text = text;
+            });
+
         }
         else {
             [BWLogger DoLog:@"Failed to get next fill date"];

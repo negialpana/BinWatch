@@ -210,9 +210,11 @@ static NSString* const kAttribute               = @"attr";
                                                      NSArray * binFillData = [NSJSONSerialization JSONObjectWithData:data
                                                                                                       options:NSJSONReadingAllowFragments
                                                                                                         error:&jsonError];
+                                                     //NSLog(@"%@", binFillData);
                                                      NSNumber *date = [binFillData valueForKey:@"nextFill"];
                                                      NSTimeInterval ti = [date doubleValue];
-                                                     nextFillDate = [NSDate dateWithTimeIntervalSinceReferenceDate:ti];
+                                                     nextFillDate = [NSDate dateWithTimeIntervalSince1970:[date floatValue] / 1000];
+                                                     //NSLog(@"%@", [NSDate dateWithTimeIntervalSince1970:[date floatValue] / 1000]);
                                                      completionBlock(nextFillDate,jsonError);
                                                  }
                                                  else
