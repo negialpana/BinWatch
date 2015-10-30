@@ -37,8 +37,11 @@
         {
             GMSAddress* addressObj = [[response results] objectAtIndex:0];
             NSMutableString *address = [[NSMutableString alloc] init];
-            for(NSString* lines in [addressObj lines])
+            for(int i = 0; i < [addressObj lines].count; i++)
             {
+                NSString *lines = [[addressObj lines] objectAtIndex:i];
+                if(i != 0)
+                   [address appendString:@","];
                 [address appendString:lines];
             }
             if ([self.delegate respondsToSelector:@selector(geocoderDidReceiveResponse:forLocation:)])

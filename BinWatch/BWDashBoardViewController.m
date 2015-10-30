@@ -67,6 +67,8 @@
     [super viewDidLoad];
     [self.view setNeedsLayout];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
+
     // Init labels
     [self.locationLabel setText:[BWDataHandler sharedHandler].binsAddress];
     [self.binsLabel setText:[NSString stringWithFormat:@"Bin Count : %lu",(unsigned long)[[[BWDataHandler sharedHandler]fetchBins] count]]];
@@ -371,6 +373,12 @@
                     }
                 }];
 }
+#pragma mark - Notifications
+- (void)binDataChanged:(NSNotification *)notification
+{
+    [self refreshViews];
+}
+
 #pragma mark - Event Handlers
 - (void)menuTapped
 {

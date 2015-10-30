@@ -14,6 +14,7 @@
 #import "BWDocumentHelper.h"
 #import "BWMailer.h"
 #import "UIColor+HexColor.h"
+#import "BWHelpers.h"
 
 #define FILE_NAME_CSV @"BinWatch.csv"
 #define FILE_NAME_PDF @"BinWatch.pdf"
@@ -272,7 +273,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 16.0f;
     // 4 - Set up title
-    NSString *title = [[[BWDataHandler sharedHandler].binsAddress componentsSeparatedByString:@","] objectAtIndex:0];
+    NSString *areaName = [BWHelpers areanameFromFullAddress:[BWDataHandler sharedHandler].binsAddress];
+    NSString *title = areaName;
     graph.title = title;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
