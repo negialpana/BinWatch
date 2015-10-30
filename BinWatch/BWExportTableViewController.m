@@ -13,10 +13,17 @@
 #import "BWBin.h"
 #import "BWDocumentHelper.h"
 #import "BWMailer.h"
+#import "UIColor+HexColor.h"
 
 #define FILE_NAME_CSV @"BinWatch.csv"
 #define FILE_NAME_PDF @"BinWatch.pdf"
 #define FILE_NAME_XLS @"BinWatch.xls"
+
+#define COLOR_RED [UIColor colorWithHex:0xdd191daa]
+#define COLOR_MAGENTA [UIColor colorWithHex:0xd81b60aa]
+#define COLOR_PURPLE [UIColor colorWithHex:0x8e24aaaa]
+#define COLOR_BLUE [UIColor colorWithHex:0x3f51b5aa]
+#define COLOR_YELLOW [UIColor colorWithHex:0xf57c00aa]
 
 @interface BWExportTableViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *fileView;
@@ -143,7 +150,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     static CPTMutableTextStyle *style = nil;
     if (!style) {
         style = [CPTMutableTextStyle textStyle];
-        style.color= [CPTColor colorWithCGColor:[AppTheme CGColor]];
+        style.color= [CPTColor colorWithCGColor:[[UIColor grayColor] CGColor]];
         style.fontSize = 16.0f;
         style.fontName = @"Helvetica-Bold";
     }
@@ -261,11 +268,11 @@ CGFloat const CPDBarInitialX = 0.25f;
     graph.paddingRight  = -5.0f;
     // 3 - Set up styles
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-    titleStyle.color = [CPTColor colorWithCGColor:[AppTheme CGColor]];
+    titleStyle.color = [CPTColor colorWithCGColor:[[UIColor grayColor] CGColor]];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 16.0f;
     // 4 - Set up title
-    NSString *title = @"<Location>";
+    NSString *title = [[[BWDataHandler sharedHandler].binsAddress componentsSeparatedByString:@","] objectAtIndex:0];
     graph.title = title;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
@@ -282,11 +289,14 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 -(void)configurePlots {
     // 1 - Set up the three plots
-    self.aaplPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO];
+    CPTColor *magenta = [[CPTColor alloc]initWithCGColor:[COLOR_MAGENTA CGColor]];
+    CPTColor *purple = [[CPTColor alloc]initWithCGColor:[COLOR_PURPLE CGColor]];
+    CPTColor *blue = [[CPTColor alloc]initWithCGColor:[COLOR_BLUE CGColor]];
+    self.aaplPlot = [CPTBarPlot tubularBarPlotWithColor:magenta horizontalBars:NO];
     self.aaplPlot.identifier = CPDTickerSymbolAAPL;
-    self.googPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
+    self.googPlot = [CPTBarPlot tubularBarPlotWithColor:purple horizontalBars:NO];
     self.googPlot.identifier = CPDTickerSymbolGOOG;
-    self.msftPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
+    self.msftPlot = [CPTBarPlot tubularBarPlotWithColor:blue horizontalBars:NO];
     self.msftPlot.identifier = CPDTickerSymbolMSFT;
     // 2 - Set up line style
     CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
@@ -310,12 +320,12 @@ CGFloat const CPDBarInitialX = 0.25f;
 -(void)configureAxes {
     // 1 - Configure styles
     CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-    axisTitleStyle.color = [CPTColor colorWithCGColor:[AppTheme CGColor]];
+    axisTitleStyle.color = [CPTColor colorWithCGColor:[[UIColor grayColor] CGColor]];
     axisTitleStyle.fontName = @"Helvetica-Bold";
     axisTitleStyle.fontSize = 12.0f;
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [[CPTColor colorWithCGColor:[AppTheme CGColor]] colorWithAlphaComponent:1];
+    axisLineStyle.lineColor = [[CPTColor colorWithCGColor:[[UIColor grayColor] CGColor]] colorWithAlphaComponent:1];
     // 2 - Get the graph's axis set
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
     // 3 - Configure the x-axis
