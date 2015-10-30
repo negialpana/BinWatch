@@ -32,7 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *fromDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toDateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *customViewBinIdBtn;
+@property (weak, nonatomic) IBOutlet UIButton *customViewGraphDismissBtn;
+
 - (IBAction)customViewBinIdBtnClicked:(id)sender;
+- (IBAction)customViewDismissGraphBtnClicked:(id)sender;
 
 @end
 
@@ -76,6 +79,7 @@
 
 - (IBAction)segmentedControlTapped:(id)sender
 {
+    [_customViewGraphDismissBtn setHidden:YES];
     NSLog(@"segmented control tapped with index %ld", (long)_segmentControl.selectedSegmentIndex);
     
     switch ([_segmentControl selectedSegmentIndex]) {
@@ -110,9 +114,15 @@
 
 - (IBAction)customViewBinIdBtnClicked:(id)sender
 {
-    NSLog(@"customViewBinIdBtnClicked");
     [self.weekView setHidden:NO];
     [self.customDateView setHidden:YES];
+    [self.customViewGraphDismissBtn setHidden:NO];
+}
+
+- (IBAction)customViewDismissGraphBtnClicked:(id)sender
+{
+    [self.weekView setHidden:YES];
+    [self.customDateView setHidden:NO];
 }
 
 #pragma mark - Week Segment Methods
@@ -274,6 +284,7 @@
 #pragma mark - Custom Date Selection Methods
 - (void) initCustomView
 {
+    [_customViewGraphDismissBtn setHidden:YES];
     //init dates
     NSString *today = [[self dateFormatter] stringFromDate:[NSDate date]];
     [_fromDateBtn setTitle:today forState:UIControlStateNormal];
