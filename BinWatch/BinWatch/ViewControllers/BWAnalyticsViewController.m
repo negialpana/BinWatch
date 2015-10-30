@@ -81,7 +81,7 @@ static NSString *kSelectHeader   = @"Select Bins";
     [_toDateBtn setTitle:[[self dateFormatter] stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     
     self.table1Data = [[[BWDataHandler sharedHandler] fetchBins] mutableCopy];
-    self.table2Data = [NSArray arrayWithObjects:@"Fill Trend", @"TBD", nil];
+    self.table2Data = [NSArray arrayWithObjects:@"Fill Percentage", @"Temperature", nil];
     
     _tableView2.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.queryParam = [self.table2Data objectAtIndex:0];
