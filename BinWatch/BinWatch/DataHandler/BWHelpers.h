@@ -30,5 +30,6 @@ void runOnMainThread(void(^block)(void));
 + (NSError *)generateError:(NSString *)errorMsg;
 + (NSString *)generateUniqueFilePath;
 + (NSString *)getPresentDateTimeString;
++ (void) displayHud:(NSString *)message onView:(UIView *)view hidesAfter:(NSTimeInterval)seconds;
 
 @end

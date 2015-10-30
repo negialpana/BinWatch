@@ -154,6 +154,26 @@ void runOnMainThread(void(^block)(void))
     });
 
 }
++ (void) displayHud:(NSString *)message onView:(UIView *)view hidesAfter:(NSTimeInterval)seconds{
+    runOnMainThread(^{
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
+        [view addSubview:HUD];
+        
+        // The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
+        // Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+        HUD.customView = [[UIImageView alloc] initWithImage:nil];
+        
+        // Set custom view mode
+        HUD.mode = MBProgressHUDModeCustomView;
+        
+        //HUD.delegate = self;
+        HUD.labelText = message;
+        
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:seconds];
+    });
+
+}
 
 + (NSError *)generateError:(NSString *)errorMsg
 {

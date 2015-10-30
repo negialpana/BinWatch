@@ -347,9 +347,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSDate *fromdate = [[self dateFormatter] dateFromString:_fromDateBtn.titleLabel.text];
     NSDate *todate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
     
-    
     if ([self.selectedBins count] && ![fromdate isEqualToDate:todate]) {
         
+        [BWHelpers displayHud:@"Loading" onView:self.view hidesAfter:3];
         [self getBinDataForSelectedBinsAndPerformSegue];
         
     }else{
