@@ -370,7 +370,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSDate *todate = [[self dateFormatter] dateFromString:_toDateBtn.titleLabel.text];
     self.binsDataArray = [NSMutableArray array];
     BWBin *bin = [self.selectedBins objectAtIndex:0];
-    NSUInteger param = [self.queryParam isEqualToString:@"Fill Trend"]?BWFillPercentage:BWTemperature;
+    NSUInteger param = [self.queryParam isEqualToString:@"Fill Percentage"]?BWFillPercentage:BWTemperature;
     [[BWConnectionHandler sharedInstance] getBinData:bin.binID from:fromdate to:todate forParam:param WithCompletionHandler:^(NSArray *array, NSError *error) {
         if (!error) {
             if ([array count]) {

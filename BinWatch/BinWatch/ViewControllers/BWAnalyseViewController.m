@@ -133,7 +133,7 @@
     for(NSDictionary *obj in _bins){
         NSMutableArray *returnArray = [NSMutableArray array];
         NSArray *dataA = [obj valueForKey:@"DataArray"];
-        NSString *key = [_query isEqualToString:@"Fill Trend"]?@"fill":@"temperature";
+        NSString *key = [_query isEqualToString:@"Fill Percentage"]?@"fill":@"temperature";
         NSString * str = [[dataA valueForKeyPath:key] componentsJoinedByString:@","];
         NSArray *fillArray = [str componentsSeparatedByString:@","];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:fillArray];
