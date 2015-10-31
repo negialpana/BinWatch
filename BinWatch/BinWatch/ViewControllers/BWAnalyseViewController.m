@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *queryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateRangeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *binDetailsTextView;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) NSArray *colorArray;
 
 @property (nonatomic, strong) UUChart *uuChart;
@@ -107,23 +106,7 @@
         }
     }
     
-//    NSMutableArray *finalreturnArray = [NSMutableArray array];
-//    for(NSDate *date in returnArray){
-//        NSString *dateStr = [self.dateFormatter stringFromDate:date];
-//        [finalreturnArray addObject:dateStr];
-//    }
-    
     return returnArray;
-}
-
--(NSDateFormatter *)dateFormatter{
-    
-    if (!_dateFormatter) {
-         _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setDateFormat:@"dd/MM/yyyy"];
-    }
-    return _dateFormatter;
-
 }
 
 - (NSArray *)UUChart_yValueArray:(UUChart *)chart

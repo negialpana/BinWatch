@@ -153,10 +153,18 @@ static NSString* const kAttribute               = @"attr";
                                        for(id obj in binData){
                                            
                                            // UTC is in milliseconds. Converting to seconds
-                                           NSNumber *dateInSeconds = [obj valueForKey:@"timestamp"];
-                                           dateInSeconds = @([dateInSeconds floatValue] / 1000);
+                                           NSDate *dateNow = [NSDate dateWithTimeIntervalSince1970:[[obj valueForKey:@"timestamp"] floatValue]/1000];
+                                           NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                           [dateFormatter setDateFormat: @"dd/MM"];
+                                           [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+                                           NSString *text;
+                                           text = [dateFormatter stringFromDate:dateNow];
+                                           NSLog(@"%@", text);
+                                           
+                                         //  NSNumber *dateInSeconds = [obj valueForKey:@"timestamp"];
+                                           //dateInSeconds = @([dateInSeconds floatValue] / 1000);
                                            NSDictionary *dict = @{attrValue : [obj valueForKey:attrValue],
-                                                                  @"timestamp":[NSDate dateWithTimeIntervalSince1970:[dateInSeconds floatValue]]};
+                                                                  @"timestamp":text};
                                            [array addObject:dict];
                                        }
                                    }
@@ -212,7 +220,6 @@ static NSString* const kAttribute               = @"attr";
                                                                                                         error:&jsonError];
                                                      //NSLog(@"%@", binFillData);
                                                      NSNumber *date = [binFillData valueForKey:@"nextFill"];
-                                                     NSTimeInterval ti = [date doubleValue];
                                                      nextFillDate = [NSDate dateWithTimeIntervalSince1970:[date floatValue] / 1000];
                                                      //NSLog(@"%@", [NSDate dateWithTimeIntervalSince1970:[date floatValue] / 1000]);
                                                      completionBlock(nextFillDate,jsonError);
