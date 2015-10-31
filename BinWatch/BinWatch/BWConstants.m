@@ -20,17 +20,17 @@ NSString* const kNotConnectedText  = @"You're not connected to the internet.";
 NSString* const kConnectedTitle    = @"Connected";
 NSString* const kConnectedText     = @"Connected to the internet.";
 
-NSString* const kSwitchToUser     = @"Switch to User Mode";
-NSString* const kSwitchToBBMP     = @"Switch to BBMP Mode";
+NSString* const kSwitchToUser     = @"BBMP Logout";
+NSString* const kSwitchToBBMP     = @"BBMP Login";
 NSString* const kExport           = @"Export";
 NSString* const kSettings         = @"Settings";
-NSString* const kReportAnIssue    = @"Report an issue";
+NSString* const kReportAnIssue    = @"Report An issue";
 NSString* const kRequestForBin    = @"Request For Bin";
-NSString* const kReportBin        = @"Report bins not being picked up";
-NSString* const kRouteToNearest   = @"Route to nearest bin";
-NSString* const kRouteToRed       = @"Route to all Red bins";
-NSString* const kRouteToRedYellow = @"Route to all Red/Yellow bins";
-NSString* const kRouteToSelected    = @"Route to selected bins";
+NSString* const kReportBin        = @"Report Unattended Bin";
+NSString* const kRouteToNearest   = @"Route To Nearest Bin";
+NSString* const kRouteToRed       = @"Pick Red Bins";
+NSString* const kRouteToRedYellow = @"Pick Red/Yellow Bins";
+NSString* const kRouteToSelected    = @"Pick Selected Bins";
 
 NSString* const kSearchPlaceHolder           = @"Search";
 NSString* const kRouteFetchFailed            = @"Route fetch failed";
