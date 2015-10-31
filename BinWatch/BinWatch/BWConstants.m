@@ -32,7 +32,7 @@ NSString* const kRouteToRed       = @"Pick Red Bins";
 NSString* const kRouteToRedYellow = @"Pick Red/Yellow Bins";
 NSString* const kRouteToSelected    = @"Pick Selected Bins";
 
-NSString* const kSearchPlaceHolder           = @"Search";
+NSString* const kSearchPlaceHolder           = @"Location Search";
 NSString* const kRouteFetchFailed            = @"Route fetch failed";
 NSString* const kCurrentLocationFailed       = @"Couldn't read current location";
 NSString* const kPlacesFetchFailed           = @"Couldn't fetch places";
