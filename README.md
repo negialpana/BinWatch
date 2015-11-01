@@ -10,7 +10,7 @@ iOS Demo : https://drive.google.com/folderview?id=0ByqHXKZtJenqdWk4MFVDVnRmdTg&u
 
 ## Other Repositories
 
-Website Repo : https://raw.githubusercontent.com/hkasera/binWatch
+Web App Repo : https://github.com/hkasera/binWatch
 
 Predictions Repo : https://github.com/madhumita25/BinWatch
 
