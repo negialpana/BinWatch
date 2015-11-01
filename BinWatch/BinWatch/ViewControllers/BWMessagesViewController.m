@@ -34,9 +34,11 @@
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
     self.navigationItem.rightBarButtonItem = menuButton;
     
+    NSNumber *defaults;
+    defaults   = [NSNumber numberWithInt:BWMenuItemAllUserDefaults];
+
     self.settingsControl = [[BWSettingsControl alloc] init];
-    [self.settingsControl createMenuInViewController:self withCells:@[[NSNumber numberWithInt:BWMenuItemAllBBMPDefaults]] andWidth:200];
-    
+    [self.settingsControl createMenuInViewController:self withCells:@[defaults] andWidth:200];
 }
 
 - (void)didReceiveMemoryWarning {
