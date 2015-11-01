@@ -6,7 +6,7 @@ Requirements doc : https://docs.google.com/document/d/1nSGz6vVvT7i3szkILrca52OG8
 
 PPT   : http://binwatch-ghci.rhcloud.com/docs/Pitch.pdf
 
-Video : https://drive.google.com/folderview?id=0ByqHXKZtJenqdWk4MFVDVnRmdTg&usp=sharing
+iOS Demo : https://drive.google.com/folderview?id=0ByqHXKZtJenqdWk4MFVDVnRmdTg&usp=sharing
 
 ## Other Repositories
 
