@@ -60,13 +60,15 @@ static NSString* const kBinsAddress = @"BinsAddress";
 {
     if (self = [super init])
     {
-            locationManager = [[CLLocationManager alloc] init];
-            locationManager.delegate = self;
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _notifications = [[NSMutableArray alloc] init];
+        _notifications = [[NSArray arrayWithObjects:@"This is a message from BBMP.\nIf your bins are not being collected, please report.", @"This is a message from BBMP.\nPlease don't use the bin in front of PSN because it is faulty", @"This is a message from BinWatch.\nCheckout our new feature of request bin. You can now request a bin to BBMP using our menu item. \nThank you for your continued support", nil] mutableCopy];
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
             
-            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-                [locationManager requestWhenInUseAuthorization];
-            [locationManager startUpdatingLocation];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+            [locationManager requestWhenInUseAuthorization];
+        [locationManager startUpdatingLocation];
     }
     
     return self;

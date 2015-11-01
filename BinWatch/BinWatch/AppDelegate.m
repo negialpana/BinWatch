@@ -87,6 +87,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+    if([[BWAppSettings sharedInstance] getAppMode] == BWUserMode )
+    {
+        [[BWDataHandler sharedHandler].notifications addObject:[[userInfo valueForKey:@"aps"] valueForKey:@"alert"]];
+        UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+        int badge = [[[userInfo valueForKey:@"aps"] valueForKey:@"badge"] integerValue];
+        tabBarController.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%d", badge];
+    }
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

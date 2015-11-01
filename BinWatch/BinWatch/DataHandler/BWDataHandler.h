@@ -23,6 +23,8 @@ typedef NS_ENUM(NSUInteger, BWAppMode) {
 @property (nonatomic, retain, getter = getBinsLocation) CLLocation *binsLocation;
 @property (nonatomic, retain, getter = getBinsAddress) NSString *binsAddress;
 
+@property (nonatomic, retain) NSMutableArray *notifications;
+
 + (instancetype) sharedHandler;
 
 - (void) insertBins:(NSArray *)bins forLocation:(CLLocation *)location withAddress:(NSString *)address;

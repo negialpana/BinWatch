@@ -11,6 +11,7 @@
 #import "Message.h"
 #import "BWSettingsControl.h"
 #import "BWConstants.h"
+#import "BWDataHandler.h"
 
 @interface BWMessagesViewController ()
 @property (nonatomic, strong) NSArray *messages;
@@ -28,7 +29,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.messages = [NSArray arrayWithObjects:@"This is a message from BBMP.\nIf your bins are not being collected, please report.", @"This is a message from BBMP.\nPlease don't use the bin in front of PSN because it is faulty", @"This is a message from BinWatch.\nCheckout our new feature of request bin. You can now request a bin to BBMP using our menu item. \nThank you for your continued support", nil];
+    self.messages = [BWDataHandler sharedHandler].notifications;
     
     // Navigation Bar Init
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
@@ -41,6 +42,11 @@
     [self.settingsControl createMenuInViewController:self withCells:@[defaults] andWidth:200];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self refrehView];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -50,6 +56,16 @@
 - (void)menuTapped
 {
     [self.settingsControl toggleControl];
+}
+
+- (void)refrehView
+{
+    self.messages = [BWDataHandler sharedHandler].notifications;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.tabBarController.tabBar.items[1].badgeValue = nil;
+        [self.tableView reloadData];
+    });
+
 }
 
 #pragma mark - Table view data source
