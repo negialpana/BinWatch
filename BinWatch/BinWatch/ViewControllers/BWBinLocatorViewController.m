@@ -46,6 +46,7 @@
     NSMutableArray *distances;
     NSMutableArray *locationsSearched;
     int numberOfBinsBeingChecked;
+    BOOL viewDidLoad;
 }
 
 #pragma mark - View Life Cycle
@@ -53,14 +54,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    //mapView = [AppDelegate appDel].mapView;
+    [self initMapsView];
+}
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    // This is a hack fix.
+    viewDidLoad = NO;
+    if(!viewDidLoad)
+        [self initMapsView];
+
+    distanceCheckInProgress = NO;
+    numberOfBinsBeingChecked = 0;
+    [self.settingsControl hideControl];
+    if([BWDataHandler sharedHandler].binsLocation)
+        activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
+                                                        zoom:zoomLevel];
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void) initMapsView
+{
+    viewDidLoad = YES;
+    //mapView = [AppDelegate appDel].mapView;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(binDataChanged:) name:kBinDataChangedNotification object:nil];
     searchOn = NO;
     zoomLevel = DEFAULT_ZOOM_LEVEL;
     firstLocationUpdate_ = NO;
     isMapEdited = NO;
-
+    
     distanceCheckInProgress = NO;
     numberOfBinsBeingChecked = 0;
     distances = [[NSMutableArray alloc] init];
@@ -69,11 +97,11 @@
     mapMarkers = [[NSMutableDictionary alloc] init];
     //currentLocation = [[CLLocation alloc] init];
     selectedLocations = [[NSMutableArray alloc] init];
-
+    
     // Navigation Bar Init
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:kMoreButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(menuTapped)];
     self.navigationItem.rightBarButtonItem = menuButton;
-
+    
     // Register for orientation change
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(deviceOrientationDidChangeNotification:)
@@ -84,14 +112,14 @@
     
     searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:kGoogleAPIKey_Browser];
     shouldBeginEditing = YES;
-
+    
     // UISearchBar Init
     self.searchDisplayController.searchBar.placeholder = kSearchPlaceHolder;
     self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    
     [self.mapSearchBar setBackgroundImage:[[UIImage alloc]init]];
     [self.mapSearchBar setTranslucent:NO];
-
+    
     CLLocation *positionNow;
     // Load mapview to current location
     if([BWDataHandler sharedHandler].binsLocation)
@@ -100,11 +128,11 @@
         positionNow = [BWDataHandler sharedHandler].myLocation;
     else
         positionNow = [[CLLocation alloc] initWithLatitude:12.9667 longitude:77.5667];
-
+    
     [self recenterMapToPlacemark:positionNow];
     [self resizeMapView];
     activeMapView.delegate = self;
-
+    
     [self drawBins];
     
     activeMapView.settings.compassButton = YES;
@@ -119,24 +147,6 @@
     
     [self.view addSubview:activeMapView];
     [self.view bringSubviewToFront:_mapSearchBar];
-    
-    
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    distanceCheckInProgress = NO;
-    numberOfBinsBeingChecked = 0;
-    [self.settingsControl hideControl];
-    if([BWDataHandler sharedHandler].binsLocation)
-        activeMapView.camera = [GMSCameraPosition cameraWithTarget:[BWDataHandler sharedHandler].binsLocation.coordinate
-                                                        zoom:zoomLevel];
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - getters
