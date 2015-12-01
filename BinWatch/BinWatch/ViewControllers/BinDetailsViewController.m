@@ -265,6 +265,10 @@
     }
     
     //plot graphs
+    
+    if([finalHumidityDataArray count] <= 0)
+        return;
+    
     for (int i = 0; i < [finalHumidityDataArray count]; i++) {
         CGRect barGraphViewFrame = _blackLineImageView.frame;
         
@@ -336,6 +340,9 @@
             _finalBinTemperatureData = modifiedBinTemperatureData;
     }
     
+    if([_finalBinTemperatureData count] <= 0)
+        return;
+    
     for (int i = 0; i < [_finalBinTemperatureData count]; i++) {
         CGRect barGraphViewFrame = _blackLineImageView.frame;
         
@@ -358,7 +365,10 @@
 }
 
 - (void)joinCirclesWithLine
-{    
+{
+    if([_finalBinTemperatureData count] <= 0)
+        return;
+    
     for (int i = 0; i < [_finalBinTemperatureData count] - 1; i++)
     {
         UIView *circleView1 = [_barGraphView viewWithTag:CIRCLE_VIEW_TAG_START_VAL+i];
