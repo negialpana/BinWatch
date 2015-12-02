@@ -1455,11 +1455,11 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Fill Levels-->
+        <!--Bins-->
         <scene sceneID="o2n-3T-1Ai">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zvl-cj-5ze" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Fill Levels" image="bin" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Bins" image="bin" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yc5-lm-Bub">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

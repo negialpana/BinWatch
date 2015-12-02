@@ -66,6 +66,7 @@
         if (![textField.text length]) {
             textField.text = [NSString stringWithFormat:@"%d",DEFAULT_RADIUS];
         }
+        [[BWAppSettings sharedInstance] saveCoverageRadius:[textField.text intValue]];
         [userDefaults setValue:[NSNumber numberWithInt:[textField.text intValue]] forKey:kCoverageRadius];
         
     }else{
@@ -80,8 +81,8 @@
             return NO;
             
         }else{
+            [[BWAppSettings sharedInstance] saveSupportMailID:textField.text];
             [userDefaults setValue:textField.text forKey:kSupportMailID];
-
         }
     
     }
