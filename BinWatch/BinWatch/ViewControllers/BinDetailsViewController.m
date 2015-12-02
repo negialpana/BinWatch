@@ -431,6 +431,8 @@
 {
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"BWDatePickerView" owner:self options:nil];
     _datePicker = [views objectAtIndex:0];
+    [_datePicker.doneBtn setEnabled:NO];
+    [_datePicker.doneBtn setTintColor:[UIColor clearColor]];
     _datePicker.shouldRemoveFromSuperview = NO;
     _datePicker.frame = CGRectMake(self.dateComponentsContainerView.frame.origin.x,
                                    self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.20f,

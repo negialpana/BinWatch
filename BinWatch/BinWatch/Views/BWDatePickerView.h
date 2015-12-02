@@ -15,5 +15,5 @@ typedef void (^completionBlock)(NSDate *date);
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickerView;
 @property (nonatomic, copy) completionBlock complBlock;
 @property (assign) BOOL shouldRemoveFromSuperview;
-
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBtn;
 @end
