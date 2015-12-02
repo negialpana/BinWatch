@@ -234,19 +234,51 @@
     __block NSString *text;
     [[BWConnectionHandler sharedInstance] getNextFillForBinWithId:self.currentBin.binID andCompletionBlock:^(NSDate *next, NSError *error) {
         if (!error) {
+            
             text = [dateFormatter stringFromDate:next];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.nextFillDate.text = text;
             });
-
+            
+            NSDate *today = [NSDate date];
+            if( [next timeIntervalSinceDate:today] > 0 ) {
+                NSLog(@"date is future date");
+            }
+            else
+            {
+                NSLog(@"date is past or today");
+                [self hardCodeBinNextFillDate];
+            }
         }
         else {
             [BWLogger DoLog:@"Failed to get next fill date"];
-            [BWHelpers displayHud:@"Failed to get next fill date" onView:self.view];
+            //[BWHelpers displayHud:@"Failed to get next fill date" onView:self.view];
+            [self hardCodeBinNextFillDate];
         }
     }];
 }
 
+- (void) hardCodeBinNextFillDate
+{
+    int maxDays = 10;
+    int daysToAdd = (maxDays - ceil([self.currentBin.fill integerValue]/maxDays));
+
+    if([self.currentBin.fill integerValue] <= 10)
+        daysToAdd = maxDays;
+    
+    NSDate *nextFillDate = [[NSDate date] dateByAddingTimeInterval:60*60*24* daysToAdd];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"dd-MM-yyyy"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    NSString *text;
+    
+    text = [dateFormatter stringFromDate:nextFillDate];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.nextFillDate.text = text;
+    });
+}
 - (void)setUpBarGraphViews
 {
     float offsetX = 10.0f;
