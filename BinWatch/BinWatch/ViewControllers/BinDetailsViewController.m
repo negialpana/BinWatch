@@ -152,7 +152,8 @@
     
     [self setUpBgColorForBinIdView : _binIDView];
     
-    [_binLocationLabel setText:[BWHelpers areanameFromFullAddress:self.currentBin.place]];
+    [_binLocationLabel setAdjustsFontSizeToFitWidth:YES];
+    [_binLocationLabel setText:self.currentBin.place];
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[self.currentBin.fill integerValue]]];
 }
 
@@ -471,6 +472,7 @@
                                    self.dateComponentsContainerView.bounds.size.width, 250);
     [_datePicker.datePickerView addTarget:self action:@selector(datePickerSelectDate:) forControlEvents:UIControlEventValueChanged];
     [self.fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[self dateByAddingDays:-7]] forState:UIControlStateNormal];
+    [_datePicker.datePickerView setDate:[self dateByAddingDays:-7] animated:YES];
     
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
