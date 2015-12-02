@@ -124,7 +124,11 @@ void runOnMainThread(void(^block)(void))
         indexOfAreaName++;
     }
     if(indexOfAreaName >= 0)
-        areaname = [arrayOfAddressStrings objectAtIndex:indexOfAreaName];
+    {
+        areaname = (NSMutableString *)[arrayOfAddressStrings objectAtIndex:indexOfAreaName-1];
+        NSString *localityNameToAppend = [arrayOfAddressStrings objectAtIndex:indexOfAreaName];
+        areaname = [areaname stringByAppendingString:localityNameToAppend];
+    }
     return areaname;
 }
 
