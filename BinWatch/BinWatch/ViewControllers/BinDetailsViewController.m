@@ -440,6 +440,7 @@
                                    self.dateComponentsContainerView.bounds.size.width, 250);
     [_datePicker.datePickerView addTarget:self action:@selector(datePickerSelectDate:) forControlEvents:UIControlEventValueChanged];
     [self.fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[self dateByAddingDays:-7]] forState:UIControlStateNormal];
+    [_datePicker.datePickerView setDate:[self dateByAddingDays:-7] animated:YES];
     
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
