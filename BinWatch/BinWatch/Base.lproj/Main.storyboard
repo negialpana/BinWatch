@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -919,20 +919,25 @@
                                 <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3U9-Dc-VNK" userLabel="BinIDView">
-                                        <rect key="frame" x="5" y="5" width="590" height="28"/>
+                                        <rect key="frame" x="5" y="5" width="590" height="58"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Lt-zCH" userLabel="BinLocationLabel">
-                                                <rect key="frame" x="10" y="4" width="423" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Lt-zCH" userLabel="BinLocationLabel">
+                                                <rect key="frame" x="10" y="4" width="513" height="50"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="423" id="eOO-tA-Faq"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="eOO-tA-Faq"/>
+                                                    </mask>
+                                                </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 %" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTo-II-v74" userLabel="BinFillPercentLabel">
-                                                <rect key="frame" x="533" y="3" width="42" height="22"/>
+                                                <rect key="frame" x="533" y="3" width="42" height="52"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="42" id="h43-HB-HXz"/>
@@ -948,14 +953,15 @@
                                             <constraint firstItem="7kQ-Lt-zCH" firstAttribute="baseline" secondItem="PTo-II-v74" secondAttribute="baseline" id="9ch-Sf-20h"/>
                                             <constraint firstItem="7kQ-Lt-zCH" firstAttribute="centerY" secondItem="3U9-Dc-VNK" secondAttribute="centerY" id="Qrt-H4-yCl"/>
                                             <constraint firstItem="7kQ-Lt-zCH" firstAttribute="top" secondItem="3U9-Dc-VNK" secondAttribute="top" constant="4" id="STx-J1-qB3"/>
+                                            <constraint firstItem="PTo-II-v74" firstAttribute="leading" secondItem="7kQ-Lt-zCH" secondAttribute="trailing" constant="10" id="bVz-zp-GYL"/>
                                             <constraint firstItem="7kQ-Lt-zCH" firstAttribute="leading" secondItem="3U9-Dc-VNK" secondAttribute="leading" constant="10" id="cBD-D8-vni"/>
                                             <constraint firstAttribute="trailing" secondItem="PTo-II-v74" secondAttribute="trailing" constant="15" id="cmc-MV-sqh"/>
                                             <constraint firstItem="7kQ-Lt-zCH" firstAttribute="centerY" secondItem="PTo-II-v74" secondAttribute="centerY" id="rgU-w3-WNT"/>
-                                            <constraint firstAttribute="height" constant="28" id="sLb-nc-lol"/>
+                                            <constraint firstAttribute="height" constant="58" id="sLb-nc-lol"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MC0-Vx-sr7" userLabel="BinVariablesView">
-                                        <rect key="frame" x="5" y="43" width="590" height="90"/>
+                                        <rect key="frame" x="5" y="73" width="590" height="90"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Bin Full is predicted to be in" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wc-xO-s1M">
                                                 <rect key="frame" x="5" y="5" width="251" height="65"/>
@@ -993,7 +999,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQP-Gl-Wso" userLabel="BarGraphView">
-                                        <rect key="frame" x="5" y="153" width="590" height="200"/>
+                                        <rect key="frame" x="5" y="153" width="590" height="160"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackLine" translatesAutoresizingMaskIntoConstraints="NO" id="sPY-5i-kbz">
                                                 <rect key="frame" x="0.0" y="173" width="590" height="2"/>
@@ -1007,8 +1013,8 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="sPY-5i-kbz" firstAttribute="leading" secondItem="xQP-Gl-Wso" secondAttribute="leading" id="Qao-TT-Sxl"/>
-                                            <constraint firstAttribute="bottom" secondItem="sPY-5i-kbz" secondAttribute="bottom" constant="25" id="apL-sP-k08"/>
-                                            <constraint firstAttribute="height" constant="200" id="bXt-sM-mYO"/>
+                                            <constraint firstAttribute="bottom" secondItem="sPY-5i-kbz" secondAttribute="bottom" constant="-15" id="apL-sP-k08"/>
+                                            <constraint firstAttribute="height" constant="160" id="bXt-sM-mYO"/>
                                             <constraint firstAttribute="trailing" secondItem="sPY-5i-kbz" secondAttribute="trailing" id="yrn-X3-TLR"/>
                                         </constraints>
                                     </view>
@@ -1044,11 +1050,11 @@
                                     <constraint firstItem="DaB-t4-Mv3" firstAttribute="height" secondItem="RVa-Oc-9Io" secondAttribute="height" id="0Fk-AQ-LyS"/>
                                     <constraint firstAttribute="trailing" secondItem="3U9-Dc-VNK" secondAttribute="trailing" constant="5" id="2Mn-KL-hJH"/>
                                     <constraint firstItem="MC0-Vx-sr7" firstAttribute="top" secondItem="3U9-Dc-VNK" secondAttribute="bottom" constant="10" id="2up-zL-20b"/>
-                                    <constraint firstItem="xQP-Gl-Wso" firstAttribute="bottom" secondItem="RVa-Oc-9Io" secondAttribute="top" constant="10" id="7Xq-ff-Xob"/>
+                                    <constraint firstItem="xQP-Gl-Wso" firstAttribute="bottom" secondItem="RVa-Oc-9Io" secondAttribute="top" constant="-30" id="7Xq-ff-Xob"/>
                                     <constraint firstItem="3U9-Dc-VNK" firstAttribute="leading" secondItem="zEB-Jp-LxP" secondAttribute="leading" constant="5" id="GX2-2Q-7sd"/>
                                     <constraint firstItem="DaB-t4-Mv3" firstAttribute="centerX" secondItem="zEB-Jp-LxP" secondAttribute="centerX" id="HVi-MK-Cyd"/>
                                     <constraint firstItem="MC0-Vx-sr7" firstAttribute="leading" secondItem="3U9-Dc-VNK" secondAttribute="leading" id="M5R-If-M6K"/>
-                                    <constraint firstItem="xQP-Gl-Wso" firstAttribute="top" secondItem="MC0-Vx-sr7" secondAttribute="bottom" constant="20" id="Nnb-Bm-Sb3"/>
+                                    <constraint firstItem="xQP-Gl-Wso" firstAttribute="top" secondItem="MC0-Vx-sr7" secondAttribute="bottom" constant="-10" id="Nnb-Bm-Sb3"/>
                                     <constraint firstAttribute="trailing" secondItem="3U9-Dc-VNK" secondAttribute="trailing" constant="5" id="TP3-3X-3kf"/>
                                     <constraint firstItem="MC0-Vx-sr7" firstAttribute="top" secondItem="xQP-Gl-Wso" secondAttribute="bottom" constant="10" id="X52-EF-RAG"/>
                                     <constraint firstItem="MC0-Vx-sr7" firstAttribute="top" secondItem="xQP-Gl-Wso" secondAttribute="bottom" constant="10" id="Z5u-zv-E1v"/>

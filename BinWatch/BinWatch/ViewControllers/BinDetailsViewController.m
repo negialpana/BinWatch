@@ -152,7 +152,8 @@
     
     [self setUpBgColorForBinIdView : _binIDView];
     
-    [_binLocationLabel setText:[BWHelpers areanameFromFullAddress:self.currentBin.place]];
+    [_binLocationLabel setAdjustsFontSizeToFitWidth:YES];
+    [_binLocationLabel setText:self.currentBin.place];
     [_binFillPercentLabel setText:[NSString stringWithFormat:@"%ld %%", (long)[self.currentBin.fill integerValue]]];
 }
 
