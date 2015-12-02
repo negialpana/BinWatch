@@ -438,6 +438,7 @@
                                    self.dateComponentsContainerView.frame.origin.y + self.dateComponentsContainerView.frame.size.width * 0.20f,
                                    self.dateComponentsContainerView.bounds.size.width, 250);
     [_datePicker.datePickerView addTarget:self action:@selector(datePickerSelectDate:) forControlEvents:UIControlEventValueChanged];
+    [self.fromDateBtn setTitle:[[self dateFormatter] stringFromDate:[self dateByAddingDays:-7]] forState:UIControlStateNormal];
     
     __weak typeof(self) weakSelf = self;
     [_datePicker setComplBlock:^void(NSDate *selDate){
@@ -452,5 +453,13 @@
 - (void)datePickerSelectDate:(UIDatePicker *)picker{
     [self.fromDateBtn setTitle:[[self dateFormatter] stringFromDate:picker.date] forState:UIControlStateNormal];
 }
+
+- (NSDate *)dateByAddingDays:(NSInteger)days
+{
+    NSDateComponents *dayComponents = [[NSDateComponents alloc] init];
+    [dayComponents setDay:days];
+    return [[NSCalendar currentCalendar] dateByAddingComponents:dayComponents toDate:[NSDate date] options:0];
+}
+
 
 @end
