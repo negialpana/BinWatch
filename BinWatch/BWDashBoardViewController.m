@@ -34,6 +34,13 @@
 #define COLOR_PURPLE [UIColor colorWithHex:0x8e24aaaa]
 #define COLOR_BLUE [UIColor colorWithHex:0x3f51b5aa]
 #define COLOR_YELLOW [UIColor colorWithHex:0xf57c00aa]
+#define COLOR_LIGHT_GREEN [UIColor colorWithHex:0x75d2b2aa]       //for 0-20%
+#define COLOR_DARK_GREEN [UIColor colorWithHex:0x0ba866aa]        //for 20-40%
+#define COLOR_YELLOWISH_GREEN [UIColor colorWithHex:0xffd700aa]        //for 40-60%
+#define COLOR_REDDISH_YELLOW [UIColor colorWithHex:0xff6103aa]        //for 60-80%
+#define COLOR_DARK_RED [UIColor colorWithHex:0x8b0000aa]        //for 80-100%
+
+
 
 @interface BWDashBoardViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -229,11 +236,11 @@
             [percentages addObject:dict];
         }
         self.chartValues = @[
-                             @{@"name":[NSString stringWithFormat:@"< 20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":COLOR_RED},
-                             @{@"name":[NSString stringWithFormat:@"< 40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":COLOR_MAGENTA},
-                             @{@"name":[NSString stringWithFormat:@"< 60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":COLOR_PURPLE},
-                             @{@"name":[NSString stringWithFormat:@"< 80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":COLOR_BLUE},
-                             @{@"name":[NSString stringWithFormat:@"< 100%% : %@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":COLOR_YELLOW}
+                             @{@"name":[NSString stringWithFormat:@"0-20%% : %@",[[percentages objectAtIndex:0] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:0] valueForKey:@"Percent"], @"color":COLOR_LIGHT_GREEN},
+                             @{@"name":[NSString stringWithFormat:@"20-40%% : %@",[[percentages objectAtIndex:1] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:1] valueForKey:@"Percent"], @"color":COLOR_DARK_GREEN},
+                             @{@"name":[NSString stringWithFormat:@"40-60%% : %@",[[percentages objectAtIndex:2] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:2] valueForKey:@"Percent"], @"color":COLOR_YELLOWISH_GREEN},
+                             @{@"name":[NSString stringWithFormat:@"60-80%% : %@",[[percentages objectAtIndex:3] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:3] valueForKey:@"Percent"], @"color":COLOR_YELLOW},
+                             @{@"name":[NSString stringWithFormat:@"80-100%%:%@",[[percentages objectAtIndex:4] valueForKey:@"Count"]], @"value":[[percentages objectAtIndex:4] valueForKey:@"Percent"], @"color":COLOR_RED}
                              ];
         
         [self.chart setChartValues:_chartValues animation:YES];
