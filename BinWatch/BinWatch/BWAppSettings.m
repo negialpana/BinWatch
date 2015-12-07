@@ -12,6 +12,7 @@
 #import "BWMailer.h"
 #import "BWSettingsViewController.h"
 #import "BWExportTableViewController.h"
+#import "LoginHandler.h"
 
 @implementation BWAppSettings
 
@@ -61,6 +62,8 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     switch (appMode) {
         case BWUserMode:
         {
+//            LoginHandler *lh;
+//            [lh showLoginAlert];
             [self showLoginAlert];
             break;
         }
@@ -93,12 +96,26 @@ static NSString* const kDefaultMailID = @"BinWatch.ReapBenefit@gmail.com";
     UIAlertAction* loginButtonAction = [UIAlertAction actionWithTitle:@"Login"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action){
-                                                               [self saveAppMode:BWBBMPMode];
-                                                               [[AppDelegate appDel] switchToMainStoryBoard];
+                                                               NSString *username = [(UITextField*)alert.textFields[0] text];
+                                                               NSString *password = [(UITextField*)alert.textFields[0] text];
+                                                               [LoginHandler loginWithUsername:username andPassword:password];
+//                                                               [self saveAppMode:BWBBMPMode];
+//                                                               [[AppDelegate appDel] switchToMainStoryBoard];
 
                                                            }];
     [alert addAction:cancelButtonAction];
     [alert addAction:loginButtonAction];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"User name";
+//        textField.delegate = self;
+//        textField.tag = 0;
+    }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Password";
+        textField.secureTextEntry = YES;
+//        textField.delegate = self;
+//        textField.tag = 1;
+    }];
     UIViewController *controllerToShowTo = [[AppDelegate appDel] getTabBarContoller];
     [controllerToShowTo presentViewController:alert animated:YES completion:nil];
 }
